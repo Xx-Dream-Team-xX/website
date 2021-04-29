@@ -41,6 +41,7 @@
         }
 
     }
+    
     function send_json($content) {
         header('Content-Type: application/json');
         echo json_encode($content, JSON_PRETTY_PRINT);
@@ -48,7 +49,7 @@
     }
 
     function render($page) {
-        if (file_exists($page)) {
+        if (is_file($page)) {
             include($page);
         } else {
             notfound();
