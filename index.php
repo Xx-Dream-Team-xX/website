@@ -15,8 +15,6 @@
 
     Router::add("static", PATH["static"], false, 0, $wildcard = true); // Sans regex, avec wildcard
 
-    Router::add('/a/', PATH["views"] . 'coucou.php', true); // Avec regex, sans wildcard
-
     Router::default(PATH["views"] . "error.php");
     Router::start($path_array);
 ?>
