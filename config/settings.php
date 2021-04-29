@@ -10,8 +10,9 @@
  define("PATH", [
      "api" => SERVER_ROOT . "/endpoints/",
      "database" => SERVER_ROOT . "/data/",
-     "pages" => SERVER_ROOT . "/pages/views/",
+     "views" => SERVER_ROOT . "/pages/views/",
      "partials" => SERVER_ROOT . "/pages/partials/",
+     "static" => SERVER_ROOT . '/pages/static/',
      "images" => SERVER_ROOT . "/pages/static/images/",
      "css" => SERVER_ROOT . "/pages/static/css/",
      "js" => SERVER_ROOT . "/pages/static/js/",

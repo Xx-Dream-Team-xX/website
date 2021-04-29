@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     define("SERVER_ROOT", __DIR__);
     include_once('./config/settings.php');
     include_once('./utils/router.php');
@@ -9,15 +11,12 @@
     $path = explode("?", $url, 2)[0];
     $path_array = array_slice(explode("/", $path), 1);
 
-    switch ($path_array[0]) {
-        case '':
-        case 'index.php':
-        case 'index.html':
-            include_once(PATH["pages"] . "index.php");
-            break;
-        
-        default:
-            include_once(PATH["pages"] . "error.php");
-            break;
-    }
+    Router::add("", PATH["views"] . "index.php"); // Sans regex ni wildcard
+
+    Router::add("static", PATH["static"], false, 0, $wildcard = true); // Sans regex, avec wildcard
+
+    Router::add('/a/', PATH["views"] . 'coucou.php', true); // Avec regex, sans wildcard
+
+    Router::default(PATH["views"] . "error.php");
+    Router::start($path_array);
 ?>
