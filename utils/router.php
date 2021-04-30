@@ -19,7 +19,7 @@
          *
          * @var string
          */
-        private static $default = "/";
+        private static $default = __DIR__;
 
         /**
          * Adds a route to the routing list
@@ -98,6 +98,21 @@
             include($path);
         } else {
             notfound();
+        }
+    }
+
+    /**
+     * A better way of handling files
+     *
+     * @param string $cat Category
+     * @param string $path Target
+     * @return string New path
+     */
+    function get_page($cat, $path) {
+        if (isset(PATH[$cat])) {
+            return PATH[$cat] . $path;
+        } else {
+            return PATH["views"] . "error.php";
         }
     }
 
