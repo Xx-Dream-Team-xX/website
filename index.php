@@ -6,6 +6,9 @@
     include_once('./utils/router.php');
     include_once('./utils/permissions.php');
     include_once('./utils/logs.php');
+
+    include_once('./utils/data.php');
+
     
     $url = $_SERVER["REQUEST_URI"];
     $path = explode("?", $url, 2)[0];
