@@ -1,5 +1,5 @@
 <?php
 /**
- * Logging utils
+ * Logging utils.
  */
 ?>

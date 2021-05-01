@@ -1,5 +1,5 @@
 <?php
 /**
- * QR-code generator helper
+ * QR-code generator helper.
  */
 ?>

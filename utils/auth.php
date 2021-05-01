@@ -1,5 +1,5 @@
 <?php
 /**
- * User authentification
+ * User authentification.
  */
 ?>
