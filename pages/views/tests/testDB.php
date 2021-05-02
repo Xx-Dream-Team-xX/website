@@ -1,6 +1,6 @@
 <?php
 
-    include_once(get_path('users.php'));
+    include_once get_path('utils', 'users.php');
     // $user = UserType::createUserByType(array(
     //     'id' => uniqid(),
     //     'type' => UserType::USER,
