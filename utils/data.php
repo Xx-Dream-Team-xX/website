@@ -25,7 +25,7 @@
         }
 
         /**
-         * Get data of the speficied item's ID in the database
+         * Get data of the speficied item from its ID in the database
          *
          * @param string $path Path to the database
          * @param string $id Id of the element to retreive
@@ -36,6 +36,25 @@
             foreach ($data as $element) {
                 if ($element['id'] == $id) {
                     return $element;
+
+                    break;
+                }
+            }
+            throw new Exception("Element with id $id not found in $path", 1);
+        }
+
+        /**
+         * Get data of a user in the database from its mail
+         *
+         * @param string $path Path to the database
+         * @param string $mail mail of the user to retreive
+         * @return array array map of the user retreived
+         */
+        public static function getUserByMail(string $path, string $mail) {
+            $data = self::getAll($path);
+            foreach ($data as $user) {
+                if ($user['mail'] == $mail) {
+                    return $user;
 
                     break;
                 }
