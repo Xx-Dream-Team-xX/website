@@ -54,7 +54,7 @@
                 $this->id = uniqid();
             }
             $this->type = UserType::isValide($type);
-            $this->mail = $this->setMail($mail); // Email validation TODO
+            $this->setMail($mail); // Email validation TODO
             $this->first_name = $first_name;
             $this->last_name = $last_name;
         }
