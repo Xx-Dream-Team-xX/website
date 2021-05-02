@@ -6,22 +6,26 @@
     /**
      * Abstract class to manipulate a DB.
      */
-    abstract class DB {
+    abstract class DB
+    {
         /**
          * Get every data stored in the Database.
+         *
+         * Create the database if not found
          *
          * @param string $path Path to the database
          *
          * @return array Array of object containing each element info
          */
-        public static function getAll(string $path) {
+        public static function getAll(string $path)
+        {
             try {
                 if (file_exists($path)) {
                     $file = file_get_contents($path);
                     if ($file) {
                         return json_decode($file, 1);
                     }
-                }else {
+                } else {
                     $file = fopen($path, 'w');
                     fwrite($file, '[]');
                     fclose($file);
@@ -40,7 +44,8 @@
          *
          * @return array array map of the element retreived or false if not found
          */
-        public static function getFromID(string $path, string $id) {
+        public static function getFromID(string $path, string $id)
+        {
             $data = self::getAll($path);
             foreach ($data as $element) {
                 if ($element['id'] == $id) {
@@ -61,7 +66,8 @@
          *
          * @return array array map of the user retreived or false if user not found
          */
-        public static function getUserByMail(string $path, string $mail) {
+        public static function getUserByMail(string $path, string $mail)
+        {
             $data = self::getAll($path);
             foreach ($data as $user) {
                 if (isset($user['mail']) && ($user['mail'] == $mail)) {
@@ -80,7 +86,8 @@
          * @param string $path Path to the DB
          * @param array  $data Data to write
          */
-        public static function writeDB(string $path, array $data) {
+        public static function writeDB(string $path, array $data)
+        {
             try {
                 $file = fopen($path, 'w');
                 if ($file) {
@@ -100,7 +107,8 @@
          *
          * @return bool false if user Already exist
          */
-        public static function writeNewUser(string $path, array $rawUser) {
+        public static function writeNewUser(string $path, array $rawUser)
+        {
             $data = self::getAll($path);
             $element_exist = false;
             foreach ($data as &$element) {
@@ -131,7 +139,8 @@
          * @param string $path   Path to the DB
          * @param array  $object Object to write
          */
-        public static function writeObject(string $path, array $object) {
+        public static function writeObject(string $path, array $object)
+        {
             $data = self::getAll($path);
             $element_exist = false;
             foreach ($data as &$element) {
@@ -148,5 +157,3 @@
             self::writeDB($path, $data);
         }
     }
-
-?>
