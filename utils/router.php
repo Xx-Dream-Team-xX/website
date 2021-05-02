@@ -103,7 +103,7 @@
      *
      * @return string New path
      */
-    function get_page($cat, $path) {
+    function get_path($cat, $path) {
         if (isset(PATH[$cat])) {
             return PATH[$cat] . $path;
         }
