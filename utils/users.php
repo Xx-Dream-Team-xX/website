@@ -1,7 +1,5 @@
 <?php
 
-    include_once './utils/data.php';
-
     /**
      * Enum of possible user type
      */
