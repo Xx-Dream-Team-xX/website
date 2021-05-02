@@ -146,9 +146,9 @@
 
     class UserAssure extends User {
 
-        public function __construct(...$userInfo)
+        public function __construct(string $password,...$userInfo)
         {
-            parent::__construct(...$userInfo);
+            parent::__construct($password ,...$userInfo);
         }
     }
 

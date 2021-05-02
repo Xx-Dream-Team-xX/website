@@ -4,152 +4,113 @@
  */
 
     include_once './utils/users.php';
+
     /**
-     *  Class for accessing and managing the database
+     * Abstract class to manipulate a DB
      */
-    class DataBase {
-        /**
-         * Path of the database.
-         *
-         * @var string
-         */
-        private $path = '';
-
-        private $data = array();
+    abstract class DB {
 
         /**
-         * Constructor for the database class.
+         * Get every data stored in the Database
          *
-         * @param string $path to the database
+         * @param string $path Path to the database
+         * @return array Array of object containing each element info
          */
-        public function __construct($path) {
-            $this->path = $path;
-            if ($file = file_get_contents($this->path)) {
-                $json = json_decode($file, 1);
-                foreach ($json as $userJson) {
-                    $user = UserType::createUserByType($userJson);
-                    array_push($this->data, $user);
-                }
+        public static function getAll(string $path) {
+            if ($file = file_get_contents($path)) {
+                return json_decode($file, 1);
             } else {
                 throw new Exception('No such file in the directory', 1);
             }
         }
 
         /**
-         * Check if a user is already present in the DB
+         * Get data of the speficied item's ID in the database
          *
-         * @param string $id
-         * @param string $mail
-         * @return bool true if present, false otherwise
+         * @param string $path Path to the database
+         * @param string $id Id of the element to retreive
+         * @return array array map of the element retreived
          */
-        public function checkUserInDB($id, $mail) {
-            try {
-                $this->getUserByID($id);
-
-                return true;
-            } catch (\Throwable $th1) {
-                try {
-                    $this->getUserByMail($mail);
-
-                    return true;
-                } catch (\Throwable $th2) {
-                    return false;
-                }
-            }
-        }
-
-        /**
-         * Create a new User and store it in the DB
-         *
-         * @param array Array map containing all nececary data to create a new User depending on its type. See UserType::createUserByType().
-         * @return User
-         */
-        public function newUser($rawUser) {
-            if (!$this->checkUserInDB($rawUser['id'], $rawUser['mail'])) {
-                $user = UserType::createUserByType($rawUser);
-                array_push($this->data, $user);
-
-                return $user;
-            }
-
-            throw new Exception('User already exist.', 1);
-        }
-
-        /**
-         * Querry every data from the database.
-         *
-         * @return array return all database data and its $path
-         */
-        public function getFullDBInfo() {
-            return array(
-                'data' => $this->getAllUsers(),
-                'path' => $this->path,
-            );
-        }
-
-        /**
-         * Querry user data from it's ID.
-         *
-         * @param string $userId
-         *
-         * @return User Class instance of the user or throw an exception if not found
-         */
-        public function getUserByID($userId) {
-            foreach ($this->data as $user) {
-                if ($user->getID() == $userId) {
-                    return $user;
+        public static function getFromID(string $path, string $id) {
+            $data = self::getAll($path);
+            foreach ($data as $element) {
+                if ($element['id'] == $id) {
+                    return $element;
 
                     break;
                 }
             }
-
-            throw new Exception("Unknown user with id : {$userId}.", 1);
+            throw new Exception("Element with id $id not found in $path", 1);
         }
 
         /**
-         * Querry user data from it's Mail.
+         * Overwrite the Database specified by $path by the $data given
          *
-         * @param string $userId
-         *
-         * @return User Class instance of the user or throw an exception if not found
-         */
-        public function getUserByMail($mail) {
-            foreach ($this->data as $user) {
-                if ($user->getMail() == $mail) {
-                    return $user;
-
-                    break;
-                }
-            }
-
-            throw new Exception("Unknown user with e-mail : {$mail}.", 1);
-        }
-
-        /**
-         * Get an array of every rawUser data
-         *
-         * @return array
-         */
-        public function getAllUsers() {
-            $rawData = array();
-            foreach ($this->data as $user) {
-                array_push($rawData, $user->getAll());
-            }
-
-            return $rawData;
-        }
-
-        /**
-         * Save DB into file
-         *
+         * @param string $path Path to the DB
+         * @param array $data Data to write
          * @return void
          */
-        public function saveDBtoFile() {
-            $file = fopen($this->path, 'w');
+        public static function writeDB(string $path, array $data) {
+            $file = fopen($path, 'w');
             if ($file) {
-                fwrite($file, json_encode($this->getAllUsers(), JSON_PRETTY_PRINT));
+                fwrite($file, json_encode($data, JSON_PRETTY_PRINT));
                 fclose($file);
             }
+        }
+
+        /**
+         * Write a new user in the DB and check if it already exist if it do exist the function will throw an error
+         *
+         * @param string $path Path to the DB
+         * @param array $rawUser Raw data of the user
+         * @return void
+         */
+        public static function writeNewUser(string $path, array $rawUser) {
+            $data = self::getAll($path);
+            $element_exist = false;
+            foreach ($data as &$element) {
+                if ($element['id'] == $rawUser['id'] || $element['mail'] == $rawUser['mail']) {
+                    $element_exist = true;
+                    break;
+                }
+            }
+            if (!$element_exist) {
+                array_push($data, $rawUser);
+            } else {
+                throw new Exception("User with this id or mail already exist", 1);
+
+            }
+            $file = fopen($path, 'w');
+            if ($file) {
+                fwrite($file, json_encode($data, JSON_PRETTY_PRINT));
+                fclose($file);
+            }
+            self::writeDB($path, $data);
+        }
+
+        /**
+         * Write a object in the DB
+         *
+         * if an object with the same id exist it will be overwrite
+         *
+         * @param string $path Path to the DB
+         * @param array $object Object to write
+         * @return void
+         */
+        public static function writeObject(string $path, array $object) {
+            $data = self::getAll($path);
+            $element_exist = false;
+            foreach ($data as &$element) {
+                if ($element['id'] == $object['id']) {
+                    $element = $object;
+                    $element_exist = true;
+                    break;
+                }
+            }
+            if (!$element_exist) {
+                array_push($data, $object);
+            }
+            self::writeDB($path, $data);
         }
     }
 
