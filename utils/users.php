@@ -26,6 +26,26 @@
                 throw new Exception("Unknown UserType", 1);
             }
         }
+
+        /**
+         * Instanciate the right class depending on the UserType
+         *
+         * @param array $rawUser
+         * @return void
+         */
+        public static function createUserByType(array $rawUser) {
+            switch ($rawUser['type']) {
+                case UserType::USER:
+                    return new User($rawUser['type'], $rawUser['mail'],$rawUser['first_name'], $rawUser['last_name'], $rawUser['id']);
+                    break;
+                case UserType::ASSURE:
+                    return new UserAssure($rawUser['type'], $rawUser['mail'],$rawUser['first_name'], $rawUser['last_name'], $rawUser['id']);
+                    break;
+                default:
+                    return new User($rawUser['type'], $rawUser['mail'],$rawUser['first_name'], $rawUser['last_name'], $rawUser['id']);
+                    break;
+            }
+        }
     }
 
     /**
@@ -46,44 +66,65 @@
          * @param string $first_name
          * @param string $last_name
          */
-        public function __construct(string $type,string $mail,string $first_name,string $last_name, string ...$id)
+        public function __construct(string $type,string $mail,string $first_name,string $last_name, string $id)
         {
-            if (isset($id)) {
-                $this->id = $id[0];
-            } else {
-                $this->id = uniqid();
-            }
+            $this->id = $id;
             $this->type = UserType::isValide($type);
             $this->setMail($mail); // Email validation TODO
             $this->first_name = $first_name;
             $this->last_name = $last_name;
         }
 
+        /**
+         * Get user first name and last name
+         *
+         * @return array Array containing the user first and last name
+         */
         public function getName() {
 
             return array($this->first_name, $this->last_name);
         }
 
+        /**
+         * Get user id
+         *
+         * @return string
+         */
         public function getID() {
 
             return $this->id;
         }
 
+        /**
+         * Get user type
+         *
+         * @return UserType
+         */
         public function getType() {
             return $this->type;
         }
 
+        /**
+         * Get user mail
+         *
+         * @return string
+         */
         public function getMail() {
 
             return $this->mail;
         }
 
+        /**
+         * Get every user data in a array map
+         *
+         * @return array
+         */
         public function getAll() {
             return array(
                 "id" => $this->id,
                 "type" => $this->type,
                 "mail" => $this->mail,
-                "firs_name" => $this->first_name,
+                "first_name" => $this->first_name,
                 "last_name" => $this->last_name
             );
         }
@@ -102,4 +143,13 @@
             }
         }
     }
+
+    class UserAssure extends User {
+
+        public function __construct(...$userInfo)
+        {
+            parent::__construct(...$userInfo);
+        }
+    }
+
 ?>
