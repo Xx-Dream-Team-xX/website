@@ -3,8 +3,6 @@
  * Database utils.
  */
 
-    include_once './utils/users.php';
-
     /**
      * Abstract class to manipulate a DB
      */
