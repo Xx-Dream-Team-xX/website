@@ -179,11 +179,13 @@
 
     class UserAssure extends User {
         /**
-         * User's phone numer.
+         * User's phone number.
          *
          * @var string
          */
         private $phone = '';
+
+        private $contracts = array();
 
         public function __construct($rawUser) {
             parent::__construct($rawUser);
@@ -214,6 +216,9 @@
             return array_merge(parent::getAll(), array(
                 'phone' => $this->phone,
             ));
+        }
+
+        public function addContract() {
         }
     }
 
