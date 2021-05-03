@@ -88,13 +88,6 @@
         private $last_name = '';
 
         /**
-         * User's phone numer.
-         *
-         * @var string
-         */
-        private $phone = '';
-
-        /**
          * Constructor for the user.
          *
          * @param array $rawUser Array containing every info needed to build a user
@@ -167,26 +160,7 @@
                 'mail' => $this->mail,
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
-                'phone' => $this->phone,
             );
-        }
-
-        /**
-         * Validate phone number and set it if correct.
-         *
-         * @param string $newPhone Phone number to set
-         *
-         * @return bool false if invalid
-         */
-        public function setPhone(string $newPhone) {
-            $filtered_phone_number = filter_var($newPhone, FILTER_SANITIZE_NUMBER_INT);
-            $phone_to_check = str_replace('-', '', $filtered_phone_number);
-            if (strlen($phone_to_check) < 10 || strlen($phone_to_check) > 14) {
-                return false;
-            }
-            $this->phone = $newPhone;
-
-            return true;
         }
 
         /**
@@ -204,8 +178,42 @@
     }
 
     class UserAssure extends User {
-        public function __construct($userInfo) {
-            parent::__construct($userInfo);
+        /**
+         * User's phone numer.
+         *
+         * @var string
+         */
+        private $phone = '';
+
+        public function __construct($rawUser) {
+            parent::__construct($rawUser);
+            $this->setPhone($rawUser['phone']);
+        }
+
+        /**
+         * Validate phone number and set it if correct.
+         *
+         * @param string $newPhone Phone number to set
+         *
+         * @return bool false if invalid
+         */
+        public function setPhone(string $newPhone) {
+            $filtered_phone_number = filter_var($newPhone, FILTER_SANITIZE_NUMBER_INT);
+            $phone_to_check = str_replace('-', '', $filtered_phone_number);
+            if (strlen($phone_to_check) < 10 || strlen($phone_to_check) > 14) {
+                return false;
+
+                throw new Exception('Invald phone number', 1);
+            }
+            $this->phone = $newPhone;
+
+            return true;
+        }
+
+        public function getAll() {
+            return array_merge(parent::getAll(), array(
+                'phone' => $this->phone,
+            ));
         }
     }
 
