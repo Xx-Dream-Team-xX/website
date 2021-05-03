@@ -15,7 +15,7 @@
         'owners' => array($user->getID()),
         'start' => time(),
         'end' => time(),
-        'vID' => 'AB123CD',
+        'vID' => 'AB-123-cd',
         'contractID' => 454705435745,
         'insurance' => '547596fjk543',
         'countryCode' => 'F6579',
