@@ -26,6 +26,10 @@
                         return json_decode($file, 1);
                     }
                 } else {
+                    $parent_dir = dirname($path);
+                    if (!file_exists($parent_dir)){
+                        mkdir($parent_dir, 0777,false);
+                    }
                     $file = fopen($path, 'w');
                     fwrite($file, '[]');
                     fclose($file);
