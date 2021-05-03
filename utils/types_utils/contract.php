@@ -1,16 +1,18 @@
 <?php
 
     class Contract {
-        public static const IDERROR = 1;
-        public static const CATERROR = 2;
-        public static const ARRAYERROR = 3;
+        public const IDERROR = 1;
+
+        public const CATERROR = 2;
+
+        public const ARRAYERROR = 3;
 
         /**
-         * UUID of the contract
+         * UUID of the contract.
          *
          * @var string
          */
-        private $id = "";
+        private $id = '';
 
         /**
          * Array of userID concerned by this contract. The first user in the array will always be the main owner of the contract.
@@ -83,9 +85,7 @@
         private $territoryValidity = array('a' => false);
 
         /**
-         * Constructor for Contract
-         *
-         * @param array $rawContract
+         * Constructor for Contract.
          */
         public function __construct(array $rawContract) {
             if (isset($rawContract['owners'],$rawContract['start'],$rawContract['end'],$rawContract['vID'],$rawContract['contractID'],$rawContract['insurance'], $rawContract['countryCode'], $rawContract['category'],$rawContract['manufacturer'])) {
@@ -97,40 +97,63 @@
                 $this->contractOwners = $rawContract['owners'];
                 $this->startValidity = $rawContract['start'];
                 $this->endValidity = $rawContract['end'];
-                if (!$this->vehicleID = self::validateVID($rawContract['vID'])) {
-                    throw new Exception('Invalid vehicle id', self::IDERROR);
-                }
+                $this->setVehicleID($rawContract['vID']);
                 $this->contractID = $rawContract['contractID'];
                 $this->insuranceUUID = $rawContract['insurance'];
                 $this->countryCode = $rawContract['countryCode'];
-                if (!$this->vehicleCat = self::validateVCat($rawContract['category'])) {
-                    throw new Exception('Invalid vehicle category.', self::CATERROR);
-                }
-
+                $this->setVCat($rawContract['category']);
                 $this->vehicleManufacurer = $rawContract['manufacturer'];
-            }
-            else {
-                throw new Exception("contract given is missing some informations", self::ARRAYERROR);
+            } else {
+                throw new Exception('Contract given is missing some informations', self::ARRAYERROR);
             }
         }
 
-        private static function validateVID(string $vehicleID) {
-            return $vehicleID;
+        public function getAll() {
+            return array(
+                'id' => $this->id,
+                'owners' => $this->contractOwners,
+                'start' => $this->startValidity,
+                'end' => $this->endValidity,
+                'vID' => $this->vehicleID,
+                'contractID' => $this->contractID,
+                'insurance' => $this->insuranceUUID,
+                'countryCode' => $this->countryCode,
+                'category' => $this->vehicleCat,
+                'manufacturer' => $this->vehicleManufacurer,
+            );
+        }
+
+        public function getID() {
+            return $this->id;
+        }
+
+        /**
+         * Validate phone number and set it if correct.
+         *
+         * @return bool false if invalid
+         */
+        public function setVehicleID(string $vID) {
+            $sanitizedVID = str_replace('-', '', $vID);
+            if ((7 == strlen($sanitizedVID)) && !is_numeric(substr($sanitizedVID, 0, 2)) && is_numeric(substr($sanitizedVID, 2, 3)) && !is_numeric(substr($sanitizedVID, 5, 2))) {
+                $this->vehicleID = $sanitizedVID;
+            } else {
+                throw new Exception('Invalid ID plate', self::IDERROR);
+            }
         }
 
         /**
          * Check that a valide category is entered.
          *
-         * @param string $vehicleCat vehicle category to check
+         * @param string $cat vehicle category to check
          *
          * @return string or false if not valide
          */
-        private static function validateVCat(string $vehicleCat) {
-            if (in_array($vehicleCat, array('A', 'B', 'C', 'D', 'E', 'F', 'G'))) {
-                return $vehicleCat;
+        private function setVCat(string $cat) {
+            if (in_array($cat, array('A', 'B', 'C', 'D', 'E', 'F', 'G'))) {
+                $this->vehicleCat = $cat;
+            } else {
+                throw new Exception('Invalide Category', self::CATERROR);
             }
-
-            return false;
         }
     }
 
