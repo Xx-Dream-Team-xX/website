@@ -134,6 +134,7 @@
          */
         public function setVehicleID(string $vID) {
             $sanitizedVID = str_replace('-', '', $vID);
+            $sanitizedVID = strtoupper($sanitizedVID);
             if ((7 == strlen($sanitizedVID)) && !is_numeric(substr($sanitizedVID, 0, 2)) && is_numeric(substr($sanitizedVID, 2, 3)) && !is_numeric(substr($sanitizedVID, 5, 2))) {
                 $this->vehicleID = $sanitizedVID;
             } else {
