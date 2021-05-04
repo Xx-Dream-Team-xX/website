@@ -2,14 +2,14 @@
 
     include_once get_path('utils', 'types_utils/users.php');
     include_once get_path('utils', 'types_utils/contract.php');
-    $user = UserType::createUserByType(array(
+    $user = User::createUserByType(array(
         'type' => UserType::ASSURE,
         'mail' => 'js2p@prout.fr',
         'first_name' => 'Michelle',
         'last_name' => 'Roubin',
         'phone' => '+336-84-72-58-39',
     ));
-    DB::createObject(PATH['database'] . 'testUsers.json', $user->getAll());
+    DB::setObject(get_path('database', 'testUsers.json'), $user->getAll(), true;
 
     $contract = new Contract(array(
         'owners' => array($user->getID()),
@@ -38,9 +38,9 @@
     $user->addContract($contract);
     $contract2->addOwner($user);
 
-    DB::createObject(PATH['database'] . 'testContract.json', $contract2->getAll());
-    DB::createObject(PATH['database'] . 'testContract.json', $contract->getAll());
-    DB::writeObject(get_path('database', 'testUsers.json'), $user->getAll());
+    DB::setObject(get_path('database', 'testContrats.json'), $contract2->getAll(), true);
+    DB::setObject(get_path('database', 'testContrats.json'), $contract->getAll(), true);
+    DB::setObject(get_path('database', 'testUsers.json'), $user->getAll());
     send_json($user->getAll());
     send_json($contract->getAll());
     send_json($contract2->getAll());
