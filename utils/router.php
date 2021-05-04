@@ -6,7 +6,7 @@
     /**
      * Router : Allows settings regex rules and wildcards for easy url redirections.
      */
-    class Router {
+    abstract class Router {
         /**
          * Added routes list.
          *
