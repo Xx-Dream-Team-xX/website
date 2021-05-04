@@ -24,6 +24,8 @@
                     } else {
                         return array();
                     }
+                } else {
+                    throw new Exception("Failed to open file $path", 1);
                 }
         }
 
@@ -116,15 +118,13 @@
          * @param array  $data Data to write
          */
         private static function writeDB(string $path, array $data) {
-            try {
-                $file = fopen($path, 'w');
-                if ($file) {
-                    fwrite($file, json_encode($data, JSON_PRETTY_PRINT));
-                    fclose($file);
-                    return true;
-                }
-            } catch (\Throwable $th) {
-                send_json("Failed to open/create file $path");
+            $file = fopen($path, 'w');
+            if ($file) {
+                fwrite($file, json_encode($data, JSON_PRETTY_PRINT));
+                fclose($file);
+                return true;
+            } else {
+                throw new Exception("Failed to open file $path", 1);
             }
         }
     }
