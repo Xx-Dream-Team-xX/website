@@ -1,53 +1,4 @@
 <?php
-
-    /**
-     * Enum of possible user type.
-     */
-    abstract class UserType {
-        public const USER = 'user';
-
-        public const ASSURE = 'assure';
-
-        public const POLICE = 'police';
-
-        public const GESTIONNAIRE = 'gestionnaire';
-
-        public const ADMIN = 'admin';
-
-        /**
-         * Check if the type is valide then return it if so.
-         *
-         * @return string
-         */
-        public static function isValide(string $type) {
-            if (in_array($type, array('user', 'assure', 'police', 'gestionnaire', 'admin'))) {
-                return $type;
-            }
-
-            throw new Exception('Unknown UserType', 1);
-        }
-
-        /**
-         * Instanciate the right class depending on the UserType.
-         */
-        public static function createUserByType(array $rawUser) {
-            switch ($rawUser['type']) {
-                case UserType::USER:
-                    return new User($rawUser);
-
-                    break;
-                case UserType::ASSURE:
-                    return new UserAssure($rawUser);
-
-                    break;
-                default:
-                    return new User($rawUser);
-
-                    break;
-            }
-        }
-    }
-
     /**
      * User class.
      */
@@ -99,7 +50,7 @@
                 } else {
                     $this->id = uniqid();
                 }
-                $this->type = UserType::isValide($rawUser['type']);
+                $this->type = User::isValid($rawUser['type']);
                 $this->setMail($rawUser['mail']); // Email validation TODO
                 $this->first_name = $rawUser['first_name'];
                 $this->last_name = $rawUser['last_name'];
@@ -129,7 +80,7 @@
         /**
          * Get user type.
          *
-         * @return UserType
+         * @return User
          */
         public function getType() {
             return $this->type;
@@ -189,7 +140,7 @@
 
         public function __construct($rawUser) {
             parent::__construct($rawUser);
-            $this->type = UserType::ASSURE;
+            $this->type = User::ASSURE;
             $this->setPhone($rawUser['phone']);
         }
 
@@ -228,6 +179,49 @@
             array_push($this->contracts, $contract->getID());
             if (!in_array($this->id, $contract->getOwners())) {
                 $contract->addOwner($this);
+            }
+        }
+
+        public const USER = 'user';
+
+        public const ASSURE = 'assure';
+
+        public const POLICE = 'police';
+
+        public const GESTIONNAIRE = 'gestionnaire';
+
+        public const ADMIN = 'admin';
+
+        /**
+         * Check if the type is valide then return it if so.
+         *
+         * @return string
+         */
+        public static function isValid(string $type) {
+            if (in_array($type, array(User::USER, User::ASSURE, User::POLICE, User::GESTIONNAIRE, User::ADMIN))) {
+                return $type;
+            }
+
+            throw new Exception('Unknown User', 1);
+        }
+
+        /**
+         * Instanciate the right class depending on the User.
+         */
+        public static function createUserByType(array $rawUser) {
+            switch ($rawUser['type']) {
+                case User::USER:
+                    return new User($rawUser);
+
+                    break;
+                case User::ASSURE:
+                    return new UserAssure($rawUser);
+
+                    break;
+                default:
+                    return new User($rawUser);
+
+                    break;
             }
         }
     }
