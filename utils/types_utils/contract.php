@@ -50,6 +50,13 @@
         private $contractID = 0;
 
         /**
+         * uwu
+         */
+        public function isMainOwner(string $id) {
+            return ($this->contractOwners[0] === $id);
+        }
+
+        /**
          * InsuranceUUID.
          *
          * @var string
@@ -164,7 +171,7 @@
             if (in_array($cat, array('A', 'B', 'C', 'D', 'E', 'F', 'G'))) {
                 $this->vehicleCat = $cat;
             } else {
-                throw new Exception('Invalide Category', self::CATERROR);
+                throw new Exception('Invalid Category', self::CATERROR);
             }
         }
     }
