@@ -30,7 +30,7 @@
          * @param int    $permission Required permission level
          * @param bool   $wildcard   Keeps or not the original request path (minus the first endpoint). ex: /a/b/c.d => /new/c.d
          */
-        public static function add($path, $target, $regex = false, $permission = 0, $wildcard = false) {
+        public static function add(string $path, string $target, bool $regex = false, int $permission = 0, bool $wildcard = false) {
             array_push(self::$routes, array(
                 'path' => $regex ? $path : "/^{$path}$/",
                 'target' => $target,
@@ -44,16 +44,16 @@
          *
          * @param string $target Destination
          */
-        public static function default($target) {
+        public static function default(string $target) {
             self::$default = $target;
         }
 
         /**
          * Redirects traffic to the correct endpoint.
          *
-         * @param string $path Original URL (array form, split by "/")
+         * @param array $path Original URL (array form, split by "/")
          */
-        public static function start($path) {
+        public static function start(array $path) {
             $found = false;
             foreach (self::$routes as $route) {
                 if (preg_match($route['path'], $path[0])) {
@@ -87,7 +87,7 @@
      *
      * @param [type] $path
      */
-    function render($path) {
+    function render(string $path) {
         if (is_file($path)) {
             include $path;
         } else {
@@ -103,7 +103,7 @@
      *
      * @return string New path
      */
-    function get_path($cat, $path) {
+    function get_path($cat, $path = '') {
         if (isset(PATH[$cat])) {
             return PATH[$cat] . $path;
         }
@@ -115,7 +115,7 @@
      * Not found function.
      */
     function notfound() {
-        include PATH['views'] . 'error.php';
+        include get_path('views', 'error.php');
         exit();
     }
 
