@@ -127,6 +127,10 @@
             return $this->id;
         }
 
+        public function getOwners() {
+            return $this->contractOwners;
+        }
+
         /**
          * Validate phone number and set it if correct.
          *
@@ -139,6 +143,13 @@
                 $this->vehicleID = $sanitizedVID;
             } else {
                 throw new Exception('Invalid ID plate', self::IDERROR);
+            }
+        }
+
+        public function addOwner(UserAssure $user) {
+            array_push($this->contractOwners, $user->getID());
+            if (!in_array($this->id, $user->getContracts())) {
+                $user->addContract($this);
             }
         }
 

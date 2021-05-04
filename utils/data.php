@@ -82,50 +82,35 @@
         }
 
         /**
-         * Overwrite the Database specified by $path by the $data given.
+         * Write a new Object in the DB and check if it already exist if it do exist the function will retrun false.
          *
          * @param string $path Path to the DB
-         * @param array  $data Data to write
-         */
-        public static function writeDB(string $path, array $data) {
-            try {
-                $file = fopen($path, 'w');
-                if ($file) {
-                    fwrite($file, json_encode($data, JSON_PRETTY_PRINT));
-                    fclose($file);
-                }
-            } catch (\Throwable $th) {
-                send_json("Failed to open/create file {$path}");
-            }
-        }
-
-        /**
-         * Write a new user in the DB and check if it already exist if it do exist the function will throw an error.
-         *
-         * @param string $path    Path to the DB
-         * @param array  $rawUser Raw data of the user
          *
          * @return bool false if user Already exist
          */
-        public static function writeNewUser(string $path, array $rawUser) {
+        public static function createObject(string $path, array $rawObject) {
             $data = self::getAll($path);
             $element_exist = false;
             foreach ($data as &$element) {
-                if ((isset($element['id'],$element['mail'])) && ($element['id'] == $rawUser['id'] || $element['mail'] == $rawUser['mail'])) {
+                if (((isset($element['id'],$rawObject['id'])
+                        && ($element['id'] == $rawObject['id'])
+                        )
+                    || (isset($element['mail'], $rawObject['mail'])
+                        && ($element['mail'] == $rawObject['mail'])
+                        )
+                    || (isset($element['contractID'],$rawObject['contractID'])
+                        && ($element['contractID'] == $rawObject['contractID'])
+                    )
+                    )) {
                     $element_exist = true;
 
                     break;
                 }
             }
             if (!$element_exist) {
-                array_push($data, $rawUser);
+                array_push($data, $rawObject);
             } else {
                 return false;
-            }
-            $file = fopen($path, 'w');
-            if ($file) {
-                fwrite($file, json_encode($data, JSON_PRETTY_PRINT));
-                fclose($file);
             }
             self::writeDB($path, $data);
         }
@@ -142,7 +127,12 @@
             $data = self::getAll($path);
             $element_exist = false;
             foreach ($data as &$element) {
-                if (isset($user['mail']) && ($element['id'] == $object['id'])) {
+                if (($element['id'] == $object['id'])
+                    || (isset($element['mail'], $object['mail'])
+                        && ($element['mail'] == $object['mail']))
+                    || (isset($element['contractID'],$object['contractID'])
+                        && ($element['contractID'] == $object['contractID']))
+                ) {
                     $element = $object;
                     $element_exist = true;
 
@@ -153,5 +143,23 @@
                 array_push($data, $object);
             }
             self::writeDB($path, $data);
+        }
+
+        /**
+         * Overwrite the Database specified by $path by the $data given.
+         *
+         * @param string $path Path to the DB
+         * @param array  $data Data to write
+         */
+        private static function writeDB(string $path, array $data) {
+            try {
+                $file = fopen($path, 'w');
+                if ($file) {
+                    fwrite($file, json_encode($data, JSON_PRETTY_PRINT));
+                    fclose($file);
+                }
+            } catch (\Throwable $th) {
+                send_json("Failed to open/create file {$path}");
+            }
         }
     }

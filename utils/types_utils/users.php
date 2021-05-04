@@ -57,35 +57,35 @@
          *
          * @var string
          */
-        private $id = '';
+        protected $id = '';
 
         /**
          * User's E-mail.
          *
          * @var string
          */
-        private $mail = '';
+        protected $mail = '';
 
         /**
          * User's Type.
          *
          * @var string
          */
-        private $type = '';
+        protected $type = '';
 
         /**
          * User's first name.
          *
          * @var string
          */
-        private $first_name = '';
+        protected $first_name = '';
 
         /**
          * User's last name.
          *
          * @var string
          */
-        private $last_name = '';
+        protected $last_name = '';
 
         /**
          * Constructor for the user.
@@ -183,12 +183,13 @@
          *
          * @var string
          */
-        private $phone = '';
+        protected $phone = '';
 
-        private $contracts = array();
+        protected $contracts = array();
 
         public function __construct($rawUser) {
             parent::__construct($rawUser);
+            $this->type = UserType::ASSURE;
             $this->setPhone($rawUser['phone']);
         }
 
@@ -215,10 +216,19 @@
         public function getAll() {
             return array_merge(parent::getAll(), array(
                 'phone' => $this->phone,
+                'contracts' => $this->contracts,
             ));
         }
 
-        public function addContract() {
+        public function getContracts() {
+            return $this->contracts;
+        }
+
+        public function addContract(Contract $contract) {
+            array_push($this->contracts, $contract->getID());
+            if (!in_array($this->id, $contract->getOwners())) {
+                $contract->addOwner($this);
+            }
         }
     }
 
