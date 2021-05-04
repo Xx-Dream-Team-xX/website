@@ -81,17 +81,12 @@
          * Constructor for Contract.
          */
         public function __construct(array $rawContract) {
-            if (isset($rawContract['owners'],$rawContract['start'],$rawContract['end'],$rawContract['vID'],$rawContract['contractID'],$rawContract['insurance'], $rawContract['countryCode'], $rawContract['category'],$rawContract['manufacturer'])) {
-                if (isset($rawContract['id'])) {
-                    $this->id = $rawContract['id'];
-                } else {
-                    $this->id = uniqid();
-                }
+            if (isset($rawContract['id'],$rawContract['owners'],$rawContract['start'],$rawContract['end'],$rawContract['vID'],$rawContract['insurance'], $rawContract['countryCode'], $rawContract['category'],$rawContract['manufacturer'])) {
                 $this->owners = $rawContract['owners'];
                 $this->start = $rawContract['start'];
                 $this->end = $rawContract['end'];
                 $this->setVehicleID($rawContract['vID']);
-                $this->contractID = $rawContract['contractID'];
+                $this->id = $rawContract['id'];
                 $this->insuranceID = $rawContract['insurance'];
                 $this->countryCode = $rawContract['countryCode'];
                 $this->setVCat($rawContract['category']);
@@ -118,7 +113,6 @@
                 'start' => $this->start,
                 'end' => $this->end,
                 'vID' => $this->vID,
-                'contractID' => $this->contractID,
                 'insurance' => $this->insuranceID,
                 'countryCode' => $this->countryCode,
                 'category' => $this->category,

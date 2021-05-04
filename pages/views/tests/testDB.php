@@ -12,11 +12,11 @@
     DB::setObject(get_path('database', 'testUsers.json'), $user->getAll(), true);
 
     $contract = new Contract(array(
+        'id' => '434705435745',
         'owners' => array($user->getID()),
         'start' => time(),
         'end' => time(),
         'vID' => 'AB-123-cd',
-        'contractID' => 434705435745,
         'insurance' => '547596fjk543',
         'countryCode' => 'F6579',
         'category' => 'A',
@@ -24,11 +24,11 @@
     ));
 
     $contract2 = new Contract(array(
+        'id' => '424705435745',
         'owners' => array($user->getID()),
         'start' => time(),
         'end' => time(),
         'vID' => 'AB-123-cd',
-        'contractID' => 424705435745,
         'insurance' => '547596fjk543',
         'countryCode' => 'F6579',
         'category' => 'A',
