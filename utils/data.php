@@ -17,26 +17,14 @@
          * @return array Array of object containing each element info
          */
         public static function getAll(string $path) {
-            try {
                 if (file_exists($path)) {
                     $file = file_get_contents($path);
                     if ($file) {
                         return json_decode($file, 1);
+                    } else {
+                        return array();
                     }
-                } else {
-                    $parent_dir = dirname($path);
-                    if (!file_exists($parent_dir)) {
-                        mkdir($parent_dir, 0777, false);
-                    }
-                    $file = fopen($path, 'w');
-                    fwrite($file, '[]');
-                    fclose($file);
-
-                    return DB::getAll($path);
                 }
-            } catch (\Throwable $th) {
-                send_json($th);
-            }
         }
 
         /**
@@ -73,8 +61,6 @@
             foreach ($data as $user) {
                 if (isset($user['mail']) && ($user['mail'] == $mail)) {
                     return $user;
-
-                    break;
                 }
             }
 
@@ -82,67 +68,45 @@
         }
 
         /**
-         * Write a new Object in the DB and check if it already exist if it do exist the function will retrun false.
+         * Writes an Object in the DB and check if it already exists. If it does exist and we wanted a new one the function returns false.
          *
          * @param string $path Path to the DB
+         * @param array $rawObject Object
          *
          * @return bool false if user Already exist
          */
-        public static function createObject(string $path, array $rawObject) {
+        public static function setObject(string $path, array $rawObject, bool $new = false) {
+
             $data = self::getAll($path);
             $element_exist = false;
-            foreach ($data as &$element) {
-                if (((isset($element['id'],$rawObject['id'])
-                        && ($element['id'] == $rawObject['id'])
-                        )
-                    || (isset($element['mail'], $rawObject['mail'])
-                        && ($element['mail'] == $rawObject['mail'])
-                        )
-                    || (isset($element['contractID'],$rawObject['contractID'])
-                        && ($element['contractID'] == $rawObject['contractID'])
-                    )
-                    )) {
-                    $element_exist = true;
+            if (isset($rawObject['id'])) {
 
-                    break;
+                foreach ($data as &$element) {
+                    if ((isset($element['id']) && ($element['id'] == $rawObject['id'])) {
+    
+                        $element_exist = true;
+
+                        if (!$new) {
+
+                            $element = $rawObject;
+                            break;
+
+                        } else {
+                            return false;
+                        }
+    
+                    }
                 }
-            }
-            if (!$element_exist) {
-                array_push($data, $rawObject);
+    
+                if (!$element_exist) {
+                    array_push($data, $rawObject);
+                }
+    
+                self::writeDB($path, $data);
             } else {
                 return false;
             }
-            self::writeDB($path, $data);
-        }
-
-        /**
-         * Write a object in the DB.
-         *
-         * if an object with the same id exist it will be overwrite
-         *
-         * @param string $path   Path to the DB
-         * @param array  $object Object to write
-         */
-        public static function writeObject(string $path, array $object) {
-            $data = self::getAll($path);
-            $element_exist = false;
-            foreach ($data as &$element) {
-                if (($element['id'] == $object['id'])
-                    || (isset($element['mail'], $object['mail'])
-                        && ($element['mail'] == $object['mail']))
-                    || (isset($element['contractID'],$object['contractID'])
-                        && ($element['contractID'] == $object['contractID']))
-                ) {
-                    $element = $object;
-                    $element_exist = true;
-
-                    break;
-                }
-            }
-            if (!$element_exist) {
-                array_push($data, $object);
-            }
-            self::writeDB($path, $data);
+            
         }
 
         /**
@@ -157,9 +121,10 @@
                 if ($file) {
                     fwrite($file, json_encode($data, JSON_PRETTY_PRINT));
                     fclose($file);
+                    return true;
                 }
             } catch (\Throwable $th) {
-                send_json("Failed to open/create file {$path}");
+                send_json("Failed to open/create file $path");
             }
         }
     }
