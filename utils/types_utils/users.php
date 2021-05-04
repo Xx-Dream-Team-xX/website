@@ -3,6 +3,16 @@
      * User class.
      */
     class User {
+        public const USER = 'user';
+
+        public const ASSURE = 'assure';
+
+        public const POLICE = 'police';
+
+        public const GESTIONNAIRE = 'gestionnaire';
+
+        public const ADMIN = 'admin';
+
         /**
          * User id.
          *
@@ -50,7 +60,7 @@
                 } else {
                     $this->id = uniqid();
                 }
-                $this->type = User::isValid($rawUser['type']);
+                $this->type = self::isValidUserType($rawUser['type']);
                 $this->setMail($rawUser['mail']); // Email validation TODO
                 $this->first_name = $rawUser['first_name'];
                 $this->last_name = $rawUser['last_name'];
@@ -126,6 +136,39 @@
                 throw new Exception('Invalide email', 1);
             }
         }
+
+        /**
+         * Check if the type is valide then return it if so.
+         *
+         * @return string
+         */
+        public static function isValidUserType(string $type) {
+            if (in_array($type, array(self::USER, self::ASSURE, self::POLICE, self::GESTIONNAIRE, self::ADMIN))) {
+                return $type;
+            }
+
+            throw new Exception('Unknown User', 1);
+        }
+
+        /**
+         * Instanciate the right class depending on the User.
+         */
+        public static function createUserByType(array $rawUser) {
+            switch ($rawUser['type']) {
+                case self::USER:
+                    return new User($rawUser);
+
+                    break;
+                case self::ASSURE:
+                    return new UserAssure($rawUser);
+
+                    break;
+                default:
+                    return new User($rawUser);
+
+                    break;
+            }
+        }
     }
 
     class UserAssure extends User {
@@ -179,49 +222,6 @@
             array_push($this->contracts, $contract->getID());
             if (!in_array($this->id, $contract->getOwners())) {
                 $contract->addOwner($this);
-            }
-        }
-
-        public const USER = 'user';
-
-        public const ASSURE = 'assure';
-
-        public const POLICE = 'police';
-
-        public const GESTIONNAIRE = 'gestionnaire';
-
-        public const ADMIN = 'admin';
-
-        /**
-         * Check if the type is valide then return it if so.
-         *
-         * @return string
-         */
-        public static function isValid(string $type) {
-            if (in_array($type, array(User::USER, User::ASSURE, User::POLICE, User::GESTIONNAIRE, User::ADMIN))) {
-                return $type;
-            }
-
-            throw new Exception('Unknown User', 1);
-        }
-
-        /**
-         * Instanciate the right class depending on the User.
-         */
-        public static function createUserByType(array $rawUser) {
-            switch ($rawUser['type']) {
-                case User::USER:
-                    return new User($rawUser);
-
-                    break;
-                case User::ASSURE:
-                    return new UserAssure($rawUser);
-
-                    break;
-                default:
-                    return new User($rawUser);
-
-                    break;
             }
         }
     }

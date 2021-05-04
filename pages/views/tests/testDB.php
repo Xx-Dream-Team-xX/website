@@ -3,13 +3,13 @@
     include_once get_path('utils', 'types_utils/users.php');
     include_once get_path('utils', 'types_utils/contract.php');
     $user = User::createUserByType(array(
-        'type' => UserType::ASSURE,
+        'type' => User::ASSURE,
         'mail' => 'js2p@prout.fr',
         'first_name' => 'Michelle',
         'last_name' => 'Roubin',
         'phone' => '+336-84-72-58-39',
     ));
-    DB::setObject(get_path('database', 'testUsers.json'), $user->getAll(), true;
+    DB::setObject(get_path('database', 'testUsers.json'), $user->getAll(), true);
 
     $contract = new Contract(array(
         'owners' => array($user->getID()),

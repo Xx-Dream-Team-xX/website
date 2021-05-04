@@ -82,8 +82,8 @@
             if (isset($rawObject['id'])) {
 
                 foreach ($data as &$element) {
-                    if ((isset($element['id']) && ($element['id'] == $rawObject['id'])) {
-    
+                    if ((isset($element['id']) && ($element['id'] == $rawObject['id']))) {
+
                         $element_exist = true;
 
                         if (!$new) {
@@ -94,19 +94,19 @@
                         } else {
                             return false;
                         }
-    
+
                     }
                 }
-    
+
                 if (!$element_exist) {
                     array_push($data, $rawObject);
                 }
-    
+
                 self::writeDB($path, $data);
             } else {
                 return false;
             }
-            
+
         }
 
         /**

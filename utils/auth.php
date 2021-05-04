@@ -2,19 +2,19 @@
 /**
  * User authentification.
  */
-    public class Auth {
-        $path = "";
+    class Auth {
+        private $path = "";
 
         public function checkPasswordFormat(string $pass) {
 
         }
 
         public function checkEmailFormat(string $email) {
-            
+
         }
 
         public function checkPhoneFormat(string $phone) {
-            
+
         }
 
         public function __construct(string $path) {
