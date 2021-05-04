@@ -9,6 +9,11 @@
     include_once './utils/logs.php';
 
     include_once './utils/data.php';
+    include_once './utils/logs.php';
+
+    $logger = new Logger(get_path("logs"), Logger::ADMIN);
+    
+    $logger->log(5, "coucou");
 
     $url = $_SERVER['REQUEST_URI'];
     $path = explode('?', $url, 2)[0];
@@ -20,6 +25,7 @@
     Router::add('static', PATH['static'], false, 0, $wildcard = true); // Sans regex, avec wildcard
 
     Router::add('testDB', get_path('views', 'tests/testDB.php'));
+    Router::add('testLogs', get_path('views', 'tests/testLogs.php'));
 
     Router::default(get_path('views', 'error.php'));
     Router::start($path_array);

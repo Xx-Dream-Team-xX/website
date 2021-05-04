@@ -11,6 +11,7 @@
      'api' => SERVER_ROOT . '/endpoints/',
      'database' => SERVER_ROOT . '/data/',
      'utils' => SERVER_ROOT . '/utils/',
+     'logs' => SERVER_ROOT . '/logs/',
      'views' => SERVER_ROOT . '/pages/views/',
      'partials' => SERVER_ROOT . '/pages/partials/',
      'static' => SERVER_ROOT . '/pages/static/',
