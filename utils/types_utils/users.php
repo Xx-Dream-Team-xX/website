@@ -195,12 +195,25 @@
          */
         protected $phone = '';
 
+        protected $address = '';
+
+        protected $zipCode = '';
+
         protected $contracts = array();
 
         public function __construct($rawUser) {
-            parent::__construct($rawUser);
-            $this->type = User::ASSURE;
-            $this->setPhone($rawUser['phone']);
+            if (isset($rawUser['phone'],$rawUser['address'],$rawUser['zip_code'])) {
+                parent::__construct($rawUser);
+                $this->type = User::ASSURE;
+                $this->setPhone($rawUser['phone']);
+                $this->address = $rawUser['address'];
+                $this->zipCode = $rawUser['zip_code'];
+                if (isset($rawUser['contracts'])) {
+                    $this->contracts = $rawUser['contracts'];
+                }
+            } else {
+                throw new Exception("Array passed doesn't represend a User Assuré", 1);
+            }
         }
 
         /**
@@ -227,6 +240,8 @@
             return array_merge(parent::getAll(), array(
                 'phone' => $this->phone,
                 'contracts' => $this->contracts,
+                'zip_code' => $this->zipCode,
+                'address' => $this->address,
             ));
         }
 
