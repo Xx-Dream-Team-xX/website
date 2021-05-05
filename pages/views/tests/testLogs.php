@@ -1,4 +1,4 @@
 <?php
-    Logger::log(2, "aaa");
-    echo "test";
+    $_SERVER["logger"]->log(4, "aaaaaaaa");
+
 ?>
