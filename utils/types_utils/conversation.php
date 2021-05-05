@@ -68,13 +68,6 @@
         protected $type = "";
 
         /**
-         * Messages to be saved
-         *
-         * @var array
-         */
-        protected $messages_buffer = array();
-
-        /**
          * Returns properties of conversation
          *
          * @return void
@@ -98,32 +91,6 @@
         }
 
         /**
-         * Returns message buffer (messages to be saved)
-         *
-         * @return void
-         */
-        public function getMessageBuffer() {
-            return $this->messages_buffer;
-        }
-
-        /**
-         * Adds a message to the buffer
-         *
-         * @param Message $message Message to be added
-         * @return void
-         */
-        public function send(Message $message) {
-            if (in_array($message->getAll()["sender"], $this->people)) {
-                
-                array_push($messages_buffer, $message);
-
-            } else {
-                throw new Exception("Sender not in conversation", 1);
-                
-            }
-        }
-
-        /**
          * Creates a new conversation
          *
          * @param array $data Array with conversation properties
@@ -141,6 +108,10 @@
                 $this->id = $data["id"] ?? uniqid();
                 $this->people = $data["people"];
                 $this->type = (isset($data["type"]) && ($data["type"] === self::TICKET)) ? self::TICKET : self::DM;
+
+                if (is_dir(ConversationManager::getPath()) && !file_exists($this->getPath())) {
+                    touch($this->getPath());
+                }
 
             } else {
                 throw new Exception("Wrong conversation array.", 1);
@@ -214,7 +185,7 @@
                 $this->sender = $data["sender"];
                 $this->content = htmlspecialchars($data["content"]);
                 $this->files = $data["files"] ?? array();
-                $this->timestamp = $data["timestamp"] ?? date_timestamp_get();
+                $this->timestamp = $data["timestamp"] ?? time();
             } else {
                 throw new Exception("Invalid message format", 1);
             }
