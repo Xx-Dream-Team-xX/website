@@ -94,6 +94,7 @@
                             break;
 
                         } else {
+                            throw new Exception("ID already exists", 1);
                             return false;
                         }
 
