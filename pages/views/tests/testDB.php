@@ -2,6 +2,9 @@
 
     include_once get_path('utils', 'types_utils/users.php');
     include_once get_path('utils', 'types_utils/contract.php');
+    include_once get_path('utils', 'types_utils/conversation.php');
+
+    ConversationManager::setPath(get_path('database') . 'messages/');
     $user = User::createUserByType(array(
         'type' => User::ASSURE,
         'mail' => 'js2p@prout.fr',
@@ -20,11 +23,11 @@
         'insurance' => '547596fjk543',
         'countryCode' => 'F6579',
         'category' => 'A',
-        'manufacturer' => 'Ford',
+        'manufacturer' => 'Renault',
     ));
 
     $contract2 = new Contract(array(
-        'id' => '424705435745',
+        'id' => '434705435745',
         'owners' => array($user->getID()),
         'start' => time(),
         'end' => time(),
@@ -38,8 +41,27 @@
     $user->addContract($contract);
     $contract2->addOwner($user);
 
-    DB::setObject(get_path('database', 'testContrats.json'), $contract2->getAll(), true);
-    DB::setObject(get_path('database', 'testContrats.json'), $contract->getAll(), true);
+    $test = new Conversation(array(
+        'people' => [
+            uniqid(),
+            uniqid()
+        ])
+    );
+
+    DB::setObject($test->getPath(), (new Message(array(
+        'content' => "uwu",
+        'sender' => $test->getAll()["people"][0]
+    )))->getAll());
+
+    DB::setObject($test->getPath(), (new Message(array(
+        'content' => "owo",
+        'sender' => $test->getAll()["people"][0]
+    )))->getAll());
+
+    exit();
+
+    DB::setObject(get_path('database', 'testContrats.json'), $contract2->getAll()); // fais gaffe je force plus le new
+    DB::setObject(get_path('database', 'testContrats.json'), $contract->getAll());
     DB::setObject(get_path('database', 'testUsers.json'), $user->getAll());
     send_json($user->getAll());
     send_json($contract->getAll());
