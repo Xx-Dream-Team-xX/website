@@ -77,7 +77,7 @@
      *
      * @param [any] $content variable to encode
      */
-    function send_json($content) {
+    function send_json(...$content) {
         header('Content-Type: application/json');
         echo json_encode($content, JSON_PRETTY_PRINT);
     }
