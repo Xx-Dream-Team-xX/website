@@ -55,7 +55,7 @@
          * @param string $content Message
          */
         public function log(int $level, string $content) {
-            if ($level >= static::$level) {
+            if ($level >= $this->level) {
                 file_put_contents($this->today_file(), "[{$level}]" . self::now() . $content . "\n", FILE_APPEND);
             }
         }
