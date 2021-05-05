@@ -59,7 +59,7 @@
         /**
          * Constructor for the user.
          */
-        public function __construct(array $rawUsern) {
+        public function __construct(array $rawUser) {
             if (isset($rawUser['type'],$rawUser['mail'],$rawUser['first_name'],$rawUser['last_name'],$rawUser['phone'])) {
                 if (isset($rawUser['id'])) {
                     $this->id = $rawUser['id'];
