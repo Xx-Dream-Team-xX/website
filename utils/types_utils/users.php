@@ -1,4 +1,5 @@
 <?php
+
     /**
      * User class.
      */
@@ -49,11 +50,16 @@
         protected $last_name = '';
 
         /**
-         * Constructor for the user.
+         * Password.
          *
-         * @param array $rawUser Array containing every info needed to build a user
+         * @var string
          */
-        public function __construct(array $rawUser) {
+        protected $password = '';
+
+        /**
+         * Constructor for the user.
+         */
+        public function __construct(array $rawUsern) {
             if (isset($rawUser['type'],$rawUser['mail'],$rawUser['first_name'],$rawUser['last_name'],$rawUser['phone'])) {
                 if (isset($rawUser['id'])) {
                     $this->id = $rawUser['id'];
@@ -64,9 +70,18 @@
                 $this->setMail($rawUser['mail']); // Email validation TODO
                 $this->first_name = $rawUser['first_name'];
                 $this->last_name = $rawUser['last_name'];
+                if (isset($rawUser['password_hash'])) {
+                    $this->password = $rawUser['password_hash'];
+                } else {
+                    $this->setPassword(random_bytes(12));
+                }
             } else {
                 throw new Exception("Array passed doesn't represend a User", 1);
             }
+        }
+
+        public function setPassword(string $password) {
+            $this->password = password_hash($password, PASSWORD_DEFAULT);
         }
 
         /**
@@ -121,6 +136,7 @@
                 'mail' => $this->mail,
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
+                'password_hash' => $this->password,
             );
         }
 
