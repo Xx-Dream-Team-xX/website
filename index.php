@@ -24,11 +24,11 @@
 
     Router::add('static', get_path('static'), false, 0, $wildcard = true); // Sans regex, avec wildcard
 
-    Router::add('testDB', get_path('views', 'tests/testDB.php'));
-    Router::add('testLogs', get_path('views', 'tests/testLogs.php'));
-    Router::add('testAuth', get_path('views', 'tests/testAuth.php'));
+    Router::add('tests', get_path('views', 'tests/'), false, 0, true);
 
     Router::add('partials', get_path('partials'), false, 0, true);
+
+    Router::add('users', get_path('api', 'user.php'));
 
     Router::default(get_path('views', 'error.php'));
     Router::start($path_array);
