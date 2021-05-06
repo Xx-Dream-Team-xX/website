@@ -125,7 +125,7 @@
      * @param string $path url
      * @return string last endpoint
      */
-    function get_final_cpoint($path = null) {
+    function get_final_point($path = null) {
         if (!isset($path)) {
             $path = $_SERVER['REQUEST_URI'];
         }
