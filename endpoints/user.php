@@ -3,7 +3,7 @@
      * User information, list
      */
 
-    include_once get_path('utils', 'types_utils/users');
+    include_once get_path('utils', 'types_utils/users.php');
 
     switch (get_final_point()) {
         case 'list':
@@ -15,6 +15,16 @@
                         return (($u["type"] === User::ASSURE) && ($u["rep"] === $_SESSION["user"]["assurance"]));
                     });
                 }
+
+                send_json(array_map(function($u) {
+                    return array(
+                        'id' => $u["id"],
+                        'name' => $u["last_name"] . " " . $u["first_name"],
+                        'mail' => $u["mail"],
+                        'type' => $u["type"]
+                        // to add stuff
+                    );
+                }, $users));
             }
             break;
         default:
