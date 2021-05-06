@@ -67,7 +67,7 @@
                     $this->id = uniqid();
                 }
                 $this->type = self::isValidUserType($rawUser['type']);
-                $this->setMail($rawUser['mail']); // Email validation TODO
+                $this->mail = $rawUser['mail'];
                 $this->first_name = $rawUser['first_name'];
                 $this->last_name = $rawUser['last_name'];
                 if (isset($rawUser['password_hash'])) {
@@ -76,7 +76,7 @@
                     $this->setPassword(random_bytes(12));
                 }
             } else {
-                throw new Exception("Array passed doesn't represend a User", 1);
+                throw new Exception("Array passed doesn't represent an User", 1);
             }
         }
 
@@ -136,7 +136,7 @@
                 'mail' => $this->mail,
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
-                'password_hash' => $this->password,
+                'password_hash' => $this->password
             );
         }
 
@@ -149,7 +149,7 @@
             if (filter_var($newMail, FILTER_VALIDATE_EMAIL)) {
                 $this->mail = $newMail;
             } else {
-                throw new Exception('Invalide email', 1);
+                throw new Exception('Invalid mail', 1);
             }
         }
 
@@ -163,7 +163,7 @@
                 return $type;
             }
 
-            throw new Exception('Unknown User', 1);
+            throw new Exception('Unknown User Type', 1);
         }
 
         /**
@@ -171,6 +171,7 @@
          */
         public static function createUserByType(array $rawUser) {
             if (!isset($rawUser['type'])) {
+                $rawUser['type'] = self::USER;
                 return new User($rawUser);
             }
             switch ($rawUser['type']) {
