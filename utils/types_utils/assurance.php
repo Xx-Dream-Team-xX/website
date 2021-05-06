@@ -7,6 +7,8 @@
 
         protected $phone = '';
 
+        protected $logoPath = '';
+
         protected $contracts = array();
 
         protected $gestionnaires = array();
@@ -67,6 +69,10 @@
             return $this->id;
         }
 
+        public function getLogo() {
+            return $this->logoPath;
+        }
+
         public function getAll() {
             return array(
                 'id' => $this->id,
@@ -74,6 +80,7 @@
                 'phone' => $this->phone,
                 'contracts' => $this->contracts,
                 'gestionnaires' => $this->gestionnaires,
+                'logoPath' => $this->logoPath,
             );
         }
     }
