@@ -4,15 +4,15 @@
      * User class.
      */
     class User {
-        public const USER = 'user';
+        public const USER = 1;
 
-        public const ASSURE = 'assure';
+        public const ASSURE = 2;
 
-        public const POLICE = 'police';
+        public const POLICE = 3;
 
-        public const GESTIONNAIRE = 'gestionnaire';
+        public const GESTIONNAIRE = 4;
 
-        public const ADMIN = 'admin';
+        public const ADMIN = 5;
 
         /**
          * User id.
@@ -55,6 +55,13 @@
          * @var string
          */
         protected $password = '';
+
+        /**
+         * User's phone number.
+         *
+         * @var string
+         */
+        protected $phone = '';
 
         /**
          * Constructor for the user.
@@ -122,6 +129,10 @@
             return $this->mail;
         }
 
+        public function getPhone() {
+            return $this->phone;
+        }
+
         /**
          * Get every user data in a array map.
          *
@@ -153,15 +164,12 @@
          * @return bool
          */
         public static function checkPhone(string $phone, int $minDigits = 9, int $maxDigits = 14) {
-            if (preg_match('/^[+][0-9]/', $phone)) { //is the first character + followed by a digit
+            if (preg_match('/^[+][0-9]/', $phone)) {
                 $count = 1;
-                $phone = str_replace(array('+'), '', $phone, $count); //remove +
+                $phone = str_replace(array('+'), '', $phone, $count);
             }
-
-            //remove white space, dots, hyphens and brackets
             $phone = str_replace(array(' ', '.', '-', '(', ')'), '', $phone);
 
-            //are we left with digits only?
             return preg_match('/^[0-9]{' . $minDigits . ',' . $maxDigits . '}\z/', $phone);
         }
 
@@ -176,6 +184,23 @@
             } else {
                 throw new Exception('Invalid mail', 1);
             }
+        }
+
+        /**
+         * Validate phone number and set it if correct.
+         *
+         * @param string $newPhone Phone number to set
+         *
+         * @return bool false if invalid
+         */
+        public function setPhone(string $newPhone) {
+            if (self::checkPhone($newPhone)) {
+                $this->phone = str_replace(array(' ', '.', '-', '(', ')'), '', $newPhone);
+
+                return true;
+            }
+
+            return false;
         }
 
         /**
@@ -214,13 +239,6 @@
     }
 
     class UserAssure extends User {
-        /**
-         * User's phone number.
-         *
-         * @var string
-         */
-        protected $phone = '';
-
         protected $address = '';
 
         protected $zipCode = '';
@@ -242,27 +260,6 @@
             }
         }
 
-        /**
-         * Validate phone number and set it if correct.
-         *
-         * @param string $newPhone Phone number to set
-         *
-         * @return bool false if invalid
-         */
-        public function setPhone(string $newPhone) {
-            if (parent::checkPhone($newPhone)) {
-                $this->phone = str_replace(array(' ', '.', '-', '(', ')'), '', $newPhone);
-
-                return true;
-            }
-
-            return false;
-        }
-
-        public function getPhone() {
-            return $this->phone;
-        }
-
         public function getAll() {
             return array_merge(parent::getAll(), array(
                 'phone' => $this->phone,
@@ -280,6 +277,20 @@
             array_push($this->contracts, $contract->getID());
             if (!in_array($this->id, $contract->getOwners())) {
                 $contract->addOwner($this);
+            }
+        }
+    }
+
+    class UserGestionnaire extends User {
+        protected $assurance = '';
+
+        public function __construct($rawUser) {
+            if (isset($rawUser['phone'])) {
+                parent::__construct($rawUser);
+                $this->type = User::GESTIONNAIRE;
+                $this->setPhone($rawUser['phone']);
+            } else {
+                throw new Exception("Array passed doesn't represend a User Assuré", 1);
             }
         }
     }
