@@ -68,8 +68,8 @@
 
     // exit();
 
-    DB::setObject(get_path('database', 'testContract.json'), $contract2->getAll()); // fais gaffe je force plus le new
-    DB::setObject(get_path('database', 'testContract.json'), $contract->getAll());
+    DB::setObject(get_path('database', 'testContrats.json'), $contract2->getAll()); // fais gaffe je force plus le new
+    DB::setObject(get_path('database', 'testContrats.json'), $contract->getAll());
     DB::setObject(get_path('database', 'testUsers.json'), $user->getAll());
     send_json($user->getAll());
     send_json($contract->getAll());
