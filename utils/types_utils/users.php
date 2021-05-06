@@ -72,8 +72,10 @@
                 $this->last_name = $rawUser['last_name'];
                 if (isset($rawUser['password_hash'])) {
                     $this->password = $rawUser['password_hash'];
+                } elseif ($rawUser['password']) {
+                    $this->setPassword($rawUser['password']);
                 } else {
-                    $this->setPassword(random_bytes(12));
+                    throw new Exception('Please specify a password', 1);
                 }
             } else {
                 throw new Exception("Array passed doesn't represent an User", 1);
@@ -120,10 +122,6 @@
             return $this->mail;
         }
 
-        public function getPhone() {
-            return $this->phone;
-        }
-
         /**
          * Get every user data in a array map.
          *
@@ -136,8 +134,35 @@
                 'mail' => $this->mail,
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
-                'password_hash' => $this->password
+                'password_hash' => $this->password,
             );
+        }
+
+        /**
+         * Check if email passed is valide.
+         *
+         * @return bool
+         */
+        public static function checkEmail(string $email) {
+            return filter_var($email, FILTER_VALIDATE_EMAIL);
+        }
+
+        /**
+         * Check if phone is valide.
+         *
+         * @return bool
+         */
+        public static function checkPhone(string $phone, int $minDigits = 9, int $maxDigits = 14) {
+            if (preg_match('/^[+][0-9]/', $phone)) { //is the first character + followed by a digit
+                $count = 1;
+                $phone = str_replace(array('+'), '', $phone, $count); //remove +
+            }
+
+            //remove white space, dots, hyphens and brackets
+            $phone = str_replace(array(' ', '.', '-', '(', ')'), '', $phone);
+
+            //are we left with digits only?
+            return preg_match('/^[0-9]{' . $minDigits . ',' . $maxDigits . '}\z/', $phone);
         }
 
         /**
@@ -146,7 +171,7 @@
          * @param string $newMail
          */
         public function setMail($newMail) {
-            if (filter_var($newMail, FILTER_VALIDATE_EMAIL)) {
+            if (self::checkEmail($newMail)) {
                 $this->mail = $newMail;
             } else {
                 throw new Exception('Invalid mail', 1);
@@ -172,6 +197,7 @@
         public static function createUserByType(array $rawUser) {
             if (!isset($rawUser['type'])) {
                 $rawUser['type'] = self::USER;
+
                 return new User($rawUser);
             }
             switch ($rawUser['type']) {
@@ -224,16 +250,17 @@
          * @return bool false if invalid
          */
         public function setPhone(string $newPhone) {
-            $filtered_phone_number = filter_var($newPhone, FILTER_SANITIZE_NUMBER_INT);
-            $phone_to_check = str_replace('-', '', $filtered_phone_number);
-            if (strlen($phone_to_check) < 10 || strlen($phone_to_check) > 14) {
-                return false;
+            if (parent::checkPhone($newPhone)) {
+                $this->phone = str_replace(array(' ', '.', '-', '(', ')'), '', $newPhone);
 
-                throw new Exception('Invald phone number', 1);
+                return true;
             }
-            $this->phone = $newPhone;
 
-            return true;
+            return false;
+        }
+
+        public function getPhone() {
+            return $this->phone;
         }
 
         public function getAll() {
