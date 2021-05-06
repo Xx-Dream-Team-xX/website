@@ -1,0 +1,5 @@
+<?php
+    /**
+     * List, info, management
+     */
+?>

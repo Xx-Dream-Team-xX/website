@@ -1,5 +1,0 @@
-<?php
-/**
- * JSON output here
- */
-?>
