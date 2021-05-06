@@ -170,11 +170,10 @@
          * Instanciate the right class depending on the User.
          */
         public static function createUserByType(array $rawUser) {
+            if (!isset($rawUser['type'])) {
+                return new User($rawUser);
+            }
             switch ($rawUser['type']) {
-                case self::USER:
-                    return new User($rawUser);
-
-                    break;
                 case self::ASSURE:
                     return new UserAssure($rawUser);
 
