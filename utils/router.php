@@ -119,12 +119,18 @@
         exit();
     }
 
+    /**
+     * Returns the last endpoint of the accessed url, if $path not defined, will take from current request
+     *
+     * @param string $path url
+     * @return string last endpoint
+     */
     function get_final_point($path = null) {
         if (!isset($path)) {
             $path = $_SERVER['REQUEST_URI'];
         }
-
-        return end(explode("/", explode("?", $path)[0]));
+        $tmp = array_values(explode("/", explode("?", $path)[0]));
+        return end($tmp);
     }
 
 ?>
