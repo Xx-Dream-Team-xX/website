@@ -119,4 +119,12 @@
         exit();
     }
 
+    function get_final_point($path = null) {
+        if (!isset($path)) {
+            $path = $_SERVER['REQUEST_URI'];
+        }
+
+        return end(explode("/", explode("?", $path)[0]));
+    }
+
 ?>

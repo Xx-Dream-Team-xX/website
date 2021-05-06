@@ -1,0 +1,5 @@
+<?php
+    /**
+     * User information, list
+     */
+?>
