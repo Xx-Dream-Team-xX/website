@@ -41,7 +41,7 @@
         'manufacturer' => 'Renault',
     ));
 
-    $contract->generateQr();
+    $contract->generateQr(true);
 
     // $contract2 = $assurance->newContract(array(
     //     'id' => '434705435745',
