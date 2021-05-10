@@ -4,7 +4,7 @@
      * User class.
      */
     class User {
-        public const USER = 0;
+        public const NONE = 0;
 
         public const ASSURE = 1;
 
