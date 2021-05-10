@@ -306,6 +306,14 @@
                 'assurance' => $this->assurance,
             ));
         }
+
+        public function newUserAssure($rawAssure) {
+            $rawAssure['rep'] = $this->id;
+            $rawAssure['type'] = User::ASSURE;
+            $rawAssure['assurance'] = $this->assurance;
+
+            return new UserAssure($rawAssure);
+        }
     }
 
 ?>

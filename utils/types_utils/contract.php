@@ -1,6 +1,7 @@
 <?php
 
 use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\QROptions;
 
 class Contract {
     public const IDERROR = 1;
@@ -154,7 +155,17 @@ class Contract {
     }
 
     public function generateQr() {
-        (new QRCode())->render($this->id, PATH['database'] . 'qrcode/' . $this->id . '.svg');
+        try {
+            $options = new QROptions(array(
+                'version' => 5,
+                'outputType' => QRCode::OUTPUT_MARKUP_SVG,
+                'eccLevel' => QRCode::ECC_L,
+            ));
+            $qrcode = new QRCode($options);
+            $qrcode->render($this->id, PATH['database'] . 'qrcode/' . $this->id . '.svg');
+        } catch (Exception $e) {
+            echo 'Exception reçue : ',  $e->getMessage(), "\n";
+        }
     }
 
     /**

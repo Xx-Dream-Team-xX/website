@@ -5,8 +5,20 @@
     include_once get_path('utils', 'types_utils/conversation.php');
     include_once get_path('utils', 'types_utils/assurance.php');
 
-    $user = User::createUserByType(array(
-        'type' => User::ASSURE,
+    $assurance = new Assurance(array(
+        'name' => 'Assu4000',
+        'phone' => '+336-84-72-58-39',
+    ));
+
+    $gestionnaire = $assurance->newGestionnaire(array(
+        'mail' => 'js3p@prout.fr',
+        'first_name' => 'Michelle',
+        'last_name' => 'Roubin',
+        'phone' => '+336-44-72-58-39',
+        'password' => 'jsp',
+    ));
+
+    $user = $gestionnaire->newUserAssure(array(
         'mail' => 'js2p@prout.fr',
         'first_name' => 'Michelle',
         'last_name' => 'Roubin',
@@ -16,11 +28,6 @@
         'password' => 'jsp',
     ));
     DB::setObject(get_path('database', 'testUsers.json'), $user->getAll(), true);
-
-    $assurance = new Assurance(array(
-        'name' => 'Assu4000',
-        'phone' => '+336-84-72-58-39',
-    ));
 
     $contract = $assurance->newContract(array(
         'id' => '434705435745',
