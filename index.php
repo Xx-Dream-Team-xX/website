@@ -11,9 +11,9 @@
     include_once './utils/data.php';
     include_once './utils/logs.php';
 
-    $_SERVER["logger"] = new Logger(get_path("logs"), Logger::ADMIN);
+    $_SERVER['logger'] = new Logger(get_path('logs'), Logger::ADMIN);
 
-    $_SERVER["logger"]->log(5, "coucou");
+    $_SERVER['logger']->log(5, 'coucou');
 
     $url = $_SERVER['REQUEST_URI'];
     $path = explode('?', $url, 2)[0];

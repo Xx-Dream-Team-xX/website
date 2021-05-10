@@ -34,20 +34,22 @@
         'manufacturer' => 'Renault',
     ));
 
-    $contract2 = $assurance->newContract(array(
-        'id' => '434705435745',
-        'owners' => array($user->getID()),
-        'start' => time(),
-        'end' => time(),
-        'vID' => 'AB-123-cd',
-        'insurance' => '547596fjk543',
-        'countryCode' => 'F6579',
-        'category' => 'A',
-        'manufacturer' => 'Ford',
-    ));
-    DB::setObject(get_path('database', 'testAssurances.json'), $assurance->getAll(), true);
-    $user->addContract($contract);
-    $contract2->addOwner($user);
+    $contract->generateQr();
+
+    // $contract2 = $assurance->newContract(array(
+    //     'id' => '434705435745',
+    //     'owners' => array($user->getID()),
+    //     'start' => time(),
+    //     'end' => time(),
+    //     'vID' => 'AB-123-cd',
+    //     'insurance' => '547596fjk543',
+    //     'countryCode' => 'F6579',
+    //     'category' => 'A',
+    //     'manufacturer' => 'Ford',
+    // ));
+    // DB::setObject(get_path('database', 'testAssurances.json'), $assurance->getAll(), true);
+    // $user->addContract($contract);
+    // $contract2->addOwner($user);
 
     // $test = new Conversation(array(
     //     'people' => array(
@@ -68,12 +70,13 @@
 
     // exit();
 
-    DB::setObject(get_path('database', 'testContrats.json'), $contract2->getAll()); // fais gaffe je force plus le new
-    DB::setObject(get_path('database', 'testContrats.json'), $contract->getAll());
-    DB::setObject(get_path('database', 'testUsers.json'), $user->getAll());
-    send_json($user->getAll());
-    send_json($contract->getAll());
-    send_json($contract2->getAll());
-    send_json($assurance->getAll());
+    // DB::setObject(get_path('database', 'testContrats.json'), $contract2->getAll()); // fais gaffe je force plus le new
+    // DB::setObject(get_path('database', 'testContrats.json'), $contract->getAll());
+    // DB::setObject(get_path('database', 'testUsers.json'), $user->getAll());
+
+    // send_json($user->getAll());
+    // send_json($contract->getAll());
+    // send_json($contract2->getAll());
+    // send_json($assurance->getAll());
     //send_json(DB::getUserByMail(PATH['database'] . 'testUsers.json', 'js2p@prout.fr'));
 ?>
