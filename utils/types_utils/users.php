@@ -4,15 +4,15 @@
      * User class.
      */
     class User {
-        public const USER = 1;
+        public const USER = 0;
 
-        public const ASSURE = 2;
+        public const ASSURE = 1;
 
-        public const POLICE = 3;
+        public const POLICE = 2;
 
-        public const GESTIONNAIRE = 4;
+        public const GESTIONNAIRE = 3;
 
-        public const ADMIN = 5;
+        public const ADMIN = 4;
 
         /**
          * User id.
@@ -285,10 +285,9 @@
         protected $assurance = '';
 
         public function __construct($rawUser) {
-            if (isset($rawUser['phone'],$rawUser['assurance'])) {
+            if (isset($rawUser['assurance'])) {
                 parent::__construct($rawUser);
                 $this->type = User::GESTIONNAIRE;
-                $this->setPhone($rawUser['phone']);
                 $this->assurance = $rawUser['assurance'];
             } else {
                 throw new Exception("Array passed doesn't represend a User Assuré", 1);
@@ -297,7 +296,6 @@
 
         public function getAll() {
             return array_merge(parent::getAll(), array(
-                'phone' => $this->phone,
                 'contracts' => $this->contracts,
                 'assurance' => $this->assurance,
             ));
