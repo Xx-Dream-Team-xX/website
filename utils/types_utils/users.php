@@ -209,7 +209,7 @@
          * @return string
          */
         public static function isValidUserType(string $type) {
-            if (in_array($type, array(self::USER, self::ASSURE, self::POLICE, self::GESTIONNAIRE, self::ADMIN))) {
+            if (in_array($type, array(self::NONE, self::ASSURE, self::POLICE, self::GESTIONNAIRE, self::ADMIN))) {
                 return $type;
             }
 
@@ -221,7 +221,7 @@
          */
         public static function createUserByType(array $rawUser) {
             if (!isset($rawUser['type'])) {
-                $rawUser['type'] = self::USER;
+                $rawUser['type'] = self::NONE;
 
                 return new User($rawUser);
             }
@@ -243,15 +243,21 @@
 
         protected $zipCode = '';
 
+        protected $rep = '';
+
+        protected $assurance = '';
+
         protected $contracts = array();
 
         public function __construct($rawUser) {
-            if (isset($rawUser['phone'],$rawUser['address'],$rawUser['zip_code'])) {
+            if (isset($rawUser['phone'],$rawUser['address'],$rawUser['zip_code'],$rawUser['rep'],$rawUser['assurance'])) {
                 parent::__construct($rawUser);
                 $this->type = User::ASSURE;
                 $this->setPhone($rawUser['phone']);
                 $this->address = $rawUser['address'];
                 $this->zipCode = $rawUser['zip_code'];
+                $this->rep = $rawUser['rep'];
+                $this->assurance = $rawUser['assurance'];
                 if (isset($rawUser['contracts'])) {
                     $this->contracts = $rawUser['contracts'];
                 }
