@@ -2,7 +2,10 @@
 /**
  * User authentification.
  */
-    class Auth {
+
+include_once get_path('utils', 'types_utils/users.php');
+
+class Auth {
         /**
          * Error codes.
          */
@@ -143,7 +146,7 @@
          * @param array $user Array of user data
          */
         private function assign(array $user) {
-            $_SESSION['user'] = $user;
+            $_SESSION['user'] = (new User($user))->getAll();
         }
     }
 ?>
