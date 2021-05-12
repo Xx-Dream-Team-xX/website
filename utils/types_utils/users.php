@@ -145,7 +145,7 @@
                 'mail' => $this->mail,
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
-                'password_hash' => $this->password,
+                'password_hash' => $this->password
             );
         }
 
