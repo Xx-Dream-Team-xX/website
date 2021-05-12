@@ -3,21 +3,64 @@
     class Sinistre {
         protected $id = '';
 
+        /**
+         * Id of the contract concerned.
+         *
+         * @var string
+         */
         protected $contract = '';
 
+        /**
+         * Id of the User concerned.
+         *
+         * @var string
+         */
         protected $user = '';
 
-        protected $assurance = '';
+        /**
+         * Id of the insurance rep concerned.
+         *
+         * @var string
+         */
+        protected $user_rep = '';
 
-        public function __construct($rawUser) {
-            if (isset($rawUser['contract'],$rawUser['user'],$rawUser['assurance'])) {
-                $this->setPhone($rawUser['phone']);
-                $this->address = $rawUser['address'];
-                $this->zipCode = $rawUser['zip_code'];
-                $this->rep = $rawUser['rep'];
-                $this->assurance = $rawUser['assurance'];
-                if (isset($rawUser['id'])) {
-                    $this->id = $rawUser['id'];
+        /**
+         * Location where the incident happend.
+         *
+         * @var string
+         */
+        protected $sinistre_location = '';
+
+        /**
+         * Current location of the vehicle.
+         *
+         * @var string
+         */
+        protected $vehicle_location = '';
+
+        /**
+         * List of attached files id.
+         *
+         * @var array
+         */
+        protected $joined_documents = array();
+
+        /**
+         * Desc of the incident.
+         *
+         * @var string
+         */
+        protected $desc = '';
+
+        public function __construct($rawSinistre) {
+            if (isset($rawSinistre['contract'],$rawSinistre['user'],$rawSinistre['assurance'], $rawSinistre)) {
+                $this->contract = $rawSinistre['contract'];
+                $this->user = $rawSinistre['user'];
+                $this->assurance = $rawSinistre['assurance'];
+                if (isset($rawSinistre['id'])) {
+                    $this->id = $rawSinistre['id'];
+                } else {
+                    $this->id = uniqid();
                 }
             } else {
                 throw new Exception("Array passed doesn't represend a Sinistre", 1);
