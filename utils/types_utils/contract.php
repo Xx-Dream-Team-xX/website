@@ -1,8 +1,5 @@
 <?php
 
-use chillerlan\QRCode\QRCode;
-use chillerlan\QRCode\QROptions;
-
 class Contract {
     public const IDERROR = 1;
 
@@ -78,7 +75,7 @@ class Contract {
      *
      * @var array
      */
-    private $territoryValidity = array('a' => false);
+    private $territoryValidity = array('A' => false);
 
     /**
      * Constructor for Contract.
@@ -94,6 +91,9 @@ class Contract {
             $this->countryCode = $rawContract['countryCode'];
             $this->setVCat($rawContract['category']);
             $this->manufacturer = $rawContract['manufacturer'];
+            if (isset($rawContract['terVal'])) {
+                $this->territoryValidity = $this->setTerVal($rawContract['terVal']);
+            }
         } else {
             throw new Exception('Contract given is missing some informations', self::ARRAYERROR);
         }
@@ -147,6 +147,11 @@ class Contract {
         }
     }
 
+    /**
+     * Add an owner to the contract.
+     *
+     * @param UserAssure $user User to add
+     */
     public function addOwner(UserAssure $user) {
         array_push($this->owners, $user->getID());
         if (!in_array($this->id, $user->getContracts())) {
@@ -154,26 +159,21 @@ class Contract {
         }
     }
 
-    public function generateQr(bool $send = false) {
-        try {
-            $options = new QROptions(array(
-                'version' => 7,
-                'outputType' => QRCode::OUTPUT_MARKUP_SVG,
-                'imageBase64' => false,
-                'eccLevel' => QRCode::ECC_L,
-            ));
+    /**
+     * Validate and update territorial validity.
+     */
+    public function setTerVal(array $terVal) {
+        foreach ($terVal as $ter => $validity) {
+            $ter = strtoupper($ter);
+            if (!in_array($terVal, array('A', 'B', 'BG', 'CY', 'CZ', 'D', 'DK', 'E', 'EST', 'F', 'FIN', 'GB', 'GR', 'H', 'HR', 'I', 'IRL', 'IS', 'L', 'LT', 'LV', 'M', 'N', 'NL', 'P', 'PL', 'RO', 'S', 'SK', 'SLO', 'CH', 'AL', 'AND', 'AZ', 'BIH', 'BY', 'IL', 'IR', 'MA', 'MD', 'MK', 'MNE', 'RUS', 'SRB', 'TN', 'TR', 'UA'))) {
+                $this->territoryValidity = $terVal;
 
-            $qrcode = new QRCode($options);
-            $svg = $qrcode->render($this->id);
-            if ($send) {
-                header('Content-type: image/svg+xml');
-                echo $svg;
-            } else {
-                return $svg;
+                return false;
             }
-        } catch (Exception $e) {
-            echo 'Exception reçue : ',  $e->getMessage(), "\n";
         }
+        $this->territoryValidity = array_merge($this->territoryValidity, $terVal);
+
+        return true;
     }
 
     /**
@@ -184,6 +184,7 @@ class Contract {
      * @return string or false if not valide
      */
     private function setVCat(string $cat) {
+        $cat = strtoupper($cat);
         if (in_array($cat, array('A', 'B', 'C', 'D', 'E', 'F', 'G'))) {
             $this->category = $cat;
         } else {

@@ -149,6 +149,13 @@
             );
         }
 
+        public function getPublic() {
+            $all = $this->getAll;
+            unset($all['password_hash']);
+
+            return $all;
+        }
+
         /**
          * Check if email passed is valide.
          *
@@ -247,6 +254,8 @@
 
         protected $assurance = '';
 
+        protected $birth = 0;
+
         protected $contracts = array();
 
         public function __construct($rawUser) {
@@ -284,6 +293,16 @@
             if (!in_array($this->id, $contract->getOwners())) {
                 $contract->addOwner($this);
             }
+        }
+
+        public function setBirth(string $date) {
+            if ($date = DateTime::createFromFormat('d/m/Y', $date)) {
+                $this->birth = $date->getTimestamp;
+
+                return true;
+            }
+
+            return false;
         }
     }
 
