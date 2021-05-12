@@ -29,6 +29,7 @@
     Router::add('partials', get_path('partials'), false, 0, true);
 
     Router::add('users', get_path('api', 'user.php'));
+    Router::add('auth', get_path('api', 'auth.php'));
 
     Router::default(get_path('views', 'error.php'));
     Router::start($path_array);
