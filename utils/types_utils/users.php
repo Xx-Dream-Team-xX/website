@@ -150,7 +150,7 @@
         }
 
         public function getPublic() {
-            $all = $this->getAll;
+            $all = $this->getAll();
             unset($all['password_hash']);
 
             return $all;
