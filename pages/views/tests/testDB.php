@@ -34,21 +34,20 @@
         'manufacturer' => 'Renault',
     ));
 
-    $contract2 = $assurance->newContract(array(
-        'id' => '434705435745',
-        'owners' => array($user->getID()),
-        'start' => time(),
-        'end' => time(),
-        'vID' => 'AB-123-cd',
-        'insurance' => '547596fjk543',
-        'countryCode' => 'F6579',
-        'category' => 'A',
-        'manufacturer' => 'Ford',
-    ));
-    DB::setObject(get_path('database', 'testAssurances.json'), $assurance->getAll(), true);
-    $user->addContract($contract);
-    $contract2->addOwner($user);
-
+    // $contract2 = $assurance->newContract(array(
+    //     'id' => '434705435745',
+    //     'owners' => array($user->getID()),
+    //     'start' => time(),
+    //     'end' => time(),
+    //     'vID' => 'AB-123-cd',
+    //     'insurance' => '547596fjk543',
+    //     'countryCode' => 'F6579',
+    //     'category' => 'A',
+    //     'manufacturer' => 'Ford',
+    // ));
+    // DB::setObject(get_path('database', 'testAssurances.json'), $assurance->getAll(), true);
+    // $user->addContract($contract);
+    // $contract2->addOwner($user);
     // $test = new Conversation(array(
     //     'people' => array(
     //         uniqid(),
