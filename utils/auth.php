@@ -69,11 +69,19 @@ class Auth {
      * @return array success and random password OR error and error code
      */
     public function register(array $user) {
-        $error = 0;
-        if (User::checkEmail($user['mail'])) {
-            if ($this->checkNameFormat($user['first_name']) && $this->checkNameFormat($user['last_name'])) {
-                if ($this->checkStreetFormat($user['address']) && $this->checkZipFormat($user['zip'])) {
-                    if (User::checkPhone($user['phone'])) {
+
+        $error = self::INVALID_EMAIL;
+
+        if ((User::checkEmail($user['mail'] ?? null)) && (DB::getUserByMail($this->path, $user['mail']) === false)) {
+
+            $error = self::INVALID_NAME;
+            if ($this->checkNameFormat($user['first_name'] ?? null) && $this->checkNameFormat($user['last_name'] ?? null)) {
+
+                $error = self::INVALID_ADDRESS;
+                if ($this->checkStreetFormat($user['address'] ?? null) && $this->checkZipFormat($user['zip_code'] ?? null)) {
+
+                    $error = self::INVALID_PHONE;
+                    if (User::checkPhone($user['phone'] ?? null)) {
                         $password = $this->genPassword();
                         $user['password'] = $password;
                         $user = User::createUserByType($user);
@@ -84,13 +92,9 @@ class Auth {
                             'password' => $password,
                         );
                     }
-                    $error = self::INVALID_PHONE;
                 }
-                $error = self::INVALID_ADDRESS;
             }
-            $error = self::INVALID_NAME;
         }
-        $error = self::INVALID_EMAIL;
 
         return array(
             'success' => false,
@@ -142,28 +146,28 @@ class Auth {
     /**
      * Regex check for specific type.
      */
-    private function checkPasswordFormat(string $pass) {
+    private function checkPasswordFormat(?string $pass) {
         return true;
     }
 
     /**
      * Regex check for specific type.
      */
-    private function checkNameFormat(string $name) {
+    private function checkNameFormat(?string $name) {
         return true;
     }
 
     /**
      * Regex check for specific type.
      */
-    private function checkStreetFormat(string $street) {
+    private function checkStreetFormat(?string $street) {
         return true;
     }
 
     /**
      * Regex check for specific type.
      */
-    private function checkZipFormat(string $zip) {
+    private function checkZipFormat(?string $zip) {
         return true;
     }
 
