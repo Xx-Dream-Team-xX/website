@@ -7,7 +7,7 @@
     function getPermissions($user = null) {
         $perm = 0;
         if (isset($_SESSION, $_SESSION['user'])) {
-            $perm = $_SESSION['user']['status'];
+            $perm = $_SESSION['user']['type'];
         }
 
         return $perm;
