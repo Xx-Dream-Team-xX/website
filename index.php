@@ -32,5 +32,11 @@
     Router::add('auth', get_path('api', 'auth.php'));
 
     Router::default(get_path('views', 'error.php'));
-    Router::start($path_array);
+
+    try {
+        Router::start($path_array);
+    } catch (\Throwable $th) {
+        http_response_code(500);
+        die();
+    }
 ?>
