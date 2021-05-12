@@ -149,6 +149,13 @@
             );
         }
 
+        public function getPublic() {
+            $all = $this->getAll;
+            unset($all['password_hash']);
+
+            return $all;
+        }
+
         /**
          * Check if email passed is valide.
          *
