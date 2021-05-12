@@ -28,7 +28,7 @@
             }
             break;
         default:
-            # code...
+            notfound();
             break;
     }
 ?>
