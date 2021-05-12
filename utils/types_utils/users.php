@@ -259,7 +259,7 @@
         protected $contracts = array();
 
         public function __construct($rawUser) {
-            if (isset($rawUser['phone'],$rawUser['address'],$rawUser['zip_code'],$rawUser['rep'],$rawUser['assurance'])) {
+            if (isset($rawUser['birth'],$rawUser['phone'],$rawUser['address'],$rawUser['zip_code'],$rawUser['rep'],$rawUser['assurance'])) {
                 parent::__construct($rawUser);
                 $this->type = User::ASSURE;
                 $this->setPhone($rawUser['phone']);
@@ -269,6 +269,11 @@
                 $this->assurance = $rawUser['assurance'];
                 if (isset($rawUser['contracts'])) {
                     $this->contracts = $rawUser['contracts'];
+                }
+                if (gettype('int' != $rawUser['birth'])) {
+                    $this->setBirth($rawUser['birth']);
+                } else {
+                    $this->birth = $rawUser['birth'];
                 }
             } else {
                 throw new Exception("Array passed doesn't represend a User Assuré", 1);
@@ -281,6 +286,7 @@
                 'contracts' => $this->contracts,
                 'zip_code' => $this->zipCode,
                 'address' => $this->address,
+                'birth' => $this->birth,
             ));
         }
 
