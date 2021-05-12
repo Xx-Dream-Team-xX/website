@@ -1,169 +1,195 @@
 <?php
 
-    class Contract {
-        public const IDERROR = 1;
+use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\QROptions;
 
-        public const CATERROR = 2;
+class Contract {
+    public const IDERROR = 1;
 
-        public const ARRAYERROR = 3;
+    public const CATERROR = 2;
 
-        /**
-         * UUID of the contract.
-         *
-         * @var string
-         */
-        private $id = '';
+    public const ARRAYERROR = 3;
 
-        /**
-         * Array of userID concerned by this contract. The first user in the array will always be the main owner of the contract.
-         *
-         * @var array
-         */
-        private $owners = array();
+    /**
+     * UUID of the contract.
+     *
+     * @var string
+     */
+    private $id = '';
 
-        /**
-         * Time stamp of the start of validity of the contracr.
-         *
-         * @var int
-         */
-        private $start = 0;
+    /**
+     * Array of userID concerned by this contract. The first user in the array will always be the main owner of the contract.
+     *
+     * @var array
+     */
+    private $owners = array();
 
-        /**
-         * Time stamp of the end of validity of the contracr.
-         *
-         * @var int
-         */
-        private $end = 0;
+    /**
+     * Time stamp of the start of validity of the contracr.
+     *
+     * @var int
+     */
+    private $start = 0;
 
-        /**
-         * ID plate of the vehicle.
-         *
-         * @var string
-         */
-        private $vID = '';
+    /**
+     * Time stamp of the end of validity of the contracr.
+     *
+     * @var int
+     */
+    private $end = 0;
 
-        /**
-         * InsuranceUUID.
-         *
-         * @var string
-         */
-        private $insuranceID = '';
+    /**
+     * ID plate of the vehicle.
+     *
+     * @var string
+     */
+    private $vID = '';
 
-        /**
-         * Country/Insurance indentificator.
-         *
-         * @var string
-         */
-        private $countryCode = '';
+    /**
+     * InsuranceUUID.
+     *
+     * @var string
+     */
+    private $insuranceID = '';
 
-        /**
-         * Vehcle categorie.
-         *
-         * @var string
-         */
-        private $category = '';
+    /**
+     * Country/Insurance indentificator.
+     *
+     * @var string
+     */
+    private $countryCode = '';
 
-        /**
-         * Manufacturer of the vehicle.
-         *
-         * @var string
-         */
-        private $manufacturer = '';
+    /**
+     * Vehcle categorie.
+     *
+     * @var string
+     */
+    private $category = '';
 
-        /**
-         * Array containing territorial validity of the contract.
-         *
-         * @var array
-         */
-        private $territoryValidity = array('a' => false);
+    /**
+     * Manufacturer of the vehicle.
+     *
+     * @var string
+     */
+    private $manufacturer = '';
 
-        /**
-         * Constructor for Contract.
-         */
-        public function __construct(array $rawContract) {
-            if (isset($rawContract['id'],$rawContract['owners'],$rawContract['start'],$rawContract['end'],$rawContract['vID'],$rawContract['insurance'], $rawContract['countryCode'], $rawContract['category'],$rawContract['manufacturer'])) {
-                $this->owners = $rawContract['owners'];
-                $this->start = $rawContract['start'];
-                $this->end = $rawContract['end'];
-                $this->setVehicleID($rawContract['vID']);
-                $this->id = $rawContract['id'];
-                $this->insuranceID = $rawContract['insurance'];
-                $this->countryCode = $rawContract['countryCode'];
-                $this->setVCat($rawContract['category']);
-                $this->manufacturer = $rawContract['manufacturer'];
-            } else {
-                throw new Exception('Contract given is missing some informations', self::ARRAYERROR);
-            }
-        }
+    /**
+     * Array containing territorial validity of the contract.
+     *
+     * @var array
+     */
+    private $territoryValidity = array('a' => false);
 
-        /**
-         * Check if user is Main owner of the contract
-         *
-         * @param string $id Id of the user to check
-         * @return boolean
-         */
-        public function isMainOwner(string $id) {
-            return $this->owners[0] === $id;
-        }
-
-        public function getAll() {
-            return array(
-                'id' => $this->id,
-                'owners' => $this->owners,
-                'start' => $this->start,
-                'end' => $this->end,
-                'vID' => $this->vID,
-                'insurance' => $this->insuranceID,
-                'countryCode' => $this->countryCode,
-                'category' => $this->category,
-                'manufacturer' => $this->manufacturer,
-            );
-        }
-
-        public function getID() {
-            return $this->id;
-        }
-
-        public function getOwners() {
-            return $this->owners;
-        }
-
-        /**
-         * Validate phone number and set it if correct.
-         *
-         * @return bool false if invalid
-         */
-        public function setVehicleID(string $vID) {
-            $sanitizedVID = str_replace('-', '', $vID);
-            $sanitizedVID = strtoupper($sanitizedVID);
-            if ((7 == strlen($sanitizedVID)) && !is_numeric(substr($sanitizedVID, 0, 2)) && is_numeric(substr($sanitizedVID, 2, 3)) && !is_numeric(substr($sanitizedVID, 5, 2))) {
-                $this->vID = $sanitizedVID;
-            } else {
-                throw new Exception('Invalid ID plate', self::IDERROR);
-            }
-        }
-
-        public function addOwner(UserAssure $user) {
-            array_push($this->owners, $user->getID());
-            if (!in_array($this->id, $user->getContracts())) {
-                $user->addContract($this);
-            }
-        }
-
-        /**
-         * Check that a valide category is entered.
-         *
-         * @param string $cat vehicle category to check
-         *
-         * @return string or false if not valide
-         */
-        private function setVCat(string $cat) {
-            if (in_array($cat, array('A', 'B', 'C', 'D', 'E', 'F', 'G'))) {
-                $this->category = $cat;
-            } else {
-                throw new Exception('Invalid Category', self::CATERROR);
-            }
+    /**
+     * Constructor for Contract.
+     */
+    public function __construct(array $rawContract) {
+        if (isset($rawContract['id'],$rawContract['owners'],$rawContract['start'],$rawContract['end'],$rawContract['vID'],$rawContract['insurance'], $rawContract['countryCode'], $rawContract['category'],$rawContract['manufacturer'])) {
+            $this->owners = $rawContract['owners'];
+            $this->start = $rawContract['start'];
+            $this->end = $rawContract['end'];
+            $this->setVehicleID($rawContract['vID']);
+            $this->id = $rawContract['id'];
+            $this->insuranceID = $rawContract['insurance'];
+            $this->countryCode = $rawContract['countryCode'];
+            $this->setVCat($rawContract['category']);
+            $this->manufacturer = $rawContract['manufacturer'];
+        } else {
+            throw new Exception('Contract given is missing some informations', self::ARRAYERROR);
         }
     }
+
+    /**
+     * Check if user is Main owner of the contract.
+     *
+     * @param string $id Id of the user to check
+     *
+     * @return bool
+     */
+    public function isMainOwner(string $id) {
+        return $this->owners[0] === $id;
+    }
+
+    public function getAll() {
+        return array(
+            'id' => $this->id,
+            'owners' => $this->owners,
+            'start' => $this->start,
+            'end' => $this->end,
+            'vID' => $this->vID,
+            'insurance' => $this->insuranceID,
+            'countryCode' => $this->countryCode,
+            'category' => $this->category,
+            'manufacturer' => $this->manufacturer,
+        );
+    }
+
+    public function getID() {
+        return $this->id;
+    }
+
+    public function getOwners() {
+        return $this->owners;
+    }
+
+    /**
+     * Validate phone number and set it if correct.
+     *
+     * @return bool false if invalid
+     */
+    public function setVehicleID(string $vID) {
+        $sanitizedVID = str_replace('-', '', $vID);
+        $sanitizedVID = strtoupper($sanitizedVID);
+        if ((7 == strlen($sanitizedVID)) && !is_numeric(substr($sanitizedVID, 0, 2)) && is_numeric(substr($sanitizedVID, 2, 3)) && !is_numeric(substr($sanitizedVID, 5, 2))) {
+            $this->vID = $sanitizedVID;
+        } else {
+            throw new Exception('Invalid ID plate', self::IDERROR);
+        }
+    }
+
+    public function addOwner(UserAssure $user) {
+        array_push($this->owners, $user->getID());
+        if (!in_array($this->id, $user->getContracts())) {
+            $user->addContract($this);
+        }
+    }
+
+    public function generateQr(bool $send = false) {
+        try {
+            $options = new QROptions(array(
+                'version' => 7,
+                'outputType' => QRCode::OUTPUT_MARKUP_SVG,
+                'imageBase64' => false,
+                'eccLevel' => QRCode::ECC_L,
+            ));
+
+            $qrcode = new QRCode($options);
+            $svg = $qrcode->render($this->id);
+            if ($send) {
+                header('Content-type: image/svg+xml');
+                echo $svg;
+            } else {
+                return $svg;
+            }
+        } catch (Exception $e) {
+            echo 'Exception reçue : ',  $e->getMessage(), "\n";
+        }
+    }
+
+    /**
+     * Check that a valide category is entered.
+     *
+     * @param string $cat vehicle category to check
+     *
+     * @return string or false if not valide
+     */
+    private function setVCat(string $cat) {
+        if (in_array($cat, array('A', 'B', 'C', 'D', 'E', 'F', 'G'))) {
+            $this->category = $cat;
+        } else {
+            throw new Exception('Invalid Category', self::CATERROR);
+        }
+    }
+}
 
 ?>

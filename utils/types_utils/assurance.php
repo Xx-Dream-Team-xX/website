@@ -43,6 +43,7 @@
 
         public function newGestionnaire(array $rawGestionnaires) {
             $rawGestionnaires['assurance'] = $this->id;
+            $rawGestionnaires['type'] = User::GESTIONNAIRE;
             $gestionnaire = new UserGestionnaire($rawGestionnaires);
             array_push($this->gestionnaires, $gestionnaire->getID());
 

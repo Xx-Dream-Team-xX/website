@@ -2,7 +2,7 @@
 /**
  * Database utils.
  */
-
+require './vendor/autoload.php';
     /**
      * Abstract class to manipulate a DB.
      */
@@ -17,16 +17,16 @@
          * @return array Array of object containing each element info
          */
         public static function getAll(string $path) {
-                if (file_exists($path)) {
-                    $file = file_get_contents($path);
-                    if ($file) {
-                        return json_decode($file, 1);
-                    } else {
-                        return array();
-                    }
-                } else {
-                    throw new Exception("Failed to open file $path", 1);
+            if (file_exists($path)) {
+                $file = file_get_contents($path);
+                if ($file) {
+                    return json_decode($file, 1);
                 }
+
+                return array();
+            }
+
+            throw new Exception("Failed to open file {$path}", 1);
         }
 
         /**
@@ -72,32 +72,28 @@
         /**
          * Writes an Object in the DB and check if it already exists. If it does exist and we wanted a new one the function returns false.
          *
-         * @param string $path Path to the DB
-         * @param array $rawObject Object
+         * @param string $path      Path to the DB
+         * @param array  $rawObject Object
          *
          * @return bool false if user Already exist
          */
         public static function setObject(string $path, array $rawObject, bool $new = false) {
-
             $data = self::getAll($path);
             $element_exist = false;
             if (isset($rawObject['id'])) {
-
                 foreach ($data as &$element) {
                     if ((isset($element['id']) && ($element['id'] == $rawObject['id']))) {
-
                         $element_exist = true;
 
                         if (!$new) {
-
                             $element = $rawObject;
-                            break;
 
-                        } else {
-                            throw new Exception("ID already exists", 1);
-                            return false;
+                            break;
                         }
 
+                        throw new Exception('ID already exists', 1);
+
+                        return false;
                     }
                 }
 
@@ -109,7 +105,6 @@
             } else {
                 return false;
             }
-
         }
 
         /**
@@ -123,9 +118,10 @@
             if ($file) {
                 fwrite($file, json_encode($data, JSON_PRETTY_PRINT));
                 fclose($file);
+
                 return true;
-            } else {
-                throw new Exception("Failed to open file $path", 1);
             }
+
+            throw new Exception("Failed to open file {$path}", 1);
         }
     }
