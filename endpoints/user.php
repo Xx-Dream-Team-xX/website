@@ -21,8 +21,8 @@
                         'id' => $u["id"],
                         'name' => $u["last_name"] . " " . $u["first_name"],
                         'mail' => $u["mail"],
-                        'type' => $u["type"]
-                        // to add stuff
+                        'type' => $u["type"],
+                        'birth' => $u["birth"]
                     );
                 }, $users));
             }
