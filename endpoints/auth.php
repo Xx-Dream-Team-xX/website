@@ -8,20 +8,18 @@
 
     switch (get_final_point()) {
         case 'login':
-            if (isset($_POST["login"], $_POST["password"]) && $auth->login($_POST["login"], $_POST["password"])) {
-                send_json($_SESSION);
-            } else {
-                echo false;
-            }
+            send_json(isset($_POST["login"], $_POST["password"]) && $auth->login($_POST["login"], $_POST["password"]));
             break;
         case 'register':
             # code...
             break;
         case 'logoff':
-            # code...
+            session_destroy();
             break;
         case 'changepassword':
-            # code...
+            if (getPermissions() > 0) {
+                
+            }
             break;
         default:
             # code...
