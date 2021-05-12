@@ -161,7 +161,7 @@
          *
          * @return bool
          */
-        public static function checkEmail(string $email) {
+        public static function checkEmail(?string $email) {
             return filter_var($email, FILTER_VALIDATE_EMAIL);
         }
 
@@ -170,7 +170,7 @@
          *
          * @return bool
          */
-        public static function checkPhone(string $phone, int $minDigits = 9, int $maxDigits = 14) {
+        public static function checkPhone(?string $phone, int $minDigits = 9, int $maxDigits = 14) {
             if (preg_match('/^[+][0-9]/', $phone)) {
                 $count = 1;
                 $phone = str_replace(array('+'), '', $phone, $count);
@@ -321,7 +321,7 @@
                 $this->type = User::GESTIONNAIRE;
                 $this->assurance = $rawUser['assurance'];
             } else {
-                throw new Exception("Array passed doesn't represend a User Assuré", 1);
+                throw new Exception("Array passed doesn't represend a User Gestionnaire", 1);
             }
         }
 
