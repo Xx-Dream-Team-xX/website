@@ -73,6 +73,7 @@
                 } else {
                     $this->id = uniqid();
                 }
+                $this->setPhone($rawUser['phone']);
                 $this->type = self::isValidUserType($rawUser['type']);
                 $this->mail = $rawUser['mail'];
                 $this->first_name = $rawUser['first_name'];
@@ -145,7 +146,8 @@
                 'mail' => $this->mail,
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
-                'password_hash' => $this->password
+                'phone' => $this->phone,
+                'password_hash' => $this->password,
             );
         }
 
@@ -262,7 +264,6 @@
             if (isset($rawUser['birth'],$rawUser['phone'],$rawUser['address'],$rawUser['zip_code'],$rawUser['rep'],$rawUser['assurance'])) {
                 parent::__construct($rawUser);
                 $this->type = User::ASSURE;
-                $this->setPhone($rawUser['phone']);
                 $this->address = $rawUser['address'];
                 $this->zipCode = $rawUser['zip_code'];
                 $this->rep = $rawUser['rep'];
@@ -282,7 +283,6 @@
 
         public function getAll() {
             return array_merge(parent::getAll(), array(
-                'phone' => $this->phone,
                 'contracts' => $this->contracts,
                 'zip_code' => $this->zipCode,
                 'address' => $this->address,
