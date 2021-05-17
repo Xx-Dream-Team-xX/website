@@ -80,7 +80,7 @@
                 $this->last_name = $rawUser['last_name'];
                 if (isset($rawUser['password_hash'])) {
                     $this->password = $rawUser['password_hash'];
-                } elseif (isset($rawUser['password'])) {
+                } else if (isset($rawUser['password'])) {
                     $this->setPassword($rawUser['password']);
                 } else {
                     throw new Exception('Please specify a password', 1);
