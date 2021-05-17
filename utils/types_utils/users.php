@@ -303,7 +303,7 @@
 
         public function setBirth(string $date) {
             if ($date = DateTime::createFromFormat('d/m/Y', $date)) {
-                $this->birth = $date->getTimestamp;
+                $this->birth = $date->getTimestamp();
 
                 return true;
             }
