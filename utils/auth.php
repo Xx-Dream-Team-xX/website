@@ -3,6 +3,7 @@
  * User authentification.
  */
 include_once get_path('utils', 'types_utils/users.php');
+include_once get_path('utils', 'forms.php');
 
 class Auth {
     /**
@@ -19,6 +20,8 @@ class Auth {
     public const INVALID_LOGIN = 5;
 
     public const INVALID_PASSWORD = 6;
+
+    public const MISSING_INFORMATION = 7;
 
     /**
      * Path of the auth database.
@@ -64,24 +67,61 @@ class Auth {
     /**
      * Registers a new user, generates random password.
      *
-     * @param array $user user data array
+     * @param array  $user   user data array
+     * @param string $author id of who executed the action
+     * @param int    $type   Type of user to create
      *
      * @return array success and random password OR error and error code
      */
-    public function register(array $user) {
+    public function register(array $user, string $author, int $type = User::ASSURE) {
+        $r = array(
+            array(
+                'mail' => array(),
+                'first_name' => array(),
+                'last_name' => array(),
+                'phone' => array(),
+            ),
+            array(
+                'address' => array(),
+                'zip_code' => array(),
+                'birth' => array(),
+                'assurance' => array(),
+            ),
+            array(),
+            array(
+                'assurance' => array(),
+            ),
+        );
 
-        $error = self::INVALID_EMAIL;
+        $user = validateObject($user, array_merge($r[0], $r[$type]));
 
-        if ((User::checkEmail($user['mail'] ?? null)) && (DB::getUserByMail($this->path, $user['mail']) === false)) {
+        $error = self::MISSING_INFORMATION;
+        if ($user) {
+            $user['type'] = $type;
 
-            $error = self::INVALID_NAME;
-            if ($this->checkNameFormat($user['first_name'] ?? null) && $this->checkNameFormat($user['last_name'] ?? null)) {
+            $error = self::INVALID_EMAIL;
+            if ((User::checkEmail($user['mail'] ?? null)) && (false === DB::getUserByMail($this->path, $user['mail']))) {
+                $error = self::INVALID_NAME;
+                if ($this->checkNameFormat($user['first_name'] ?? null) && $this->checkNameFormat($user['last_name'] ?? null)) {
+                    if (User::ASSURE === $type) {
+                        $user['rep'] = $author;
 
-                $error = self::INVALID_ADDRESS;
-                if ($this->checkStreetFormat($user['address'] ?? null) && $this->checkZipFormat($user['zip_code'] ?? null)) {
+                        $error = self::INVALID_ADDRESS;
+                        if ($this->checkStreetFormat($user['address'] ?? null) && $this->checkZipFormat($user['zip_code'] ?? null)) {
+                            $error = self::INVALID_PHONE;
+                            if (User::checkPhone($user['phone'] ?? null)) {
+                                $password = $this->genPassword();
+                                $user['password'] = $password;
+                                $user = User::createUserByType($user);
+                                DB::setObject($this->path, $user->getAll(), true);
 
-                    $error = self::INVALID_PHONE;
-                    if (User::checkPhone($user['phone'] ?? null)) {
+                                return array(
+                                    'success' => true,
+                                    'password' => $password,
+                                );
+                            }
+                        }
+                    } else {
                         $password = $this->genPassword();
                         $user['password'] = $password;
                         $user = User::createUserByType($user);
@@ -113,61 +153,44 @@ class Auth {
      * @return array success or failure and error code
      */
     public function changePassword(string $id, ?string $email, ?string $password, ?string $new_password = null) {
-        
-
         $user = DB::getFromID($this->path, $id);
-
         $error = self::INVALID_LOGIN;
         if ($user && password_verify($password, $user['password_hash'])) {
-
-                $error = 0;
-
-                if ($email !== $user['mail']) {
-
-                    $error = self::INVALID_EMAIL;
-                    if (User::checkEmail($email)) {
-                        $user['mail'] = $email;
-                        $error = 0;
-                    }
-
+            $error = 0;
+            if ($email !== $user['mail']) {
+                $error = self::INVALID_EMAIL;
+                if (User::checkEmail($email)) {
+                    $user['mail'] = $email;
+                    $error = 0;
                 }
-                if (!$error && isset($new_password)) {
-
-                    $error = self::INVALID_PASSWORD;
-                    if ($this->checkPasswordFormat($new_password)) {
-
-                        unset($user['password_hash']);
-                        $user['password'] = $new_password;
-                        
-                        $error = 0;
-                    }
+            }
+            if (!$error && isset($new_password)) {
+                $error = self::INVALID_PASSWORD;
+                if ($this->checkPasswordFormat($new_password)) {
+                    unset($user['password_hash']);
+                    $user['password'] = $new_password;
+                    $error = 0;
                 }
-                
-            
+            }
         }
-        
-
         if ($error > 0) {
             return array(
                 'success' => false,
                 'message' => $error,
             );
-        } else {
-
-            DB::setObject($this->path, (User::createUserByType($user))->getAll());
-
-            return array(
-                'success' => true,
-            );
         }
-        
+        DB::setObject($this->path, (User::createUserByType($user))->getAll());
+
+        return array(
+            'success' => true,
+        );
     }
 
     /**
      * Regex check for specific type.
      */
     private function checkPasswordFormat(?string $pass) {
-        return preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/", $pass);
+        return preg_match('/^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/', $pass);
     }
 
     /**
