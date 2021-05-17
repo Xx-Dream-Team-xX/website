@@ -235,6 +235,13 @@
             );
         }
 
+        public function getPublic() {
+            $all = $this->getAll();
+            unset($all['password_hash']);
+
+            return $all;
+        }
+
         /**
          * Check if email passed is valide.
          *
@@ -316,6 +323,11 @@
                     return new UserAssure($rawUser);
 
                     break;
+                case self::GESTIONNAIRE:
+                    return new UserGestionnaire($rawUser);
+
+                    break;
+                
                 default:
                     return new User($rawUser);
 
@@ -324,26 +336,76 @@
         }
     }
 
+    /**
+     * Assuré class
+     */
     class UserAssure extends User {
+
+        /**
+         * Street address
+         *
+         * @var string
+         */
         protected $address = '';
 
+        /**
+         * ZIP code
+         *
+         * @var string
+         */
         protected $zipCode = '';
 
+        /**
+         * Assigned representant id
+         */
         protected $rep = '';
 
+        /**
+         * Assigned assurance
+         */
         protected $assurance = '';
 
+        /**
+         * Date of birth (unix)
+         *
+         * @var integer
+         */
         protected $birth = 0;
 
+        /**
+         * Contracts
+         *
+         * @var array
+         */
         protected $contracts = array();
 
+        /**
+         * Declarations ids stack
+         *
+         * @var array
+         */
         protected $declarations = array();
 
+        /**
+         * Sinisters ids stack
+         *
+         * @var array
+         */
         protected $sinisters = array();
 
+        /**
+         * Pending actions stack (verifications)
+         *
+         * @var array
+         */
         protected $actions = array();
 
-        public function __construct($rawUser) {
+        /**
+         * Assuré construction, initilaizes the user
+         *
+         * @param array $rawUser
+         */
+        public function __construct(array $rawUser) {
             if (isset($rawUser['birth'],$rawUser['address'],$rawUser['zip_code'],$rawUser['rep'],$rawUser['assurance'])) {
                 parent::__construct($rawUser);
                 $this->type = User::ASSURE;
@@ -374,6 +436,9 @@
             }
         }
 
+        /**
+         * Gets all user information
+         */
         public function getAll() {
             return array_merge(parent::getAll(), array(
                 'contracts' => $this->contracts,
@@ -388,10 +453,16 @@
             ));
         }
 
+        /**
+         * Returns contracts list
+         */
         public function getContracts() {
             return $this->contracts;
         }
 
+        /**
+         * Adds new contract to stack
+         */
         public function addContract(Contract $contract) {
             array_push($this->contracts, $contract->getID());
             if (!in_array($this->id, $contract->getOwners())) {
@@ -399,6 +470,9 @@
             }
         }
 
+        /**
+         * Sets birth from unix or from d/m/Y format
+         */
         public function setBirth(string $date) {
             if ($date = DateTime::createFromFormat('d/m/Y', $date)) {
                 $this->birth = $date->getTimestamp();
@@ -410,32 +484,54 @@
         }
     }
 
+    /**
+     * Gestionnaire user type
+     */
     class UserGestionnaire extends User {
+
+        /**
+         * Assigned assurance company
+         *
+         * @var string
+         */
         protected $assurance = '';
 
-        public function __construct($rawUser) {
+        /**
+         * Assigned contracts stack
+         *
+         * @var array
+         */
+        protected $contracts = array();
+
+        /**
+         * User constructor for gestionnaire
+         *
+         * @param array $rawUser
+         */
+        public function __construct(array $rawUser) {
             if (isset($rawUser['assurance'])) {
                 parent::__construct($rawUser);
                 $this->type = User::GESTIONNAIRE;
                 $this->assurance = $rawUser['assurance'];
+
+                if (isset($rawUser["contracts"])) {
+                    $this->contracts = $rawUser["contracts"];
+                }
             } else {
                 throw new Exception("Array passed doesn't represent a User Gestionnaire", 1);
             }
         }
 
+        /**
+         * Gets all information
+         *
+         * @return void
+         */
         public function getAll() {
             return array_merge(parent::getAll(), array(
                 'contracts' => $this->contracts,
                 'assurance' => $this->assurance,
             ));
-        }
-
-        public function newUserAssure($rawAssure) {
-            $rawAssure['rep'] = $this->id;
-            $rawAssure['type'] = User::ASSURE;
-            $rawAssure['assurance'] = $this->assurance;
-
-            return new UserAssure($rawAssure);
         }
     }
 
