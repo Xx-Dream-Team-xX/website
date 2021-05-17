@@ -5,6 +5,8 @@
  define('SETTINGS', array(
      'name' => 'iCar',
      'version' => '0.0.1',
+     'domain' => 'localhost',
+     'ssl' => false
  ));
  // List of possible path were web server files are stored for router to look into
  define('PATH', array(
