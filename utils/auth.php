@@ -112,42 +112,62 @@ class Auth {
      *
      * @return array success or failure and error code
      */
-    public function changePassword(string $id, string $email, string $password, string $new_password = null) {
-        $error = 0;
+    public function changePassword(string $id, ?string $email, ?string $password, ?string $new_password = null) {
+        
 
         $user = DB::getFromID($this->path, $id);
-        if ($user && password_verify($password, $user['password_hash'])) {
-            if (($email === $user['mail']) || User::checkEmail($email)) {
-                if (!isset($new_password) || $this->checkPasswordFormat($new_password)) {
-                    $user['mail'] = $email;
-                    if (isset($new_password)) {
-                        $user['password'] = $new_password;
-                    }
-
-                    DB::setObject($this->path, (new User($user))->getAll());
-
-                    return array(
-                        'success' => true,
-                    );
-                }
-                $error = self::INVALID_PASSWORD;
-            }
-            $error = self::INVALID_EMAIL;
-        }
 
         $error = self::INVALID_LOGIN;
+        if ($user && password_verify($password, $user['password_hash'])) {
 
-        return array(
-            'success' => false,
-            'message' => $error,
-        );
+                $error = 0;
+
+                if ($email !== $user['mail']) {
+
+                    $error = self::INVALID_EMAIL;
+                    if (User::checkEmail($email)) {
+                        $user['mail'] = $email;
+                        $error = 0;
+                    }
+
+                }
+                if (!$error && isset($new_password)) {
+
+                    $error = self::INVALID_PASSWORD;
+                    if ($this->checkPasswordFormat($new_password)) {
+
+                        unset($user['password_hash']);
+                        $user['password'] = $new_password;
+                        
+                        $error = 0;
+                    }
+                }
+                
+            
+        }
+        
+
+        if ($error > 0) {
+            return array(
+                'success' => false,
+                'message' => $error,
+            );
+        } else {
+
+            DB::setObject($this->path, (User::createUserByType($user))->getAll());
+
+            return array(
+                'success' => true,
+            );
+        }
+        
     }
 
     /**
      * Regex check for specific type.
      */
     private function checkPasswordFormat(?string $pass) {
-        return preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm", $pass);
+        return preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/", $pass);
     }
 
     /**
