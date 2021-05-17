@@ -8,10 +8,7 @@
     function validateEntry($d,?array $t) {
         $result = false;
         switch ($t['type']) {
-            case 'text':
-                $result = htmlspecialchars($d);
 
-                break;
             case 'preselection':
                 if (in_array($d, $d['options'])) {
                     $result = $d;
@@ -39,6 +36,7 @@
 
                 break;
             default:
+                $result = htmlspecialchars($d);
                 break;
         }
 
