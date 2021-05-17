@@ -5,9 +5,9 @@
      * @param $d Input data
      * @param array $t Exepected format
      */
-    function validateEntry($d,?array $t) {
+    function validateEntry($d,?array $t=null) {
         $result = false;
-        switch ($t['type']) {
+        switch ($t['type'] ?? null) {
 
             case 'preselection':
                 if (in_array($d, $d['options'])) {
@@ -52,11 +52,13 @@
      */
     function validateObject($d, $t) {
         $r = array();
+
         foreach ($t as $i => $v) {
-            if (isset($t[$i])) {
+
+            if (isset($d[$i])) {
                 $v = validateEntry($d[$i], $v);
                 if (false !== $v) {
-                    array_push($r, $v);
+                    $r = array_merge($r, [$i => $v]);
                 } else {
                     return false;
                 }
