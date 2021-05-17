@@ -64,6 +64,20 @@
         protected $phone = '';
 
         /**
+         * Conversations
+         *
+         * @var array
+         */
+        protected $conversations = array();
+
+        /**
+         * Notifications
+         *
+         * @var array
+         */
+        protected $notifications = array();
+
+        /**
          * Constructor for the user.
          */
         public function __construct(array $rawUser) {
@@ -130,8 +144,69 @@
             return $this->mail;
         }
 
+        /**
+         * Get user phone
+         *
+         * @return void
+         */
         public function getPhone() {
             return $this->phone;
+        }
+
+        /**
+         * Add conversation to conversation list
+         *
+         * @param string $id conversation id
+         * @return void
+         */
+        public function addConversation(string $id) {
+            array_push($this->conversations, $id);
+        }
+
+        /**
+         * Add notification to the stack
+         *
+         * @param string $title Title of the notification
+         * @param string $content Content of notification
+         * @param string $url Redirection of notification
+         * @return void
+         */
+        public function pushNotification(string $title, string $content, string $url) {
+            array_push($this->notifications, [
+                'id' => uniqid(),
+                'title' => htmlspecialchars($title),
+                'content' => htmlspecialchars($content),
+                'url' => $url,
+                'seen' => false
+            ]);
+        }
+
+        /**
+         * Mark one or all notifications as read
+         *
+         * @param string|null $id Notification id, null for everything
+         * @return void
+         */
+        public function markNotificationsAsRead(?string $id) {
+
+            if (isset($id)) {
+                if ($this->notifications[$id]) {
+                    $this->notifications[$id]["seen"] = true;
+                }
+            } else {
+                foreach ($this->notifications as $n) {
+                    $this->notifications[$n]["seen"] = true;
+                }
+            }
+        }
+
+        /**
+         * Removes all notifications from stack
+         *
+         * @return void
+         */
+        public function clearNotifications() {
+            $this->notifications = array();
         }
 
         /**
@@ -147,7 +222,8 @@
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
                 'phone' => $this->phone,
-                'password_hash' => $this->password,
+                'conversations' => $this->conversations,
+                'password_hash' => $this->password
             );
         }
 
