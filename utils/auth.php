@@ -100,16 +100,16 @@ class Auth {
             $user['type'] = $type;
 
             $error = self::INVALID_EMAIL;
-            if ((User::checkEmail($user['mail'] ?? null)) && (false === DB::getUserByMail($this->path, $user['mail']))) {
+            if ((User::checkEmail($user['mail'])) && (false === DB::getUserByMail($this->path, $user['mail']))) {
                 $error = self::INVALID_NAME;
-                if ($this->checkNameFormat($user['first_name'] ?? null) && $this->checkNameFormat($user['last_name'] ?? null)) {
+                if ($this->checkNameFormat($user['first_name'] . " " . $user['last_name'])) {
                     if (User::ASSURE === $type) {
                         $user['rep'] = $author;
 
                         $error = self::INVALID_ADDRESS;
-                        if ($this->checkStreetFormat($user['address'] ?? null) && $this->checkZipFormat($user['zip_code'] ?? null)) {
+                        if ($this->checkStreetFormat($user['address']) && $this->checkZipFormat($user['zip_code'])) {
                             $error = self::INVALID_PHONE;
-                            if (User::checkPhone($user['phone'] ?? null)) {
+                            if (User::checkPhone($user['phone'])) {
                                 $password = $this->genPassword();
                                 $user['password'] = $password;
                                 $user = User::createUserByType($user);
@@ -188,6 +188,7 @@ class Auth {
 
     /**
      * Regex check for specific type.
+     * From https://regexr.com/
      */
     private function checkPasswordFormat(?string $pass) {
         return preg_match('/^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/', $pass);
@@ -195,29 +196,32 @@ class Auth {
 
     /**
      * Regex check for specific type.
+     * From https://regexr.com/
      */
     private function checkNameFormat(?string $name) {
-        return true;
+        return preg_match("/^([A-Z][a-z]+([ ]?[a-z]?['-]?[A-Z][a-z]+)*)$/", $name);
     }
 
     /**
      * Regex check for specific type.
+     * From https://regexr.com/
      */
     private function checkStreetFormat(?string $street) {
-        return true;
+        return preg_match("/^([0-9A-Za-zàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ \-])*/", $street);
     }
 
     /**
      * Regex check for specific type.
+     * From https://regexr.com/
      */
     private function checkZipFormat(?string $zip) {
-        return true;
+        return preg_match("/^(?:0[1-9]|[1-9]\d)\d{3}$/", $zip);
     }
 
     /**
-     * Generates a password.
+     * Generates a random password.
      *
-     * @param int $l
+     * @param int $l length
      */
     private function genPassword($l = 12) {
         $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
