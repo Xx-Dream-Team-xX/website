@@ -353,7 +353,7 @@
                     $this->birth = $rawUser['birth'];
                 }
             } else {
-                throw new Exception("Array passed doesn't represend a User Assuré", 1);
+                throw new Exception("Array passed doesn't represent a User Assuré", 1);
             }
         }
 
@@ -363,6 +363,8 @@
                 'zip_code' => $this->zipCode,
                 'address' => $this->address,
                 'birth' => $this->birth,
+                'assurance' => $this->assurance,
+                'rep' => $this->rep
             ));
         }
 
@@ -397,7 +399,7 @@
                 $this->type = User::GESTIONNAIRE;
                 $this->assurance = $rawUser['assurance'];
             } else {
-                throw new Exception("Array passed doesn't represend a User Gestionnaire", 1);
+                throw new Exception("Array passed doesn't represent a User Gestionnaire", 1);
             }
         }
 
