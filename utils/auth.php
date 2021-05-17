@@ -57,10 +57,12 @@ class Auth {
             if ($user && password_verify($password, $user['password_hash'])) {
                 $this->assign($user);
 
+                $_SERVER["logger"]->log(2, whois() . "successfully logged in");
                 return true;
             }
         }
 
+        $_SERVER["logger"]->log(1, whois() . "Failed login");
         return false;
     }
 
@@ -115,6 +117,8 @@ class Auth {
                                 $user = User::createUserByType($user);
                                 DB::setObject($this->path, $user->getAll(), true);
 
+                                $_SERVER["logger"]->log(3, whois() . "successfully created new customer account '" . $user["id"]);
+
                                 return array(
                                     'success' => true,
                                     'password' => $password,
@@ -127,6 +131,8 @@ class Auth {
                         $user = User::createUserByType($user);
                         DB::setObject($this->path, $user->getAll(), true);
 
+                        $_SERVER["logger"]->log(4, whois() . "successfully created elevated user '" . $user["id"] . "' (type " . $type . ")");
+
                         return array(
                             'success' => true,
                             'password' => $password,
@@ -135,6 +141,8 @@ class Auth {
                 }
             }
         }
+
+        $_SERVER["logger"]->log(2, whois() . "Failed user creation");
 
         return array(
             'success' => false,
@@ -174,12 +182,17 @@ class Auth {
             }
         }
         if ($error > 0) {
+
+            $_SERVER["logger"]->log(3, whois() . "failed to change account information");
+
             return array(
                 'success' => false,
                 'message' => $error,
             );
         }
         DB::setObject($this->path, (User::createUserByType($user))->getAll());
+
+        $_SERVER["logger"]->log(3, whois() . "successfully changed account information");
 
         return array(
             'success' => true,
