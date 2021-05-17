@@ -92,6 +92,13 @@
                 $this->mail = $rawUser['mail'];
                 $this->first_name = $rawUser['first_name'];
                 $this->last_name = $rawUser['last_name'];
+
+                if (isset($rawUser['conversations'])) {
+                    $this->conversations = $rawUser['conversations'];
+                }
+                if (isset($rawUser['notifications'])) {
+                    $this->notifications = $rawUser['notifications'];
+                }
                 if (isset($rawUser['password_hash'])) {
                     $this->password = $rawUser['password_hash'];
                 } else if (isset($rawUser['password'])) {
@@ -223,15 +230,9 @@
                 'last_name' => $this->last_name,
                 'phone' => $this->phone,
                 'conversations' => $this->conversations,
+                'notifications' => $this->notifications,
                 'password_hash' => $this->password
             );
-        }
-
-        public function getPublic() {
-            $all = $this->getAll();
-            unset($all['password_hash']);
-
-            return $all;
         }
 
         /**
@@ -295,7 +296,7 @@
          */
         public static function isValidUserType(string $type) {
             if (in_array($type, array(self::NONE, self::ASSURE, self::POLICE, self::GESTIONNAIRE, self::ADMIN))) {
-                return $type;
+                return (int) $type;
             }
 
             throw new Exception('Unknown User Type', 1);
@@ -336,6 +337,12 @@
 
         protected $contracts = array();
 
+        protected $declarations = array();
+
+        protected $sinisters = array();
+
+        protected $actions = array();
+
         public function __construct($rawUser) {
             if (isset($rawUser['birth'],$rawUser['address'],$rawUser['zip_code'],$rawUser['rep'],$rawUser['assurance'])) {
                 parent::__construct($rawUser);
@@ -344,6 +351,16 @@
                 $this->zipCode = $rawUser['zip_code'];
                 $this->rep = $rawUser['rep'];
                 $this->assurance = $rawUser['assurance'];
+
+                if (isset($rawUser['declarations'])) {
+                    $this->declarations = $rawUser['declarations'];
+                }
+                if (isset($rawUser['sinisters'])) {
+                    $this->sinisters = $rawUser['sinisters'];
+                }
+                if (isset($rawUser['actions'])) {
+                    $this->actions = $rawUser['actions'];
+                }
                 if (isset($rawUser['contracts'])) {
                     $this->contracts = $rawUser['contracts'];
                 }
@@ -360,6 +377,9 @@
         public function getAll() {
             return array_merge(parent::getAll(), array(
                 'contracts' => $this->contracts,
+                'declarations' => $this->declarations,
+                'sinisters' => $this->sinisters,
+                'actions' => $this->actions,
                 'zip_code' => $this->zipCode,
                 'address' => $this->address,
                 'birth' => $this->birth,
