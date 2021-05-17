@@ -13,8 +13,16 @@
 
             break;
         case 'register':
-            if (getPermissions() > 2) {
-                send_json($auth->register($_POST)); // Utilisateur lambda, à faire par types
+            switch (getPermissions()) {
+                case 3:
+                    send_json($auth->register($_POST, $_SESSION['user']['id']));
+                    break;
+                case 4:
+                    send_json($auth->register($_POST, $_SESSION['user']['id'], ($_POST["type"]) == User::POLICE) ?: User::GESTIONNAIRE);
+                    break;
+                default:
+
+                    break;
             }
             break;
         case 'logoff':
