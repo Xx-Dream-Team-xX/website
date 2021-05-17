@@ -261,7 +261,7 @@
         protected $contracts = array();
 
         public function __construct($rawUser) {
-            if (isset($rawUser['birth'],$rawUser['phone'],$rawUser['address'],$rawUser['zip_code'],$rawUser['rep'],$rawUser['assurance'])) {
+            if (isset($rawUser['birth'],$rawUser['address'],$rawUser['zip_code'],$rawUser['rep'],$rawUser['assurance'])) {
                 parent::__construct($rawUser);
                 $this->type = User::ASSURE;
                 $this->address = $rawUser['address'];
