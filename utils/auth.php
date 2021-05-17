@@ -117,7 +117,7 @@ class Auth {
                                 $user = User::createUserByType($user);
                                 DB::setObject($this->path, $user->getAll(), true);
 
-                                $_SERVER["logger"]->log(3, whois() . "successfully created new customer account '" . $user["id"]);
+                                $_SERVER["logger"]->log(3, whois() . "successfully created new customer account '" . $user->getID());
 
                                 return array(
                                     'success' => true,
@@ -131,7 +131,7 @@ class Auth {
                         $user = User::createUserByType($user);
                         DB::setObject($this->path, $user->getAll(), true);
 
-                        $_SERVER["logger"]->log(4, whois() . "successfully created elevated user '" . $user["id"] . "' (type " . $type . ")");
+                        $_SERVER["logger"]->log(4, whois() . "successfully created elevated user '" . $user->getID() . "' (type " . $type . ")");
 
                         return array(
                             'success' => true,
@@ -255,7 +255,7 @@ class Auth {
      * @param array $user Array of user data
      */
     private function assign(array $user) {
-        $_SESSION['user'] = (new User($user))->getPublic();
+        $_SESSION['user'] = (User::createUserByType($user))->getPublic();
     }
 }
 ?>
