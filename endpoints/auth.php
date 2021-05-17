@@ -23,7 +23,7 @@
             break;
         case 'changepassword':
             if (getPermissions() > 0) {
-                send_json(isset($_POST['password']) ? $auth->changePassword($_SESSION['user']['id'], $_SESSION['user']['mail'], $_POST['password'], $_POST['new'] ?? null) : false);
+                send_json(isset($_POST['password'], $_POST['mail']) ? $auth->changePassword($_SESSION['user']['id'], $_POST['mail'], $_POST['password'], $_POST['new'] ?? null) : false);
             }
 
             break;
