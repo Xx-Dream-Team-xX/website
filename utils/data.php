@@ -40,7 +40,7 @@ require './vendor/autoload.php';
         public static function getFromID(string $path, string $id) {
             $data = self::getAll($path);
             foreach ($data as $element) {
-                if ($element['id'] == $id) {
+                if ($element['id'] === $id) {
                     return $element;
 
                     break;
