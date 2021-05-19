@@ -36,6 +36,8 @@
     }
 
     function getUpdatedUser() {
-        return isLoggedIn() ? DB::getFromID(get_path("database", "users.json"), getID()) : null;
+        $user = DB::getFromID(get_path("database", "users.json"), getID());
+        if ($user) $_SESSION["user"] = (User::createUserByType($user))->getPublic();
+        return isLoggedIn() ? $user : null;
     }
 ?>
