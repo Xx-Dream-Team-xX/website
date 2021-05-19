@@ -99,8 +99,7 @@
             return array(
                 'id' => $this->id,
                 'people' => $this->people,
-                'type' => $this->type,
-                'path' => $this->getPath(),
+                'type' => $this->type
             );
         }
 
