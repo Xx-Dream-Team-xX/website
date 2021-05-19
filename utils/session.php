@@ -5,6 +5,8 @@
  * @param null|mixed $user
  */
 
+    include_once get_path('utils', 'types_utils/users.php');
+
     function isLoggedIn() {
         return (isset($_SESSION, $_SESSION['user']));
     }
@@ -31,5 +33,9 @@
             session_id(),
             getID()
         ]) . "] ";
+    }
+
+    function getUpdatedUser() {
+        return isLoggedIn() ? DB::getFromID(get_path("database", "users.json"), getID()) : null;
     }
 ?>
