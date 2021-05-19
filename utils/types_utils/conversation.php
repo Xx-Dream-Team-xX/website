@@ -112,7 +112,12 @@
             );
         }
 
-
+        /**
+         * Sets the last message to a message
+         *
+         * @param Message $msg
+         * @return void
+         */
         public function setLastMessage(Message $msg) {
             $this->message = $msg->getAll();
         }

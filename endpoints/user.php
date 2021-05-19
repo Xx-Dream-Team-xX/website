@@ -14,7 +14,7 @@
                 $filter = null;
                 $map = null;
 
-                $fcts = User::getInteractions();
+                $fcts = getInteractions();
                 
                 send_json(array_map($fcts[1], array_filter($users, $fcts[0])));
             }
