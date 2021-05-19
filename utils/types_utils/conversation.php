@@ -67,6 +67,13 @@
         protected $type = '';
 
         /**
+         * Last message
+         *
+         * @var string
+         */
+        protected $message = array();
+
+        /**
          * Creates a new conversation.
          *
          * @param array $data Array with conversation properties
@@ -83,6 +90,7 @@
                 $this->id = $data['id'] ?? uniqid();
                 $this->people = $data['people'];
                 $this->type = (isset($data['type']) && (self::TICKET === $data['type'])) ? self::TICKET : self::DM;
+                $this->message = $data['message'] ?? array();
 
                 if (is_dir(parent::getFolderPath()) && !file_exists($this->getPath())) {
                     touch($this->getPath());
@@ -99,8 +107,14 @@
             return array(
                 'id' => $this->id,
                 'people' => $this->people,
-                'type' => $this->type
+                'type' => $this->type,
+                'message' => $this->message
             );
+        }
+
+
+        public function setLastMessage(Message $msg) {
+            $this->message = $msg->getAll();
         }
 
         /**
