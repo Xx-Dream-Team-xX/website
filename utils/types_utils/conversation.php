@@ -113,6 +113,40 @@
         }
 
         /**
+         * Returns id
+         *
+         * @return string
+         */
+        public function getID() {
+            return $this->id;
+        }
+
+        /**
+         * Returns people
+         *
+         * @return array
+         */
+        public function getPeople() {
+            return $this->people;
+        }
+
+        public function addPeople(string $id) {
+            if (strlen($id) == 13) {
+                array_push($this->people, $id);
+            } else {
+                throw new Exception("Bad id format", 1);  
+            }
+        }
+
+        public function removePeople(string $id) {
+            if (in_array($id, $this->people)) {
+                unset($this->people[array_search($id, $this->conversations)]);
+            } else {
+                throw new Exception("id not in conversation", 1);   
+            }
+        }
+
+        /**
          * Sets the last message to a message
          *
          * @param Message $msg
