@@ -54,12 +54,9 @@
                 case User::GESTIONNAIRE:
 
                     $filter = function($u) {
-
                         return (($u["type"] === User::ASSURE) && ($u["assurance"] === $_SESSION["user"]["assurance"]));
                     };
-
                     $map = function($u) {
-
                         return array(
                             'id' => $u["id"],
                             'name' => $u["last_name"] . " " . $u["first_name"],
@@ -78,8 +75,7 @@
                         return ($u["type"] !== User::ADMIN);
                     };
                     $map = function($u) {
-                        $u = (User::createUserByType($u))->getPublic();
-                        return ;
+                        return (User::createUserByType($u))->getPublic();
                     };
                     break;
                 case User::ASSURE:
