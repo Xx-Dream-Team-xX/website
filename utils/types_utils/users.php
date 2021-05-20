@@ -164,7 +164,19 @@
          * @param string $id conversation id
          */
         public function addConversation(string $id) {
-            array_push($this->conversations, $id);
+            if (!in_array($id, $this->conversations)) array_push($this->conversations, $id);
+        }
+
+        /**
+         * Removes conversation from conversation list.
+         *
+         * @param string $id conversation id
+         * @return void
+         */
+        public function removeConversation(string $id) {
+            if (($i = array_search($id, $this->conversations)) !== false) {
+                unset($this->conversations[$i]);
+            }
         }
 
         /**
