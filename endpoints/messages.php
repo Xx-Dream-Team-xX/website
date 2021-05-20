@@ -15,32 +15,26 @@
         $users = DB::getAll(get_path('database', 'users.json'));
         $filter = null;
 
-        // NIQUE
         switch (getPermissions()) {
             case User::ASSURE:
                 $filter = function($u) {
                     return (User::GESTIONNAIRE === $u['type']) && ($u['assurance'] === $_SESSION['user']['assurance']);
                 };
-
                 break;
             case User::GESTIONNAIRE:
                 $filter = function($u) {
                     return (((User::ASSURE === $u['type']) || (User::GESTIONNAIRE === $u['type'])) && ($u['assurance'] === $_SESSION['user']['assurance'])) || (User::ADMIN === $u['type']);
                 };
-
                 break;
             case User::POLICE:
                 $filter = function($u) {
                     return User::ADMIN === $u['type'];
                 };
-
                 break;
             default:
                 break;
         }
-
         $users = array_filter($users, $filter);
-
         return array_map(function($u) {
             return array(
                 'id' => $u['id'],
@@ -50,14 +44,33 @@
         }, $users);
     }
 
+    function messageNotification(array $send, array $dest, string $id) {
+        $send = User::createUserByType($send);
+
+        foreach ($dest as $d) {
+
+            if ($d === $send->getID()) continue;
+
+            $d = User::createUserByType(DB::getFromID(get_path("database", "users.json"), $d));
+
+            $d->pushNotification('Nouveau message', $send->getName()[0] . " vous a envoyé un message", SETTINGS["url"] . "/messages/" . $id );
+            $d->addConversation($id);
+            DB::setObject(get_path("database", "users.json"), $d->getAll());
+        }
+    }
+
     if (isLoggedIn()) {
         $user = getUpdatedUser();
 
         switch (get_final_point()) {
             case 'list':
-                send_json(array_filter(DB::getAll(get_path('database', 'conversations.json')), function($m) {
+                send_json(array_map(function($m) {
+                    return array_merge($m, array(
+                        'unread' => in_array($m["id"], $_SESSION["user"]["conversations"])
+                    ));
+                }, array_filter(DB::getAll(get_path('database', 'conversations.json')), function($m) {
                     return in_array($_SESSION['user']['id'], $m['people']);
-                }));
+                })));
 
                 break;
 
@@ -76,8 +89,9 @@
                         DB::setObject($c->getPath(), $m->getAll(), true);
                         DB::setObject(get_path('database', 'conversations.json'), $c->getAll());
 
+                        messageNotification($user, $c->getPeople(), $c->getID());
+
                         send_json($m->getAll());
-                        // TODO : send notification to subscribers
                     }
                 }
 
@@ -108,11 +122,45 @@
                             'sender' => getID(),
                             'content' => $_POST['content']
                         )))->getAll(), true);
+
+                        messageNotification($user, $c->getPeople(), $c->getID());
+
+                        send_json($c->getAll());
                     }
                 }
 
                 break;
             case 'add':
+
+                if (isset($_POST["conv"], $_POST["dest"])) {
+
+                    $c = DB::getFromID(get_path('database', 'conversations.json'), $_POST['conv']);
+                    if ($c && $c = new Conversation($c)) {
+                        if (!in_array($_POST["dest"], $c->getPeople())) {
+                            $found = false;
+                            foreach (getRecipients() as $r) {
+                                if ($_POST['dest'] === $r['id']) {
+                                    $found = true;
+                                }
+                            }
+                            if ($found) {
+                                
+                                $c->addPeople($_POST["dest"]);
+
+                                $d = User::createUserByType(DB::getFromID(get_path("database", "users.json"), $_POST["dest"]));
+
+                                $d->pushNotification('Nouvelle conversation', "Vous avez été ajouté.es à un groupe", SETTINGS["url"] . "/messages/" . $_POST["conv"]);
+                                $d->addConversation($_POST["conv"]);
+
+                                DB::setObject(get_path("database", "users.json"), $d->getAll());
+                                DB::setObject(get_path('database', 'conversations.json'), $c->getAll());
+
+                                send_json($c->getAll());
+                            }
+                        }
+                    }
+                    
+                }
                 break;
 
             case 'remove':
@@ -124,10 +172,15 @@
             case 'get':
                 if (isset($_POST["id"])) {
                     $c = DB::getFromID(get_path('database', 'conversations.json'), $_POST['id']);
-                    if ($c && $c = new Conversation(($c))) {
+                    if ($c && $c = new Conversation($c)) {
+                        $user = User::createUserByType($user);
+                        $user->removeConversation($c->getID());
+
+                        DB::setObject(get_path("database", "users.json"), $user->getAll());
                         return send_json(DB::getAll($c->getPath()));
                     }
                 }
+                send_json(array());
                 break;
             default:
                 notfound();
