@@ -18,7 +18,10 @@
         'password' => 'jsp',
     ));
 
-    $user = $gestionnaire->newUserAssure(array(
+    $user = new UserAssure(array(
+        'assurance' => $assurance->getID(),
+        'rep' => $gestionnaire->getID(),
+        'birth' => '02/03/1998',
         'mail' => 'js2p@prout.fr',
         'first_name' => 'Michelle',
         'last_name' => 'Roubin',
@@ -27,6 +30,7 @@
         'zip_code' => '33080',
         'password' => 'jsp',
     ));
+
     DB::setObject(get_path('database', 'testUsers.json'), $user->getAll(), true);
 
     $contract = $assurance->newContract(array(
