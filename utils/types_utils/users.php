@@ -64,14 +64,14 @@
         protected $phone = '';
 
         /**
-         * Conversations
+         * Conversations.
          *
          * @var array
          */
         protected $conversations = array();
 
         /**
-         * Notifications
+         * Notifications.
          *
          * @var array
          */
@@ -101,7 +101,7 @@
                 }
                 if (isset($rawUser['password_hash'])) {
                     $this->password = $rawUser['password_hash'];
-                } else if (isset($rawUser['password'])) {
+                } elseif (isset($rawUser['password'])) {
                     $this->setPassword($rawUser['password']);
                 } else {
                     throw new Exception('Please specify a password', 1);
@@ -152,65 +152,57 @@
         }
 
         /**
-         * Get user phone
-         *
-         * @return void
+         * Get user phone.
          */
         public function getPhone() {
             return $this->phone;
         }
 
         /**
-         * Add conversation to conversation list
+         * Add conversation to conversation list.
          *
          * @param string $id conversation id
-         * @return void
          */
         public function addConversation(string $id) {
             array_push($this->conversations, $id);
         }
 
         /**
-         * Add notification to the stack
+         * Add notification to the stack.
          *
-         * @param string $title Title of the notification
+         * @param string $title   Title of the notification
          * @param string $content Content of notification
-         * @param string $url Redirection of notification
-         * @return void
+         * @param string $url     Redirection of notification
          */
         public function pushNotification(string $title, string $content, string $url) {
-            array_push($this->notifications, [
+            array_push($this->notifications, array(
                 'id' => uniqid(),
                 'title' => htmlspecialchars($title),
                 'content' => htmlspecialchars($content),
                 'url' => $url,
-                'seen' => false
-            ]);
+                'seen' => false,
+            ));
         }
 
         /**
-         * Mark one or all notifications as read
+         * Mark one or all notifications as read.
          *
-         * @param string|null $id Notification id, null for everything
-         * @return void
+         * @param null|string $id Notification id, null for everything
          */
         public function markNotificationsAsRead(?string $id) {
-
             if (isset($id)) {
                 if ($this->notifications[$id]) {
-                    $this->notifications[$id]["seen"] = true;
+                    $this->notifications[$id]['seen'] = true;
                 }
             } else {
                 foreach ($this->notifications as $n) {
-                    $this->notifications[$n]["seen"] = true;
+                    $this->notifications[$n]['seen'] = true;
                 }
             }
         }
 
         /**
-         * Removes all notifications from stack
-         *
-         * @return void
+         * Removes all notifications from stack.
          */
         public function clearNotifications() {
             $this->notifications = array();
@@ -231,7 +223,7 @@
                 'phone' => $this->phone,
                 'conversations' => $this->conversations,
                 'notifications' => $this->notifications,
-                'password_hash' => $this->password
+                'password_hash' => $this->password,
             );
         }
 
@@ -327,7 +319,7 @@
                     return new UserGestionnaire($rawUser);
 
                     break;
-                
+
                 default:
                     return new User($rawUser);
 
@@ -337,78 +329,75 @@
     }
 
     /**
-     * Assuré class
+     * Assuré class.
      */
     class UserAssure extends User {
-
         /**
-         * Street address
+         * Street address.
          *
          * @var string
          */
         protected $address = '';
 
         /**
-         * ZIP code
+         * ZIP code.
          *
          * @var string
          */
         protected $zipCode = '';
 
         /**
-         * Assigned representant id
+         * Assigned representant id.
          */
         protected $rep = '';
 
         /**
-         * Assigned assurance
+         * Assigned assurance.
          */
         protected $assurance = '';
 
         /**
-         * Date of birth (unix)
+         * Date of birth (unix).
          *
-         * @var integer
+         * @var int
          */
         protected $birth = 0;
 
         /**
-         * Contracts
+         * Contracts.
          *
          * @var array
          */
         protected $contracts = array();
 
         /**
-         * Declarations ids stack
+         * Declarations ids stack.
          *
          * @var array
          */
         protected $declarations = array();
 
         /**
-         * Sinisters ids stack
+         * Sinisters ids stack.
          *
          * @var array
          */
         protected $sinisters = array();
 
         /**
-         * Pending actions stack (verifications)
+         * Pending actions stack (verifications).
          *
          * @var array
          */
         protected $actions = array();
 
         /**
-         * Assuré construction, initilaizes the user
-         *
-         * @param array $rawUser
+         * Assuré construction, initilaizes the user.
          */
         public function __construct(array $rawUser) {
             if (isset($rawUser['birth'],$rawUser['address'],$rawUser['zip_code'],$rawUser['rep'],$rawUser['assurance'])) {
+                $rawUser['type'] = User::ASSURE;
                 parent::__construct($rawUser);
-                $this->type = User::ASSURE;
                 $this->address = $rawUser['address'];
                 $this->zipCode = $rawUser['zip_code'];
                 $this->rep = $rawUser['rep'];
@@ -437,7 +426,7 @@
         }
 
         /**
-         * Gets all user information
+         * Gets all user information.
          */
         public function getAll() {
             return array_merge(parent::getAll(), array(
@@ -449,19 +438,19 @@
                 'address' => $this->address,
                 'birth' => $this->birth,
                 'assurance' => $this->assurance,
-                'rep' => $this->rep
+                'rep' => $this->rep,
             ));
         }
 
         /**
-         * Returns contracts list
+         * Returns contracts list.
          */
         public function getContracts() {
             return $this->contracts;
         }
 
         /**
-         * Adds new contract to stack
+         * Adds new contract to stack.
          */
         public function addContract(Contract $contract) {
             array_push($this->contracts, $contract->getID());
@@ -471,7 +460,7 @@
         }
 
         /**
-         * Sets birth from unix or from d/m/Y format
+         * Sets birth from unix or from d/m/Y format.
          */
         public function setBirth(string $date) {
             if ($date = DateTime::createFromFormat('d/m/Y', $date)) {
@@ -485,28 +474,25 @@
     }
 
     /**
-     * Gestionnaire user type
+     * Gestionnaire user type.
      */
     class UserGestionnaire extends User {
-
         /**
-         * Assigned assurance company
+         * Assigned assurance company.
          *
          * @var string
          */
         protected $assurance = '';
 
         /**
-         * Assigned contracts stack
+         * Assigned contracts stack.
          *
          * @var array
          */
         protected $contracts = array();
 
         /**
-         * User constructor for gestionnaire
-         *
-         * @param array $rawUser
+         * User constructor for gestionnaire.
          */
         public function __construct(array $rawUser) {
             if (isset($rawUser['assurance'])) {
@@ -514,8 +500,8 @@
                 $this->type = User::GESTIONNAIRE;
                 $this->assurance = $rawUser['assurance'];
 
-                if (isset($rawUser["contracts"])) {
-                    $this->contracts = $rawUser["contracts"];
+                if (isset($rawUser['contracts'])) {
+                    $this->contracts = $rawUser['contracts'];
                 }
             } else {
                 throw new Exception("Array passed doesn't represent a User Gestionnaire", 1);
@@ -523,9 +509,7 @@
         }
 
         /**
-         * Gets all information
-         *
-         * @return void
+         * Gets all information.
          */
         public function getAll() {
             return array_merge(parent::getAll(), array(

@@ -1,11 +1,12 @@
 <?php
+
     /**
      * Validates input format against parameter.
      *
      * @param $d Input data
      * @param array $t Exepected format
      */
-    function validateEntry($d,?array $t=null) {
+    function validateEntry($d, ?array $t = null) {
         $result = false;
         switch ($t['type'] ?? null) {
 
@@ -35,8 +36,21 @@
                 }
 
                 break;
+            case 'phone':
+                if (preg_match('/^[+][0-9]/', $d)) {
+                    $count = 1;
+                    $d = str_replace(array('+'), '', $d, $count);
+                }
+                $result = str_replace(array(' ', '.', '-', '(', ')'), '', $d);
+
+                if (!preg_match('/^[0-9]{9,14}\z/', $d)) {
+                    $result = false;
+                }
+
+                break;
             default:
                 $result = htmlspecialchars($d);
+
                 break;
         }
 
@@ -44,21 +58,21 @@
     }
 
     /**
-     * Validates whole form / input with expected format
+     * Validates whole form / input with expected format.
      *
      * @param array $d Input
      * @param array $t Format data
+     *
      * @return array|bool Parsed data or false
      */
     function validateObject($d, $t) {
         $r = array();
 
         foreach ($t as $i => $v) {
-
             if (isset($d[$i])) {
                 $v = validateEntry($d[$i], $v);
                 if (false !== $v) {
-                    $r = array_merge($r, [$i => $v]);
+                    $r = array_merge($r, array($i => $v));
                 } else {
                     return false;
                 }
