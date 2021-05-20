@@ -84,6 +84,31 @@
                 break;
             case 'new':
                 if (isset($_POST['recipient'], $_POST['content'])) {
+                    $found = false;
+                    foreach (getRecipients() as $r) {
+                        if ($_POST['recipient'] === $r['id']) {
+                            $found = true;
+                        }
+                    }
+
+                    if ($found) {
+                        $c = new Conversation(array(
+                            "people" => array(
+                                getID(),
+                                $_POST['recipient']
+                            ),
+                            "message" => (new Message(array(
+                                'sender' => getID(),
+                                'content' => "Nouvelle conversation"
+                            )))->getAll()
+                        ));
+
+                        DB::setObject(get_path("database", "conversations.json"), $c->getAll(), true);
+                        DB::setObject($c->getPath(), (new Message(array(
+                            'sender' => getID(),
+                            'content' => $_POST['content']
+                        )))->getAll(), true);
+                    }
                 }
 
                 break;
@@ -95,9 +120,15 @@
 
             case 'recipients':
                 send_json(getRecipients());
-
                 break;
-
+            case 'get':
+                if (isset($_POST["id"])) {
+                    $c = DB::getFromID(get_path('database', 'conversations.json'), $_POST['id']);
+                    if ($c && $c = new Conversation(($c))) {
+                        return send_json(DB::getAll($c->getPath()));
+                    }
+                }
+                break;
             default:
                 notfound();
 
