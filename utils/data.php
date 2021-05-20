@@ -17,12 +17,18 @@ require './vendor/autoload.php';
          * @return array Array of object containing each element info
          */
         public static function getAll(string $path) {
+            if (!isset($_SERVER["cache"])) $_SERVER["cache"] = array();
             if (file_exists($path)) {
-                $file = file_get_contents($path);
+
+                if (isset($_SERVER["cache"][$path])) {
+                    $file = $_SERVER["cache"][$path];
+                } else {
+                    $file = file_get_contents($path);
+                    $_SERVER["cache"][$path] = $file;
+                }
                 if ($file) {
                     return json_decode($file, 1);
                 }
-
                 return array();
             }
 
