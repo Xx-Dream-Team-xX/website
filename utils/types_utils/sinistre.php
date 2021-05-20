@@ -1,63 +1,5 @@
 <?php
 
-    class Ingured {
-        public const CONDUCTEUR = 0;
-
-        public const PASSAGER = 1;
-
-        public const CYCLISTE = 2;
-
-        public const PIETON = 3;
-
-        protected $lastname = '';
-
-        protected $firstname = '';
-
-        protected $address = '';
-
-        protected $phone = '';
-
-        protected $profession = '';
-
-        protected $incident_situation = '';
-
-        protected $belt = true;
-
-        protected $injuries = '';
-
-        private $required = array(
-            'firstname' => array(
-                'type' => 'text',
-            ),
-            'lastname' => array(
-                'type' => 'text',
-            ),
-            'address' => array(
-                'type' => 'date',
-            ),
-            'phone' => array(
-                'type' => 'text',
-            ),
-            'profession' => array(
-                'type' => 'text',
-            ),
-            'belt' => array(
-                'type' => 'bool',
-            ),
-            'injuries' => array(
-                'type' => 'text',
-            ),
-
-        );
-
-        public function __construct($rawInjured) {
-            if (isset($rawInjured['lastname'],$rawInjured['firstname'], $rawInjured['address'], $rawInjured['phone'],$rawInjured['profession'],$rawInjured['belt'],$rawInjured['injuries'])) {
-            } else {
-                throw new Exception("Array passed doesn't represend a Sinistre", 1);
-            }
-        }
-    }
-
     class Sinistre {
         protected $id = '';
 
@@ -118,6 +60,40 @@
             } else {
                 throw new Exception("Array passed doesn't represend a Sinistre", 1);
             }
+        }
+
+        private function validateInjured(array $injured_list) {
+            $required = array(
+                'firstname' => array(
+                    'type' => 'text',
+                ),
+                'lastname' => array(
+                    'type' => 'text',
+                ),
+                'address' => array(
+                    'type' => 'date',
+                ),
+                'phone' => array(
+                    'type' => 'phone',
+                ),
+                'profession' => array(
+                    'type' => 'text',
+                ),
+                'belt' => array(
+                    'type' => 'bool',
+                ),
+                'injuries' => array(
+                    'type' => 'text',
+                ),
+
+            );
+            foreach ($injured_list as &$injured) {
+                if (!$injured = validateObject($injured, $required)) {
+                    return false;
+                }
+            }
+
+            return $injured_list;
         }
     }
 
