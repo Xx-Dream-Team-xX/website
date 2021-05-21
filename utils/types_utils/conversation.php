@@ -43,7 +43,10 @@
          */
         public const DM = 'dm';
 
-        public const TICKET = 'ticket';
+        public const TICKET_OPEN = 'open';
+
+        public const TICKET_CLOSED = 'closed';
+
 
         /**
          * ID of the conversation.
@@ -96,7 +99,11 @@
 
                 $this->id = $data['id'] ?? uniqid();
                 $this->people = $data['people'];
-                $this->type = (isset($data['type']) && (self::TICKET === $data['type'])) ? self::TICKET : self::DM;
+                $this->type = (in_array($data['type'], array(
+                    self::DM,
+                    self::TICKET_OPEN,
+                    self::TICKET_CLOSED
+                ))) ? $data['type'] : self::DM;
                 $this->message = $data['message'] ?? array();
                 $this->title = htmlspecialchars(substr($data['title'], 0, 50)) ?? null;
 
@@ -128,6 +135,15 @@
          */
         public function getID() {
             return $this->id;
+        }
+
+        /**
+         * Returns type
+         *
+         * @return string
+         */
+        public function getType() {
+            return $this->type;
         }
 
         /**
@@ -188,6 +204,20 @@
          */
         public function setLastMessage(Message $msg) {
             $this->message = $msg->getAll();
+        }
+
+        /**
+         * Changes ticket status
+         *
+         * @param string $s status
+         * @return void
+         */
+        public function setStatus(string $s) {
+            $this->type = (in_array($s, array(
+                self::DM,
+                self::TICKET_OPEN,
+                self::TICKET_CLOSED
+            ))) ? $s : self::DM;
         }
 
         /**

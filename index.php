@@ -29,6 +29,7 @@
     Router::add('users', get_path('api', 'user.php'));
     Router::add('auth', get_path('api', 'auth.php'));
     Router::add('conversation', get_path('api', 'messages.php'));
+    Router::add('ticket', get_path('api', 'tickets.php'));
     Router::add('notifications', get_path('api', 'notifications.php'));
 
     Router::default(get_path('views', 'error.php'));
