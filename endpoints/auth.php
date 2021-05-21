@@ -14,11 +14,11 @@
             break;
         case 'register':
             switch (getPermissions()) {
-                case 3:
+                case User::GESTIONNAIRE:
                     send_json($auth->register($_POST, $_SESSION['user']['id']));
                     break;
-                case 4:
-                    send_json($auth->register($_POST, $_SESSION['user']['id'], ($_POST["type"]) == User::POLICE) ?: User::GESTIONNAIRE);
+                case User::ADMIN:
+                    send_json($auth->register($_POST, $_SESSION['user']['id'], (isset($_POST["type"]) && ($_POST["type"] == User::POLICE)) ? User::POLICE : User::GESTIONNAIRE));
                     break;
                 default:
 
