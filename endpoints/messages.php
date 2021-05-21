@@ -114,7 +114,8 @@
                             "message" => (new Message(array(
                                 'sender' => getID(),
                                 'content' => "Nouvelle conversation"
-                            )))->getAll()
+                            )))->getAll(),
+                            "title" => $_POST['title'] ?? null
                         ));
 
                         DB::setObject(get_path("database", "conversations.json"), $c->getAll(), true);
