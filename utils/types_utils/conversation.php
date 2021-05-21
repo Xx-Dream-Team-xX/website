@@ -74,6 +74,13 @@
         protected $message = array();
 
         /**
+         * Conversation title
+         *
+         * @var string
+         */
+        protected $title = null;
+
+        /**
          * Creates a new conversation.
          *
          * @param array $data Array with conversation properties
@@ -91,6 +98,7 @@
                 $this->people = $data['people'];
                 $this->type = (isset($data['type']) && (self::TICKET === $data['type'])) ? self::TICKET : self::DM;
                 $this->message = $data['message'] ?? array();
+                $this->title = htmlspecialchars(substr($data['title'], 0, 50)) ?? null;
 
                 if (is_dir(parent::getFolderPath()) && !file_exists($this->getPath())) {
                     touch($this->getPath());
@@ -106,6 +114,7 @@
         public function getAll() {
             return array(
                 'id' => $this->id,
+                'title' => $this->title,
                 'people' => $this->people,
                 'type' => $this->type,
                 'message' => $this->message
@@ -119,6 +128,19 @@
          */
         public function getID() {
             return $this->id;
+        }
+
+        /**
+         * Returns title
+         *
+         * @return void
+         */
+        public function getTitle() {
+            return $this->title;
+        }
+
+        public function setTitle(?string $title) {
+            $this->title = htmlspecialchars($title) ?? null;
         }
 
         /**
@@ -219,10 +241,11 @@
          * Creates a new message, gives an unique ID.
          */
         public function __construct(array $data) {
-            if (isset($data['sender'], $data['content'])) {
+            if (isset($data['sender'], $data['content']) && $data['content'] !== "") {
+                
                 $this->id = $data['id'] ?? uniqid();
                 $this->sender = $data['sender'];
-                $this->content = htmlspecialchars($data['content']);
+                $this->content = htmlspecialchars(substr($data['content'], 0, 1000));
                 $this->files = $data['files'] ?? array();
                 $this->timestamp = $data['timestamp'] ?? time();
             } else {
