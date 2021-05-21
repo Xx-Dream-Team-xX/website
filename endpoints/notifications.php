@@ -4,10 +4,6 @@
      */
     include_once get_path('utils', 'types_utils/users.php');
 
-    /**
-     * Gets available recipients for messaging.
-     */
-
     if (isLoggedIn()) {
         $user = getUpdatedUser();
 
