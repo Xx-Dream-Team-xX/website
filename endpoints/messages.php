@@ -44,6 +44,14 @@
         }, $users);
     }
 
+    /**
+     * Sends push notification to conversation subscribers
+     *
+     * @param array $send Sender data
+     * @param array $dest Array of recipients id
+     * @param string $id Conversation id
+     * @return void
+     */
     function messageNotification(array $send, array $dest, string $id) {
         $send = User::createUserByType($send);
 
@@ -79,6 +87,9 @@
                     $c = DB::getFromID(get_path('database', 'conversations.json'), $_POST['id']);
 
                     if ($c && ($c = new Conversation($c))) {
+
+                        if (!in_array(getID(), $c->getPeople())) return;
+
                         $m = new Message(array(
                             'sender' => $user['id'],
                             'content' => $_POST['content'],
@@ -137,6 +148,9 @@
 
                     $c = DB::getFromID(get_path('database', 'conversations.json'), $_POST['conv']);
                     if ($c && $c = new Conversation($c)) {
+
+                        if (!in_array(getID(), $c->getPeople())) return;
+
                         if (!in_array($_POST["dest"], $c->getPeople())) {
                             $found = false;
                             foreach (getRecipients() as $r) {
@@ -164,9 +178,6 @@
                 }
                 break;
 
-            case 'remove':
-                break;
-
             case 'recipients':
                 send_json(getRecipients());
                 break;
@@ -174,6 +185,9 @@
                 if (isset($_POST["id"])) {
                     $c = DB::getFromID(get_path('database', 'conversations.json'), $_POST['id']);
                     if ($c && $c = new Conversation($c)) {
+
+                        if (!in_array(getID(), $c->getPeople())) return;
+
                         $user = User::createUserByType($user);
                         $user->removeConversation($c->getID());
 
