@@ -11,7 +11,7 @@
         return (isset($_SESSION, $_SESSION['user']));
     }
 
-    function getPermissions($user = null) {
+    function getPermissions() {
         return isLoggedIn() ? (int) $_SESSION['user']['type'] : 0;
     }
 
