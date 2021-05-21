@@ -158,6 +158,10 @@
             return $this->phone;
         }
 
+        public function getNotifications() {
+            return $this->notifications;
+        }
+
         /**
          * Add conversation to conversation list.
          *
@@ -197,18 +201,32 @@
         }
 
         /**
+         * Returns index of notification
+         *
+         * @param string $id notification id
+         * @return int|null index
+         */
+        private function getNotification(string $id) {
+            foreach ($this->notifications as $i => $n) {
+                if ($n["id"] === $id) return $i;
+            }
+            return null;
+        }
+
+        /**
          * Mark one or all notifications as read.
          *
          * @param null|string $id Notification id, null for everything
          */
         public function markNotificationsAsRead(?string $id) {
             if (isset($id)) {
-                if ($this->notifications[$id]) {
-                    $this->notifications[$id]['seen'] = true;
+                $i = $this->getNotification($id);
+                if (isset($i)) {
+                    $this->notifications[$i]['seen'] = true;
                 }
             } else {
-                foreach ($this->notifications as $n) {
-                    $this->notifications[$n]['seen'] = true;
+                foreach ($this->notifications as $i => $n) {
+                    $this->notifications[$i]['seen'] = true;
                 }
             }
         }
@@ -216,8 +234,15 @@
         /**
          * Removes all notifications from stack.
          */
-        public function clearNotifications() {
-            $this->notifications = array();
+        public function clearNotification(?string $id) {
+            if (isset($id)) {
+                $i = $this->getNotification($id);
+                if (isset($i)) {
+                    unset($this->notifications[$i]);
+                }
+            } else {
+                $this->notifications = array();
+            }
         }
 
         /**
