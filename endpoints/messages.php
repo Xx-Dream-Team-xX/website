@@ -34,7 +34,7 @@
             default:
                 break;
         }
-        $users = array_filter($users, $filter);
+        $users = array_values(array_filter($users, $filter));
         return array_map(function($u) {
             return array(
                 'id' => $u['id'],
@@ -68,9 +68,9 @@
                     return array_merge($m, array(
                         'unread' => in_array($m["id"], $_SESSION["user"]["conversations"])
                     ));
-                }, array_filter(DB::getAll(get_path('database', 'conversations.json')), function($m) {
+                }, array_values(array_filter(DB::getAll(get_path('database', 'conversations.json')), function($m) {
                     return in_array($_SESSION['user']['id'], $m['people']);
-                })));
+                }))));
 
                 break;
 

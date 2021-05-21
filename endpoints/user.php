@@ -22,10 +22,8 @@
                 // PLS
                 //  HELP
                 
-                send_json($users);
-                $users = array_filter($users, $fcts[0]);
-                send_json($users);
-                // send_json(array_map($fcts[1], $users));
+                $users = array_values(array_filter($users, $fcts[0]));
+                send_json(array_map($fcts[1], $users));
             }
             break;
         default:
