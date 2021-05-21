@@ -109,9 +109,7 @@
 
                 break;
             case User::ADMIN:
-                $filter = function($u) {
-                    return User::ADMIN !== $u['type'];
-                };
+
                 $map = function($u) {
                     return (User::createUserByType($u))->getPublic();
                 };
