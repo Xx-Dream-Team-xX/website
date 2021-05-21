@@ -15,12 +15,6 @@
                 $map = null;
 
                 $fcts = getInteractions();
-
-                // THIS
-                //        NOT
-                //   WORKING
-                // PLS
-                //  HELP
                 
                 $users = array_values(array_filter($users, $fcts[0]));
                 send_json(array_map($fcts[1], $users));
