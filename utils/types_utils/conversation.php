@@ -130,6 +130,12 @@
             return $this->people;
         }
 
+        /**
+         * Add person to conversation
+         *
+         * @param string $id user id
+         * @return void
+         */
         public function addPeople(string $id) {
             if (strlen($id) == 13) {
                 array_push($this->people, $id);
@@ -138,6 +144,12 @@
             }
         }
 
+        /**
+         * Remove person from conversation
+         *
+         * @param string $id user id
+         * @return void
+         */
         public function removePeople(string $id) {
             if (in_array($id, $this->people)) {
                 unset($this->people[array_search($id, $this->conversations)]);
