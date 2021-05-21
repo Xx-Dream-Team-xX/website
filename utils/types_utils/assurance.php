@@ -1,18 +1,42 @@
 <?php
-
+    /**
+     * Assurance class
+     */
     class Assurance {
+
+        /**
+         * id of assurance company
+         *
+         * @var string
+         */
         protected $id = '';
 
+        /**
+         * name of company
+         *
+         * @var string
+         */
         protected $name = '';
 
+        /**
+         * public phone number
+         *
+         * @var string
+         */
         protected $phone = '';
 
+        /**
+         * Logo, hold my beer
+         *
+         * @var string
+         */
         protected $logoPath = '';
 
-        protected $contracts = array();
-
-        protected $gestionnaires = array();
-
+        /**
+         * builds an assurance
+         *
+         * @param [type] $rawAssur
+         */
         public function __construct($rawAssur) {
             if (isset($rawAssur['name'],$rawAssur['phone'])) {
                 if (isset($rawAssur['id'])) {
@@ -22,66 +46,58 @@
                 }
                 $this->phone = $rawAssur['phone'];
                 $this->name = $rawAssur['name'];
-                if (isset($rawAssur['contracts'])) {
-                    $this->contracts = $rawAssur['contracts'];
-                }
-                if (isset($rawAssur['gestionnaires'])) {
-                    $this->gestionnaires = $rawAssur['gestionnaires'];
-                }
             } else {
-                throw new Exception("Array passed doesn't represend a User Assuré", 1);
+                throw new Exception("Array passed doesn't represent an Assurance", 1);
             }
         }
 
-        public function newContract(array $rawContract) {
-            $rawContract['insurance'] = $this->id;
-            $contract = new Contract($rawContract);
-            array_push($this->contracts, $contract->getID());
-
-            return $contract;
-        }
-
-        public function newGestionnaire(array $rawGestionnaires) {
-            $rawGestionnaires['assurance'] = $this->id;
-            $rawGestionnaires['type'] = User::GESTIONNAIRE;
-            $gestionnaire = new UserGestionnaire($rawGestionnaires);
-            array_push($this->gestionnaires, $gestionnaire->getID());
-
-            return $gestionnaire;
-        }
-
-        public function getContracts() {
-            return $this->contracts;
-        }
-
-        public function getGestionnaires() {
-            return $this->gestionnaires;
-        }
-
+        /**
+         * returns assurance name
+         *
+         * @return void
+         */
         public function getName() {
             return $this->name;
         }
 
+        /**
+         * returns assurance phone number
+         *
+         * @return void
+         */
         public function getPhone() {
             return $this->phone;
         }
 
+        /**
+         * returns assurance id
+         *
+         * @return void
+         */
         public function getID() {
             return $this->id;
         }
 
+        /**
+         * returns assurance logo?
+         *
+         * @return void
+         */
         public function getLogo() {
             return $this->logoPath;
         }
 
+        /**
+         * returns assurance array
+         *
+         * @return array data
+         */
         public function getAll() {
             return array(
                 'id' => $this->id,
                 'name' => $this->name,
                 'phone' => $this->phone,
-                'contracts' => $this->contracts,
-                'gestionnaires' => $this->gestionnaires,
-                'logoPath' => $this->logoPath,
+                'logoPath' => $this->logoPath
             );
         }
     }
