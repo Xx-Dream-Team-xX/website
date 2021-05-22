@@ -11,7 +11,7 @@
         switch ($t['type'] ?? null) {
 
             case 'preselection':
-                if (in_array($d, $d['options'])) {
+                if (in_array($d, $t['options'])) {
                     $result = $d;
                 }
 
@@ -48,6 +48,16 @@
                 }
 
                 break;
+            case 'email':
+                $result = User::checkEmail($d);
+
+                // no break
+            case 'zipcode':
+                if (preg_match('/(?:0[1-9]|[13-8][0-9]|2[ab1-9]|9[0-5])(?:[0-9]{3})?|9[78][1-9](?:[0-9]{2})?/', $d)) {
+                    $result = $d;
+                }
+
+                break;
             default:
                 $result = htmlspecialchars($d);
 
@@ -73,10 +83,8 @@
                 $v = validateEntry($d[$i], $v);
                 if (false !== $v) {
                     $r = array_merge($r, array($i => $v));
-                } else {
-                    return false;
                 }
-            } else {
+            } elseif (!isset($v['optional']) || !$v['optional']) {
                 return false;
             }
         }
