@@ -9,6 +9,7 @@
 
     switch (get_final_point()) {
         case 'login':
+            if (isLoggedIn()) return send_json(true);
             send_json(isset($_POST['login'], $_POST['password']) ? $auth->login($_POST['login'], $_POST['password']) : false);
 
             break;
@@ -30,7 +31,7 @@
 
             break;
         case 'changepassword':
-            if (getPermissions() > 0) {
+            if (getPermissions() > User::NONE) {
                 send_json(isset($_POST['password'], $_POST['mail']) ? $auth->changePassword($_SESSION['user']['id'], $_POST['mail'], $_POST['password'], $_POST['new'] ?? null) : false);
             }
 
