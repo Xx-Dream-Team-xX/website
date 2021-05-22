@@ -1,10 +1,14 @@
 <?php
 
+use function PHPSTORM_META\type;
+
     /**
      * Validates input format against parameter.
      *
      * @param $d Input data
      * @param array $t Exepected format
+     *
+     * @return mixed Parsed and formated data
      */
     function validateEntry($d, ?array $t = null) {
         $result = false;
@@ -19,7 +23,9 @@
                 break;
             case 'date':
                 $result = strtotime($d);
-                if (!$result) {
+                if (!$result || ('int' == type($result))) {
+                    $result = $d;
+                } else {
                     throw new Exception('invalid date', 1);
                 }
 
@@ -56,7 +62,7 @@
                 break;
             case 'email':
                 $result = $d;
-                if (User::checkEmail($d)) {
+                if (!User::checkEmail($d)) {
                     throw new Exception('invalid email', 1);
                 }
 
@@ -71,7 +77,7 @@
             case 'array':
                 $result = $d;
                 if (empty($d)) {
-                    throw new Exception('not an array', 1);
+                    throw new Exception('invalid array', 1);
                 }
 
                 break;
@@ -101,7 +107,7 @@
                     $v = validateEntry($d[$i], $v);
                     $r = array_merge($r, array($i => $v));
                 } elseif (!isset($v['optional']) || !$v['optional']) {
-                    return false;
+                    throw new Exception("Missing entry {$i}", 1);
                 }
             } catch (Exception $e) {
                 throw new Exception("Error while parsing : {$e->getMessage()}", 1);
