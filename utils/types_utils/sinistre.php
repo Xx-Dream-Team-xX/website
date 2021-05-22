@@ -1,6 +1,66 @@
 <?php
 
+    include_once get_path('utils', 'forms.php');
+
     class Sinistre {
+        public static $required = array(
+            'contract' => array(
+                'type' => 'text',
+            ),
+            'user' => array(
+                'type' => 'text',
+            ),
+            'user_profession' => array(
+                'type' => 'text',
+            ),
+            'driver_profession' => array(
+                'type' => 'text',
+            ),
+            'driver_relationship' => array(
+                'type' => 'preselection',
+                'options' => array(
+                    'married',
+                    'celib',
+                    'other',
+                ),
+            ),
+            'driver_user_same_residance' => array(
+                'type' => 'bool',
+            ),
+            'driver_is_usual' => array(
+                'type' => 'bool',
+            ),
+            'driver_is_employeeof_user' => array(
+                'type' => 'bool',
+            ),
+            'driver_disp_reason' => array(
+                'type' => 'text',
+            ),
+            'circumstances' => array(
+                'type' => 'text',
+            ),
+            'proces_verbal' => array(
+                'type' => 'bool',
+            ),
+            'police_report' => array(
+                'type' => 'bool',
+            ),
+            'main_courrante' => array(
+                'type' => 'bool',
+            ),
+            'police_station' => array(
+                'type' => 'text',
+                'optional' => true,
+            ),
+            'usual_parking_location' => array(
+                'type' => 'text',
+            ),
+            'garage_name' => array(
+                'type' => 'text',
+                'optional' => true,
+            ),
+        );
+
         protected $id = '';
 
         protected $user = '';
@@ -19,15 +79,13 @@
 
         protected $driver_reason_displacement = '';
 
-        protected $driver_title = '';
-
         protected $incident_circumstances = '';
 
         protected $proces_verbal = false;
 
         protected $police_report = false;
 
-        protected $main_courte = false;
+        protected $main_courrante = false;
 
         protected $police_station = '';
 
@@ -47,22 +105,25 @@
 
         protected $ingureds = array();
 
-        public function __construct($rawSinistre) {
-            if (isset($rawSinistre['contract'],$rawSinistre['user'],$rawSinistre['assurance'], $rawSinistre)) {
-                $this->contract = $rawSinistre['contract'];
-                $this->user = $rawSinistre['user'];
-                $this->assurance = $rawSinistre['assurance'];
-                if (isset($rawSinistre['id'])) {
-                    $this->id = $rawSinistre['id'];
-                } else {
-                    $this->id = uniqid();
+        /**
+         * Construct and vaidate a sinistre.
+         *
+         * @param array $rawSinistre Array representing a sinistre. Must contain the entries listed in $this->required
+         *                           On top of them those entries can be added :
+         *                           'garage_name', 'garage_phone'
+         */
+        public function __construct(array $rawSinistre) {
+            if ($rawSinistre = validateObject($rawSinistre, self::$required)) {
+                if (isset($rawSinistre['injureds'])) {
+                    self::validateInjured($rawSinistre['injureds']);
                 }
+                send_json($rawSinistre);
             } else {
                 throw new Exception("Array passed doesn't represend a Sinistre", 1);
             }
         }
 
-        private function validateInjured(array $injured_list) {
+        private static function validateInjured(array &$injured_list) {
             $required = array(
                 'firstname' => array(
                     'type' => 'text',
