@@ -11,28 +11,34 @@
         switch ($t['type'] ?? null) {
 
             case 'preselection':
-                if (in_array($d, $t['options'])) {
-                    $result = $d;
+                $result = $d;
+                if (!in_array($d, $t['options'])) {
+                    throw new Exception('not in selection', 1);
                 }
 
                 break;
             case 'date':
-                if (strtotime($d)) {
-                    $result = $d;
+                $result = strtotime($d);
+                if (!$result) {
+                    throw new Exception('invalid date', 1);
                 }
+
+                break;
+            case 'bool':
+                $result = boolval($d);
 
                 break;
             case 'integer':
                 $result = intval($d);
                 if (in_array('positive', $t['options']) && ($result < 0)) {
-                    $result = false;
+                    throw new Exception('invalid integer', 1);
                 }
 
                 break;
             case 'float':
                 $result = floatval($d);
                 if (in_array('positive', $t['options']) && ($result < 0)) {
-                    $result = false;
+                    throw new Exception('invalid float', 1);
                 }
 
                 break;
@@ -44,17 +50,28 @@
                 $result = str_replace(array(' ', '.', '-', '(', ')'), '', $d);
 
                 if (!preg_match('/^[0-9]{9,14}\z/', $d)) {
-                    $result = false;
+                    throw new Exception('invalid phone', 1);
                 }
 
                 break;
             case 'email':
-                $result = User::checkEmail($d);
+                $result = $d;
+                if (User::checkEmail($d)) {
+                    throw new Exception('invalid email', 1);
+                }
 
-                // no break
+                break;
             case 'zipcode':
-                if (preg_match('/(?:0[1-9]|[13-8][0-9]|2[ab1-9]|9[0-5])(?:[0-9]{3})?|9[78][1-9](?:[0-9]{2})?/', $d)) {
-                    $result = $d;
+                $result = $d;
+                if (!preg_match('/(?:0[1-9]|[13-8][0-9]|2[ab1-9]|9[0-5])(?:[0-9]{3})?|9[78][1-9](?:[0-9]{2})?/', $d)) {
+                    throw new Exception('invalid zipcode', 1);
+                }
+
+                break;
+            case 'array':
+                $result = $d;
+                if (empty($d)) {
+                    throw new Exception('not an array', 1);
                 }
 
                 break;
@@ -79,13 +96,15 @@
         $r = array();
 
         foreach ($t as $i => $v) {
-            if (isset($d[$i])) {
-                $v = validateEntry($d[$i], $v);
-                if (false !== $v) {
+            try {
+                if (isset($d[$i])) {
+                    $v = validateEntry($d[$i], $v);
                     $r = array_merge($r, array($i => $v));
+                } elseif (!isset($v['optional']) || !$v['optional']) {
+                    return false;
                 }
-            } elseif (!isset($v['optional']) || !$v['optional']) {
-                return false;
+            } catch (Exception $e) {
+                throw new Exception("Error while parsing : {$e->getMessage()}", 1);
             }
         }
 
