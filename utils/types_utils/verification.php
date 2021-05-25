@@ -72,7 +72,7 @@
             $this->assurance = $data["assurance"];
             $this->content = $this->parseContent($data["content"]);
             $this->comment = $data["comment"] ?? null;
-            $this->status = (in_array($data["status"], array(
+            $this->status = (isset($data["status"]) && in_array($data["status"], array(
                 self::PENDING,
                 self::ACCEPTED,
                 self::REJECTED
@@ -88,6 +88,7 @@
          */
         public function parseContent(array $content) {
             return array(
+                'raw' => $content['raw'],
                 'justification' => (strlen($content['justification']) > 0) ? $content['justification'] : "Non précisé",
                 'files' => (sizeof($content["files"]) > 0) ? $content["files"] : array()
             );
@@ -115,6 +116,33 @@
             $this->status = self::REJECTED;
             $this->mod = $id;
             $this->comment = (isset($comment) && (strlen($comment) > 0)) ? $comment : null;
+        }
+
+        /**
+         * Returns id of verification
+         *
+         * @return void
+         */
+        public function getID() {
+            return $this->id;
+        }
+
+        /**
+         * Returns everything
+         *
+         * @return array
+         */
+        public function getAll() {
+            return array(
+                'id' => $this->id,
+                'owner' => $this->owner,
+                'assurance' => $this->assurance,
+                'status' => $this->status,
+                'content' => $this->content,
+                'comment' => $this->comment,
+                'mod' => $this->mod,
+
+            );
         }
         
     }
