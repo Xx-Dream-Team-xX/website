@@ -16,7 +16,7 @@ require './vendor/autoload.php';
          *
          * @return array Array of object containing each element info
          */
-        public static function getAll(string $path) {
+        public static function &getAll(string $path) {
             if (!isset($_SERVER["cache"])) $_SERVER["cache"] = array();
             if (file_exists($path)) {
 
@@ -24,12 +24,9 @@ require './vendor/autoload.php';
                     $file = $_SERVER["cache"][$path];
                 } else {
                     $file = file_get_contents($path);
-                    $_SERVER["cache"][$path] = $file;
+                    $_SERVER["cache"][$path] = json_decode($file, 1);
                 }
-                if ($file) {
-                    return json_decode($file, 1);
-                }
-                return array();
+                return $_SERVER["cache"][$path];
             }
 
             throw new Exception("Failed to open file {$path}", 1);
@@ -44,7 +41,7 @@ require './vendor/autoload.php';
          * @return array array map of the element retreived or false if not found
          */
         public static function getFromID(string $path, string $id) {
-            $data = self::getAll($path);
+            $data = &self::getAll($path);
             foreach ($data as $element) {
                 if ($element['id'] === $id) {
                     return $element;
@@ -65,7 +62,7 @@ require './vendor/autoload.php';
          * @return array array map of the user retreived or false if user not found
          */
         public static function getUserByMail(string $path, string $mail) {
-            $data = self::getAll($path);
+            $data = &self::getAll($path);
             foreach ($data as $user) {
                 if (isset($user['mail']) && ($user['mail'] == $mail)) {
                     return $user;
@@ -84,7 +81,7 @@ require './vendor/autoload.php';
          * @return bool false if user Already exist
          */
         public static function setObject(string $path, array $rawObject, bool $new = false) {
-            $data = self::getAll($path);
+            $data = &self::getAll($path);
             $element_exist = false;
             if (isset($rawObject['id'])) {
                 foreach ($data as &$element) {
@@ -121,7 +118,7 @@ require './vendor/autoload.php';
          * @return void
          */
         public static function deleteObject (string $path, string $id) {
-            $data = self::getAll($path);
+            $data = &self::getAll($path);
             foreach ($data as $key => $element) {
                 if ($element['id'] === $id) {
                     unset($data[$key]);
