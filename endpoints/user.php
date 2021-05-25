@@ -37,6 +37,8 @@
                             unset($tmp['contracts']);
                             unset($tmp['sinisters']);
                             unset($tmp['declarations']);
+                            unset($tmp['conversations']);
+                            unset($tmp['notifications']);
                             send_json($tmp);
                             break;
                         case User::GESTIONNAIRE:

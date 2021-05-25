@@ -255,8 +255,6 @@
         public function getPublic() {
             $all = $this->getAll();
             unset($all['password_hash']);
-            unset($all['conversations']);
-            unset($all['notifications']);
 
             return $all;
         }
