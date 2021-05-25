@@ -168,7 +168,9 @@
                             $data['owners'] = array($data['owner']);
                             $data['insurance'] = getUpdatedUser()['assurance'];
                             $contract = new Contract($data);
+                            array_push($user['contracts'],$contract->getID());
                             DB::setObject(get_path('database', 'contracts.json'), $contract->getAll());
+                            DB::setObject(get_path('database', 'users.json'), $user);
                             send_json($contract->getAll());
                         } else {
                             echo 'You are not the rep of the user';
@@ -187,19 +189,26 @@
         case 'addUser':
             switch (getPermissions()) {
                 case User::GESTIONNAIRE:
+                    $required = array(
+                        'id' => array(
+                            'type' => 'text',
+                        ),
+                        'user' => array(
+                            'type' => 'text',
+                        ),
+                    );
                     $data = validateObject($_POST, $required);
-                    if (false == DB::getFromID(get_path('database', 'contracts.json'),$data['id'])) {
-                        if (($user = DB::getFromID(get_path('database', 'users.json'),$data['owner'])) !== false && $user['rep'] == getUpdatedUser()['id']) {
-                            $data['owners'] = array($data['owner']);
-                            $data['insurance'] = getUpdatedUser()['assurance'];
-                            $contract = new Contract($data);
-                            DB::setObject(get_path('database', 'contracts.json'), $contract->getAll());
-                            send_json($contract->getAll());
+                    if ((false !== $contract = DB::getFromID(get_path('database', 'contracts.json'),$data['id'])) && (false !== $user = DB::getFromID(get_path('database','users.json'),$data['user']))) { // Contract and user exist in DB
+                        if(!in_array($data['user'], $contract['owners'])) {
+                            array_push($contract['owners'], $data['user']);
+                            array_push($user['contracts'], $contract['id']);
+                            DB::setObject(get_path('database','contracts.json'),$contract);
+                            DB::setObject(get_path('database', 'users.json'),$user);
                         } else {
-                            echo 'You are not the rep of the user';
+                            echo 'User already in contract or contract already in user';
                         }
                     } else {
-                        echo 'Contract already exist';
+                        echo 'how did you end up there ?';
                     }
 
                     break;
@@ -208,14 +217,82 @@
                     break;
             }
             break;
-        case 'delete':
+        case 'end':
             switch (getPermissions()) {
                 case User::GESTIONNAIRE:
-                    echo DB::deleteObject(get_path('database', 'contracts.json'), $_POST['id']);
+                    $required = array(
+                        'id' => array(
+                            'type' => 'text',
+                        )
+                    );
+                    $data = validateObject($_POST, $required);
 
+                    if (false == $contract = DB::getFromID(get_path('database', 'contracts.json'),$data['id'])) {
+                        if (($user = DB::getFromID(get_path('database', 'users.json'),$contract['owners'][0])) !== false && $user['rep'] == getUpdatedUser()['id']) {
+                            $contract['end'] = time();
+                            DB::setObject(get_path('database','contracts.json'),$contract);
+                            send_json(array(
+                                'success' => true
+                            ));
+                        } else {
+                            send_json(array(
+                                'success' => false,
+                                'error' => 'You are not the rep of the user'
+                            ));
+                        }
+                    } else {
+                        send_json(array(
+                            'success' => false,
+                            'error' => 'Contract already exist'
+                        ));
+                        
+                    }
+                    
                     break;
                 default:
                     echo 'What are you doing wrong ?';
+
+                    break;
+                }
+            break;
+        case 'delete':
+            switch (getPermissions()) {
+                case User::GESTIONNAIRE:
+                    $required = array(
+                        'id' => array(
+                            'type' => 'text',
+                        )
+                    );
+                    $data = validateObject($_POST, $required);
+                    if (false !== ($contract = DB::getFromID(get_path('database', 'contracts.json'),$data['id']))) {
+                        $error = false;
+                        foreach ($contract['owners'] as $userID) {
+                            if (($user = DB::getFromID(get_path('database', 'users.json'),$userID)) !== false) {
+                                $user['contracts'] = array_diff($user['contracts'],array($contract['id']));
+                                DB::setObject(get_path('database','users.json'),$user);
+                            } else {
+                                $error = true;
+                            }
+                        }
+                        DB::deleteObject(get_path('database', 'contracts.json'), $_POST['id']);
+                        send_json(array(
+                            'success' => $error
+                        ));
+                        
+                    } else {
+                        send_json(array(
+                            'success' => false,
+                            'error' => 'Contract do not exist'
+                        ));
+                        
+                    }
+
+                    break;
+                default:
+                    send_json(array(
+                        'success' => false,
+                        'error' => 'What are you doing wrong ?'
+                    ));
 
                     break;
                 }
