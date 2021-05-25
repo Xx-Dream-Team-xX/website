@@ -180,7 +180,6 @@
                 break;
 
             case 'recipients':
-                $user = getUpdatedUser();
                 send_json(getRecipients());
                 break;
             case 'get':

@@ -99,7 +99,7 @@
 
                 $this->id = $data['id'] ?? uniqid();
                 $this->people = $data['people'];
-                $this->type = (in_array($data['type'], array(
+                $this->type = (in_array($data['type'] ?? null, array(
                     self::DM,
                     self::TICKET_OPEN,
                     self::TICKET_CLOSED
