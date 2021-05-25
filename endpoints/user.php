@@ -29,16 +29,8 @@
                 if ($t && ($t = User::createUserByType($t))) {
                     switch (getPermissions()) {
                         case User::ADMIN:
-                            send_json($t->getPublic());
-                            break;
                         case User::POLICE:
-                            $tmp = $t->getPublic();
-                            unset($tmp['contracts']);
-                            unset($tmp['sinisters']);
-                            unset($tmp['declarations']);
-                            unset($tmp['conversations']);
-                            unset($tmp['notifications']);
-                            send_json($tmp);
+                            send_json($t->getPublic());
                             break;
                         case User::GESTIONNAIRE:
                             if (($t->getType() === User::ASSURE) && ($t->getAssurance() === getUpdatedUser()['assurance'])) {
