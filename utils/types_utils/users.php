@@ -526,7 +526,7 @@
         /**
          * Gets representant id
          *
-         * @return void
+         * @return string
          */
         public function getRep() {
             return $this->rep;
