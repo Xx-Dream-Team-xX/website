@@ -53,7 +53,7 @@
     }
 
     if (isLoggedIn() && (getPermissions() > User::POLICE)) {
-        $user = getUpdatedUser();
+        
 
         switch (get_final_point()) {
             case 'list':
@@ -67,6 +67,8 @@
                     $c = DB::getFromID(get_path('database', 'tickets.json'), $_POST['id']);
 
                     if ($c && ($c = new Conversation($c))) {
+
+                        $user = getUpdatedUser();
 
                         if (!in_array(getID(), $c->getPeople())) return;
 
@@ -90,6 +92,9 @@
                 break;
             case 'new':
                 if (isset($_POST['recipient'], $_POST['content'], $_POST['title']) && $_POST['title'] !== "") {
+
+                    $user = getUpdatedUser();
+
                     $found = false;
                     foreach (getRecipients() as $r) {
                         if ($_POST['recipient'] === $r['id']) {
