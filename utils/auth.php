@@ -103,8 +103,12 @@ class Auth {
             ),
         );
 
-        $user = validateObject($user, array_merge($r[0], $r[$type]));
-
+        try {
+            $user = validateObject($user, array_merge($r[0], $r[$type]));
+        } catch (\Throwable $th) {
+            $user = false;
+        }
+        
         $error = self::MISSING_INFORMATION;
         if ($user) {
             $user['type'] = $type;
