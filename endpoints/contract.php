@@ -116,7 +116,7 @@
                         }
                     }
                     if (false !== $contract = DB::getFromID(get_path('database', 'contracts.json'), $_POST['id'])) {
-                        if (getUpdatedUser()['assurance'] == $contract['insurance']) {
+                        if (getID() == DB::getFromID(get_path('database', 'users.json'), $contract['owners'][0])['rep']) {
                             try {
                                 $contract = array_merge($contract, $terVals);
                                 send_json($contract);
