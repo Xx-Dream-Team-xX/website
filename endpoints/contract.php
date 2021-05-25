@@ -8,10 +8,14 @@
 
     switch (get_final_point()) {
         case 'get':
+
+            if (!isset($_POST['id'])) return;
             $contract = DB::getFromID(get_path('database', 'contracts.json'),$_POST['id']);
+            if ($contract === false) return;
+
             switch (getPermissions()) {
                 case User::ASSURE:
-                    if (in_array(getUpdatedUser()['id'], $contract['owners'])) {
+                    if (in_array(getID(), $contract['owners'])) {
                         send_json($contract);
                     } else {
                         send_json(array(
@@ -23,14 +27,10 @@
                     }
 
                     break;
-                case User::POLICE:
-                    send_json($contract);
-
-                    break;
                 case User::GESTIONNAIRE:
                     $found = false;
                     foreach ($contract['owners'] as $user) {
-                        if (getUpdatedUser()['id'] == DB::getFromID(get_path('database','users.json'),$user)['rep']) {
+                        if (getID() === DB::getFromID(get_path('database','users.json'),$user)['rep']) {
                             send_json($contract);
                             $found = true;
                             break;
@@ -45,6 +45,7 @@
                         ));
                     }
                     break;
+                case User::POLICE:
                 case User::ADMIN:
                     send_json($contract);
                     break;
@@ -75,9 +76,8 @@
                         $found = false;
                         $contract = DB::getFromID(get_path('database', 'contracts.json'),$_POST['id']);
                         foreach ($contract['owners'] as $user) {
-                            if (getUpdatedUser()['id'] == DB::getFromID(get_path('database', 'users.json'), $user)['rep']) {
+                            if (getID() == DB::getFromID(get_path('database', 'users.json'), $user)['rep']) {
                                 $found = true;
-                                send_json($contract);
                                 try {
                                     $modif = validateObject($_POST, $required);
                                     $contract = array_merge($contract, $modif);
