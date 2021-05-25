@@ -164,13 +164,16 @@
                     );
                     $data = validateObject($_POST, $required);
                     if (false == DB::getFromID(get_path('database', 'contracts.json'),$data['id'])) {
-                        if (($user = DB::getFromID(get_path('database', 'users.json'),$data['owner'])) !== false && $user['rep'] == getUpdatedUser()['id'] && !in_array($data['id'], $user['contracts'])) {
+                        if (($user = DB::getFromID(get_path('database', 'users.json'),$data['owner'])) !== false && $user['rep'] == getUpdatedUser()['id'] && !in_array($data['id'], $user['contracts'])&& !in_array($data['id'], getUpdatedUser()['contracts'])) {
                             $data['owners'] = array($data['owner']);
                             $data['insurance'] = getUpdatedUser()['assurance'];
                             $contract = new Contract($data);
                             array_push($user['contracts'],$contract->getID());
+                            $session_user = getUpdatedUser();
+                            array_push($session_user['contracts'],$contract->getID());
                             DB::setObject(get_path('database', 'contracts.json'), $contract->getAll());
                             DB::setObject(get_path('database', 'users.json'), $user);
+                            DB::setObject(get_path('database', 'users.json'), $session_user);
                             send_json($contract->getAll());
                         } else {
                             echo 'You are not the rep of the user';
@@ -274,6 +277,9 @@
                                 $success = true;
                             }
                         }
+                        $session_user = getUpdatedUser();
+                        $session_user['contracts'] = array_diff($session_user['contracts'],array($contract['id']));
+                        DB::setObject(get_path('database','users.json'),$session_user);
                         DB::deleteObject(get_path('database', 'contracts.json'), $_POST['id']);
                         send_json(array(
                             'success' => $success
