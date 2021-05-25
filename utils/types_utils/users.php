@@ -255,6 +255,8 @@
         public function getPublic() {
             $all = $this->getAll();
             unset($all['password_hash']);
+            unset($all['conversations']);
+            unset($all['notifications']);
 
             return $all;
         }
@@ -489,6 +491,15 @@
          */
         public function getContracts() {
             return $this->contracts;
+        }
+
+        /**
+         * Gets assigned assurance
+         *
+         * @return void
+         */
+        public function getAssurance() {
+            return $this->assurance;
         }
 
         /**
