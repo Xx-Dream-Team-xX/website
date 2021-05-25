@@ -85,7 +85,7 @@ class Contract {
             $this->owners = $rawContract['owners'];
             $this->start = $rawContract['start'];
             $this->end = $rawContract['end'];
-            $this->setVehicleID($rawContract['vID']);
+            $this->vID = $rawContract['vID'];
             $this->id = $rawContract['id'];
             $this->insuranceID = $rawContract['insurance'];
             $this->countryCode = $rawContract['countryCode'];
@@ -130,21 +130,6 @@ class Contract {
 
     public function getOwners() {
         return $this->owners;
-    }
-
-    /**
-     * Validate phone number and set it if correct.
-     *
-     * @return bool false if invalid
-     */
-    public function setVehicleID(string $vID) {
-        $sanitizedVID = str_replace('-', '', $vID);
-        $sanitizedVID = strtoupper($sanitizedVID);
-        if ((7 == strlen($sanitizedVID)) && !is_numeric(substr($sanitizedVID, 0, 2)) && is_numeric(substr($sanitizedVID, 2, 3)) && !is_numeric(substr($sanitizedVID, 5, 2))) {
-            $this->vID = $sanitizedVID;
-        } else {
-            throw new Exception('Invalid ID plate', self::IDERROR);
-        }
     }
 
     /**

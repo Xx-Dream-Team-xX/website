@@ -22,10 +22,8 @@ use function PHPSTORM_META\type;
 
                 break;
             case 'date':
-                $result = strtotime($d);
-                if (!$result || ('int' == type($result))) {
-                    $result = $d;
-                } else {
+                $result = intval($d);
+                if (!$result || ('integer' !== gettype($result))) {
                     throw new Exception('invalid date', 1);
                 }
 
@@ -78,6 +76,17 @@ use function PHPSTORM_META\type;
                 $result = $d;
                 if (empty($d)) {
                     throw new Exception('invalid array', 1);
+                }
+
+                break;
+            case 'vID':
+                $result = $d;
+                $sanitizedVID = str_replace('-', '', $d);
+                $sanitizedVID = strtoupper($sanitizedVID);
+                if ((7 == strlen($sanitizedVID)) && !is_numeric(substr($sanitizedVID, 0, 2)) && is_numeric(substr($sanitizedVID, 2, 3)) && !is_numeric(substr($sanitizedVID, 5, 2))) {
+                    $result = $sanitizedVID;
+                } else {
+                    throw new Exception('invalid ID plate', 1);
                 }
 
                 break;
