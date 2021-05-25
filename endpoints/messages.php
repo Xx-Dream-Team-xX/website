@@ -68,10 +68,10 @@
     }
 
     if (isLoggedIn()) {
-        $user = getUpdatedUser();
 
         switch (get_final_point()) {
             case 'list':
+                $user = getUpdatedUser();
                 send_json(array_map(function($m) {
                     return array_merge($m, array(
                         'unread' => in_array($m["id"], $_SESSION["user"]["conversations"])
@@ -85,7 +85,7 @@
             case 'send':
                 if (isset($_POST['id'], $_POST['content'])) {
                     $c = DB::getFromID(get_path('database', 'conversations.json'), $_POST['id']);
-
+                    $user = getUpdatedUser();
                     if ($c && ($c = new Conversation($c))) {
 
                         if (!in_array(getID(), $c->getPeople())) return;
@@ -109,6 +109,7 @@
                 break;
             case 'new':
                 if (isset($_POST['recipient'], $_POST['content'])) {
+                    $user = getUpdatedUser();
                     $found = false;
                     foreach (getRecipients() as $r) {
                         if ($_POST['recipient'] === $r['id']) {
@@ -148,7 +149,7 @@
 
                     $c = DB::getFromID(get_path('database', 'conversations.json'), $_POST['conv']);
                     if ($c && $c = new Conversation($c)) {
-
+                        $user = getUpdatedUser();
                         if (!in_array(getID(), $c->getPeople())) return;
 
                         if (!in_array($_POST["dest"], $c->getPeople())) {
@@ -179,13 +180,14 @@
                 break;
 
             case 'recipients':
+                $user = getUpdatedUser();
                 send_json(getRecipients());
                 break;
             case 'get':
                 if (isset($_POST["id"])) {
                     $c = DB::getFromID(get_path('database', 'conversations.json'), $_POST['id']);
                     if ($c && $c = new Conversation($c)) {
-
+                        $user = getUpdatedUser();
                         if (!in_array(getID(), $c->getPeople())) return;
 
                         $user = User::createUserByType($user);
