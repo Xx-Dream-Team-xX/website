@@ -78,15 +78,23 @@ class Auth {
     public function register(array $user, string $author, int $type = User::ASSURE) {
         $r = array(
             array(
-                'mail' => array(),
+                'mail' => array(
+                    'type' => 'email',
+                ),
                 'first_name' => array(),
                 'last_name' => array(),
-                'phone' => array(),
+                'phone' => array(
+                    'type' => 'phone'
+                ),
             ),
             array(
                 'address' => array(),
-                'zip_code' => array(),
-                'birth' => array(),
+                'zip_code' => array(
+                    'type' => 'zipcode'
+                ),
+                'birth' => array(
+                    'type' => 'date'
+                ),
                 'assurance' => array(),
             ),
             array(),
