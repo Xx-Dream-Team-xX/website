@@ -13,7 +13,9 @@
      * Gets available recipients for tickets.
      */
     function getRecipients() {
-        $users = DB::getAll(get_path('database', 'users.json'));
+        $users = array_filter(DB::getAll(get_path('database', 'users.json')), function($u) {
+            return ($u['id'] !== getID());
+        });
 
         if (getPermissions() !== User::ADMIN) {
             $users = array_values(array_filter($users, function($u) {
