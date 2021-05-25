@@ -89,14 +89,19 @@
                             }
                         }
                         if (!$found) {
-                            echo 'This contract does not belong to your Insurance';;
+                            send_json(array(
+                                'success' => false,
+                                'error' => 'This contract does not belong to your Insurance'
+                            ));
                         }
                     } else {
-                        echo 'Contract do not exist';
+                        send_json(array(
+                            'success' => false,
+                            'error' => 'Contract do not exist'
+                        ));
                     }
                     break;
                 default:
-                    echo 'What are you doing wrong ?';
                     break;
             }
 
@@ -120,14 +125,19 @@
                                 echo $e->getMessage();
                             }
                         } else {
-                            echo 'This contract does not belong to your Insurance';
+                            send_json(array(
+                                'success' => false,
+                                'error' => 'This contract does not belong to your Insurance'
+                            ));
                         }
                     } else {
-                        echo 'Contract do not exist';
+                        send_json(array(
+                            'success' => false,
+                            'error' => 'Contract do not exist'
+                        ));
                     }
                     break;
                 default:
-                    echo 'What are you doing wrong ?';
                     break;
             }
 
@@ -176,15 +186,20 @@
                             DB::setObject(get_path('database', 'users.json'), $session_user);
                             send_json($contract->getAll());
                         } else {
-                            echo 'You are not the rep of the user';
+                            send_json(array(
+                                'success' => false,
+                                'error' => 'You are not the rep of the user'
+                            ));
                         }
                     } else {
-                        echo 'Contract already exist';
+                        send_json(array(
+                            'success' => false,
+                            'error' => 'Contract already exist'
+                        ));
                     }
 
                     break;
                 default:
-                    echo 'What are you doing wrong ?';
                     break;
             }
 
@@ -208,15 +223,20 @@
                             DB::setObject(get_path('database','contracts.json'),$contract);
                             DB::setObject(get_path('database', 'users.json'),$user);
                         } else {
-                            echo 'User already in contract or contract already in user';
+                            send_json(array(
+                                'success' => false,
+                                'error' => 'User already in contract or contract already in user'
+                            ));
                         }
                     } else {
-                        echo 'how did you end up there ?';
+                        send_json(array(
+                            'success' => false,
+                            'error' => 'how did you end up there ?'
+                        ));
                     }
 
                     break;
                 default:
-                    echo 'What are you doing wrong ?';
                     break;
             }
             break;
