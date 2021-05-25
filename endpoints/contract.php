@@ -280,7 +280,7 @@
             break;
         case 'delete':
             switch (getPermissions()) {
-                case User::GESTIONNAIRE:
+                case User::ADMIN:
                     $required = array(
                         'id' => array(
                             'type' => 'text',
