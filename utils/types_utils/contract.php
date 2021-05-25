@@ -75,7 +75,7 @@ class Contract {
      *
      * @var array
      */
-    private $territoryValidity = array('A' => false);
+    private $territoryValidity = array();
 
     /**
      * Constructor for Contract.
@@ -121,6 +121,7 @@ class Contract {
             'countryCode' => $this->countryCode,
             'category' => $this->category,
             'manufacturer' => $this->manufacturer,
+            'terVal' => $this->territoryValidity
         );
     }
 
