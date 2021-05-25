@@ -522,6 +522,15 @@
 
             return false;
         }
+
+        /**
+         * Gets representant id
+         *
+         * @return void
+         */
+        public function getRep() {
+            return $this->rep;
+        }
     }
 
     /**
