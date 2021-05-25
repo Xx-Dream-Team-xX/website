@@ -35,9 +35,9 @@
      * @param string $type Filter per type
      * @return array files
      */
-    function checkUploadedFile(string $type="img") {
+    function checkUploadedFiles(string $type="any") {
 
-        if (sizeof($_FILES) === 0) return array();
+        if (sizeof($_FILES) === 0) return false;
 
         $available = [
             'img' => array(
@@ -69,6 +69,8 @@
             foreach ($available as $i => $a) {
                 $used = array_merge($used, $a);
             }
+        } else {
+            return false;
         }
 
         return (sizeof($used) > 0 && uploadOK($_FILES, $used));
