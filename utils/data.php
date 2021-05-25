@@ -114,6 +114,26 @@ require './vendor/autoload.php';
         }
 
         /**
+         * Delete an object from the DB
+         *
+         * @param string $path
+         * @param string $id
+         * @return void
+         */
+        public static function deleteObject (string $path, string $id) {
+            $data = self::getAll($path);
+            foreach ($data as $key => $element) {
+                if ($element['id'] === $id) {
+                    unset($data[$key]);
+                    self::writeDB($path, $data);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /**
          * Overwrite the Database specified by $path by the $data given.
          *
          * @param string $path Path to the DB
