@@ -267,7 +267,7 @@ class Auth {
      * @param array $user Array of user data
      */
     private function assign(array $user) {
-        $_SESSION['user'] = (User::createUserByType($user))->getPublic();
+        $_SESSION['user'] = (User::createUserByType($user))->getProtected();
     }
 }
 ?>

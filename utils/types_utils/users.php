@@ -252,10 +252,30 @@
             );
         }
 
-        public function getPublic() {
+        /**
+         * Gets everything except password
+         *
+         * @return array data
+         */
+        public function getProtected() {
             $all = $this->getAll();
             unset($all['password_hash']);
 
+            return $all;
+        }
+
+        /**
+         * Gets public data, sort of
+         *
+         * @return array data
+         */
+        public function getPublic() {
+            $all = $this->getProtected();
+            unset($all['contracts']);
+            unset($all['sinisters']);
+            unset($all['declarations']);
+            unset($all['conversations']);
+            unset($all['notifications']);
             return $all;
         }
 

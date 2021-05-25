@@ -72,7 +72,7 @@
     function getUpdatedUser() {
         $user = DB::getFromID(get_path('database', 'users.json'), getID());
         if ($user) {
-            $_SESSION['user'] = (User::createUserByType($user))->getPublic();
+            $_SESSION['user'] = (User::createUserByType($user))->getProtected();
         }
 
         return isLoggedIn() ? $user : null;
