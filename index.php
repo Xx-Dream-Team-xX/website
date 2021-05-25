@@ -33,6 +33,7 @@
     Router::add('conversation', get_path('api', 'messages.php'));
     Router::add('ticket', get_path('api', 'tickets.php'));
     Router::add('notifications', get_path('api', 'notifications.php'));
+    Router::add('verification', get_path('api', 'verification.php'));
 
     Router::default(get_path('views', 'error.php'));
 

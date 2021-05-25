@@ -55,6 +55,13 @@
         protected $mod = null;
 
         /**
+         * Last modified
+         *
+         * @var int
+         */
+        protected $modified = 0;
+
+        /**
          * Verification status constants
          */
         public const PENDING = 0;
@@ -78,6 +85,7 @@
                 self::REJECTED
             ))) ? $data["status"] : self::PENDING;
             $this->mod = $data["mod"] ?? null;
+            $this->modified = $data["modified"] ?? time();
         }
 
         /**
@@ -103,6 +111,7 @@
         public function accept(string $id) {
             $this->status = self::ACCEPTED;
             $this->mod = $id;
+            $this->modified = time();
         }
 
         /**
@@ -116,12 +125,13 @@
             $this->status = self::REJECTED;
             $this->mod = $id;
             $this->comment = (isset($comment) && (strlen($comment) > 0)) ? $comment : null;
+            $this->modified = time();
         }
 
         /**
          * Returns id of verification
          *
-         * @return void
+         * @return string id
          */
         public function getID() {
             return $this->id;
@@ -130,7 +140,7 @@
         /**
          * Returns everything
          *
-         * @return array
+         * @return array data
          */
         public function getAll() {
             return array(
@@ -141,8 +151,44 @@
                 'content' => $this->content,
                 'comment' => $this->comment,
                 'mod' => $this->mod,
-
+                'modified' => $this->modified
             );
+        }
+
+        /**
+         * Returns verif data
+         *
+         * @return array data
+         */
+        public function getContent() {
+            return $this->content;
+        }
+
+        /**
+         * Returns assurance
+         *
+         * @return string id
+         */
+        public function getAssurance() {
+            return $this->assurance;
+        }
+
+        /**
+         * Returns verification owner
+         *
+         * @return string id
+         */
+        public function getOwner() {
+            return $this->owner;
+        }
+
+        /**
+         * Returns status
+         *
+         * @return int
+         */
+        public function getStatus() {
+            return $this->status;
         }
         
     }
