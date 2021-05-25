@@ -88,7 +88,6 @@ use function PHPSTORM_META\type;
                 } else {
                     throw new Exception('invalid ID plate', 1);
                 }
-
                 break;
             default:
                 $result = htmlspecialchars($d);

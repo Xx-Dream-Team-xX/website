@@ -10,22 +10,51 @@
         case 'get':
             $contract = DB::getFromID(get_path('database', 'contracts.json'),$_POST['id']);
             switch (getPermissions()) {
-                case User::NONE:
+                case User::ASSURE:
+                    if (in_array(getUpdatedUser()['id'], $contract['owners'])) {
+                        send_json($contract);
+                    } else {
+                        send_json(array(
+                            'id' => $contract['id'],
+                            'start' => $contract['start'],
+                            'end' => $contract['end'],
+                            'vID' => $contract['vID'],
+                        ));
+                    }
+
+                    break;
+                case User::POLICE:
+                    send_json($contract);
+
+                    break;
+                case User::GESTIONNAIRE:
+                    $found = false;
+                    foreach ($contract['owners'] as $user) {
+                        if (getUpdatedUser()['id'] == DB::getFromID(get_path('database','users.json'),$user)['rep']) {
+                            send_json($contract);
+                            $found = true;
+                            break;
+                        }
+                    }
+                    if (!$found) {
+                        send_json(array(
+                            'id' => $contract['id'],
+                            'start' => $contract['start'],
+                            'end' => $contract['end'],
+                            'vID' => $contract['vID'],
+                        ));
+                    }
+                    break;
+                case User::ADMIN:
+                    send_json($contract);
+                    break;
+                default:
                     send_json(array(
                         'id' => $contract['id'],
                         'start' => $contract['start'],
                         'end' => $contract['end'],
                         'vID' => $contract['vID'],
                     ));
-                    break;
-                case User::ASSURE:
-                case User::POLICE:
-                case User::GESTIONNAIRE:
-                case User::ADMIN:
-                    send_json($contract);
-                    break;
-                default:
-                    echo 'What are you doing wrong ?';
                     break;
             }
             break;
@@ -42,16 +71,59 @@
                             'optional' => true
                         )
                     );
-                    if (false !== $contract = DB::getFromID(get_path('database', 'contracts.json'), $_POST['id'])) {
-                        try {
-                            $modif = validateObject($_POST, $required);
-                            send_json($modif);
-                            $contract = array_merge($contract,$modif);
-                            send_json($contract);
-                            DB::setObject(get_path('database', 'contracts.json'), $contract);
-                        } catch (Exception $e) {
-                            echo $e->getMessage();
+                    if (isset($_POST['id']) && false !== $contract = DB::getFromID(get_path('database', 'contracts.json'), $_POST['id'])) {
+                        $found = false;
+                        $contract = DB::getFromID(get_path('database', 'contracts.json'),$_POST['id']);
+                        foreach ($contract['owners'] as $user) {
+                            if (getUpdatedUser()['id'] == DB::getFromID(get_path('database', 'users.json'), $user)['rep']) {
+                                $found = true;
+                                send_json($contract);
+                                try {
+                                    $modif = validateObject($_POST, $required);
+                                    $contract = array_merge($contract, $modif);
+                                    send_json($contract);
+                                    DB::setObject(get_path('database', 'contracts.json'), $contract);
+                                } catch (Exception $e) {
+                                    echo $e->getMessage();
+                                }
+                            }
                         }
+                        if (!$found) {
+                            echo 'This contract does not belong to your Insurance';;
+                        }
+                    } else {
+                        echo 'Contract do not exist';
+                    }
+                    break;
+                default:
+                    echo 'What are you doing wrong ?';
+                    break;
+            }
+
+            break;
+        case 'setTerVal':
+            switch (getPermissions()) {
+                case User::GESTIONNAIRE:
+                    $terVals = array('terVal' => array());
+                    foreach ($_POST as $key => $value) {
+                        if (in_array($key, array('A', 'B', 'BG', 'CY', 'CZ', 'D', 'DK', 'E', 'EST', 'F', 'FIN', 'GB', 'GR', 'H', 'HR', 'I', 'IRL', 'IS', 'L', 'LT', 'LV', 'M', 'N', 'NL', 'P', 'PL', 'RO', 'S', 'SK', 'SLO', 'CH', 'AL', 'AND', 'AZ', 'BIH', 'BY', 'IL', 'IR', 'MA', 'MD', 'MK', 'MNE', 'RUS', 'SRB', 'TN', 'TR', 'UA'))) {
+                            $terVals['terVal'][$key] = boolval($value);
+                        }
+                    }
+                    if (false !== $contract = DB::getFromID(get_path('database', 'contracts.json'), $_POST['id'])) {
+                        if (getUpdatedUser()['assurance'] == $contract['insurance']) {
+                            try {
+                                $contract = array_merge($contract, $terVals);
+                                send_json($contract);
+                                DB::setObject(get_path('database', 'contracts.json'), $contract);
+                            } catch (Exception $e) {
+                                echo $e->getMessage();
+                            }
+                        } else {
+                            echo 'This contract does not belong to your Insurance';
+                        }
+                    } else {
+                        echo 'Contract do not exist';
                     }
                     break;
                 default:
@@ -79,12 +151,8 @@
                         'vID' => array(
                             'type' => 'vID',
                         ),
-                        'insurance' => array(
-                            'type' => 'text',
-                        ),
                         'countryCode' => array(
-                            'type' => 'preselection',
-                            'options' => array('A', 'B', 'BG', 'CY', 'CZ', 'D', 'DK', 'E', 'EST', 'F', 'FIN', 'GB', 'GR', 'H', 'HR', 'I', 'IRL', 'IS', 'L', 'LT', 'LV', 'M', 'N', 'NL', 'P', 'PL', 'RO', 'S', 'SK', 'SLO', 'CH', 'AL', 'AND', 'AZ', 'BIH', 'BY', 'IL', 'IR', 'MA', 'MD', 'MK', 'MNE', 'RUS', 'SRB', 'TN', 'TR', 'UA'),
+                            'type' => 'text',
                         ),
                         'category' => array(
                             'type' => 'preselection',
@@ -92,13 +160,13 @@
                         ),
                         'manufacturer' => array(
                             'type' => 'text',
-                        ),
+                        )
                     );
                     $data = validateObject($_POST, $required);
-
                     if (false == DB::getFromID(get_path('database', 'contracts.json'),$data['id'])) {
                         if (($user = DB::getFromID(get_path('database', 'users.json'),$data['owner'])) !== false && $user['rep'] == getUpdatedUser()['id']) {
                             $data['owners'] = array($data['owner']);
+                            $data['insurance'] = getUpdatedUser()['assurance'];
                             $contract = new Contract($data);
                             DB::setObject(get_path('database', 'contracts.json'), $contract->getAll());
                             send_json($contract->getAll());
@@ -115,6 +183,30 @@
                     break;
             }
 
+            break;
+        case 'addUser':
+            switch (getPermissions()) {
+                case User::GESTIONNAIRE:
+                    $data = validateObject($_POST, $required);
+                    if (false == DB::getFromID(get_path('database', 'contracts.json'),$data['id'])) {
+                        if (($user = DB::getFromID(get_path('database', 'users.json'),$data['owner'])) !== false && $user['rep'] == getUpdatedUser()['id']) {
+                            $data['owners'] = array($data['owner']);
+                            $data['insurance'] = getUpdatedUser()['assurance'];
+                            $contract = new Contract($data);
+                            DB::setObject(get_path('database', 'contracts.json'), $contract->getAll());
+                            send_json($contract->getAll());
+                        } else {
+                            echo 'You are not the rep of the user';
+                        }
+                    } else {
+                        echo 'Contract already exist';
+                    }
+
+                    break;
+                default:
+                    echo 'What are you doing wrong ?';
+                    break;
+            }
             break;
         case 'delete':
             switch (getPermissions()) {
