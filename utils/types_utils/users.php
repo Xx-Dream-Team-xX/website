@@ -427,13 +427,6 @@
         protected $sinisters = array();
 
         /**
-         * Pending actions stack (verifications).
-         *
-         * @var array
-         */
-        protected $actions = array();
-
-        /**
          * Assuré construction, initilaizes the user.
          */
         public function __construct(array $rawUser) {
@@ -450,9 +443,6 @@
                 }
                 if (isset($rawUser['sinisters'])) {
                     $this->sinisters = $rawUser['sinisters'];
-                }
-                if (isset($rawUser['actions'])) {
-                    $this->actions = $rawUser['actions'];
                 }
                 if (isset($rawUser['contracts'])) {
                     $this->contracts = $rawUser['contracts'];
@@ -475,7 +465,6 @@
                 'contracts' => $this->contracts,
                 'declarations' => $this->declarations,
                 'sinisters' => $this->sinisters,
-                'actions' => $this->actions,
                 'zip_code' => $this->zipCode,
                 'address' => $this->address,
                 'birth' => $this->birth,

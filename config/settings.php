@@ -7,7 +7,7 @@
  define('SETTINGS', array(
      'name' => 'iCar',
      'version' => '0.0.1',
-     'url' => 'http://localhost/'
+     'url' => 'http://localhost:8080/'
  ));
 // Time zone settings, see https://www.php.net/manual/en/timezones.php
  date_default_timezone_set('Europe/Paris');

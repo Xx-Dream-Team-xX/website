@@ -33,7 +33,6 @@
                             break;
                         case User::POLICE:
                             $tmp = $t->getPublic();
-                            unset($tmp['actions']);
                             unset($tmp['contracts']);
                             unset($tmp['sinisters']);
                             unset($tmp['declarations']);

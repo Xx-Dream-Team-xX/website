@@ -102,8 +102,7 @@
                         'birth' => $u['birth'],
                         'declarations' => sizeof($u['declarations']),
                         'contracts' => sizeof($u['contracts']),
-                        'sinisters' => sizeof($u['sinisters']),
-                        'actions' => sizeof($u['actions']),
+                        'sinisters' => sizeof($u['sinisters'])
                     );
                 };
 
