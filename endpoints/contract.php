@@ -164,7 +164,7 @@
                     );
                     $data = validateObject($_POST, $required);
                     if (false == DB::getFromID(get_path('database', 'contracts.json'),$data['id'])) {
-                        if (($user = DB::getFromID(get_path('database', 'users.json'),$data['owner'])) !== false && $user['rep'] == getUpdatedUser()['id']) {
+                        if (($user = DB::getFromID(get_path('database', 'users.json'),$data['owner'])) !== false && $user['rep'] == getUpdatedUser()['id'] && !in_array($data['id'], $user['contracts'])) {
                             $data['owners'] = array($data['owner']);
                             $data['insurance'] = getUpdatedUser()['assurance'];
                             $contract = new Contract($data);
@@ -199,7 +199,7 @@
                     );
                     $data = validateObject($_POST, $required);
                     if ((false !== $contract = DB::getFromID(get_path('database', 'contracts.json'),$data['id'])) && (false !== $user = DB::getFromID(get_path('database','users.json'),$data['user']))) { // Contract and user exist in DB
-                        if(!in_array($data['user'], $contract['owners'])) {
+                        if(!in_array($data['user'], $contract['owners']) && !in_array($data['id'], $user['contracts'])) {
                             array_push($contract['owners'], $data['user']);
                             array_push($user['contracts'], $contract['id']);
                             DB::setObject(get_path('database','contracts.json'),$contract);
@@ -265,18 +265,18 @@
                     );
                     $data = validateObject($_POST, $required);
                     if (false !== ($contract = DB::getFromID(get_path('database', 'contracts.json'),$data['id']))) {
-                        $error = false;
-                        foreach ($contract['owners'] as $userID) {
-                            if (($user = DB::getFromID(get_path('database', 'users.json'),$userID)) !== false) {
+                        $success = false;
+                        foreach ($contract['owners'] as $key => $userID) {
+                            if (false !== $user = DB::getFromID(get_path('database', 'users.json'),$userID)) {
                                 $user['contracts'] = array_diff($user['contracts'],array($contract['id']));
                                 DB::setObject(get_path('database','users.json'),$user);
                             } else {
-                                $error = true;
+                                $success = true;
                             }
                         }
                         DB::deleteObject(get_path('database', 'contracts.json'), $_POST['id']);
                         send_json(array(
-                            'success' => $error
+                            'success' => $success
                         ));
                         
                     } else {
