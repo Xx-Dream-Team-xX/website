@@ -22,9 +22,10 @@ use function PHPSTORM_META\type;
 
                 break;
             case 'date':
-                $result = intval($d);
-                if (!$result || ('integer' !== gettype($result))) {
-                    throw new Exception('invalid date', 1);
+                if (is_numeric($d)) {
+                    $result = intval($d);
+                } elseif ($date = DateTime::createFromFormat('d/m/Y', $d)) {
+                    $result = $date->getTimestamp();
                 }
 
                 break;
