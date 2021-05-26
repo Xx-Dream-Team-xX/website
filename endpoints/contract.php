@@ -324,6 +324,29 @@
                 }
             break;
 
+        case 'list':
+            switch (getPermissions()) {
+                case User::ASSURE:
+                    send_json(getUpdatedUser()["contracts"]);
+                    break;
+                case User::GESTIONNAIRE:
+                    if (isset($_POST["id"])) {
+                        $u = DB::getFromID(get_path("database", "users.json"), $_POST["id"]);
+                        if ($u && $u = new UserAssure($u)) {
+                            if ($u->getAssurance() === $_SESSION["user"]["assurance"]) {
+                                send_json($u->getContracts());
+                            }
+                        }
+                    } else {
+                        send_json(getUpdatedUser()["contracts"]);
+                    }
+                    break;
+                default:
+
+                    break;
+            }
+            break;
+
         default:
             notfound();
             break;

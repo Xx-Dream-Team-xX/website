@@ -133,6 +133,10 @@ class Contract {
         return $this->owners;
     }
 
+    public function getAssurance() {
+        return $this->insuranceID;
+    }
+
     /**
      * Add an owner to the contract.
      *
