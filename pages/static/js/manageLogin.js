@@ -1,5 +1,4 @@
 function login(form) {
-    console.log("Logging in..");
     let d = new FormData();
     d.append("login", form.email.value);
     d.append("password", form.password.value);
@@ -8,7 +7,6 @@ function login(form) {
     req.send(d);
     req.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
             if (JSON.parse(this.responseText) === true) {
                 // redirect
                 console.log("good");
@@ -26,8 +24,4 @@ function updatePasswordhelp(mess) {
 function doLogin() {
     var loginForm = document.getElementById("loginForm");
     login(loginForm);
-}
-
-function loginResults(response) {
-    console.log("login");
 }
