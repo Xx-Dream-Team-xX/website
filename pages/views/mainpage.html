@@ -27,10 +27,17 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">Home</a>
                         </li>
+                        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Login
+                        </a>
+                        <div class="dropdown-menu p-3">
+                            <form class="form-horizontal" method="post" accept-charset="UTF-8">
+                                <input class="form-control login" type="email" name="email" placeholder="Email">
+                                <input class="form-control login" type="password" name="password" placeholder="Password">
+                                <input class="btn btn-primary" type="button" name="submit" value="Login">
+                            </form>
+                        </div>
                     </ul>
-                    <form class="d-flex" action="login.html">
-                        <button class="btn btn-outline-success" type="submit">Log In</button>
-                    </form>
                 </div>
             </div>
         </nav>
