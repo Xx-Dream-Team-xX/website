@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="assets/logo.png">
+
+        <!-- Bootstrap CSS -->
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="style.css" type="text/css" media="all">
+        <link href="assets/bootstrap-icons.css" rel="stylesheet">
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+            
+        <title>CAR-A-OK</title>
+    </head>
+    <body>
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid header align-middle">
+                <a class="navbar-brand text-align" href="mainpage.html" style="font-size: min(10vw, 3em)"><img src="assets/logo.png" alt="" class="d-inline-block align-text">CAR-A-OK</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" action="login.html">
+                        <button class="btn btn-outline-success" type="submit">Log In</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <!-- NAVBAR -->
+        <!-- MAIN (SLIDER) -->
+            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 1"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="vignette" style="background-image: url('assets/qr-car.png')" ></div>
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Scan QR Code</h5>
+                            <p>Click here to scan your QR code</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="vignette" style="background-image: url('assets/server.png')" ></div>
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Our High Performence Servers</h5>
+                            <p>By using our platform get access to powerful free real estate.</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        <!-- MAIN (SLIDER) -->
+        <!-- FOOTER-->
+        <footer class="text-center text-white bg-dark">
+            <div class="container pt-4">
+                <section class="mb-4">
+                    <!-- Github -->
+                    <a class="btn btn-link btn-floating btn-lg text-light m-1" href="https://github.com/Xx-Dream-Team-xX" role="button" data-mdb-ripple-color="light">
+                        <i class="bi bi-github"></i>
+                    </a>
+                </section>
+            </div>
+            <div class="text-center text-light p-3">2021 Copyright:
+                <a class="text-light" href="https://website.com/">Xx_DreemTeam_xX.com</a>
+            </div>
+        </footer>
+        <!-- FOOTER-->
+    </body>
+    </html>
+

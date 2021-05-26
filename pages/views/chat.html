@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="assets/logo.png">
+
+        <!-- Bootstrap CSS -->
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="style.css" type="text/css" media="all">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+        <link href="assets/bootstrap-icons.css" rel="stylesheet">
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script charset="utf-8" src="manageMessages.js"></script>
+            
+        <title>Chat</title>
+    </head>
+    <body onload="onLoad()">
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid header align-middle">
+                <a class="navbar-brand text-align" href="mainpage.html" style="font-size: min(10vw, 3em)"><img src="assets/logo.png" alt="" class="d-inline-block align-text">CAR-A-OK</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="mainpage.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="addGestionaire.html">Add Manager</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="addAssurer.html">Add Assurer</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="addContract.html">Add Contract</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" action="template.html">
+                        <button class="btn btn-outline-success" type="submit">Sign In</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <!-- NAVBAR -->
+        <!-- MAIN (FORM) -->
+        <div class="container-xl main">
+            <div class="row rounded-lg overflow-hidden shadow">
+                <!-- Users box-->
+                <div class="col-5 px-0">
+                    <div class="bg-white">
+
+                        <div class="bg-gray px-4 py-2 bg-light">
+                            <p class="h5 mb-0 py-1">Recent</p>
+                        </div>
+
+                        <div class="messages-box">
+                            <div class="list-group rounded-0" id="recent">
+                                <!-- Generated -->
+                                <!-- Generated -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Box-->
+                <div class="col-7 px-0">
+                    <div class="px-4 py-5 chat-box bg-white" id="messages">
+                        <!-- Generated -->
+                        <!-- Generated -->
+                    </div>
+
+                    <!-- Typing area -->
+                    <form action="#" class="bg-light">
+                        <div class="input-group d-inline-flex justify-content-between align-items-center p-1">
+                            <button id="button-addon2" type="submit" class="btn btn-link"><i class="bi bi-file-earmark-plus"></i></button>
+                            <input type="text" placeholder="Type a message" aria-describedby="button-addon2" class="form-control rounded-0 border-0 bg-light">
+                            <button id="button-addon2" type="submit" class="btn btn-link"> <i class="bi bi-cursor"></i></button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <!-- MAIN (FORM) -->
+        <!-- FOOTER-->
+        <footer class="text-center text-white bg-dark">
+            <div class="container pt-4">
+                <section class="mb-4">
+                    <!-- Github -->
+                    <a class="btn btn-link btn-floating btn-lg text-light m-1" href="#!" role="button" data-mdb-ripple-color="light">
+                        <i class="bi bi-github"></i>
+                    </a>
+                </section>
+            </div>
+            <div class="text-center text-light p-3">2021 Copyright:
+                <a class="text-light" href="https://website.com/">Xx_DreemTeam_xX.com</a>
+            </div>
+        </footer>
+        <!-- FOOTER-->
+    </body>
+    </html>
+
