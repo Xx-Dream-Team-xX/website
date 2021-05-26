@@ -6,33 +6,9 @@
         <link rel="icon" href="assets/logo.png">
 
         <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <style>
-            .text-small {
-            font-size: 0.9rem;
-            }
-
-            .messages-box,
-            .chat-box {
-            height: 510px;
-            overflow-y: scroll;
-            }
-
-            .rounded-lg {
-            border-radius: 0.5rem;
-            }
-
-            input::placeholder {
-            font-size: 0.9rem;
-            color: #999;
-            }
-
-            .main {
-                min-height: calc(100vh - 75px);
-            }
-
-        </style>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" rel="stylesheet">
+        <link href="/static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/css/style.css" rel="stylesheet">
+        <link href="/static/css/bootstrap/bootstrap-icons.css" rel="stylesheet">
         <!-- Option 1: Bootstrap Bundle with Popper -->
         <script src="/static/js/bootstrap/bootstrap.bundle.min.js"></script>
         <script charset="utf-8" src="/static/js/manageMessages.js"></script>
