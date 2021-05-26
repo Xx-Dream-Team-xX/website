@@ -8,6 +8,31 @@
     include_once get_path('utils', 'forms.php');
 
     switch (get_final_point()) {
+        case 'get':
+            if (!isset($_POST['id'])) {
+                break;
+            }
+
+            if (false == $sinistre = DB::getFromID(get_path('database', 'sinistres.json'), $_POST['id'])) {
+                break;
+            }
+
+            if (!in_array(getPermissions(), array(User::ASSURE, User::GESTIONNAIRE, User::ADMIN))) {
+                send_json(array(
+                    'success' => false,
+                    'error' => 'You can\'t do that',
+                ));
+
+                break;
+            }
+
+            if (User::GESTIONNAIRE == getPermissions() && DB::getFromID(get_path('database', 'users.json'), $sinistre['user'])['rep'] !== getID() && ($sinistre['user'] !== getID())) {
+                break;
+            }
+
+            send_json($sinistre);
+
+            break;
         case 'add':
             switch (getPermissions()) {
                 case User::ASSURE:
@@ -59,9 +84,20 @@
 
                         $sinistre['injureds'] = array();
 
-                        send_json($sinistre);
+                        if (in_array($sinistre['id'], getUpdatedUser()['sinisters'])) {
+                            send_json(array(
+                                'success' => false,
+                                'error' => 'Something wrong happend',
+                            ));
 
+                            break;
+                        }
+
+                        send_json($sinistre);
+                        $user = getUpdatedUser();
+                        array_push($user['sinisters'], $sinistre['id']);
                         DB::setObject(get_path('database', 'sinistres.json'), $sinistre, true);
+                        DB::setObject(get_path('database', 'users.json'), $user);
                     } catch (Exception $e) {
                         echo $e->getMessage();
                     }
@@ -196,6 +232,40 @@
                 'success' => false,
                 'error' => 'Sinistre ID missing or do not exist',
             ));
+
+            break;
+        case 'delete':
+            if (!in_array(getPermissions(), array(User::GESTIONNAIRE, User::ADMIN))) {
+                send_json(array(
+                    'success' => false,
+                    'error' => 'You can\'t do that',
+                ));
+
+                break;
+            }
+
+            if (!isset($_POST['sinistre'])) {
+                send_json(array(
+                    'success' => false,
+                    'error' => 'No sinistre specified',
+                ));
+
+                break;
+            }
+
+            if (false == $sinistre = DB::getFromID(get_path('database', 'sinistres.json'), $_POST['sinistre'])) {
+                send_json(array(
+                    'success' => false,
+                    'error' => 'Sinistre do not exist',
+                ));
+
+                break;
+            }
+
+            $session_user = getUpdatedUser();
+            $session_user['contracts'] = array_diff($session_user['contracts'], array($_POST['sinistre']));
+            DB::setObject(get_path('database', 'users.json'), $session_user);
+            DB::deleteObject(get_path('database', 'sinistres.json'), $_POST['sinistre']);
 
             break;
         default:
