@@ -11,6 +11,7 @@
         <link href="/static/css/bootstrap/bootstrap-icons.css" rel="stylesheet">
         <!-- Option 1: Bootstrap Bundle with Popper -->
         <script src="/static/js/bootstrap/bootstrap.bundle.min.js"></script>
+        <script charset="utf-8" src="/static/js/parseUsers.js"></script>
         <script charset="utf-8" src="/static/js/manageMessages.js"></script>
             
         <title>Chat</title>
