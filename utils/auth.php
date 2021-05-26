@@ -240,7 +240,7 @@ class Auth {
      * From https://regexr.com/
      */
     private function checkZipFormat(?string $zip) {
-        return preg_match("/^(?:0[1-9]|[1-9]\d)\d{3}$/", $zip);
+        return preg_match('/(?:0[1-9]|[13-8][0-9]|2[ab1-9]|9[0-5])(?:[0-9]{3})?|9[78][1-9](?:[0-9]{2})?/', $zip);
     }
 
     /**
