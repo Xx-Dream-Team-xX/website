@@ -89,6 +89,28 @@
      */
     function render(string $path) {
         if (is_file($path)) {
+
+            switch (pathinfo($path)["extension"]) {
+                case 'css':
+                    header("Content-type: text/css");
+                    break;
+                case 'html':
+                case 'php':
+                case 'txt':
+                case 'js':
+                    header('Content-type: text/html');
+                    break;
+                case 'png':
+                case 'jpg':
+                case 'jpeg':
+                case 'gif':
+                    header('Content-type: image/png');
+                    break;
+                default:
+                    header('Content-Type: application/octet-stream');
+                    break;
+            }
+            session_start();
             include $path;
         } else {
             notfound();
