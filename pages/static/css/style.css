@@ -1,7 +1,5 @@
-@font-face { font-family: "nasa"; src: url("/static/css/nasalization.ttf"); }
 
 body {
-    font-family: "nasa";
     scrollbar-width: none;
 }
 
