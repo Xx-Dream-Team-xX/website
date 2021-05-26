@@ -10,6 +10,7 @@
         <link href="/static/css/bootstrap/bootstrap-icons.css" rel="stylesheet">
 
         <link rel="stylesheet" href="/static/css/style.css" type="text/css" media="all">
+        <link rel="stylesheet" href="/static/css/accueil.css" type="text/css" media="all">
 
         <!-- Option 1: Bootstrap Bundle with Popper -->
         <script src="/static/js/bootstrap/bootstrap.bundle.min.js"></script>
@@ -19,22 +20,27 @@
     </head>
     <body>
         <!-- NAVBAR -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark header">
-            <div class="container-fluid header align-middle">
-                <a class="navbar-brand text-align" href="mainpage.html" style="font-size: min(8vw, 3em)"><img src="/static/images/logo.png" alt="" class="d-inline-block align-text">CAR-A-OK</a>
-                    <a class="nav-link dropdown-toggle btn btn-outline-success" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Login
-                    </a>
-                    <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-                        <form class="form-horizontal" method="post" accept-charset="UTF-8" id="loginForm">
-                            <li><input class="form-control login" type="email" name="email" placeholder="Email.."><br></li>
-                            <li><input class="form-control login" type="password" name="password" placeholder="Password.."><br></li>
-                            <div id='passwordHelpBlock' class='form-text is-invalid'></div>
-                            <li><input class="btn btn-primary" type="button" name="submit" value="Login" onclick="doLogin()"></li>
-                        </form>
-                    </ul>
+        <div class="navbar navbar-expand-lg">
+            <div class="navbar_left">
+                <img class="navlogo" src="/static/images/logo.png" alt="logo">
+                <a class="navtitle" id="title" href="#">CAR-A-OK</a>
             </div>
-        </nav>
+            <nav class="nav_options">
+                <div class="nav_links">
+                </div>
+            </nav>
+            <a class="nav_ep" id="navbarDropdown" role="button" data-bs-toggle="dropdown" >
+                <button>Login</button>
+            </a>
+            <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                <form class="form-horizontal" method="post" accept-charset="UTF-8" id="loginForm">
+                    <li><input class="form-control login" type="email" name="email" placeholder="Email.."><br></li>
+                    <li><input class="form-control login" type="password" name="password" placeholder="Password.."><br></li>
+                    <div id='passwordHelpBlock' class='form-text is-invalid'></div>
+                    <li><input class="btn btn-primary" type="button" name="submit" value="Login" onclick="doLogin()"></li>
+                </form>
+            </ul>
+        </div>
         <!-- NAVBAR -->
         <!-- MAIN (SLIDER) -->
             <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
