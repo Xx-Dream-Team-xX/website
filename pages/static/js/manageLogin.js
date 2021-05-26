@@ -8,8 +8,7 @@ function login(form) {
     req.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             if (JSON.parse(this.responseText) === true) {
-                // redirect
-                console.log("good");
+                manageLogin();
             } else {
                 updatePasswordhelp("Your email or password is incorrect");
             }
@@ -24,4 +23,10 @@ function updatePasswordhelp(mess) {
 function doLogin() {
     var loginForm = document.getElementById("loginForm");
     login(loginForm);
+}
+
+function manageLogin() {
+    // refresh page
+    document.getElementById("navbarDropdown").classList.remove("show");
+    document.getElementById("dropDownLogin").classList.remove("show");
 }
