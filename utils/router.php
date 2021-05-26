@@ -106,6 +106,8 @@
                 case 'gif':
                     header('Content-type: image/png');
                     break;
+                case 'ttf':
+                    header('Content-type: font/ttf');
                 default:
                     header('Content-Type: application/octet-stream');
                     break;
