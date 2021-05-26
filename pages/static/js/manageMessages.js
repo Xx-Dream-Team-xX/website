@@ -1,5 +1,5 @@
 function onLoad(){
-    requestMessages(1);
+    requestMessagesList(1);
     // showRecentMessages(JSON);
 }
 
@@ -13,15 +13,34 @@ const CACHE = [
     "users"
 ];
 
-function requestMessages(id=1) {
+function clearMessages() {
+    document.getElementById("messages").innerHTML = "";
+}
+
+function requestMessagesList(id=1) {
     let req = new XMLHttpRequest();
-    req.open("POST", "/conversation/list");
+    req.open("GET", "/conversation/list");
     req.send();
     req.onreadystatechange = function() {
 
         if (this.status === 200 && this.readyState === 4) {
             CACHE["messages"] = JSON.parse(this.responseText) ?? [];
-            showMessages(id);
+            showRecentMessages(CACHE["messages"]);
+        }
+    }
+}
+
+function requestMessages(id) {
+    let req = new XMLHttpRequest();
+    let d = new FormData();
+    d.append("id", id);
+    req.open("POST", "/conversation/get");
+    req.send(d);
+    req.onreadystatechange = function() {
+        clearMessages();
+        if (this.status === 200 && this.readyState === 4) {
+            CACHE["actual"] = JSON.parse(this.responseText) ?? [];
+            showMessages(CACHE["actual"]);
         }
     }
 }
@@ -32,29 +51,29 @@ function showRecentMessages(DATA){
     }
 }
 
-function showMessages(id=1) { 
-    // get message from DB with ajax
-    DATA = CACHE["messages"]; 
+function showMessages(DATA) { 
+
     for (let i = 0; i < DATA.length; i++) {
         getMessage(DATA[i]);
     }
 }
 
 function getMessage(DATA) {
+
+    console.log(DATA);
+
     let mess_id = DATA["id"];
     let mess_sender = DATA["sender"];
     let mess_content = DATA["content"];
     let mess_files = DATA["files"];
     let mess_time = DATA["timestamp"];
-    let sender = DATA["sender"];
-
     let timestamp = getDate(mess_time  * 1000);
 
     // check if sender if me
     if ("mine" == "mine") { 
-        addReveiverMessage(mess_id, sender, mess_content, mess_files, timestamp)
+        addReveiverMessage(mess_id, mess_sender, mess_content, mess_files, timestamp)
     } else {
-        addSenderMessage(mess_id, sender, mess_content, mess_files, timestamp)
+        addSenderMessage(mess_id, mess_sender, mess_content, mess_files, timestamp)
     }
 }
 
@@ -66,11 +85,9 @@ function getData(DATA){
     let conv_last_message_sender = DATA["message"]["sender"];
     let conv_last_message_files = DATA["message"]["files"];
     let conv_last_message_time = DATA["message"]["timestamp"];
-
-    let sender = "Bob"; // get database username from id
+    let sender = conv_last_message_sender;
 
     let timestamp = getDate(conv_last_message_time * 1000);
-
 
     addConvtoRecent(conv_id, conv_type, conv_participents, conv_last_message_content, sender, conv_last_message_files, timestamp);
 }
@@ -109,6 +126,9 @@ function addConvtoRecent(id, type, people, content, sender, files, timestamp){
 
     let a1 = document.createElement('a');
     a1.classList.add("list-group-item", "list-group-item-action", "list-group-item-light", "rounded-0")
+
+    a1.setAttribute("id", id);
+    a1.setAttribute("onclick", "requestMessages(this.id)");
     
     let d2 = document.createElement('div');
     d2.classList.add("media");
@@ -127,7 +147,10 @@ function addConvtoRecent(id, type, people, content, sender, files, timestamp){
 
     let h6 = document.createElement('h6');
     h6.classList.add("mb-0");
-    h6.innerText = sender; 
+
+    getNameFromId(CACHE["users"], sender, (c) => {
+        h6.innerText = c ? c["name"] : "Utilisateur supprimé";
+    });
     
     let s7 = document.createElement('small');
     s7.classList.add("small", "font-weight-bold");
