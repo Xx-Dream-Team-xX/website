@@ -10,6 +10,12 @@
     width: auto !important;
 }*/
 
+@media (max-width: 600px) {
+    .hidden-mobile {
+        display: none;
+    }
+}
+
 a, button, span, p {
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
@@ -39,9 +45,9 @@ a, button, span, p {
 
 .navtitle{
     font-family: "Bungee", serif;
-    font-size: min(8vw, 45px);
+    font-size: min(min(9vw, 45px), calc(100vw - 200px));
     color: #52b788;
-    margin-left: 15px;
+    margin-left: min(15px, 2vw);
     margin-top: 16px;
     /*padding: 0px 15px;*/
     border-color: rgb(15,187,55);
@@ -60,9 +66,9 @@ a, button, span, p {
 }
 
 .navbar .nav_ep button {
-    margin-left: 10px;
+    margin-left: min(10px, 2vw);
     margin-top: 12px;
-    padding: 9px 25px;
+    padding: min(9px, 2vw) min(25px,4vw);
     background-color: rgba(64, 145, 108,1);
     border: none;
     border-radius: 50px;
