@@ -1,7 +1,5 @@
 <?php
 
-    session_start();
-
     define('SERVER_ROOT', __DIR__);
     include_once './config/settings.php';
     include_once './utils/router.php';
