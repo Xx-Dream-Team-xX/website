@@ -74,26 +74,3 @@ body {
 .carousel-control-prev-icon, .carousel-control-next-icon {
     transform: scale(1.5);
 }
-
-.text-small {
-  font-size: 0.9rem;
-}
-
-.messages-box,
-.chat-box {
-  height: 510px;
-  overflow-y: scroll;
-}
-
-.rounded-lg {
-  border-radius: 0.5rem;
-}
-
-input::placeholder {
-  font-size: 0.9rem;
-  color: #999;
-}
-
-.main {
-    min-height: calc(100vh - 75px);
-}

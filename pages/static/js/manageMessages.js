@@ -1,79 +1,32 @@
 function onLoad(){
-    showMessages(1);
-    showRecentMessages(JSON);
+    requestMessages(1);
+    // showRecentMessages(JSON);
 }
 
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 ];
 
+const CACHE = [
+    "messages",
+    "actual",
+    "recipients",
+    "users"
+];
 
-JSON = [
-    {
-    "id": "609268f77843a",
-    "people": [
-        "60a2d9a15ffde",
-        "609be5546c040"
-    ],
-    "type": "dm",
-    "message": {
-        "id": "60a4e29dbfb52",
-        "sender": "609be5546c040",
-        "content": "Comment \u00e7a va pd? &lt;script&gt;",
-        "files": [],
-        "timestamp":1621429611
-        }
-    },
-    {
-    "id": "609268f77843a",
-    "people": [
-        "60a2d9a15ffde",
-        "609be5546c040"
-    ],
-    "type": "dm",
-    "message": {
-        "id": "60a4e29dbfb52",
-        "sender": "609be5546c040",
-        "content": "Comment \u00e7a va pd? &lt;script&gt;",
-        "files": [],
-        "timestamp":1631439611
-        }
-    },
-    {
-    "id": "609268575563a",
-    "people": [
-        "60a2d9a13ffde",
-        "609be5546c040"
-    ],
-    "type": "dm",
-    "message": {
-        "id": "60a4e29dbfb52",
-        "sender": "609be5546c040",
-        "content": "Wahts up!!",
-        "files": [],
-        "timestamp":1321429611
+function requestMessages(id=1) {
+    let req = new XMLHttpRequest();
+    req.open("POST", "/conversation/list");
+    req.send();
+    req.onreadystatechange = function() {
+
+        if (this.status === 200 && this.readyState === 4) {
+            CACHE["messages"] = JSON.parse(this.responseText) ?? [];
+            console.log(CACHE)
+            showMessages(id);
+            console.log(CACHE);
         }
     }
-]
-
-MESSAGES = [
-    {
-        "id": "609268f778553",
-        "sender": "609268f778433",
-        "content": "uwu",
-        "files": [],
-        "timestamp": 1620207863
-    },
-    {
-        "id": "609268f778610",
-        "sender": "609268f778433",
-        "content": "owo",
-        "files": [],
-        "timestamp": 1621506290 
-    }
-]
-
-//request = new XMLHttpRequest();
-//request.open('POST', "/auth/login")
+}
 
 function showRecentMessages(DATA){
     for (let i = 0; i < DATA.length; i++) {
@@ -81,9 +34,9 @@ function showRecentMessages(DATA){
     }
 }
 
-function showMessages(id) { 
+function showMessages(id=1) { 
     // get message from DB with ajax
-    DATA = MESSAGES; 
+    DATA = CACHE["messages"]; 
     for (let i = 0; i < DATA.length; i++) {
         getMessage(DATA[i]);
     }
@@ -95,7 +48,7 @@ function getMessage(DATA) {
     let mess_content = DATA["content"];
     let mess_files = DATA["files"];
     let mess_time = DATA["timestamp"];
-    let sender = "Fouin"
+    let sender = DATA["sender"];
 
     let timestamp = getDate(mess_time  * 1000);
 

@@ -35,6 +35,9 @@
     Router::add('notifications', get_path('api', 'notifications.php'));
     Router::add('verification', get_path('api', 'verification.php'));
 
+    Router::add('messages', get_path('views', "chat.php"));
+    Router::add('login', get_path('views', "testlogin.php"));
+
     Router::default(get_path('views', 'error.php'));
 
     // try {
