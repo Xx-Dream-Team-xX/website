@@ -107,8 +107,13 @@
                     header('Content-type: image/png');
                     break;
                 case 'ttf':
-                case 'woff':
                     header('Content-type: font/ttf');
+                    break;
+                case 'woff':
+                    header('Content-type: font/woff');
+                    break;
+                case 'woff2':
+                    header('Content-type: font/woff2');
                     break;
                 default:
                     header('Content-Type: application/octet-stream');

@@ -8,6 +8,7 @@
         <!-- Bootstrap CSS -->
         <link href="/static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
         <!-- <link href="/static/css/bootstrap/bootstrap-icons.css" rel="stylesheet"> -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css", rel="stylesheet">
 
         <link rel="stylesheet" href="/static/css/style.css" type="text/css" media="all">
         <link rel="stylesheet" href="/static/css/accueil.css" type="text/css" media="all">
