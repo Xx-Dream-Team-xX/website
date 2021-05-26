@@ -21,9 +21,7 @@ function requestMessages(id=1) {
 
         if (this.status === 200 && this.readyState === 4) {
             CACHE["messages"] = JSON.parse(this.responseText) ?? [];
-            console.log(CACHE)
             showMessages(id);
-            console.log(CACHE);
         }
     }
 }
@@ -87,7 +85,7 @@ function getDate(timestamp) {
     let today = getFormatDate(t);
     let d = new Date(timestamp);
 
-    if (getFormatDate(d) === today){
+    if (false && getFormatDate(d) === today){
         let m = d.getMinutes();
         if (m < 10){
             m = "0" + m;
