@@ -1,14 +1,26 @@
 function login(form) {
     console.log("Logging in..");
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST", "/auth/login", true);
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            loginResults(xmlhttp);
-        } else {
-            console.log("Login error");
+    let d = new FormData();
+    d.append("login", form.email.value);
+    d.append("password", form.password.value);
+    var req= new XMLHttpRequest();
+    req.open("POST", "/auth/login");
+    req.send(d);
+    req.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            if (JSON.parse(this.responseText) === true) {
+                // redirect
+                console.log("good");
+            } else {
+                updatePasswordhelp("Your email or password is incorrect");
+            }
         }
     }
+}
+
+function updatePasswordhelp(mess) {
+    document.getElementById("passwordHelpBlock").innerText = mess;
 }
 
 function doLogin() {

@@ -7,42 +7,32 @@
 
         <!-- Bootstrap CSS -->
         <link href="/static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
-        <link href="/static/css/bootstrap/ootstrap-icons.css" rel="stylesheet">
+        <link href="/static/css/bootstrap/bootstrap-icons.css" rel="stylesheet">
 
         <link rel="stylesheet" href="/static/css/style.css" type="text/css" media="all">
 
         <!-- Option 1: Bootstrap Bundle with Popper -->
         <script src="/static/js/bootstrap/bootstrap.bundle.min.js"></script>
+        <script src="/static/js/manageLogin.js" charset="utf-8"></script>
             
         <title>CAR-A-OK</title>
     </head>
     <body>
         <!-- NAVBAR -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark header">
             <div class="container-fluid header align-middle">
-                <a class="navbar-brand text-align" href="mainpage.html" style="font-size: min(10vw, 3em)"><img src="/static/images/logo.png" alt="" class="d-inline-block align-text">CAR-A-OK</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Login
-                            </a>
-                            <div class="dropdown-menu" style="padding: 15px; padding-bottom: 10px;">
-                                <form class="form-horizontal" method="post" accept-charset="UTF-8">
-                                    <input class="form-control login" type="email" name="email" placeholder="Email.."><br>
-                                    <input class="form-control login" type="password" name="password" placeholder="Password.."><br>
-                                    <input class="btn btn-primary" type="submit" name="submit" value="Login">
-                                </form>
-                            </div>
-                        </li>
+                <a class="navbar-brand text-align" href="mainpage.html" style="font-size: min(8vw, 3em)"><img src="/static/images/logo.png" alt="" class="d-inline-block align-text">CAR-A-OK</a>
+                    <a class="nav-link dropdown-toggle btn btn-outline-success" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Login
+                    </a>
+                    <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                        <form class="form-horizontal" method="post" accept-charset="UTF-8" id="loginForm">
+                            <li><input class="form-control login" type="email" name="email" placeholder="Email.."><br></li>
+                            <li><input class="form-control login" type="password" name="password" placeholder="Password.."><br></li>
+                            <div id='passwordHelpBlock' class='form-text is-invalid'></div>
+                            <li><input class="btn btn-primary" type="button" name="submit" value="Login" onclick="doLogin()"></li>
+                        </form>
                     </ul>
-                </div>
             </div>
         </nav>
         <!-- NAVBAR -->
