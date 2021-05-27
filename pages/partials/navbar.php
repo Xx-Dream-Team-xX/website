@@ -20,7 +20,7 @@
 <div class="navbar navbar-expand-lg">
     <div class="navbar_left">
         <img class="navlogo" src="/static/images/logo.png" alt="logo">
-        <a class="navtitle" id="title" href="#">CAR-A-OK</a>
+        <a class="navtitle" id="title" href="/">CAR-A-OK</a>
     </div>
     <nav class="nav_options">
         <div class="nav_links" id="links">
