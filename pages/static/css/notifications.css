@@ -175,7 +175,7 @@ li, a, button, span {
 .modal {
     display: none;
     position: fixed;
-    z-index: 1; /*En avant*/
+    z-index: 9999; /*En avant*/
     padding-top: 200px;
     left: 0;
     top: 0;

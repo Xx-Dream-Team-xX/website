@@ -39,6 +39,8 @@ function clearNotification() {
 
 function clearAllNotifications() {
 
+}
+
 //Fonction: Ouvre la fenêtre modal si on click sur la cloche de notification
 //Paramètre: n/a 
 function ouvrirModal() {
