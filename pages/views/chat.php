@@ -43,10 +43,10 @@
         <!-- NAVBAR -->
         <?php include(get_path('partials', 'navbar.php')); ?>
         <!-- MAIN (FORM) -->
-        <div class="container-xl main">
-            <div class="row rounded-lg overflow-hidden shadow">
+        <div class="main">
+            <div class="row rounded-lg overflow-hidden shadow second">
                 <!-- Users box-->
-                <div class="col-5 px-0">
+                <div class="col-5 px-0 recent">
                     <div class="bg-white">
                         <div class="bg-gray px-4 py-2 bg-light">
                             <p class="h5 mb-0 py-1 text-dark">Messagerie <a class="text-dark" style="font-size: 1.2em" href="#new" onclick="toggleModal()">+</a></p>
@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <!-- Chat Box-->
-                <div class="col-7 px-0">
+                <div class="col-7 px-0 messages">
                     <div class="px-4 py-5 chat-box bg-white" id="messages">
                         <!-- Generated -->
                         <!-- Generated -->
@@ -78,6 +78,7 @@
                     </form>
                 </div>
             </div>
+            <div class="row bottom-bar"></div> 
         </div>
         <!-- MAIN  -->
         <?php include(get_path('partials', 'footer.php')); ?>
