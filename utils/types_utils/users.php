@@ -234,6 +234,15 @@
         }
 
         /**
+         * Returns first and last name
+         *
+         * @return string
+         */
+        public function getMergedName() {
+            return $this->first_name . ' ' . $this->last_name;
+        }
+
+        /**
          * Get every user data in a array map.
          *
          * @return array
@@ -245,6 +254,7 @@
                 'mail' => $this->mail,
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
+                'name' => $this->getMergedName(),
                 'phone' => $this->phone,
                 'conversations' => $this->conversations,
                 'notifications' => $this->notifications,

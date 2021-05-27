@@ -10,7 +10,15 @@ function toggleModal() {
 }
 
 function onLoad(){
-    updateMe(requestMessagesList);
+    updateMe(() => {
+        requestMessagesList(),
+        setInterval(() =>
+            {
+                requestMessagesList()
+                getRecipients()
+            }, 5000
+        );
+    });
     getRecipients();
     document.getElementById("content").addEventListener("keyup", function(event) {
         if (event.key === "Enter" && !event.shiftKey) {
@@ -56,7 +64,7 @@ const CACHE = {
     "actual": [],
     "selected": null,
     "recipients": [],
-    "users": []
+    "users": [],
 };
 
 function getRecipients() {
@@ -95,14 +103,28 @@ function requestMessagesList() {
 
             clearConversations();
             CACHE["messages"] = JSON.parse(this.responseText) ?? [];
+            if (!CACHE['selected']) requestMessages(CACHE["messages"][CACHE["messages"].length - 1]["id"]);
             showRecentMessages(CACHE["messages"]);
+            highlight();
         }
     }
 }
 
-function requestMessages(id) {
+function highlight(el) {
+    
+    els = document.querySelectorAll('.bg-success');
+    els.forEach(e => {
+        e.classList.remove('bg-success');
+    });
+
+    if (el) el.classList.add("bg-success");
+    else CACHE["selected"] ? document.getElementById(CACHE["selected"]).classList.add("bg-success") : document.getElementById("recent").children[0].classList.add("bg-success");
+}
+
+function requestMessages(id, el) {
     let req = new XMLHttpRequest();
     let d = new FormData();
+
     d.append("id", id);
     req.open("POST", "/conversation/get");
     req.send(d);
@@ -113,7 +135,10 @@ function requestMessages(id) {
             CACHE["selected"] = id;
             showMessages(CACHE["actual"]);
         }
+
+        if (el) highlight(el)
     }
+    
 }
 
 function showRecentMessages(DATA){
@@ -130,6 +155,9 @@ function showMessages(DATA) {
     for (let i = 0; i < DATA.length; i++) {
         getMessage(DATA[i]);
     }
+
+    m = document.getElementById("messages");
+    m.scrollTop = m.scrollHeight;
 }
 
 function getMessage(DATA) {
@@ -154,14 +182,14 @@ function getData(DATA){
     let conv_type = DATA["type"];
     let conv_participents = DATA["people"];
     let conv_last_message_content = DATA["message"]["content"];
-    let conv_last_message_sender = DATA["message"]["sender"];
     let conv_last_message_files = DATA["message"]["files"];
     let conv_last_message_time = DATA["message"]["timestamp"];
-    let sender = conv_last_message_sender;
+    let unread = DATA["unread"];
+    let sender = (DATA["people"]).filter((u) => {return u !== me['id']})[0];
 
     let timestamp = getDate(conv_last_message_time * 1000);
 
-    addConvtoRecent(conv_id, conv_type, conv_participents, conv_last_message_content, sender, conv_last_message_files, timestamp);
+    addConvtoRecent(conv_id, conv_type, conv_participents, conv_last_message_content, sender, conv_last_message_files, timestamp, unread);
 }
 
 function getFormatDate(d) {
@@ -193,14 +221,16 @@ function getDate(timestamp) {
     }
 }
 
-function addConvtoRecent(id, type, people, content, sender, files, timestamp){
+function addConvtoRecent(id, type, people, content, sender, files, timestamp, unread){
     let message_box = document.getElementById("recent");
 
     let a1 = document.createElement('a');
     a1.classList.add("list-group-item", "list-group-item-action", "list-group-item-light", "rounded-0")
+    if (unread) a1.classList.add("bg-info");
+    if (id === CACHE["selected"]) requestMessages(id);
 
     a1.setAttribute("id", id);
-    a1.setAttribute("onclick", "requestMessages(this.id)");
+    a1.setAttribute("onclick", "requestMessages(this.id, this)");
     
     let d2 = document.createElement('div');
     d2.classList.add("media");
@@ -221,7 +251,7 @@ function addConvtoRecent(id, type, people, content, sender, files, timestamp){
     h6.classList.add("mb-0");
 
     getNameFromId(CACHE["users"], sender, (c) => {
-        h6.innerText = c ? c["name"] : "Utilisateur supprimé";
+        h6.innerText = (c && c['name']) ? c["name"] : "Utilisateur supprimé";
     });
     
     let s7 = document.createElement('small');
@@ -230,7 +260,7 @@ function addConvtoRecent(id, type, people, content, sender, files, timestamp){
 
     let p8 = document.createElement('p');
     p8.classList.add("font-italic", "mb-0", "text-small", "text-dark");
-    p8.innerText = content;
+    p8.innerText = content.slice(0, 50);
 
     d5.appendChild(h6);
     d5.appendChild(s7);

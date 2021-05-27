@@ -52,6 +52,7 @@ function addUserToTable(user) {
 
 function addUsersToTable(USERS) {
     for (let i=0; i<USERS.length;i++){
+        console.log(USERS[i]);
         addUserToTable(USERS[i]);
     }
 }
