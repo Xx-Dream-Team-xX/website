@@ -42,6 +42,7 @@
                 'id' => $u['id'],
                 'name' => $u['last_name'] . ' ' . $u['first_name'],
                 'type' => $u['type'],
+                'featured' => ($u['id'] === ($_SESSION['user']['rep'] ?? null))
             );
         }, $users);
     }
