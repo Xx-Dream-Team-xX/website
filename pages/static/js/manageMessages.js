@@ -38,13 +38,13 @@ function fill(input, data, filter="") {
     data.forEach(user => {
         el = document.createElement("option");
         el.textContent = `${user.name} (${types[user.type]})`;
-        //el.value = user.id;
+        el.value = user.id;
         input.appendChild(el);
     });
 }
 
 function searchRecipients() {
-    fill(document.getElementById("listUsers"), CACHE["recipients"], document.getElementById('selectUser').value);
+    fill(document.getElementById("selectUser"), CACHE["recipients"], document.getElementById('filterSelect').value);
 }
 
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"

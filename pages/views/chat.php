@@ -20,8 +20,15 @@
                     </div>
                     <div class="modal-body">
                         <label for="selectUser" class="form-label">Select User</label>
-                        <input type="text" class="form-control" id="selectUser" list="listUsers"/>
-                        <datalist id="listUsers"></datalist>
+                        <div class="row">
+                            <div class="col">
+                                <input for="form-select" class="form-control" type="text" id="filterSelect" placeholder="Filter..">
+                            </div><div class="col">
+                                <select class="form-select" id="selectUser" onclick="searchRecipients()">
+                                    <option selected>Choose User</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" onclick="toggleModal()">Close</button>
