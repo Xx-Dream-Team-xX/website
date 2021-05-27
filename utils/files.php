@@ -84,9 +84,10 @@
     function saveUploadedFiles() {
         $r = [];
         foreach ($_FILES as $file) {
-            $t = get_path("database", "uploads/") . uniqid() . "." . pathinfo($file['name'])['extension'];
+            $n = uniqid() . "." . pathinfo($file['name'])['extension'];
+            $t = get_path("database", "uploads/") . $n;
             move_uploaded_file($file['tmp_name'], $t);
-            array_push($r, $t);
+            array_push($r, $n);
         }
         return $r;
     }
