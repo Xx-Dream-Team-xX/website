@@ -3,7 +3,7 @@
 
 <!-- logged in -->
 <?php if(isLoggedIn()) : ?>
-<div class="navbar navbar-xpand-lg">
+<div class="navbar navbar-expand-lg">
     <div class="navbar_left">
         <img class="navlogo hidden-mobile" src="/static/images/logo.png" alt="logo">
         <a class="navtitle" id="title" href="#">CAR-A-OK</a>
