@@ -14,15 +14,14 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="ModalTitle">Modal title</h5>
-                        <button type="button" class="close" onclick="toggleModal()">
+                        <button type="button" class="close btn btn-success" onclick="toggleModal()">
                             <span>&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <input id='search' onkeyup="searchRecipients()">
-                        <select id='who'>
-
-                        </select>
+                        <label for="selectUser" class="form-label">Select User</label>
+                        <input type="text" class="form-control" id="selectUser" list="listUsers"/>
+                        <datalist id="listUsers"></datalist>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" onclick="toggleModal()">Close</button>
@@ -40,7 +39,7 @@
                 <div class="col-5 px-0">
                     <div class="bg-white">
                         <div class="bg-gray px-4 py-2 bg-light">
-                            <p class="h5 mb-0 py-1 text-dark">Messagerie <a href="#new" onclick="toggleModal()">+</a></p>
+                            <p class="h5 mb-0 py-1 text-dark">Messagerie <a class="text-dark" style="font-size: 1.2em" href="#new" onclick="toggleModal()">+</a></p>
                         </div>
 
                         <div class="messages-box">

@@ -9,8 +9,6 @@ function toggleModal() {
     }
 }
 
-
-
 function onLoad(){
     updateMe(requestMessagesList);
     getRecipients();
@@ -40,13 +38,13 @@ function fill(input, data, filter="") {
     data.forEach(user => {
         el = document.createElement("option");
         el.textContent = `${user.name} (${types[user.type]})`;
-        el.value = user.id;
+        //el.value = user.id;
         input.appendChild(el);
     });
 }
 
 function searchRecipients() {
-    fill(document.getElementById("who"), CACHE["recipients"], document.getElementById('search').value);
+    fill(document.getElementById("listUsers"), CACHE["recipients"], document.getElementById('selectUser').value);
 }
 
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -334,4 +332,3 @@ function sendMessage(id, content, files) {
     
 }
 
-// function to retrieve
