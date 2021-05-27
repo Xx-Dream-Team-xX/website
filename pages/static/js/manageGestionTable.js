@@ -17,35 +17,21 @@ function getBirthDate(date) {
     return d.toLocaleDateString();
 }
 
-function addUserToTable(user) {
+function addCol(table, text){
+    let c = document.createElement('td');
+    c.setAttribute("scope", "col");
+    c.innerText = text;
+    table.appendChild(c);
+}
+
+function addUserToTable(USER) {
     let table = document.getElementById("users");
 
     let row = document.createElement('tr');
-    row.setAttribute("onclick", "window.location='/user?user="+user["id"]+"';");
-    let name = document.createElement('td');
-    name.setAttribute("scope", "col");
-    name.innerText = user["name"];
-    row.appendChild(name);
-    let mail = document.createElement('td');
-    mail.setAttribute("scope", "col");
-    mail.innerText = user["mail"];
-    row.appendChild(mail);
-    let birth = document.createElement('td');
-    birth.setAttribute("scope", "col");
-    birth.innerText = getBirthDate(user["birth"]);
-    row.appendChild(birth);
-    let declarations = document.createElement('td');
-    declarations.setAttribute("scope", "col");
-    declarations.innerText = user["declarations"];
-    row.appendChild(declarations);
-    let contracts = document.createElement('td');
-    contracts.setAttribute("scope", "col");
-    contracts.innerText = user["contracts"];
-    row.appendChild(contracts);
-    let sinisters = document.createElement('td');
-    sinisters.setAttribute("scope", "col");
-    sinisters.innerText = user["sinisters"];
-    row.appendChild(sinisters);
+    row.setAttribute("onclick", "window.location='/user?user="+USER["id"]+"';");
+
+    addCol(row, USER['name']);
+    addCol(row, USER['mail']);
     
     table.appendChild(row);
 }

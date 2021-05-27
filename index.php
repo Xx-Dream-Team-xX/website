@@ -36,6 +36,7 @@
 
     Router::add('messages', get_path('views', 'chat.php'));
     Router::add('gestionnaire', get_path('views', 'gestionaire.php'));
+    Router::add('assures', get_path('views', 'addAssurer.html'));
     Router::add('user', get_path('views', 'gestionUser.html'));
     Router::add('newsinistre', get_path('views', 'sinistre.php'));
 
