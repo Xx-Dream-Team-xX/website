@@ -66,7 +66,7 @@
 
             $d = User::createUserByType(DB::getFromID(get_path("database", "users.json"), $d));
 
-            $d->pushNotification('Nouveau message', $send->getName()[0] . " vous a envoyé un message", SETTINGS["url"] . "messages/" . $id );
+            $d->pushNotification('Nouveau message', $send->getName()[0] . " vous a envoyé un message", "/messages/" . $id );
             $d->addConversation($id);
             DB::setObject(get_path("database", "users.json"), $d->getAll());
         }
@@ -186,7 +186,7 @@
 
                                 $d = User::createUserByType(DB::getFromID(get_path("database", "users.json"), $_POST["dest"]));
 
-                                $d->pushNotification('Nouvelle conversation', "Vous avez été ajouté.es à un groupe", SETTINGS["url"] . "messages/" . $_POST["conv"]);
+                                $d->pushNotification('Nouvelle conversation', "Vous avez été ajouté.es à un groupe", "/messages/" . $_POST["conv"]);
                                 $d->addConversation($_POST["conv"]);
 
                                 DB::setObject(get_path("database", "users.json"), $d->getAll());
