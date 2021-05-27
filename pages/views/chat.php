@@ -19,7 +19,10 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        ...
+                        <input id='search' onkeyup="searchRecipients()">
+                        <select id='who'>
+
+                        </select>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" onclick="toggleModal()">Close</button>
