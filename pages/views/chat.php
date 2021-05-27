@@ -17,8 +17,7 @@
             
         <title>Chat</title>
     </head>
-
-    
+    <body onload="onLoad()">
         <!-- MAIN (FORM) -->
         <div class="container-xl main">
             <div class="row rounded-lg overflow-hidden shadow">
