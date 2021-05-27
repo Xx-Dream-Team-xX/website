@@ -42,7 +42,7 @@ function fill(input, data, filter="") {
         }
         return (a < b)
     })
-    data = data.filter(a => (a.name.includes(filter)));
+    data = data.filter(a => (a.name.toLowerCase().includes(filter.toLocaleLowerCase())));
     input.innerHTML = "";
     data.forEach(user => {
         el = document.createElement("option");
