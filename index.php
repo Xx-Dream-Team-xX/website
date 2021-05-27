@@ -35,7 +35,7 @@
     Router::add('verification', get_path('api', 'verification.php'));
 
     Router::add('messages', get_path('views', 'chat.php'));
-    Router::add('login', get_path('views', 'gestionaire.php'));
+    Router::add('gestionnaire', get_path('views', 'gestionaire.php'));
     Router::add('user', get_path('views', 'gestionUser.html'));
     Router::add('newsinistre', get_path('views', 'sinistre.php'));
 

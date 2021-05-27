@@ -10,8 +10,8 @@
             'user' => array(
                 'type' => 'text',
             ),
-            'user_profession' => array(
-                'type' => 'text',
+            'date' => array(
+                'type' => 'date',
             ),
             'driver_profession' => array(
                 'type' => 'text',
@@ -65,10 +65,6 @@
             ),
             'garage_email' => array(
                 'type' => 'email',
-                'optional' => true,
-            ),
-            'garage_alt_phone' => array(
-                'type' => 'phone',
                 'optional' => true,
             ),
             'other_damage' => array(
