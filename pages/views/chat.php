@@ -37,7 +37,7 @@
                 <div class="col-5 px-0">
                     <div class="bg-white">
                         <div class="bg-gray px-4 py-2 bg-light">
-                            <p class="h5 mb-0 py-1">Messagerie <a href="#new" onclick="toggleModal()">+</a></p>
+                            <p class="h5 mb-0 py-1 text-dark">Messagerie <a href="#new" onclick="toggleModal()">+</a></p>
                         </div>
 
                         <div class="messages-box">
