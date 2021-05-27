@@ -100,6 +100,9 @@
                 case 'js':
                     header('Content-type: text/html');
                     break;
+                case 'mp3':
+                    header('Content-type: audio/mp3');
+                    break;
                 case 'png':
                 case 'jpg':
                 case 'jpeg':

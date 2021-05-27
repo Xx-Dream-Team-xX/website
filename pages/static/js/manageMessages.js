@@ -65,6 +65,7 @@ const CACHE = {
     "selected": null,
     "recipients": [],
     "users": [],
+    "unreadmessages": []
 };
 
 function getRecipients() {
@@ -184,12 +185,13 @@ function getData(DATA){
     let conv_last_message_content = DATA["message"]["content"];
     let conv_last_message_files = DATA["message"]["files"];
     let conv_last_message_time = DATA["message"]["timestamp"];
+    let conv_last_message_id = DATA["message"]["id"];
     let unread = DATA["unread"];
     let sender = (DATA["people"]).filter((u) => {return u !== me['id']})[0];
 
     let timestamp = getDate(conv_last_message_time * 1000);
 
-    addConvtoRecent(conv_id, conv_type, conv_participents, conv_last_message_content, sender, conv_last_message_files, timestamp, unread);
+    addConvtoRecent(conv_id, conv_type, conv_participents, conv_last_message_content, sender, conv_last_message_files, timestamp, unread, conv_last_message_id);
 }
 
 function getFormatDate(d) {
@@ -221,12 +223,20 @@ function getDate(timestamp) {
     }
 }
 
-function addConvtoRecent(id, type, people, content, sender, files, timestamp, unread){
+function addConvtoRecent(id, type, people, content, sender, files, timestamp, unread, message_id){
     let message_box = document.getElementById("recent");
 
     let a1 = document.createElement('a');
     a1.classList.add("list-group-item", "list-group-item-action", "list-group-item-light", "rounded-0")
-    if (unread) a1.classList.add("bg-info");
+    if (unread) {
+        a1.classList.add("bg-info");
+        if (!CACHE["unreadmessages"].includes(message_id)) {
+            CACHE["unreadmessages"].push(message_id);
+            let audio = new Audio('/static/sound/DujolWheez.mp3');
+            audio.play();
+        }
+        
+    };
     if (id === CACHE["selected"]) requestMessages(id);
 
     a1.setAttribute("id", id);
