@@ -16,6 +16,7 @@
         case 'register':
             switch (getPermissions()) {
                 case User::GESTIONNAIRE:
+                    $_POST["assurance"] = $_SESSION["user"]["assurance"];
                     send_json($auth->register($_POST, $_SESSION['user']['id']));
                     break;
                 case User::ADMIN:
