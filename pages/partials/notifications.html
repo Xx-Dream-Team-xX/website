@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>CAR-A-OK</title>
+        <meta name="description" content="">
+        <link rel="stylesheet" href="page_user.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <script type="text/javascript" src="fct_page_user.js"></script>
+    </head>
+
+    <body>
+        <div class="wrapper">
+
+            <div class="navbar">
+
+                <div class="navbar_left">
+                    <img class="navlogo" src="images/logo1.png" alt="logo">
+                    <a class="navtitle" id="title" href="#">CAR-A-OK</a>
+                </div>
+
+                <div class="navbar_right">
+
+                    <div class="notifications">
+                        <span onclick="ouvrirModal()" class="modalbtn">
+                            <span class="material-icons">notifications</span>
+                        </span>
+                    </div>
+
+                    <div class="profile">
+
+                        <span onclick="dropdown_fnc('drop_profile')" class="dropbtn">
+                            <span class="material-icons">account_circle</span>
+                            <span class="userbtn_txt">Utilisateur</span>
+                        </span>
+                        <div id="drop_profile" class="drop-content">
+                            <div class="drop_item">
+                                <a href="#"><span class="material-icons">person</span>Profile</a>
+                            </div>
+                            <div class="drop_item">     
+                                <a href="#"><span class="material-icons">settings</span>Paramètres</a>
+                            </div>
+                            <div class="drop_item">    
+                                <a href="#"><span class="material-icons">logout</span>Se déconnecter</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                
+            </div>
+
+            <div id="modal_notif" class="modal">
+                <div class="modal-content">
+
+                    <span class="modal-titre">Notifications</span>
+                    <span onclick="fermerModal()" class="material-icons close">close</span>
+
+                    <hr style="margin-top:15px; margin-bottom:15px; border: 2px solid #aaaaaa;">
+
+                    <div class="modal-buttons">
+                        <span class="btn_modal mark-read">
+                            <span href="#">
+                                <span class="material-icons">mark_email_read</span>
+                                <span class="btn-text">Tous marquer comme lu</span>
+                            </span>
+                        </span>
+                        <span class="btn_modal mark-not-read">
+                            <span href="#">
+                                <span class="material-icons">mark_email_unread</span>
+                                <span class="btn-text">Tous marquer comme non lu</span>
+                            </span>
+                        </span>
+                        <span class="btn_modal mark-delete">
+                            <span href="#">
+                                <span class="material-icons">delete</span>
+                                <span class="btn-text">Tous supprimer</span>
+                            </span>
+                        </span>
+                    </div>
+                    
+                    <hr style="margin-top:15px; margin-bottom:15px; border: 2px solid #aaaaaa;">
+
+                    <div class="notifs-content">
+
+                        <div class="modal_item lu">
+                            <div class="left-side">
+                                <span class="material-icons">mark_email_read</span>
+                            </div>
+                            <div class="right-side">
+                                <div class="top-side">
+                                    <div class="msg_title">
+                                        <span>Titre1</span>
+                                    </div>
+                                </div>
+                                <div class="bottom-side">
+                                    <div class="user_msg">
+                                        <span>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>
+                                    </div>
+                                    <div class="del_msg">
+                                        <span class="material-icons">delete</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="modal_item non-lu">
+                            <div class="left-side">
+                                <span class="material-icons">mark_email_unread</span>
+                            </div>
+                            <div class="right-side">
+                                <div class="top-side">
+                                    <div class="msg_title">
+                                        <span>Titre2</span>
+                                    </div>
+                                </div>
+                                <div class="bottom-side">
+                                    <div class="user_msg">
+                                        <span>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>
+                                    </div>
+                                    <div class="del_msg">
+                                        <span class="material-icons">delete</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal_item non-lu">
+                            <div class="left-side">
+                                <span class="material-icons">mark_email_unread</span>
+                            </div>
+                            <div class="right-side">
+                                <div class="top-side">
+                                    <div class="msg_title">
+                                        <span>Titre2</span>
+                                    </div>
+                                </div>
+                                <div class="bottom-side">
+                                    <div class="user_msg">
+                                        <span>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>
+                                    </div>
+                                    <div class="del_msg">
+                                        <span class="material-icons">delete</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal_item non-lu">
+                            <div class="left-side">
+                                <span class="material-icons">mark_email_unread</span>
+                            </div>
+                            <div class="right-side">
+                                <div class="top-side">
+                                    <div class="msg_title">
+                                        <span>Titre2</span>
+                                    </div>
+                                </div>
+                                <div class="bottom-side">
+                                    <div class="user_msg">
+                                        <span>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>
+                                    </div>
+                                    <div class="del_msg">
+                                        <span class="material-icons">delete</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal_item lu">
+                            <div class="left-side">
+                                <span class="material-icons">mark_email_read</span>
+                            </div>
+                            <div class="right-side">
+                                <div class="top-side">
+                                    <div class="msg_title">
+                                        <span>Titre1</span>
+                                    </div>
+                                </div>
+                                <div class="bottom-side">
+                                    <div class="user_msg">
+                                        <span>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>
+                                    </div>
+                                    <div class="del_msg">
+                                        <span class="material-icons">delete</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>  
+    </body>
+</html>
