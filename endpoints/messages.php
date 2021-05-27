@@ -5,6 +5,8 @@
      */
     include_once get_path('utils', 'types_utils/users.php');
     include_once get_path('utils', 'types_utils/conversation.php');
+    // include_once get_path("utils", "files.php");
+
 
     ConversationManager::setFolderPath(get_path('database', 'messages/'));
 
@@ -87,15 +89,23 @@
 
             case 'send':
                 if (isset($_POST['id'], $_POST['content'])) {
+
                     $c = DB::getFromID(get_path('database', 'conversations.json'), $_POST['id']);
                     $user = getUpdatedUser();
                     if ($c && ($c = new Conversation($c))) {
 
                         if (!in_array(getID(), $c->getPeople())) return;
 
+                        // if (checkUploadedFiles()) {
+                        //     $files = saveUploadedFiles();
+                        // } else {
+                        //     $files = [];
+                        // }
+
                         $m = new Message(array(
                             'sender' => $user['id'],
                             'content' => $_POST['content'],
+                            // 'files' => $files
                         ));
 
                         $c->setLastMessage($m);
@@ -128,15 +138,22 @@
                             ),
                             "message" => (new Message(array(
                                 'sender' => getID(),
-                                'content' => "Nouvelle conversation"
-                            )))->getAll(),
-                            "title" => $_POST['title'] ?? null
+                                'content' => $_POST['content']
+                            )))->getAll()
                         ));
 
+                        // if (checkUploadedFiles()) {
+                        //     $files = saveUploadedFiles();
+                        // } else {
+                        //     $files = [];
+                        // }
+
                         DB::setObject(get_path("database", "conversations.json"), $c->getAll(), true);
+
                         DB::setObject($c->getPath(), (new Message(array(
                             'sender' => getID(),
-                            'content' => $_POST['content']
+                            'content' => $_POST['content'],
+                            // 'files' => $files
                         )))->getAll(), true);
 
                         messageNotification($user, $c->getPeople(), $c->getID());
@@ -147,7 +164,7 @@
 
                 break;
             case 'add':
-
+                return send_json("disabled");
                 if (isset($_POST["conv"], $_POST["dest"])) {
 
                     $c = DB::getFromID(get_path('database', 'conversations.json'), $_POST['conv']);

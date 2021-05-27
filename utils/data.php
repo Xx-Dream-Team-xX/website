@@ -83,6 +83,10 @@ require './vendor/autoload.php';
         public static function setObject(string $path, array $rawObject, bool $new = false) {
             $data = &self::getAll($path);
             $element_exist = false;
+
+            if (!$data && file_exists($path)) {
+                $data =array();
+            }
             if (isset($rawObject['id'])) {
                 foreach ($data as &$element) {
                     if ((isset($element['id']) && ($element['id'] == $rawObject['id']))) {
