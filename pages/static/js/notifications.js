@@ -2,7 +2,9 @@ function requestNotification(url, f, id=null) {
     r = new XMLHttpRequest();
     r.open("POST", '/notifications/' + url);
     if (id) {
-        r.send((new FormData).append("id"), id)
+        d = new FormData()
+        d.append("id", id);
+        r.send(d);
     } else {
         r.send();
     }
@@ -32,7 +34,7 @@ function lazyHtmlInsertion(c, c2, c3, c4, id, title, content, url) {
                 <div class="user_msg">
                     <span>${content}</span>
                 </div>
-                <div class="del_msg" onclick='${c4}(this.id)'>
+                <div class="del_msg" onclick='${c4}("${id}")'>
                     <span class="material-icons">${c3}</span>
                 </div>
             </div>
@@ -44,12 +46,17 @@ function loadNotifications() {
     let list = document.getElementById("notifications");
     requestNotification("list", (r) => {
         list.innerHTML = "";
+        r = r.sort(
+            (a, b) => {
+                return (b.seen) - (a.seen)
+            }
+        )
         r.forEach(n => {
 
             if (!n.seen) {
-                list.innerHTML += lazyHtmlInsertion("non-lu", "mark_email_read", "mark_email_read" , "markNotification", n.id, n.title, n.content, n.url);
+                list.innerHTML = lazyHtmlInsertion("non-lu", "mark_email_read", "mark_email_read" , "markNotification", n.id, n.title, n.content, n.url) + list.innerHTML;
             } else {
-                list.innerHTML += lazyHtmlInsertion("lu", "mark_email_unread", "delete", "clearNotification", n.id, n.title, n.content, n.url);
+                list.innerHTML = lazyHtmlInsertion("lu", "mark_email_unread", "delete", "clearNotification", n.id, n.title, n.content, n.url) + list.innerHTML;
             }
         });
     });
@@ -76,6 +83,7 @@ function clearAllNotifications() {
 function ouvrirModal() {
     var modal = document.getElementById("modal_notif");
     modal.style.display = "block";
+    loadNotifications();
 }
 
 //Fonction: Ferme la fenêtre si l'utilisateur appuit sur la croix

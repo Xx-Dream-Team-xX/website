@@ -49,7 +49,7 @@
 
             $d = User::createUserByType(DB::getFromID(get_path("database", "users.json"), $d));
 
-            $d->pushNotification('Nouvelle activité', $send->getName()[0] . " a mis à jour le ticket", SETTINGS["url"] . "/tickets/" . $id );
+            $d->pushNotification('Nouvelle activité', $send->getName()[0] . " a mis à jour le ticket", SETTINGS["url"] . "tickets/" . $id );
             DB::setObject(get_path("database", "users.json"), $d->getAll());
         }
     }
@@ -150,7 +150,7 @@
 
                                 $d = User::createUserByType($found);
 
-                                $d->pushNotification('Ticket', "Vous avez été ajouté.es à un ticket", SETTINGS["url"] . "/tickets/" . $_POST["ticket"]);
+                                $d->pushNotification('Ticket', "Vous avez été ajouté.es à un ticket", SETTINGS["url"] . "tickets/" . $_POST["ticket"]);
 
                                 DB::setObject(get_path("database", "users.json"), $d->getAll());
                                 DB::setObject(get_path('database', 'tickets.json'), $c->getAll());
