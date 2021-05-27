@@ -17,16 +17,18 @@ require './vendor/autoload.php';
          * @return array Array of object containing each element info
          */
         public static function &getAll(string $path) {
-            if (!isset($_SERVER["cache"])) $_SERVER["cache"] = array();
+            if (!isset($_SERVER['cache'])) {
+                $_SERVER['cache'] = array();
+            }
             if (file_exists($path)) {
-
-                if (isset($_SERVER["cache"][$path])) {
-                    $file = $_SERVER["cache"][$path];
+                if (isset($_SERVER['cache'][$path])) {
+                    $file = $_SERVER['cache'][$path];
                 } else {
                     $file = file_get_contents($path);
-                    $_SERVER["cache"][$path] = json_decode($file, 1);
+                    $_SERVER['cache'][$path] = json_decode($file, 1);
                 }
-                return $_SERVER["cache"][$path];
+
+                return $_SERVER['cache'][$path];
             }
 
             throw new Exception("Failed to open file {$path}", 1);
@@ -115,18 +117,15 @@ require './vendor/autoload.php';
         }
 
         /**
-         * Delete an object from the DB
-         *
-         * @param string $path
-         * @param string $id
-         * @return void
+         * Delete an object from the DB.
          */
-        public static function deleteObject (string $path, string $id) {
+        public static function deleteObject(string $path, string $id) {
             $data = &self::getAll($path);
             foreach ($data as $key => $element) {
                 if ($element['id'] === $id) {
                     unset($data[$key]);
                     self::writeDB($path, $data);
+
                     return true;
                 }
             }
