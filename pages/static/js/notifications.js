@@ -15,18 +15,48 @@ function requestNotification(url, f, id=null) {
     }
 }
 
+function lazyHtmlInsertion(c, c2, c3, c4, id, title, content, url) {
+    return `
+    <div class="modal_item ${c}">
+        <div class="left-side" onclick="window.open('${url}', '_blank')">
+            <span class="material-icons">${c2}</span>
+        </div>
+        
+        <div id="${id}" class="right-side">
+            <div class="top-side">
+                <div class="msg_title">
+                    <span>${title}</span>
+                </div>
+            </div>
+            <div class="bottom-side">
+                <div class="user_msg">
+                    <span>${content}</span>
+                </div>
+                <div class="del_msg" onclick='${c4}(this.id)'>
+                    <span class="material-icons">${c3}</span>
+                </div>
+            </div>
+        </div>
+    </div>`
+}
+
 function loadNotifications() {
     let list = document.getElementById("notifications");
     requestNotification("list", (r) => {
-        // list.innerHTML = "";
+        list.innerHTML = "";
         r.forEach(n => {
-            console.log(n);
+
+            if (!n.seen) {
+                list.innerHTML += lazyHtmlInsertion("non-lu", "mark_email_read", "mark_email_read" , "markNotification", n.id, n.title, n.content, n.url);
+            } else {
+                list.innerHTML += lazyHtmlInsertion("lu", "mark_email_unread", "delete", "clearNotification", n.id, n.title, n.content, n.url);
+            }
         });
     });
 }
 
 function markNotification(id) {
-    requestNotification("read")
+    requestNotification("read", loadNotifications , id)
 }
 
 function markAllNotifications() {

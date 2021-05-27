@@ -176,7 +176,7 @@ li, a, button, span {
     display: none;
     position: fixed;
     z-index: 9999; /*En avant*/
-    padding-top: 200px;
+    padding-top: 5%;
     left: 0;
     top: 0;
     width: 100%; /* Page complète */
@@ -194,7 +194,7 @@ li, a, button, span {
     border: 1px solid #888;
     width: 80%;  /* Taille de la boîte */
     min-width:675px;
-    height: 65%;
+    height: 90%;
     color: #000000;
 }
 
