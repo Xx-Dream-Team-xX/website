@@ -1,29 +1,59 @@
 function onLoad(){
-    requestMessagesList(1);
-    // showRecentMessages(JSON);
+    updateMe(requestMessagesList);
+    getRecipients();
+    document.getElementById("content").addEventListener("keyup", function(event) {
+        if (event.key === "Enter" && !event.shiftKey) {
+          event.preventDefault();
+          prepareMessage();
+        }
+      });
 }
 
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 ];
 
-const CACHE = [
-    "messages",
-    "actual",
-    "recipients",
-    "users"
-];
+const CACHE = {
+    "messages": [],
+    "actual": [],
+    "selected": null,
+    "recipients": [],
+    "users": []
+};
+
+function getRecipients() {
+    let req = new XMLHttpRequest();
+
+    req.open("GET", "/conversation/recipients");
+    req.send();
+    req.onreadystatechange = function() {
+
+        if (this.status === 200 && this.readyState === 4) {
+
+            CACHE["recipients"] = JSON.parse(this.responseText) ?? [];
+            CACHE["recipients"].forEach(u => {
+                getNameFromId(CACHE["users"], u.id);
+            });
+        }
+    }
+}
 
 function clearMessages() {
     document.getElementById("messages").innerHTML = "";
 }
 
-function requestMessagesList(id=1) {
+function clearConversations() {
+    document.getElementById("recent").innerHTML = "";
+}
+
+function requestMessagesList() {
     let req = new XMLHttpRequest();
     req.open("GET", "/conversation/list");
     req.send();
     req.onreadystatechange = function() {
 
         if (this.status === 200 && this.readyState === 4) {
+
+            clearConversations();
             CACHE["messages"] = JSON.parse(this.responseText) ?? [];
             showRecentMessages(CACHE["messages"]);
         }
@@ -40,12 +70,16 @@ function requestMessages(id) {
         clearMessages();
         if (this.status === 200 && this.readyState === 4) {
             CACHE["actual"] = JSON.parse(this.responseText) ?? [];
+            CACHE["selected"] = id;
             showMessages(CACHE["actual"]);
         }
     }
 }
 
 function showRecentMessages(DATA){
+    DATA.sort((a, b) => {
+        return b["message"].timestamp - a["message"].timestamp
+    })
     for (let i = 0; i < DATA.length; i++) {
         getData(DATA[i]);
     }
@@ -60,8 +94,6 @@ function showMessages(DATA) {
 
 function getMessage(DATA) {
 
-    console.log(DATA);
-
     let mess_id = DATA["id"];
     let mess_sender = DATA["sender"];
     let mess_content = DATA["content"];
@@ -70,7 +102,7 @@ function getMessage(DATA) {
     let timestamp = getDate(mess_time  * 1000);
 
     // check if sender if me
-    if ("mine" == "mine") { 
+    if (me["id"] === mess_sender) { 
         addReveiverMessage(mess_id, mess_sender, mess_content, mess_files, timestamp)
     } else {
         addSenderMessage(mess_id, mess_sender, mess_content, mess_files, timestamp)
@@ -102,7 +134,7 @@ function getDate(timestamp) {
     let today = getFormatDate(t);
     let d = new Date(timestamp);
 
-    if (false && getFormatDate(d) === today){
+    if (getFormatDate(d) === today){
         let m = d.getMinutes();
         if (m < 10){
             m = "0" + m;
@@ -199,7 +231,7 @@ function addSenderMessage(id, sender, content, files, timestamp) {
     d4.appendChild(p5);
     d3.appendChild(d4);
     d3.appendChild(p6);
-    d1.appendChild(i2);
+    // d1.appendChild(i2);
     d1.appendChild(d3);
     message_box.appendChild(d1);
 }
@@ -229,6 +261,36 @@ function addReveiverMessage(id, sender, content, files, timestamp) {
     d3.appendChild(p6);
     d1.appendChild(d3);
     message_box.appendChild(d1);
+}
+
+function prepareMessage() {
+    let id = CACHE["selected"];
+    let content = document.getElementById("content").value;
+    let files = document.getElementById("files");
+
+    sendMessage(id, content, files)
+}
+
+function sendMessage(id, content, files) {
+    let r = new XMLHttpRequest();
+    let d = new FormData();
+
+    d.append("id", id);
+    d.append("content", content);
+
+    r.open("POST", '/conversation/send');
+    r.send(d);
+    r.onreadystatechange = function() {
+        if (this.status === 200 && this.readyState === 4) {
+            if (JSON.parse(this.responseText)["id"]) {
+                requestMessagesList();
+                requestMessages(id);
+                document.getElementById("content").value = "";
+            }
+        }
+    }
+    
+    
 }
 
 // function to retrieve
