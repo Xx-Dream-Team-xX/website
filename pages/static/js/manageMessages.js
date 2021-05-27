@@ -15,6 +15,7 @@ function onLoad(){
         setInterval(() =>
             {
                 requestMessagesList()
+                getRecipients()
             }, 5000
         );
     });
@@ -41,7 +42,7 @@ function fill(input, data, filter="") {
         }
         return (a < b)
     })
-    data = data.filter(a => (a.name.toLowerCase().includes(filter.toLocaleLowerCase())));
+    data = data.filter(a => (a.name.includes(filter)));
     input.innerHTML = "";
     data.forEach(user => {
         el = document.createElement("option");
@@ -105,22 +106,23 @@ function requestMessagesList() {
             CACHE["messages"] = JSON.parse(this.responseText) ?? [];
             if (!CACHE['selected']) requestMessages(CACHE["messages"][CACHE["messages"].length - 1]["id"]);
             showRecentMessages(CACHE["messages"]);
-            
+            highlight();
         }
     }
 }
 
-function highlight() {
+function highlight(el) {
     
     els = document.querySelectorAll('.bg-success');
     els.forEach(e => {
         e.classList.remove('bg-success');
     });
 
-    CACHE["selected"] ? document.getElementById(CACHE["selected"]).classList.add("bg-success") : document.getElementById("recent").children[0].classList.add("bg-success");
+    if (el) el.classList.add("bg-success");
+    else CACHE["selected"] ? document.getElementById(CACHE["selected"]).classList.add("bg-success") : document.getElementById("recent").children[0].classList.add("bg-success");
 }
 
-function requestMessages(id) {
+function requestMessages(id, el) {
     let req = new XMLHttpRequest();
     let d = new FormData();
 
@@ -134,6 +136,8 @@ function requestMessages(id) {
             CACHE["selected"] = id;
             showMessages(CACHE["actual"]);
         }
+
+        if (el) highlight(el)
     }
     
 }
@@ -145,7 +149,6 @@ function showRecentMessages(DATA){
     for (let i = 0; i < DATA.length; i++) {
         getData(DATA[i]);
     }
-    highlight();
 }
 
 function showMessages(DATA) { 
@@ -156,7 +159,6 @@ function showMessages(DATA) {
 
     m = document.getElementById("messages");
     m.scrollTop = m.scrollHeight;
-    highlight()
 }
 
 function getMessage(DATA) {
@@ -235,9 +237,7 @@ function addConvtoRecent(id, type, people, content, sender, files, timestamp, un
         }
         
     };
-    if (id === CACHE["selected"] && unread) {
-        requestMessages(id);
-    }
+    if (id === CACHE["selected"]) requestMessages(id);
 
     a1.setAttribute("id", id);
     a1.setAttribute("onclick", "requestMessages(this.id, this)");
@@ -252,7 +252,7 @@ function addConvtoRecent(id, type, people, content, sender, files, timestamp, un
     i3.setAttribute("width", "50");
 
     let d4 = document.createElement('div');
-    d4.classList.add("media-body", "ml-4");
+    d4.classList.add("media-body", "ml-4", "chat-message");
     
     let d5 = document.createElement('div');
     d5.classList.add("d-flex", "align-items-center", "justify-content-between", "mb-1", "text-dark");
@@ -286,7 +286,7 @@ function addSenderMessage(id, sender, content, files, timestamp) {
     let message_box = document.getElementById("messages");
 
     let d1 = document.createElement('div');
-    d1.classList.add("media", "w-50", "mb-3");
+    d1.classList.add("media", "chat-media");
 
     let i2 = document.createElement('img');
     i2.classList.add("rounded-circle");
@@ -320,7 +320,7 @@ function addReveiverMessage(id, sender, content, files, timestamp) {
     let message_box = document.getElementById("messages");
 
     let d1 = document.createElement('div');
-    d1.classList.add("media", "w-50", "mb-3", "ml-auto");
+    d1.classList.add("media", "chat-media");
 
     let d3 = document.createElement('div');
     d3.classList.add("media-body");
@@ -392,10 +392,11 @@ function newConversation(id, content, files) {
     r.onreadystatechange = function() {
         if (this.status === 200 && this.readyState === 4) {
             if (id = JSON.parse(this.responseText)["id"]) {
-
                 requestMessagesList();
                 requestMessages(id);
                 document.getElementById("new_message").value = "";
+
+
             }
         }
     }

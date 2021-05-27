@@ -1,6 +1,6 @@
-.messages-box , .chat-box {
-  height: 510px;
-  overflow-y: scroll;
+.chat-message{
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .modal .modal-content {
@@ -18,3 +18,36 @@
     font-size: 1em;
 }
 
+.recent {
+    max-width: 300px;
+}
+
+.second {
+    height: calc(100vh - 140px);
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.bottom-bar {
+    height: 40px;
+}
+
+.main {
+    height: calc(100vh - 100px);
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+}
+
+.messages {
+    min-width: calc(100% - 300px);
+}
+
+.chat-box {
+    height: calc(calc(100vh - 140px) - 68px);
+}
+
+.input-group {
+    height: 68px;
+}
