@@ -8,6 +8,34 @@ function removeError() {
     document.getElementById("addbutton").disabled = false;
 }
 
+function showErrors(e){
+    switch (e) {
+        case 1:
+            showError("server - invalid phone");
+            break;
+        case 2:
+            showError("server - invalid address");
+            break;
+        case 3:
+            showError("server - invalid name");
+            break;
+        case 4:
+            showError("server - invalid email");
+            break;
+        case 5:
+            showError("server - invalid login");
+            break;
+        case 6:
+            showError("server - invalid password");
+            break;
+        case 7:
+            showError("server - missing infomation");
+            break;
+        default:
+        
+    }
+}
+
 function check(ele, type, error) {
     var p;
     switch (type) {
@@ -54,7 +82,7 @@ function addAssures() {
             if (j["success"] === true){
                 showAddedUser(f["Surname"].value, f["Name"].value, f["Email"].value, j["password"]);
             }else{
-                console.log("some error", j["success"]);
+                showErrors(j['message'])
             }
         } else {
             console.log("server Error");
