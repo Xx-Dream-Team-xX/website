@@ -467,11 +467,7 @@
                 if (isset($rawUser['contracts'])) {
                     $this->contracts = $rawUser['contracts'];
                 }
-                if (gettype('int' != $rawUser['birth'])) {
-                    $this->setBirth($rawUser['birth']);
-                } else {
-                    $this->birth = $rawUser['birth'];
-                }
+                $this->setBirth($rawUser['birth']);
             } else {
                 throw new Exception("Array passed doesn't represent a User Assuré", 1);
             }
