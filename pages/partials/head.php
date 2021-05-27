@@ -2,14 +2,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="/static/images/logo.png">
 
-<!-- custom css -->
-<link rel="stylesheet" href="/static/css/style.css" type="text/css" media="all">
-<link rel="stylesheet" href="/static/css/vignette.css" type="text/css" media="all">
-<link rel="stylesheet" href="/static/css/navbar.css" type="text/css" media="all">
-<link rel="stylesheet" href="/static/css/fonts.css" type="text/css" media="all">
-<link rel="stylesheet" href="/static/css/responsive.css" type="text/css" media="all">
-<link rel="stylesheet" href="/static/css/notifications.css" type="text/css" media="all">
-
 <!-- Bootstrap CSS -->
 <link href="/static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
 <link href="/static/css/bootstrap/bootstrap-icons.css" rel="stylesheet">
@@ -18,3 +10,12 @@
 
 <!-- Option 1: Bootstrap Bundle with Popper -->
 <script src="/static/js/bootstrap/bootstrap.bundle.min.js"></script>
+
+<!-- custom css -->
+<link rel="stylesheet" href="/static/css/style.css" type="text/css" media="all">
+<link rel="stylesheet" href="/static/css/vignette.css" type="text/css" media="all">
+<link rel="stylesheet" href="/static/css/navbar.css" type="text/css" media="all">
+<link rel="stylesheet" href="/static/css/fonts.css" type="text/css" media="all">
+<link rel="stylesheet" href="/static/css/responsive.css" type="text/css" media="all">
+<link rel="stylesheet" href="/static/css/notifications.css" type="text/css" media="all">
+

@@ -1,0 +1,20 @@
+.messages-box , .chat-box {
+  height: 510px;
+  overflow-y: scroll;
+}
+
+.modal .modal-content {
+    padding: 0;
+}
+
+@media (max-width: 700px){ 
+    .modal .modal-content {
+        min-width: 95vw;
+    }
+}
+
+.modal .close {
+    margin: 0;
+    font-size: 1em;
+}
+

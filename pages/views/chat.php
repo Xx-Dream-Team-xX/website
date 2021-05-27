@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
     <head>
-        
         <?php include(get_path('partials', 'head.php')); ?>
         <script charset="utf-8" src="/static/js/HeyThatsMe.js"></script>
         <script charset="utf-8" src="/static/js/parseUsers.js"></script>
         <script charset="utf-8" src="/static/js/manageMessages.js"></script>
+        <link rel="stylesheet" href="/static/css/messages.css" type="text/css" media="all">
         <title>Chat</title>
     </head>
     <body onload="onLoad()">
         <!-- Modal -->
         <div class="modal fade" id="modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog d-flex justify-content-center" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="ModalTitle">Nouveau message</h5>
@@ -21,10 +21,10 @@
                     </div>
                     <div class="modal-body">
                         <label class="form-label">Choisir un utilisateur</label>
-                        <div class="row pb-5">
-                            <div class="col">
+                        <div class="row pb-2">
+                            <div class="col-sm mb-2">
                                 <input for="form-select" class="form-control" type="text" id="filterSelect" placeholder="Recherche.."  onkeyup="searchRecipients()">
-                            </div><div class="col">
+                            </div><div class="col-sm">
                                 <select class="form-select" id="selectUser">
                                     <option selected>Choisir</option>
                                 </select>
@@ -76,7 +76,6 @@
                             <button id="button-send" type="submit" class="btn btn-link" onclick="prepareMessage()"> <i class="bi bi-cursor"></i></button>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>

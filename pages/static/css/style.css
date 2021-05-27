@@ -38,11 +38,6 @@ li, a, button, span {
     margin: 0px 10px 0px 10px;
 }
 
-.messages-box,.chat-box {
-  height: 510px;
-  overflow-y: scroll;
-}
-
 .rounded-lg {
   border-radius: 0.5rem;
 }
