@@ -45,7 +45,7 @@
             'police_report' => array(
                 'type' => 'bool',
             ),
-            'main_courrante' => array(
+            'main_courante' => array(
                 'type' => 'bool',
             ),
             'police_station' => array(
@@ -85,50 +85,6 @@
             ),
         );
 
-        protected $id = '';
-
-        protected $user = '';
-
-        protected $user_profession = '';
-
-        protected $driver_profession = '';
-
-        protected $driver_relationship = '';
-
-        protected $driver_is_usual = true;
-
-        protected $driver_user_same_residance = true;
-
-        protected $driver_is_employeeof_user = false;
-
-        protected $driver_reason_displacement = '';
-
-        protected $incident_circumstances = '';
-
-        protected $proces_verbal = false;
-
-        protected $police_report = false;
-
-        protected $main_courrante = false;
-
-        protected $police_station = '';
-
-        protected $contract = '';
-
-        protected $usual_parking_location = '';
-
-        protected $garage_name = '';
-
-        protected $garage_phone = '';
-
-        protected $garage_email = '';
-
-        protected $garage_alt_phone = '';
-
-        protected $other_damage = '';
-
-        protected $ingureds = array();
-
         /**
          * Construct and vaidate a sinistre.
          *
@@ -136,18 +92,20 @@
          *                           On top of them those entries can be added :
          *                           'garage_name', 'garage_phone'
          */
-        public function __construct(array $rawSinistre) {
+        public static function construct(array $rawSinistre) {
             if ($rawSinistre = validateObject($rawSinistre, self::$required)) {
-                if (isset($rawSinistre['injureds'])) {
-                    $rawSinistre['injureds'] = self::validateInjured($rawSinistre['injureds']);
-                }
-                if (isset($rawSinistre['constat'])) {
-                    $rawSinistre['constat'] = self::validateConstat($rawSinistre['constat']);
-                }
-                send_json($rawSinistre);
-            } else {
-                throw new Exception("Array passed doesn't represend a Sinistre", 1);
+                // if (isset($rawSinistre['injureds'])) {
+                //     $rawSinistre['injureds'] = self::validateInjured($rawSinistre['injureds']);
+                // }
+                // if (isset($rawSinistre['constat'])) {
+                //     $rawSinistre['constat'] = self::validateConstat($rawSinistre['constat']);
+                // }
+                $rawSinistre['id'] = uniqid();
+
+                return $rawSinistre;
             }
+
+            throw new Exception("Array passed doesn't represend a Sinistre", 1);
         }
 
         /**
@@ -155,7 +113,7 @@
          *
          * @return array|bool false if not valid
          */
-        private static function validateInjured(array $injured_list) {
+        public static function validateInjured(array $injured) {
             try {
                 $required = array(
                     'firstname' => array(
@@ -181,17 +139,14 @@
                     ),
 
                 );
-                foreach ($injured_list as &$injured) {
-                    $injured = validateObject($injured, $required);
-                }
 
-                return $injured_list;
+                return validateObject($injured, $required);
             } catch (Exception $e) {
                 throw new Exception("Injured list -> {$e->getMessage()}", 1);
             }
         }
 
-        private static function validateConstat(array $constat) {
+        public static function validateConstat(array $constat) {
             try {
                 $required = array(
                     'date' => array(
@@ -212,33 +167,27 @@
                     'wintensses' => array(
                         'type' => 'text',
                     ),
-                    'vehicle_A' => array(
-                        'type' => 'array',
-                    ),
-                    'vehicle_B' => array(
-                        'type' => 'array',
-                    ),
+                    // 'vehicles' => array(
+                    //     'type' => 'array',
+                    // ),
                 );
-                $constat = validateObject($constat, $required);
-                $constat['vehicle_A'] = self::validateConstatVehicle($constat['vehicle_A']);
-                $constat['vehicle_B'] = self::validateConstatVehicle($constat['vehicle_B']);
 
-                return $constat;
+                return validateObject($constat, $required);
+                // foreach ($constat['vehicles'] as $key => &$vehicle) {
+                //     $vehicle = self::validateConstatVehicle($constat['vehicle_A']);
+                // }
             } catch (Exception $e) {
                 throw new Exception("Constat -> {$e->getMessage()}", 1);
             }
         }
 
-        private static function validateConstatVehicle(array $Vehcile) {
+        public static function validateConstatVehicle(array $Vehcile) {
             try {
                 $required = array(
                     'user' => array(
                         'type' => 'text',
                     ),
                     'contract' => array(
-                        'type' => 'text',
-                    ),
-                    'assurance' => array(
                         'type' => 'text',
                     ),
                     'driver_firstname' => array(
@@ -261,6 +210,7 @@
                     ),
                     'dirver_email' => array(
                         'type' => 'email',
+                        'optional' => true,
                     ),
                     'driver_liscence_id' => array(
                         'type' => 'text',

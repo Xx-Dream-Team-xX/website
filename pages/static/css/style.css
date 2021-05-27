@@ -36,11 +36,6 @@ body {
     margin: 0px 10px 0px 10px;
 }
 
-.navbar-collapse {
-    font-size: min(7vw, 2em);
-}
-
-
 .vignette {
   position: relative;
   overflow: hidden;
@@ -68,6 +63,9 @@ body {
   box-shadow: 0px 0px 80px 50px "#212529" inset;
 }
 
+.dropdown-menu {
+    right: 0;
+}
 
 .carousel-control-prev-icon, .carousel-control-next-icon {
     transform: scale(1.5);
@@ -77,21 +75,20 @@ body {
   font-size: 0.9rem;
   }
 
-  .messages-box,
-  .chat-box {
+.messages-box,.chat-box {
   height: 510px;
   overflow-y: scroll;
-  }
+}
 
-  .rounded-lg {
+.rounded-lg {
   border-radius: 0.5rem;
-  }
+}
 
-  input::placeholder {
+input::placeholder {
   font-size: 0.9rem;
   color: #999;
-  }
+}
 
-  .main {
+.main {
       min-height: calc(100vh - 75px);
-  }
+}

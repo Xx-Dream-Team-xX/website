@@ -1,14 +1,23 @@
 function login(form) {
-    console.log("Logging in..");
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST", "/auth/login", true);
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            loginResults(xmlhttp);
-        } else {
-            console.log("Login error");
+    let d = new FormData();
+    d.append("login", form.email.value);
+    d.append("password", form.password.value);
+    var req= new XMLHttpRequest();
+    req.open("POST", "/auth/login");
+    req.send(d);
+    req.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (JSON.parse(this.responseText) === true) {
+                manageLogin();
+            } else {
+                updatePasswordhelp("Your email or password is incorrect");
+            }
         }
     }
+}
+
+function updatePasswordhelp(mess) {
+    document.getElementById("passwordHelpBlock").innerText = mess;
 }
 
 function doLogin() {
@@ -16,6 +25,8 @@ function doLogin() {
     login(loginForm);
 }
 
-function loginResults(response) {
-    console.log("login");
+function manageLogin() {
+    // refresh page
+    document.getElementById("navbarDropdown").classList.remove("show");
+    document.getElementById("dropDownLogin").classList.remove("show");
 }
