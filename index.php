@@ -26,6 +26,7 @@
 
     Router::add('users', get_path('api', 'user.php'));
     Router::add('contract', get_path('api', 'contract.php'));
+    Router::add('sinistre', get_path('api', 'sinistre.php'));
     Router::add('auth', get_path('api', 'auth.php'));
     Router::add('account', get_path('api', 'account.php'));
     Router::add('conversation', get_path('api', 'messages.php'));
@@ -33,8 +34,8 @@
     Router::add('notifications', get_path('api', 'notifications.php'));
     Router::add('verification', get_path('api', 'verification.php'));
 
-    Router::add('messages', get_path('views', "chat.php"));
-    Router::add('login', get_path('views', "testlogin.php"));
+    Router::add('messages', get_path('views', 'chat.php'));
+    Router::add('login', get_path('views', 'testlogin.php'));
 
     Router::default(get_path('views', 'error.php'));
 
