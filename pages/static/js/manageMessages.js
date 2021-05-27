@@ -302,7 +302,7 @@ function addSenderMessage(id, sender, content, files, timestamp) {
     
     let p5 = document.createElement('p');
     p5.classList.add("text-small", "mb-0", "text-muted");
-    p5.innerText = content;
+    p5.innerHTML = content;
 
     let p6 = document.createElement('p');
     p6.classList.add("small", "text-muted");
@@ -330,7 +330,7 @@ function addReveiverMessage(id, sender, content, files, timestamp) {
     
     let p5 = document.createElement('p');
     p5.classList.add("text-small", "mb-0", "text-white");
-    p5.innerText = content;
+    p5.innerHTML = content;
 
     let p6 = document.createElement('p');
     p6.classList.add("small", "text-muted");
