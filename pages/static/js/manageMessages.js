@@ -22,6 +22,33 @@ function onLoad(){
       });
 }
 
+function fill(input, data, filter="") {
+    let types = [
+        "Utilisateur supprimé",
+        "Assuré",
+        "Gestionnaire",
+        "Administrateur"
+    ];
+    data = data.sort((a, b) => {
+        if (a.featured) {
+            return 1
+        }
+        return (a < b)
+    })
+    data = data.filter(a => (a.name.includes(filter)));
+    input.innerHTML = "";
+    data.forEach(user => {
+        el = document.createElement("option");
+        el.textContent = `${user.name} (${types[user.type]})`;
+        el.value = user.id;
+        input.appendChild(el);
+    });
+}
+
+function searchRecipients() {
+    fill(document.getElementById("who"), CACHE["recipients"], document.getElementById('search').value);
+}
+
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 ];
 
@@ -46,6 +73,7 @@ function getRecipients() {
             CACHE["recipients"].forEach(u => {
                 getNameFromId(CACHE["users"], u.id);
             });
+            searchRecipients();
         }
     }
 }
