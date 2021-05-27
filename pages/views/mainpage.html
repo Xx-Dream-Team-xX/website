@@ -1,47 +1,11 @@
-<!DOCTYPE html>
+<?php include(get_path("partials", "head.php")); ?>
 <html>
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="/static/images/logo.png">
-
-        <!-- Bootstrap CSS -->
-        <link href="/static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
-        <link href="/static/css/bootstrap/bootstrap-icons.css" rel="stylesheet">
-
-        <link rel="stylesheet" href="/static/css/style.css" type="text/css" media="all">
-        <link rel="stylesheet" href="/static/css/accueil.css" type="text/css" media="all">
-
-        <!-- Option 1: Bootstrap Bundle with Popper -->
-        <script src="/static/js/bootstrap/bootstrap.bundle.min.js"></script>
         <script src="/static/js/manageLogin.js" charset="utf-8"></script>
-            
-        <title>CAR-A-OK</title>
     </head>
     <body>
         <!-- NAVBAR -->
-        <div class="navbar navbar-expand-lg">
-            <div class="navbar_left">
-                <img class="navlogo" src="/static/images/logo.png" alt="logo">
-                <a class="navtitle" id="title" href="#">CAR-A-OK</a>
-            </div>
-            <nav class="nav_options">
-                <div class="nav_links">
-                </div>
-            </nav>
-            <a class="nav_ep" id="navbarDropdown" role="button" data-bs-toggle="dropdown" >
-                <button>Login</button>
-            </a>
-            <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown" id="dropDownLogin">
-                <form class="form-horizontal" method="post" accept-charset="UTF-8" id="loginForm">
-                    <li><input class="form-control login" type="email" name="email" placeholder="Email.."><br></li>
-                    <li><input class="form-control login" type="password" name="password" placeholder="Password.."><br></li>
-                    <div id='passwordHelpBlock' class='form-text is-invalid'></div>
-                    <li><input class="btn btn-success" type="button" name="submit" value="Login" onclick="doLogin()"></li>
-                </form>
-            </ul>
-        </div>
-        <!-- NAVBAR -->
+        <?php include(get_path("partials", "navbar.php")); ?>
         <!-- MAIN (SLIDER) -->
             <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
@@ -74,22 +38,8 @@
                 </button>
             </div>
         </div>
-        <!-- MAIN (SLIDER) -->
         <!-- FOOTER-->
-        <footer class="text-center text-white bg-dark">
-            <div class="container pt-4">
-                <section class="mb-4">
-                    <!-- Github -->
-                    <a class="btn btn-link btn-floating btn-lg text-light m-1" href="https://github.com/Xx-Dream-Team-xX" role="button" data-mdb-ripple-color="light">
-                        <i class="bi bi-github"></i>
-                    </a>
-                </section>
-            </div>
-            <div class="text-center text-light p-3">2021 Copyright:
-                <a class="text-light" href="https://website.com/">Xx_DreemTeam_xX.com</a>
-            </div>
-        </footer>
-        <!-- FOOTER-->
+        <?php include(get_path("partials", "footer.php")); ?>
     </body>
     </html>
 

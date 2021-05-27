@@ -1,3 +1,16 @@
+function toggleModal() {
+    let m = document.getElementById("modal");
+    if (m.classList.contains("show")) {
+        m.classList.remove("show");
+        m.setAttribute("style", "display: none;");
+    } else {
+        m.classList.add("show");
+        m.setAttribute("style", "display: block;");
+    }
+}
+
+
+
 function onLoad(){
     updateMe(requestMessagesList);
     getRecipients();
