@@ -1,3 +1,8 @@
+.messages-box, .chat-box{
+    height: calc(calc(100vh - 140px) - 68px);
+    overflow-y: scroll;
+}
+
 .chat-message{
     white-space: nowrap;
     overflow: hidden;
@@ -42,10 +47,6 @@
 
 .messages {
     min-width: calc(100% - 300px);
-}
-
-.chat-box {
-    height: calc(calc(100vh - 140px) - 68px);
 }
 
 .input-group {
