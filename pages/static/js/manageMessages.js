@@ -1,5 +1,6 @@
 function onLoad(){
     updateMe(requestMessagesList);
+    getRecipients();
     document.getElementById("content").addEventListener("keyup", function(event) {
         if (event.key === "Enter" && !event.shiftKey) {
           event.preventDefault();
@@ -14,10 +15,27 @@ const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep
 const CACHE = {
     "messages": [],
     "actual": [],
-    "selected": [],
+    "selected": null,
     "recipients": [],
     "users": []
 };
+
+function getRecipients() {
+    let req = new XMLHttpRequest();
+
+    req.open("GET", "/conversation/recipients");
+    req.send();
+    req.onreadystatechange = function() {
+
+        if (this.status === 200 && this.readyState === 4) {
+
+            CACHE["recipients"] = JSON.parse(this.responseText) ?? [];
+            CACHE["recipients"].forEach(u => {
+                getNameFromId(CACHE["users"], u.id);
+            });
+        }
+    }
+}
 
 function clearMessages() {
     document.getElementById("messages").innerHTML = "";
@@ -59,6 +77,9 @@ function requestMessages(id) {
 }
 
 function showRecentMessages(DATA){
+    DATA.sort((a, b) => {
+        return b["message"].timestamp - a["message"].timestamp
+    })
     for (let i = 0; i < DATA.length; i++) {
         getData(DATA[i]);
     }
@@ -113,7 +134,7 @@ function getDate(timestamp) {
     let today = getFormatDate(t);
     let d = new Date(timestamp);
 
-    if (false && getFormatDate(d) === today){
+    if (getFormatDate(d) === today){
         let m = d.getMinutes();
         if (m < 10){
             m = "0" + m;
