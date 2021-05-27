@@ -88,7 +88,7 @@
                 break;
 
             case 'send':
-                if (isset($_POST['id'], $_POST['content'])) {
+                if (isset($_POST['id'], $_POST['content']) && strlen(htmlspecialchars($_POST["content"]) > 0)) {
 
                     $c = DB::getFromID(get_path('database', 'conversations.json'), $_POST['id']);
                     $user = getUpdatedUser();

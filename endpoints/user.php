@@ -38,7 +38,7 @@
                                 send_json($t->getPublic());
                             } else {
                                 send_json(array(
-                                    'name' => $t->getName()[0] . " " . $t->getName()[1],
+                                    'name' => $t->getMergedName(),
                                     'type' => $t->getType()
                                 ));
                             }
