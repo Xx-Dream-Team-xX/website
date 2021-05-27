@@ -216,7 +216,7 @@ function addConvtoRecent(id, type, people, content, sender, files, timestamp){
     d4.classList.add("media-body", "ml-4");
     
     let d5 = document.createElement('div');
-    d5.classList.add("d-flex", "align-items-center", "justify-content-between", "mb-1");
+    d5.classList.add("d-flex", "align-items-center", "justify-content-between", "mb-1", "text-dark");
 
     let h6 = document.createElement('h6');
     h6.classList.add("mb-0");
@@ -230,7 +230,7 @@ function addConvtoRecent(id, type, people, content, sender, files, timestamp){
     s7.innerText = timestamp; 
 
     let p8 = document.createElement('p');
-    p8.classList.add("font-italic", "mb-0", "text-small");
+    p8.classList.add("font-italic", "mb-0", "text-small", "text-dark");
     p8.innerText = content;
 
     d5.appendChild(h6);
