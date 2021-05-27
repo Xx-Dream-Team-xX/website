@@ -88,10 +88,11 @@
                 break;
 
             case 'send':
-                if (isset($_POST['id'], $_POST['content']) && (strlen($_POST["content"] > 0))) {
+                if (isset($_POST['id'], $_POST['content']) && (strlen($_POST["content"]) > 0)) {
 
                     $c = DB::getFromID(get_path('database', 'conversations.json'), $_POST['id']);
                     $user = getUpdatedUser();
+
                     if ($c && ($c = new Conversation($c))) {
 
                         if (!in_array(getID(), $c->getPeople())) return;
