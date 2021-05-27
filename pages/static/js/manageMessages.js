@@ -318,6 +318,7 @@ function sendMessage(id, content, files) {
 
     d.append("id", id);
     d.append("content", content);
+    if (files) d.append("file", files.files[0]);
 
     r.open("POST", '/conversation/send');
     r.send(d);
@@ -330,8 +331,26 @@ function sendMessage(id, content, files) {
             }
         }
     }
-    
-    
+}
+
+function newConversation(id, content, files) {
+    let r = new XMLHttpRequest();
+    let d = new FormData();
+
+    d.append("recipient", id);
+    d.append("content", content);
+
+    r.open("POST", '/conversation/new');
+    r.send(d);
+    r.onreadystatechange = function() {
+        if (this.status === 200 && this.readyState === 4) {
+            if (JSON.parse(this.responseText)["id"]) {
+                requestMessagesList();
+                requestMessages(id);
+                document.getElementById("content").value = "";
+            }
+        }
+    }
 }
 
 // function to retrieve
