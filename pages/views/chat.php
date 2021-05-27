@@ -17,7 +17,8 @@
             
         <title>Chat</title>
     </head>
-    <body onload="onLoad()">
+
+    
         <!-- MAIN (FORM) -->
         <div class="container-xl main">
             <div class="row rounded-lg overflow-hidden shadow">
@@ -26,7 +27,7 @@
                     <div class="bg-white">
 
                         <div class="bg-gray px-4 py-2 bg-light">
-                            <p class="h5 mb-0 py-1">Recent</p>
+                            <p class="h5 mb-0 py-1">Messagerie <a href="#new" onclick="toggleModal()">+</a></p>
                         </div>
 
                         <div class="messages-box">
@@ -50,7 +51,7 @@
                         <div class="input-group d-inline-flex justify-content-between align-items-center p-1">
                             <button id="button-files" type="submit" class="btn btn-link"><i class="bi bi-file-earmark-plus"></i></button>
                             <input type="files" hidden multiple>
-                            <textarea id="content" type="text" placeholder="Type a message" aria-describedby="button-addon2" class="form-control rounded-0 border-0 bg-light"></textarea>
+                            <textarea id="content" type="text" placeholder="Écrire un message" aria-describedby="button-addon2" class="form-control rounded-0 border-0 bg-light"></textarea>
                             <button id="button-send" type="submit" class="btn btn-link" onclick="prepareMessage()"> <i class="bi bi-cursor"></i></button>
                         </div>
                     </form>
