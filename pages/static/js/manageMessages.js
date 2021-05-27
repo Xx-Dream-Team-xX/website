@@ -202,7 +202,7 @@ function addConvtoRecent(id, type, people, content, sender, files, timestamp){
     s7.innerText = timestamp; 
 
     let p8 = document.createElement('p');
-    p8.classList.add("font-italic", "mb-0", "text-small");
+    p8.classList.add("font-italic", "mb-0", "text-small", "text-dark");
     p8.innerText = content;
 
     d5.appendChild(h6);
