@@ -28,6 +28,7 @@
 
                 if ($t && ($t = User::createUserByType($t))) {
                     switch (getPermissions()) {
+                        case User::ASSURE:
                         case User::ADMIN:
                         case User::POLICE:
                             send_json($t->getPublic());
