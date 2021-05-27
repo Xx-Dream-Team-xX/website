@@ -15,7 +15,6 @@ function onLoad(){
         setInterval(() =>
             {
                 requestMessagesList()
-                getRecipients()
             }, 5000
         );
     });
@@ -106,23 +105,22 @@ function requestMessagesList() {
             CACHE["messages"] = JSON.parse(this.responseText) ?? [];
             if (!CACHE['selected']) requestMessages(CACHE["messages"][CACHE["messages"].length - 1]["id"]);
             showRecentMessages(CACHE["messages"]);
-            highlight();
+            
         }
     }
 }
 
-function highlight(el) {
+function highlight() {
     
     els = document.querySelectorAll('.bg-success');
     els.forEach(e => {
         e.classList.remove('bg-success');
     });
 
-    if (el) el.classList.add("bg-success");
-    else CACHE["selected"] ? document.getElementById(CACHE["selected"]).classList.add("bg-success") : document.getElementById("recent").children[0].classList.add("bg-success");
+    CACHE["selected"] ? document.getElementById(CACHE["selected"]).classList.add("bg-success") : document.getElementById("recent").children[0].classList.add("bg-success");
 }
 
-function requestMessages(id, el) {
+function requestMessages(id) {
     let req = new XMLHttpRequest();
     let d = new FormData();
 
@@ -136,8 +134,6 @@ function requestMessages(id, el) {
             CACHE["selected"] = id;
             showMessages(CACHE["actual"]);
         }
-
-        if (el) highlight(el)
     }
     
 }
@@ -149,6 +145,7 @@ function showRecentMessages(DATA){
     for (let i = 0; i < DATA.length; i++) {
         getData(DATA[i]);
     }
+    highlight();
 }
 
 function showMessages(DATA) { 
@@ -159,6 +156,7 @@ function showMessages(DATA) {
 
     m = document.getElementById("messages");
     m.scrollTop = m.scrollHeight;
+    highlight()
 }
 
 function getMessage(DATA) {
@@ -237,7 +235,9 @@ function addConvtoRecent(id, type, people, content, sender, files, timestamp, un
         }
         
     };
-    if (id === CACHE["selected"]) requestMessages(id);
+    if (id === CACHE["selected"] && unread) {
+        requestMessages(id);
+    }
 
     a1.setAttribute("id", id);
     a1.setAttribute("onclick", "requestMessages(this.id, this)");
@@ -392,11 +392,10 @@ function newConversation(id, content, files) {
     r.onreadystatechange = function() {
         if (this.status === 200 && this.readyState === 4) {
             if (id = JSON.parse(this.responseText)["id"]) {
+
                 requestMessagesList();
                 requestMessages(id);
                 document.getElementById("new_message").value = "";
-
-
             }
         }
     }
