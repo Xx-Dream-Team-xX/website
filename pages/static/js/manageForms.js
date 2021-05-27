@@ -36,25 +36,34 @@ function showErrors(e){
     }
 }
 
+function testValue(r, v, e){
+    let p = new RegExp(r);
+    if (!(p.test(v))){
+        showError(e);
+    } else {
+        removeError();
+    }
+}
+
 function check(ele, type, error) {
     var p;
     switch (type) {
         case 'phone':
-            p = new RegExp("^[0-9]{9,14}");
-            if (!(p.test(ele.value))){
-                showError(error);
-            } else {
-                removeError();
-            }
+            testValue("^[0-9]{9,14}", ele.value, error);
             break;
         case 'zip':
-            p = new RegExp("(?:0[1-9]|[13-8][0-9]|2[ab1-9]|9[0-5])(?:[0-9]{3})?|9[78][1-9](?:[0-9]{2})?");
-            if (!(p.test(ele.value))){
-                showError(error);
-            } else {
-                removeError();
-            }
+            testValue("(?:0[1-9]|[13-8][0-9]|2[ab1-9]|9[0-5])(?:[0-9]{3})?|9[78][1-9](?:[0-9]{2})?", ele.value, error);
             break;
+        case 'name':
+            testValue("^([A-Z][a-z]+([ ]?[a-z]?['-]?[A-Z][a-z]+)*)$", ele.value, error);
+            break;
+        case 'street':
+            // Not working, possibly due to \- at end ?
+            //testValue("^([0-9A-Za-zàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ \-])*", ele.value, error);
+            testValue(".*", ele.value, error);
+            break;
+        case 'email':
+            testValue("^\\S+@\\S+\\.\\S+$", ele.value, error);
         
         default:
             break;            
