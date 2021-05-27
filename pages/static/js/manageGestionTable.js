@@ -1,33 +1,8 @@
-Users = [
-    {
-        "id": "60aec6503bc74",
-        "type": 1,
-        "mail": "salut@falut.com",
-        "first_name": "Robert",
-        "last_name": "Michel",
-        "phone": "33606061206",
-        "conversations": [],
-        "notifications": [],
-        "password_hash": "$2y$10$CVn1H7d.2TBUtUAJAQ7aNOy72v.UeYx7rmpjt4TitNCPfZDLpmd.K",
-        "contracts": [
-            "12432534588"
-        ],
-        "declarations": [],
-        "sinisters": [],
-        "zip_code": "33390",
-        "address": "jsp",
-        "birth": 0,
-        "assurance": "234575421",
-        "rep": "60acf3e57c1cf"
-    }
-]
-
 function getData() {
     let r = new XMLHttpRequest();
     r.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
-            console.log(JSON.parse(this.responseText));
+            addUsersToTable(JSON.parse(this.responseText));
         } else {
             console.log("Server Error");
         }
@@ -46,6 +21,7 @@ function addUserToTable(user) {
     let table = document.getElementById("users");
 
     let row = document.createElement('tr');
+    row.setAttribute("onclick", "window.location='/user?user="+user["id"]+"';");
     let name = document.createElement('td');
     name.setAttribute("scope", "col");
     name.innerText = user["name"];
@@ -60,7 +36,7 @@ function addUserToTable(user) {
     row.appendChild(birth);
     let declarations = document.createElement('td');
     declarations.setAttribute("scope", "col");
-    declarations.innerText = user["declarations"].length;
+    declarations.innerText = user["declarations"];
     row.appendChild(declarations);
     let contracts = document.createElement('td');
     contracts.setAttribute("scope", "col");
@@ -68,12 +44,8 @@ function addUserToTable(user) {
     row.appendChild(contracts);
     let sinisters = document.createElement('td');
     sinisters.setAttribute("scope", "col");
-    sinisters.innerText = user["sinisters"].length;
+    sinisters.innerText = user["sinisters"];
     row.appendChild(sinisters);
-    let actions = document.createElement('td');
-    actions.setAttribute("scope", "col");
-    actions.innerText = user["actions"];
-    //row.appendChild(actions);
     
     table.appendChild(row);
 }
@@ -85,7 +57,3 @@ function addUsersToTable(USERS) {
 }
 
 
-function load() {
-    // sort array to fit ??
-    addUsersToTable(Users);
-}

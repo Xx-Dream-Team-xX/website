@@ -16,7 +16,6 @@
                                 <th scope="col">Declarations</th>
                                 <th scope="col">Contracts</th>
                                 <th scope="col">Sinisters</th>
-                                <th scope="col">Actions</th>
                             </tr>
                         </thead>
                         <tbody id="users">
