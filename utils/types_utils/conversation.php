@@ -105,7 +105,7 @@
                     self::TICKET_CLOSED
                 ))) ? $data['type'] : self::DM;
                 $this->message = $data['message'] ?? array();
-                $this->title = htmlspecialchars(substr($data['title'], 0, 50)) ?? null;
+                $this->title = (isset($data['title'])) ?htmlspecialchars(substr($data['title'], 0, 50)) : null;
 
                 if (is_dir(parent::getFolderPath()) && !file_exists($this->getPath())) {
                     touch($this->getPath());

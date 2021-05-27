@@ -1,6 +1,8 @@
 function getNameFromId(cache, id, f=null) {
 
-    if (id in cache) return cache[id];
+    if (id in cache) {
+        return f(cache[id]);
+    };
 
     r = new XMLHttpRequest();
     d = new FormData();

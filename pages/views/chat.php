@@ -13,26 +13,28 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="ModalTitle">Modal title</h5>
+                        <h5 class="modal-title" id="ModalTitle">Nouveau message</h5>
                         <button type="button" class="close btn btn-success" onclick="toggleModal()">
                             <span>&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <label for="selectUser" class="form-label">Select User</label>
-                        <div class="row">
+                        <label class="form-label">Choisir un utilisateur</label>
+                        <div class="row pb-5">
                             <div class="col">
-                                <input for="form-select" class="form-control" type="text" id="filterSelect" placeholder="Filter..">
+                                <input for="form-select" class="form-control" type="text" id="filterSelect" placeholder="Recherche.."  onkeyup="searchRecipients()">
                             </div><div class="col">
-                                <select class="form-select" id="selectUser" onclick="searchRecipients()">
-                                    <option selected>Choose User</option>
+                                <select class="form-select" id="selectUser">
+                                    <option selected>Choisir</option>
                                 </select>
                             </div>
                         </div>
+                        <label class="form-label">Message</label>
+                        <textarea class="form-control" placeholder="Décrivez votre demande" id="new_message"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="toggleModal()">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" onclick="toggleModal()">Annuler</button>
+                        <button type="button" class="btn btn-primary" onclick="prepareConversation()">Envoyer</button>
                     </div>
                 </div>
             </div>

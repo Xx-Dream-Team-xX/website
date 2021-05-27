@@ -24,6 +24,7 @@ function fill(input, data, filter="") {
     let types = [
         "Utilisateur supprimé",
         "Assuré",
+        "Force de l'ordre",
         "Gestionnaire",
         "Administrateur"
     ];
@@ -331,6 +332,14 @@ function sendMessage(id, content, files) {
     }
 }
 
+function prepareConversation() {
+    let id = document.getElementById("selectUser").value;
+    let content = document.getElementById("new_message").value;
+    if (!id || !content) return alert("Veuillez remplir les détails"); 
+    toggleModal();
+    newConversation(id, content)
+}
+
 function newConversation(id, content, files) {
     let r = new XMLHttpRequest();
     let d = new FormData();
@@ -342,10 +351,12 @@ function newConversation(id, content, files) {
     r.send(d);
     r.onreadystatechange = function() {
         if (this.status === 200 && this.readyState === 4) {
-            if (JSON.parse(this.responseText)["id"]) {
+            if (id = JSON.parse(this.responseText)["id"]) {
                 requestMessagesList();
                 requestMessages(id);
-                document.getElementById("content").value = "";
+                document.getElementById("new_message").value = "";
+
+
             }
         }
     }
