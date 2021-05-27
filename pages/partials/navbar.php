@@ -33,13 +33,13 @@
 
         <div class="modal-buttons">
             <span class="btn_modal mark-read">
-                <span href="#">
+                <span onclick="markNotification()">
                     <span class="material-icons">mark_email_read</span>
                     <span class="btn-text">Tout marquer comme lu</span>
                 </span>
             </span>
             <span class="btn_modal mark-delete">
-                <span href="#">
+                <span onclick="clearNotification()">
                     <span class="material-icons">delete</span>
                     <span class="btn-text">Tout supprimer</span>
                 </span>

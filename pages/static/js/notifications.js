@@ -20,7 +20,7 @@ function requestNotification(url, f, id=null) {
 function lazyHtmlInsertion(c, c2, c3, c4, id, title, content, url) {
     return `
     <div class="modal_item ${c}">
-        <div class="left-side" onclick="window.open('${url}', '_blank')">
+        <div class="left-side" onclick="markNotification('${id}'); window.open('${url}', '_blank');">
             <span class="material-icons">${c2}</span>
         </div>
         
@@ -66,16 +66,8 @@ function markNotification(id) {
     requestNotification("read", loadNotifications , id)
 }
 
-function markAllNotifications() {
-
-}
-
-function clearNotification() {
-
-}
-
-function clearAllNotifications() {
-
+function clearNotification(id) {
+    requestNotification("clear", loadNotifications, id)
 }
 
 //Fonction: Ouvre la fenêtre modal si on click sur la cloche de notification
