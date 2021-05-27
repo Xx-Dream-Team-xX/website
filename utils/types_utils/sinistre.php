@@ -180,9 +180,6 @@
         public static function validateConstatVehicle(array $Vehcile) {
             try {
                 $required = array(
-                    'user' => array(
-                        'type' => 'text',
-                    ),
                     'contract' => array(
                         'type' => 'text',
                     ),
