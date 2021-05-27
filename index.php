@@ -35,6 +35,7 @@
     Router::add('verification', get_path('api', 'verification.php'));
 
     Router::add('messages', get_path('views', 'chat.php'));
+    Router::add('newsinistre', get_path('views', 'sinistre.php'));
     Router::add('login', get_path('views', 'testlogin.php'));
 
     Router::default(get_path('views', 'error.php'));
