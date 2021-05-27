@@ -64,7 +64,7 @@ function addAssures() {
 
 function showAddedUser(surname, name, login, password) {
     document.getElementById("form").style.visibility = "hidden";
-    document.getElementById("title").innerText = "Assures Ajouté";
+    document.getElementById("subtitle").innerText = "Assures Ajouté";
     document.getElementById("table").style.visibility = "visible";
     document.getElementById("nom").innerText = surname;
     document.getElementById("pen").innerText = name;
