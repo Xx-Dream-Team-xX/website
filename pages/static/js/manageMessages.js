@@ -188,10 +188,10 @@ function addConvtoRecent(id, type, people, content, sender, files, timestamp){
     d4.classList.add("media-body", "ml-4");
     
     let d5 = document.createElement('div');
-    d5.classList.add("d-flex", "align-items-center", "justify-content-between", "mb-1");
+    d5.classList.add("d-flex", "align-items-center", "justify-content-between", "mb-1", "text-dark");
 
     let h6 = document.createElement('h6');
-    h6.classList.add("mb-0", "text-dark");
+    h6.classList.add("mb-0");
 
     getNameFromId(CACHE["users"], sender, (c) => {
         h6.innerText = c ? c["name"] : "Utilisateur supprimé";
