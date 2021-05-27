@@ -467,7 +467,7 @@
                 if (isset($rawUser['contracts'])) {
                     $this->contracts = $rawUser['contracts'];
                 }
-                $this->setBirth($rawUser['birth']);
+                $this->birth = $rawUser['birth'];
             } else {
                 throw new Exception("Array passed doesn't represent a User Assuré", 1);
             }
