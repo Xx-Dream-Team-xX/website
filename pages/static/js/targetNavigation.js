@@ -10,5 +10,5 @@ function isID(original) {
 }
 
 function setFakeURL(title, url) {
-    history.pushState({}, title, url);
+    history.replaceState({}, title, url);
 }
