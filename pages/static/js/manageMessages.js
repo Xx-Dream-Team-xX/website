@@ -325,7 +325,7 @@ function addReveiverMessage(id, sender, content, files, timestamp) {
     let message_box = document.getElementById("messages");
 
     let d1 = document.createElement('div');
-    d1.classList.add("media", "mb-3", "ml-auto");
+    d1.classList.add("media", "mr-3", "mb-3", "ml-auto", "d-flex", "justify-content-end");
 
     let d3 = document.createElement('div');
     d3.classList.add("media-body", "message-box-box");
@@ -338,7 +338,7 @@ function addReveiverMessage(id, sender, content, files, timestamp) {
     p5.innerHTML = content;
 
     let p6 = document.createElement('p');
-    p6.classList.add("small", "text-muted");
+    p6.classList.add("small", "text-muted", "d-flex", "justify-content-end");
     p6.innerText = timestamp;
 
     d4.appendChild(p5);

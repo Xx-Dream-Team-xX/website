@@ -9,14 +9,23 @@
     text-overflow:ellipsis;
 }
 
-.messages-box-box * {
-    width: 90%;
+.message-box-box {
+    display: inline-block;
+    max-width: 95%;
 }
 
 .message-message * {
     overflow-wrap: break-word;
     white-space: pre-line;
 }
+
+.message-message {
+    max-width: 100%;
+    display: inline-block;
+    overflow-wrap: break-word;
+    white-space: pre-line;
+}
+
 
 .modal .modal-content {
     padding: 0;
