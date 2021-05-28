@@ -15,7 +15,7 @@
     $path = explode('?', $url, 2)[0];
     $path_array = array_slice(explode('/', $path), 1);
 
-    Router::add('', get_path('views', 'mainpage.html')); // Sans regex ni wildcard
+    Router::add('', get_path('views', 'mainpage.php')); // Sans regex ni wildcard
     Router::add('/^[0-9]+:[0-9]+$/', get_path('views', 'show.php'), true);
 
     Router::add('static', get_path('static'), false, 0, $wildcard = true); // Sans regex, avec wildcard
@@ -36,8 +36,8 @@
 
     Router::add('messages', get_path('views', 'chat.php'));
     Router::add('gestionnnaire', get_path('views', 'gestionnaire.php'));
-    Router::add('assures', get_path('views', 'addAssure.html'));
-    Router::add('user', get_path('views', 'gestionUser.html'));
+    Router::add('assures', get_path('views', 'addAssure.php'));
+    Router::add('user', get_path('views', 'gestionUser.php'));
     Router::add('newsinistre', get_path('views', 'sinistre.php'));
 
     Router::default(get_path('views', 'error.php'));
