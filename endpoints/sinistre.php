@@ -10,14 +10,19 @@
     switch (get_final_point()) {
         case 'get':
             if (!isset($_POST['id'])) {
+                http_response_code(400);
+
                 break;
             }
 
             if (false == $sinistre = DB::getFromID(get_path('database', 'sinistres.json'), $_POST['id'])) {
+                http_response_code(400);
+
                 break;
             }
 
             if (!in_array(getPermissions(), array(User::ASSURE, User::GESTIONNAIRE, User::ADMIN))) {
+                http_response_code(400);
                 send_json(array(
                     'success' => false,
                     'error' => 'You can\'t do that',
@@ -45,6 +50,7 @@
                         $rawSinistre = validateObject($rawSinistre, Sinistre::$required);
 
                         if (!in_array($rawSinistre['contract'], getUpdatedUser()['contracts'])) {
+                            http_response_code(400);
                             send_json(array(
                                 'success' => false,
                                 'error' => 'This contract doesnot belong to you',
@@ -54,6 +60,7 @@
                         }
 
                         if (true == $rawSinistre['main_courante'] && !isset($rawSinistre['police_station'])) {
+                            http_response_code(400);
                             send_json(array(
                                 'success' => false,
                                 'error' => 'missing Police station',
@@ -63,6 +70,7 @@
                         }
 
                         if (isset($rawSinistre['garage_name']) && !isset($rawSinistre['garage_phone'],$rawSinistre['garage_email'])) {
+                            http_response_code(400);
                             send_json(array(
                                 'success' => false,
                                 'error' => 'missing Garage info',
@@ -74,6 +82,7 @@
                         $sinistre = Sinistre::construct($rawSinistre);
 
                         if (false !== DB::getFromID(get_path('database', 'sinistres.json'), $sinistre['id'])) {
+                            http_response_code(400);
                             send_json(array(
                                 'success' => false,
                                 'error' => 'Sinistre already exist',
@@ -85,6 +94,7 @@
                         $sinistre['injureds'] = array();
 
                         if (in_array($sinistre['id'], getUpdatedUser()['sinisters'])) {
+                            http_response_code(400);
                             send_json(array(
                                 'success' => false,
                                 'error' => 'Something wrong happend',
@@ -99,6 +109,7 @@
                         DB::setObject(get_path('database', 'sinistres.json'), $sinistre, true);
                         DB::setObject(get_path('database', 'users.json'), $user);
                     } catch (Exception $e) {
+                        http_response_code(400);
                         echo $e->getMessage();
                     }
 
@@ -111,6 +122,7 @@
         case 'addInjured':
 
             if (User::ASSURE !== getPermissions()) {
+                http_response_code(400);
                 send_json(array(
                     'success' => false,
                     'error' => 'You can\'t do that',
@@ -121,6 +133,7 @@
 
             if (isset($_POST['id']) && false !== $sinistre = DB::getFromID(get_path('database', 'sinistres.json'), $_POST['id'])) {
                 try {
+                    http_response_code(400);
                     array_push($sinistre['injureds'], Sinistre::validateInjured($_POST));
                     DB::setObject(get_path('database', 'sinistres.json'), $sinistre);
                 } catch (Exception $e) {
@@ -129,7 +142,7 @@
 
                 break;
             }
-
+            http_response_code(400);
             send_json(array(
                 'success' => false,
                 'error' => 'Sinistre ID missing or do not exist',
@@ -139,6 +152,7 @@
         case 'addConstat':
 
             if (User::ASSURE !== getPermissions()) {
+                http_response_code(400);
                 send_json(array(
                     'success' => false,
                     'error' => 'You can\'t do that',
@@ -149,6 +163,7 @@
 
             if (isset($_POST['id']) && false !== $sinistre = DB::getFromID(get_path('database', 'sinistres.json'), $_POST['id'])) {
                 if (isset($sinistre['constat'])) {
+                    http_response_code(400);
                     send_json(array(
                         'success' => false,
                         'error' => 'Constat already exist in this sinistre',
@@ -163,12 +178,13 @@
                     send_json($sinistre);
                     DB::setObject(get_path('database', 'sinistres.json'), $sinistre);
                 } catch (Exception $e) {
+                    http_response_code(400);
                     echo $e->getMessage();
                 }
 
                 break;
             }
-
+            http_response_code(400);
             send_json(array(
                 'success' => false,
                 'error' => 'Sinistre ID missing or do not exist',
@@ -178,6 +194,7 @@
         case 'addVehicle':
 
             if (User::ASSURE !== getPermissions()) {
+                http_response_code(400);
                 send_json(array(
                     'success' => false,
                     'error' => 'You can\'t do that',
@@ -201,6 +218,7 @@
                     $vehicle = Sinistre::validateConstatVehicle($_POST);
 
                     if ((false == DB::getFromID(get_path('database', 'users.json'), $vehicle['user'])) || (false == $contract = DB::getFromID(get_path('database', 'contracts.json'), $vehicle['contract']))) {
+                        http_response_code(400);
                         send_json(array(
                             'success' => false,
                             'error' => 'User or contract do not exist',
@@ -210,6 +228,7 @@
                     }
 
                     if (!in_array($vehicle['user'], $contract['owners'])) {
+                        http_response_code(400);
                         send_json(array(
                             'success' => false,
                             'error' => 'User not in contract',
@@ -222,12 +241,13 @@
                     send_json($sinistre);
                     DB::setObject(get_path('database', 'sinistres.json'), $sinistre);
                 } catch (Exception $e) {
+                    http_response_code(400);
                     echo $e->getMessage();
                 }
 
                 break;
             }
-
+            http_response_code(400);
             send_json(array(
                 'success' => false,
                 'error' => 'Sinistre ID missing or do not exist',
@@ -236,6 +256,7 @@
             break;
         case 'delete':
             if (!in_array(getPermissions(), array(User::GESTIONNAIRE, User::ADMIN))) {
+                http_response_code(400);
                 send_json(array(
                     'success' => false,
                     'error' => 'You can\'t do that',
@@ -245,6 +266,7 @@
             }
 
             if (!isset($_POST['sinistre'])) {
+                http_response_code(400);
                 send_json(array(
                     'success' => false,
                     'error' => 'No sinistre specified',
@@ -254,6 +276,7 @@
             }
 
             if (false == $sinistre = DB::getFromID(get_path('database', 'sinistres.json'), $_POST['sinistre'])) {
+                http_response_code(400);
                 send_json(array(
                     'success' => false,
                     'error' => 'Sinistre do not exist',

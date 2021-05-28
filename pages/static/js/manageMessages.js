@@ -105,8 +105,10 @@ function requestMessagesList() {
         if (this.status === 200 && this.readyState === 4) {
 
             clearConversations();
-            CACHE["messages"] = JSON.parse(this.responseText) ?? [];
-            if (CACHE['actual'].length === 0) requestMessages(CACHE["selected"] ?? CACHE["messages"][CACHE["messages"].length - 1]["id"]);
+            CACHE["messages"] = JSON.parse(this.responseText).sort((a, b) => {
+                return b["message"].timestamp - a["message"].timestamp
+            }) ?? [];
+            if (CACHE['actual'].length === 0) requestMessages(CACHE["selected"] ?? CACHE["messages"][0]["id"]);
             showRecentMessages(CACHE["messages"]);
             
         }
@@ -143,9 +145,6 @@ function requestMessages(id) {
 }
 
 function showRecentMessages(DATA){
-    DATA.sort((a, b) => {
-        return b["message"].timestamp - a["message"].timestamp
-    })
     for (let i = 0; i < DATA.length; i++) {
         getData(DATA[i]);
     }
@@ -363,7 +362,10 @@ function sendMessage(id, content, files) {
 
     d.append("id", id);
     d.append("content", content);
-    if (files) d.append("file", files.files[0]);
+    for (let i = 0; i < files.files.length; i++) {
+        d.append("file" + i, files.files[i], files.files[i].name);
+        
+    }
 
     r.open("POST", '/conversation/send');
     r.send(d);

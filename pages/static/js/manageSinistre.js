@@ -51,10 +51,15 @@ function addInjured(button) {
                 <label for="profession" class="form-label">Profession</label>
                 <input type="text" class="form-control" name="profession" id="profession" required>
             </div>
+            <div class="col-sm-6">
+                <label for="phone" class="form-label">Téléphone</label>
+                <input type="phone" class="form-control" name="phone" id="phone" required>
+            </div>
         </div>
         <div class="row g-3 pt-3">
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" name="belt" id="belt" required>
+                <input class="form-check-input" type="hidden" value="0" name="belt" id="belt">
+                <input class="form-check-input" type="checkbox" value="1" name="belt" id="belt">
                 <label class="form-check-label" for="belt">Ceinture</label>
             </div>
         </div>
@@ -78,6 +83,7 @@ function removeInjured(button) {
 
 function showcompletesinistre() {
     document.getElementById('sinistre').parentNode.remove();
+    document.getElementById('injureds').classList.remove('d-none');
 }
 
 var sinistre = null;
@@ -102,21 +108,61 @@ sinistre = {
 }
 
 function sendSinistre(formNode) {
-    let form = new FormData(formNode);
-    for (var key of form.keys()) {
-        console.log(`${key}, ${form.get(key)}`);
-    }
-    form.set('contract', document.getElementById('contrat_sinistre').value);
-    let req = new XMLHttpRequest();
-    req.open("POST", "/sinistre/add");
-    req.send(form);
-    req.onreadystatechange = function () {
+    if (formNode.checkValidity()) {
+        let form = new FormData(formNode);
+        form.set('contract', document.getElementById('contrat_sinistre').value);
+        let req = new XMLHttpRequest();
+        req.open("POST", "/sinistre/add");
+        req.send(form);
+        req.onreadystatechange = function () {
 
-        if (this.status === 200 && this.readyState === 4) {
-            sinistre = JSON.parse(this.responseText);
-            showcompletesinistre();
+            if (this.status === 200 && this.readyState === 4) {
+                sinistre = JSON.parse(this.responseText);
+                showcompletesinistre();
+                document.getElementById('constat').classList.remove('d-none');
+                document.getElementById('injureds').classList.remove('d-none');
+            }
         }
     }
+
+}
+
+function sendConstat(formNode) {
+
+    if (formNode.checkValidity()) {
+        let form = new FormData(formNode);
+        form.append('A_driver_address', `${form.get('A_inputAddress')}, ${form.get('A_inputVille')}`);
+        form.append('id', sinistre.id);
+        form.delete('A_inputAddress');
+        form.delete('A_inputVille');
+        form.append('B_driver_address', `${form.get('B_inputAddress')}, ${form.get('B_inputVille')}`);
+        form.append('id', sinistre.id);
+        form.delete('B_inputAddress');
+        form.delete('B_inputVille');
+
+        form.append('id', sinistre.id);
+        let req = new XMLHttpRequest();
+        req.open("POST", "/sinistre/addConstat");
+        req.send(form);
+        req.onreadystatechange = function () {
+            if (this.status === 200 && this.readyState === 4) {
+
+            } else {
+            }
+        }
+    }
+
+}
+
+function showConstat(button) {
+    document.getElementById('constatContainer').classList.remove('d-none');
+    button.classList.add('d-none');
+
+}
+
+function hideConstat(button) {
+    document.getElementById('constatContainer').classList.add('d-none');
+    document.getElementById('showConstat').classList.remove('d-none');
 
 }
 
@@ -151,12 +197,18 @@ function sendInjureds(button) {
             if (!formNode.checkValidity()) {
                 event.preventDefault()
                 event.stopPropagation()
+            } else {
+                formNode.classList.add('was-validated')
+                formNode.submitButton.click();
             }
 
             formNode.classList.add('was-validated')
         }, false)
-        formNode.classList.add('was-validated')
-        formNode.submitButton.click();
+        if (formNode.checkValidity()) {
+            formNode.classList.add('was-validated')
+            formNode.submitButton.click();
+            break;
+        }
     }
 
 }

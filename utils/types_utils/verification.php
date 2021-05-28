@@ -97,7 +97,7 @@
         public function parseContent(array $content) {
             return array(
                 'raw' => $content['raw'],
-                'justification' => (strlen($content['justification']) > 0) ? $content['justification'] : "Non précisé",
+                'justification' => (strlen($content['justification']) > 0) ? htmlspecialchars($content['justification']) : "Non précisé",
                 'files' => (sizeof($content["files"]) > 0) ? $content["files"] : array()
             );
         }

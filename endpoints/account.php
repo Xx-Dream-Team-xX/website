@@ -35,7 +35,7 @@
 
                     if (checkUploadedFiles()) {
                         $files = saveUploadedFiles();
-                    }
+                    } else return send_json(false);
 
                     $user = new UserAssure(getUpdatedUser());
 
@@ -44,14 +44,14 @@
                         'assurance' => $user->getAssurance(),
                         'content' => array(
                             'raw' => $data,
-                            'justification' => $_POST['justification'] ?? null,
+                            'justification' => isset($_POST['justification']) ? $_POST['justification'] : null,
                             'files' => $files
                         )
                     ));
 
                     DB::setObject(get_path("database", "verifications.json"), $v->getAll(), true);
 
-                    $rep = DB::getFromID(get_path("databse", "users.json"), $user->getRep());
+                    $rep = DB::getFromID(get_path("database", "users.json"), $user->getRep());
                     if ($rep) {
                         $rep = User::createUserByType($rep);
 

@@ -1,5 +1,5 @@
-function showError(error) {
-    document.getElementById("errors").innerText = error;
+function showError(error, id="error") {
+    document.getElementById(id).innerText = error;
     document.getElementById("addbutton").disabled = true;
 }
 
@@ -8,8 +8,17 @@ function removeError() {
     document.getElementById("addbutton").disabled = false;
 }
 
-function showPass() {
-    document.getElementById("created_password").type = "text";
+function showPass(id) {
+    (document.getElementById(id).type === "text") ? document.getElementById(id).type = "password" : document.getElementById(id).type = "text";
+}
+
+function onLoad() {
+    updateMe(() => {
+        me['birth'] = getDate(me['birth']);
+        for ([i, k] of Object.entries(me)) {
+            if (document.getElementById(i)) document.getElementById(i).value = k;
+        }
+    });
 }
 
 function showErrors(e){
@@ -24,10 +33,10 @@ function showErrors(e){
             showError("Erreur serveur -  Champs Nom / Prénom");
             break;
         case 4:
-            showError("Erreur serveur -  Champ email");
+            showError("Erreur serveur -  Mauvaise adresse mail ou adresse déjà utilisée");
             break;
         case 5:
-            showError("Erreur serveur -  Adresse email déjà enregistrée");
+            showError("Erreur serveur -  Mauvais mot de passe");
             break;
         case 6:
             showError("Erreur serveur -  Le mot de passe n'est pas assez fort");
@@ -36,7 +45,6 @@ function showErrors(e){
             showError("Erreur serveur -  Veuillez remplir tous les champs correctement");
             break;
         default:
-        
     }
 }
 
@@ -74,37 +82,54 @@ function check(ele, type, error) {
     }
 }
 
-function addAssures() {
-    let f = document.getElementById("form");
+function submitVerification() {
+    let f = document.getElementById("details");
     let p = new FormData();
-    p.append("mail", f["Email"].value);
-    p.append("first_name", f["Name"].value);
-    p.append("last_name", f["Surname"].value);
-    p.append("phone", f["telephoneNumber"].value);
-    p.append("address", f["Address"].value);
-    p.append("zip_code", f["CodePostal"].value);
+    p.append("first_name", f["first_name"].value);
+    p.append("last_name", f["last_name"].value);
+    p.append("phone", f["phone"].value);
+    p.append("address", f["address"].value);
+    p.append("zip_code", f["zip_code"].value);
 
-    let d = new Date(f["birthdate"].value);
+    let files = document.getElementById("files").files;
+    for (let i = 0; i < files.length; i++) {
+        p.append("files" + i, files[i], files[i].name);
+    }
+
+    let d = new Date(f["birth"].value);
     p.append("birth", d/1000);
     let r = new XMLHttpRequest();
-    r.open("POST", "/auth/register");
+
+    r.open("POST", "/account/set");
     r.send(p);
     r.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             let j = JSON.parse(this.responseText);
-            if (j["success"] === true){
-                showAddedUser(f["Surname"].value, f["Name"].value, f["Email"].value, j["password"]);
+            if (j){
+                window.location.href = "/verifications/" + j;
             }else{
-                showErrors(j['message'])
+                showError("Veuillez respecter le formattage et vous assurer de bien attacher vos justificatifs.", "errors");
             }
         }
     }
 }
 
-function showAddedUser(surname, name, login, password) {
-    document.getElementById("form").hidden = true;
-    document.getElementById("subtitle").innerText = "Identifiants de " + surname + " " + name;
-    document.getElementById("results").hidden = false;
-    document.getElementById("created_email").value = login;
-    document.getElementById("created_password").value = password;
+function changeAccountData() {
+    r = new XMLHttpRequest();
+    d = new FormData();
+    r.open("POST", "/auth/changepassword");
+    d.append("mail", document.getElementById("mail").value);
+    d.append("password", document.getElementById("password").value);
+    if (document.getElementById("new_password").value.length > 0) d.append("new", document.getElementById("new_password").value);
+    r.send(d);
+    r.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            let j = JSON.parse(this.responseText);
+            if (j["success"]) {
+                window.location.reload();
+            } else {
+                showErrors(j.message)
+            }
+        }
+    }
 }

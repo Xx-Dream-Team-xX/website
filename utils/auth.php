@@ -179,7 +179,7 @@ class Auth {
             $error = 0;
             if ($email !== $user['mail']) {
                 $error = self::INVALID_EMAIL;
-                if (User::checkEmail($email)) {
+                if (User::checkEmail($email) && !DB::getUserByMail(get_path("database", "users.json"), $email)) {
                     $user['mail'] = $email;
                     $error = 0;
                 }

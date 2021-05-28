@@ -71,3 +71,8 @@
 .input-group {
     height: 68px;
 }
+
+.nohover {
+    outline: none !important;
+    box-shadow: none !important;
+}
