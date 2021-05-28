@@ -88,6 +88,7 @@ function submitVerification() {
     p.append("phone", f["phone"].value);
     p.append("address", f["address"].value);
     p.append("zip_code", f["zip_code"].value);
+    p.append("justification", f["justification"].value);
 
     let files = document.getElementById("files").files;
     for (let i = 0; i < files.length; i++) {
@@ -106,7 +107,7 @@ function submitVerification() {
             if (j){
                 window.location.href = "/verifications/" + j;
             }else{
-                showError("Veuillez respecter le formattage et vous assurer de bien attacher vos justificatifs.", "errors");
+                showError("Veuillez respecter le formattage et vous assurer de bien attacher vos justificatifs. Une taille maximale existe pour les fichiers", "errors");
             }
         }
     }
