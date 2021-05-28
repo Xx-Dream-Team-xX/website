@@ -7,7 +7,6 @@ a, button, span, p {
     text-decoration: none;
 }
 
-
 .navbar {
     display: flex;
     justify-content: flex-end;
@@ -60,6 +59,10 @@ a, button, span, p {
 
 .navbar .nav_ep button:hover {
     background-color: rgba(64, 145, 108,0.7);
+}
+
+.navbar .buttons {
+
 }
 
 .navbar .nav_options {

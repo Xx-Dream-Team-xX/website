@@ -25,13 +25,13 @@ function lazyHtmlInsertion(c, c2, c3, c4, id, title, content, url) {
         </div>
         
         <div id="${id}" class="right-side small-break-container">
-            <div class="top-side row">
+            <div class="top-side row mouse-cursor" onclick="markNotification('${id}'); window.open('${url}', '_blank');">
                 <div class="msg_title">
                     <span>${title}</span>
                 </div>
             </div>
             <div class="bottom-side d-flex flex-row">
-                <div class="user_msg">
+                <div class="user_msg mouse-cursor" onclick="markNotification('${id}'); window.open('${url}', '_blank');">
                     <span>${content}</span>
                 </div>
                 <div class="del_msg" onclick='${c4}("${id}")'>
@@ -43,6 +43,8 @@ function lazyHtmlInsertion(c, c2, c3, c4, id, title, content, url) {
 }
 
 function loadNotifications() {
+    // to notify the user on notification change
+    //document.getElementById("notif-led").classList.add("appear");
     let list = document.getElementById("notifications");
     requestNotification("list", (r) => {
         list.innerHTML = "";
