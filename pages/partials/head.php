@@ -18,4 +18,5 @@
 <link rel="stylesheet" href="/static/css/fonts.css" type="text/css" media="all">
 <link rel="stylesheet" href="/static/css/responsive.css" type="text/css" media="all">
 <link rel="stylesheet" href="/static/css/notifications.css" type="text/css" media="all">
+<link rel="stylesheet" href="/static/css/profile.css" type="text/css" media="all">
 

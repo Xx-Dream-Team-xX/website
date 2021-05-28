@@ -1,6 +1,10 @@
 <script src="/static/js/manageLogin.js" charset="utf-8"></script>
 <script src="/static/js/notifications.js" charset="utf-8"></script>
-
+<script charset="utf-8">
+    function dropdown_fnc(menu){
+        document.getElementById(menu).classList.toggle("show");
+    }
+</script>
 <!-- logged in -->
 <?php if(isLoggedIn()) : ?>
 <div class="navbar navbar-expand-lg">
@@ -8,20 +12,40 @@
         <a href="/"><img class="navlogo " src="/static/images/logo.png" alt="logo"></a>
         <a class="navtitle hidden-mobile" id="title" href="/"><?php echo SETTINGS['name']; ?></a>
     </div>
-
-    <div class="notifications d-flex justify-content-end align-items-center">
-        <span onclick="ouvrirModal()" class="modalbtn">
-            <span class="material-icons">notifications</span>
-            <div id="notif-led" class="notif-dot"></div>
-        </span>
-    </div>
+    
     <nav class="nav_options">
         <div class="nav_links" id="links">
+            
         </div>
     </nav>
-    <a class="nav_ep" id="logoutButton" role="button" onclick='logout();'>
+    <div class="buttons d-flex align-items-center">
+        <div class="notifications d-flex justify-content-end align-items-center">
+            <span onclick="ouvrirModal()" class="modalbtn">
+                <span class="material-icons btn">notifications</span>
+                <div id="notif-led" class="notif-dot"></div>
+            </span>
+        </div>
+        <div class="profile">
+            <span onclick="dropdown_fnc('drop_profile')" class="dropbtn btn">
+                <span class="material-icons">account_circle</span>
+                <span class="userbtn_txt">Utilisateur</span>
+            </span>
+            <div id="drop_profile" class="drop-content">
+                <div class="drop_item">
+                    <a href="/messages"><span class="material-icons">chat</span>Messages</a>
+                </div>
+                <div class="drop_item">
+                    <a href="/me"><span class="material-icons">settings</span>Paramètres</a>
+                </div>
+                <div class="drop_item">
+                    <a href="/auth/logoff"><span class="material-icons">logout</span>Se déconnecter</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<a class="nav_ep" id="logoutButton" role="button" onclick='logout();'>
         <button>Logout</button>
-    </a>
+    </a>-->
 </div>
 
 <div id="modal_notif" class="modal">
