@@ -8,6 +8,10 @@ function removeError() {
     document.getElementById("addbutton").disabled = false;
 }
 
+function showPass() {
+    document.getElementById("created_password").type = "text";
+}
+
 function showErrors(e){
     switch (e) {
         case 1:
@@ -17,7 +21,7 @@ function showErrors(e){
             showError("Erreur serveur -  Champ Adresse");
             break;
         case 3:
-            showError("Erreur serveur -  Champs Nom - Prénom");
+            showError("Erreur serveur -  Champs Nom / Prénom");
             break;
         case 4:
             showError("Erreur serveur -  Champ email");
@@ -79,7 +83,7 @@ function addAssures() {
     p.append("phone", f["telephoneNumber"].value);
     p.append("address", f["Address"].value);
     p.append("zip_code", f["CodePostal"].value);
-    console.log(f["birthdate"].value);
+
     let d = new Date(f["birthdate"].value);
     p.append("birth", d/1000);
     let r = new XMLHttpRequest();
@@ -93,18 +97,14 @@ function addAssures() {
             }else{
                 showErrors(j['message'])
             }
-        } else {
-            console.log("server Error");
         }
     }
 }
 
 function showAddedUser(surname, name, login, password) {
-    document.getElementById("form").style.visibility = "hidden";
-    document.getElementById("subtitle").innerText = "Assures Ajouté";
-    document.getElementById("table").style.visibility = "visible";
-    document.getElementById("nom").innerText = surname;
-    document.getElementById("pen").innerText = name;
-    document.getElementById("log").innerText = login;
-    document.getElementById("mdp").innerText = password;
+    document.getElementById("form").hidden = true;
+    document.getElementById("subtitle").innerText = "Identifiants de " + surname + " " + name;
+    document.getElementById("results").hidden = false;
+    document.getElementById("created_email").value = login;
+    document.getElementById("created_password").value = password;
 }
