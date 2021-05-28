@@ -40,7 +40,7 @@ function fillOptionContracts() {
 
 function selectGivenSinistre() {
     let params = parseURLParams();
-    if ('id' in params) {
+    if (params !== undefined && Object.hasOwnProperty.call(params, 'id')) {
         let sinistreListNode = document.getElementById("sinistre_list");
         for (i = 0; i < sinistreListNode.length; i++) {
             if (sinistreListNode.options[i].value == params.id[0]) {
@@ -82,13 +82,141 @@ function updateSinistre(select) {
     req.onreadystatechange = function () {
         if (this.status === 200 && this.readyState === 4) {
             let sinistre = JSON.parse(this.responseText);
-            console.log(sinistre);
             displaySinistre(sinistre)
         }
     }
 }
 
-function displaySinistre(sinistre) {
+function displayContrat(contratID) {
+    let req = new XMLHttpRequest();
+    req.open("POST", "/contract/get");
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    req.send(`id=${contratID}`);
+    req.onreadystatechange = function () {
+        if (this.status === 200 && this.readyState === 4) {
+            let contrat = JSON.parse(this.responseText);
+            let start = new Date(contrat.start * 1000);
+            document.getElementById('contrat_start').innerText = `${start.getDate()}/${start.getMonth()}/${start.getFullYear()}`;
+            let end = new Date(contrat.end * 1000);
+            document.getElementById('contrat_end').innerText = `${end.getDate()}/${end.getMonth()}/${end.getFullYear()}`;
+            document.getElementById('contrat_vID').innerText = contrat.vID;
+            document.getElementById('contrat_manufacturer').innerText = contrat.manufacturer;
+        }
+    }
+}
+
+function displaySinistre(sinistreData) {
+    displayContrat(sinistreData.contract);
+    document.getElementById('driver_profession').innerText = sinistreData.driver_profession;
+    switch (sinistreData.driver_relationship) {
+        case 'married':
+            sinistreData.driver_relationship = "Marié"
+            break;
+        case 'celib':
+            sinistreData.driver_relationship = "Célibataire"
+            break;
+        case 'other':
+            sinistreData.driver_relationship = "Autre"
+            break;
+        default:
+            break;
+    }
+    document.getElementById('driver_relationship').innerText = sinistreData.driver_relationship;
+    document.getElementById('driver_disp_reason').innerText = sinistreData.driver_disp_reason;
+    document.getElementById('driver_user_same_residance').checked = sinistreData.driver_user_same_residance;
+    document.getElementById('driver_is_usual').checked = sinistreData.driver_is_usual;
+    document.getElementById('driver_is_employeeof_user').checked = sinistreData.driver_is_employeeof_user;
+    let date = new Date(sinistreData.date * 1000);
+    document.getElementById('incident_date').innerText = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+    document.getElementById('circumstances').innerText = sinistreData.circumstances;
+    document.getElementById('proces_verbal').checked = sinistreData.proces_verbal;
+    document.getElementById('police_report').checked = sinistreData.police_report;
+    document.getElementById('main_courante').checked = sinistreData.main_courante;
+    if (sinistreData.main_courante) {
+        document.getElementById('police_stationContainer').classList.remove('d-none');
+        document.getElementById('police_station').innerText = sinistreData.police_station
+    }
+    document.getElementById('usual_parking_location').innerText = sinistreData.usual_parking_location;
+    if (Object.hasOwnProperty.call(sinistreData, 'garage_name')) {
+        document.getElementById('garage_container').classList.remove('d-none');
+        document.getElementById('garage_name').innerText = sinistreData.garage_name;
+        document.getElementById('garage_phone').innerText = sinistreData.garage_phone;
+        document.getElementById('garage_email').innerText = sinistreData.garage_email;
+    }
+    document.getElementById('other_damage').innerText = sinistreData.other_damage;
+    if (Object.hasOwnProperty.call(sinistreData, 'constat')) {
+        document.getElementById('constat_container').classList.remove('d-none');
+        let dateConstat = new Date(sinistreData.constat.date * 1000);
+        document.getElementById('constat_date').innerText = `${dateConstat.getDate()}/${dateConstat.getMonth()}/${dateConstat.getFullYear()}`;
+        document.getElementById('location').innerText = sinistreData.constat.location;
+        document.getElementById('witnesses').innerText = sinistreData.constat.witnesses;
+        document.getElementById('injured').checked = sinistreData.constat.injured;
+        document.getElementById('other_vehicle_involved').checked = sinistreData.constat.other_vehicle_involved;
+        document.getElementById('other_object_involved').checked = sinistreData.constat.other_object_involved;
+        document.getElementById('A_contract').innerText = sinistreData.constat.A_contract;
+        document.getElementById('A_driver_lastname').innerText = sinistreData.constat.A_driver_lastname;
+        document.getElementById('A_driver_firstname').innerText = sinistreData.constat.A_driver_firstname;
+        dateConstat = new Date(sinistreData.constat.A_driver_birthdate * 1000);
+        document.getElementById('A_driver_birthdate').innerText = `${dateConstat.getDate()}/${dateConstat.getMonth()}/${dateConstat.getFullYear()}`;
+        document.getElementById('A_driver_address').innerText = sinistreData.constat.A_driver_address;
+        document.getElementById('A_driver_country').innerText = sinistreData.constat.A_driver_country;
+        document.getElementById('A_driver_phone').innerText = sinistreData.constat.A_driver_phone;
+        document.getElementById('A_dirver_email').innerText = sinistreData.constat.A_dirver_email;
+        document.getElementById('A_driver_liscence_id').innerText = sinistreData.constat.A_driver_liscence_id;
+        document.getElementById('A_driver_liscence_cat').innerText = sinistreData.constat.A_driver_liscence_cat;
+        document.getElementById('A_driver_liscence_expire').innerText = sinistreData.constat.A_driver_liscence_expire;
+        document.getElementById('A_vehicle_initial_impact').innerText = sinistreData.constat.A_vehicle_initial_impact;
+        document.getElementById('A_vehicle_damage').innerText = sinistreData.constat.A_vehicle_damage;
+        document.getElementById('A_observation').innerText = sinistreData.constat.A_observation;
+        document.getElementById('A_stationing').checked = sinistreData.constat.A_stationing;
+        document.getElementById('A_leaving_parking_spot').checked = sinistreData.constat.A_leaving_parking_spot;
+        document.getElementById('A_entering_parking_spot').checked = sinistreData.constat.A_entering_parking_spot;
+        document.getElementById('A_entering_place').checked = sinistreData.constat.A_entering_place;
+        document.getElementById('A_leaving_place').checked = sinistreData.constat.A_leaving_place;
+        document.getElementById('A_round_point').checked = sinistreData.constat.A_round_point;
+        document.getElementById('A_rear_damage_on_road').checked = sinistreData.constat.A_rear_damage_on_road;
+        document.getElementById('A_oposite_road_line').checked = sinistreData.constat.A_oposite_road_line;
+        document.getElementById('A_line_change').checked = sinistreData.constat.A_line_change;
+        document.getElementById('A_overtake').checked = sinistreData.constat.A_overtake;
+        document.getElementById('A_right_turn').checked = sinistreData.constat.A_right_turn;
+        document.getElementById('A_left_turn').checked = sinistreData.constat.A_left_turn;
+        document.getElementById('A_driving_backward').checked = sinistreData.constat.A_driving_backward;
+        document.getElementById('A_past_line').checked = sinistreData.constat.A_past_line;
+        document.getElementById('A_from_right').checked = sinistreData.constat.A_from_right;
+        document.getElementById('A_skip_priority').checked = sinistreData.constat.A_skip_priority;
+
+        document.getElementById('B_contract').innerText = sinistreData.constat.B_contract;
+        document.getElementById('B_driver_lastname').innerText = sinistreData.constat.B_driver_lastname;
+        document.getElementById('B_driver_firstname').innerText = sinistreData.constat.B_driver_firstname;
+        dateConstat = new Date(sinistreData.constat.B_driver_birthdate * 1000);
+        document.getElementById('B_driver_birthdate').innerText = `${dateConstat.getDate()}/${dateConstat.getMonth()}/${dateConstat.getFullYear()}`;
+        document.getElementById('B_driver_address').innerText = sinistreData.constat.B_driver_address;
+        document.getElementById('B_driver_country').innerText = sinistreData.constat.B_driver_country;
+        document.getElementById('B_driver_phone').innerText = sinistreData.constat.B_driver_phone;
+        document.getElementById('B_dirver_email').innerText = sinistreData.constat.B_dirver_email;
+        document.getElementById('B_driver_liscence_id').innerText = sinistreData.constat.B_driver_liscence_id;
+        document.getElementById('B_driver_liscence_cat').innerText = sinistreData.constat.B_driver_liscence_cat;
+        document.getElementById('B_driver_liscence_expire').innerText = sinistreData.constat.B_driver_liscence_expire;
+        document.getElementById('B_vehicle_initial_impact').innerText = sinistreData.constat.B_vehicle_initial_impact;
+        document.getElementById('B_vehicle_damage').innerText = sinistreData.constat.B_vehicle_damage;
+        document.getElementById('B_observation').innerText = sinistreData.constat.B_observation;
+        document.getElementById('B_stationing').checked = sinistreData.constat.B_stationing;
+        document.getElementById('B_leaving_parking_spot').checked = sinistreData.constat.B_leaving_parking_spot;
+        document.getElementById('B_entering_parking_spot').checked = sinistreData.constat.B_entering_parking_spot;
+        document.getElementById('B_entering_place').checked = sinistreData.constat.B_entering_place;
+        document.getElementById('B_leaving_place').checked = sinistreData.constat.B_leaving_place;
+        document.getElementById('B_round_point').checked = sinistreData.constat.B_round_point;
+        document.getElementById('B_rear_damage_on_road').checked = sinistreData.constat.B_rear_damage_on_road;
+        document.getElementById('B_oposite_road_line').checked = sinistreData.constat.B_oposite_road_line;
+        document.getElementById('B_line_change').checked = sinistreData.constat.B_line_change;
+        document.getElementById('B_overtake').checked = sinistreData.constat.B_overtake;
+        document.getElementById('B_right_turn').checked = sinistreData.constat.B_right_turn;
+        document.getElementById('B_left_turn').checked = sinistreData.constat.B_left_turn;
+        document.getElementById('B_driving_backward').checked = sinistreData.constat.B_driving_backward;
+        document.getElementById('B_past_line').checked = sinistreData.constat.B_past_line;
+        document.getElementById('B_from_right').checked = sinistreData.constat.B_from_right;
+        document.getElementById('B_skip_priority').checked = sinistreData.constat.B_skip_priority;
+    }
 
 }
 
@@ -149,7 +277,6 @@ function addInjured(button) {
     <button type="submit" class="btn btn-primary" name="removeInjured" onclick="removeInjured(this)">Supprimé</button>`;
     let parent = button.parentNode
     parent.insertBefore(injuredForm, button);
-    console.log(button.parentNode);
 }
 
 function removeInjured(button) {
@@ -242,9 +369,6 @@ function hideConstat(button) {
 
 function sendInjured(formNode) {
     let form = new FormData(formNode);
-    for (var key of form.keys()) {
-        console.log(`${key}, ${form.get(key)}`);
-    }
     form.append('address', `${form.get('inputAddress')}, ${form.get('inputVille')}`);
     form.append('id', sinistre.id);
     form.delete('inputAddress');
@@ -265,7 +389,6 @@ function sendInjured(formNode) {
 function sendInjureds(button) {
 
     let forms = document.getElementsByName('injuredForm');
-    console.log(forms.length);
     for (var i = 0; i < forms.length; i++) {
         let formNode = forms.item(i);
         formNode.addEventListener('submit', function (event) {

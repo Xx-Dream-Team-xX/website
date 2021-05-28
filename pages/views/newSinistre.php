@@ -11,8 +11,8 @@
     <body onload="onLoad()">
         <?php include get_path('partials', 'navbar.php'); ?>
         <!-- MAIN (FORM) -->
-        <div class="container-xl main justify-content-center">
-            <div class="row m-3 mt-0 center-block order border-2 rounded p-3 shadow">
+        <div class="container-xl main ">
+            <div class="row m-0 mt-0 center-block order border-2 rounded p-3 shadow">
                 <h1>Sinistre</h1>
                 <form class="needs-validation" id="sinistre" action="javascript:;" onsubmit="sendSinistre(this);" accept-charset="utf-8" novalidate>
                     <div class="row g-3 border border-1 rounded p-3 mt-3">
