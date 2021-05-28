@@ -5,7 +5,7 @@
     <head>
         <script charset="utf-8" src="/static/js/HeyThatsMe.js"></script>
         <script charset="utf-8" src="/static/js/manageSinistre.js"></script>
-        <title>Chat</title>
+        <title>Créer un sinistre</title>
     </head>
 
     <body onload="onLoad()">

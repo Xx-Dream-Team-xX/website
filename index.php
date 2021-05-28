@@ -39,6 +39,7 @@
     Router::add('inscription', get_path('views', 'addAssure.php'));
     Router::add('user', get_path('views', 'gestionUser.php'));
     Router::add('newsinistre', get_path('views', 'newSinistre.php'));
+    Router::add('viewsinistre', get_path('views', 'viewSinistre.php'));
     Router::add('me', get_path('views', 'me.php'));
 
     Router::default(get_path('views', 'error.php'));

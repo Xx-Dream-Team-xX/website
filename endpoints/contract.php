@@ -11,10 +11,14 @@
         case 'get':
 
             if (!isset($_POST['id'])) {
+                http_response_code(400);
+
                 return;
             }
             $contract = DB::getFromID(get_path('database', 'contracts.json'), $_POST['id']);
             if (false === $contract) {
+                http_response_code(400);
+
                 return;
             }
 
@@ -81,13 +85,12 @@
                         if (false === $contract) {
                             return;
                         }
-                        array_push($contracts,array(
+                        array_push($contracts, array(
                             'id' => $contract['id'],
                             'vID' => $contract['vID'],
                             'manufacturer' => $contract['manufacturer'],
                         ));
                     }
-
 
                     send_json($contracts);
 
@@ -123,17 +126,20 @@
                                     send_json($contract);
                                     DB::setObject(get_path('database', 'contracts.json'), $contract);
                                 } catch (Exception $e) {
+                                    http_response_code(400);
                                     echo $e->getMessage();
                                 }
                             }
                         }
                         if (!$found) {
+                            http_response_code(400);
                             send_json(array(
                                 'success' => false,
                                 'error' => 'This contract does not belong to your Insurance',
                             ));
                         }
                     } else {
+                        http_response_code(400);
                         send_json(array(
                             'success' => false,
                             'error' => 'Contract do not exist',
@@ -162,15 +168,18 @@
                                 send_json($contract);
                                 DB::setObject(get_path('database', 'contracts.json'), $contract);
                             } catch (Exception $e) {
+                                http_response_code(400);
                                 echo $e->getMessage();
                             }
                         } else {
+                            http_response_code(400);
                             send_json(array(
                                 'success' => false,
                                 'error' => 'This contract does not belong to your Insurance',
                             ));
                         }
                     } else {
+                        http_response_code(400);
                         send_json(array(
                             'success' => false,
                             'error' => 'Contract do not exist',
@@ -227,12 +236,14 @@
                             DB::setObject(get_path('database', 'users.json'), $session_user);
                             send_json($contract->getAll());
                         } else {
+                            http_response_code(400);
                             send_json(array(
                                 'success' => false,
                                 'error' => 'You are not the rep of the user',
                             ));
                         }
                     } else {
+                        http_response_code(400);
                         send_json(array(
                             'success' => false,
                             'error' => 'Contract already exist',
@@ -264,12 +275,14 @@
                             DB::setObject(get_path('database', 'contracts.json'), $contract);
                             DB::setObject(get_path('database', 'users.json'), $user);
                         } else {
+                            http_response_code(400);
                             send_json(array(
                                 'success' => false,
                                 'error' => 'User already in contract or contract already in user',
                             ));
                         }
                     } else {
+                        http_response_code(400);
                         send_json(array(
                             'success' => false,
                             'error' => 'how did you end up there ?',
@@ -300,12 +313,14 @@
                                 'success' => true,
                             ));
                         } else {
+                            http_response_code(400);
                             send_json(array(
                                 'success' => false,
                                 'error' => 'You are not the rep of the user',
                             ));
                         }
                     } else {
+                        http_response_code(400);
                         send_json(array(
                             'success' => false,
                             'error' => 'Contract already exist',
@@ -314,6 +329,7 @@
 
                     break;
                 default:
+                    http_response_code(400);
                     echo 'What are you doing wrong ?';
 
                     break;
@@ -347,6 +363,7 @@
                             'success' => $success,
                         ));
                     } else {
+                        http_response_code(400);
                         send_json(array(
                             'success' => false,
                             'error' => 'Contract do not exist',
@@ -355,6 +372,7 @@
 
                     break;
                 default:
+                    http_response_code(400);
                     send_json(array(
                         'success' => false,
                         'error' => 'What are you doing wrong ?',
