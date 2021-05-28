@@ -5,8 +5,8 @@
 <?php if(isLoggedIn()) : ?>
 <div class="navbar navbar-expand-lg">
     <div class="navbar_left">
-        <img class="navlogo hidden-mobile" src="/static/images/logo.png" alt="logo">
-        <a class="navtitle" id="title" href="/"><?php echo SETTINGS['name']; ?></a>
+        <img class="navlogo " src="/static/images/logo.png" alt="logo">
+        <a class="navtitle hidden-mobile" id="title" href="/"><?php echo SETTINGS['name']; ?></a>
     </div>
 
     <div class="notifications d-flex justify-content-end align-items-center">

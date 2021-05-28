@@ -1,12 +1,12 @@
 /* Small devices (landscape phones, 576px and up) */
 @media (max-width: 576px) {
+    .hidden-mobile {
+        display: none;
+    }
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media (max-width: 768px) {
-    .hidden-mobile {
-        display: none;
-    }
     .small-break-remove {
         display: none !important;
     }
