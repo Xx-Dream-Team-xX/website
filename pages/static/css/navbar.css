@@ -30,7 +30,7 @@ a, button, span, p {
     font-size: min(min(9vw, 45px), calc(100vw - 200px));
     color: #52b788;
     margin-left: min(15px, 2vw);
-    margin-top: 16px;
+    margin-top: 10px;
     /*padding: 0px 15px;*/
     border-color: rgb(15,187,55);
     float: right;
