@@ -5,7 +5,7 @@
     width: 200px;
 }
 
-.btn {
+.nav-btn {
     color: white;
     font-size: 16px;
     cursor: pointer;
@@ -33,11 +33,10 @@
 }
 
 .profile .dropbtn .userbtn_txt {
-    line-height: 90px;
     font-size: 21px;
 }
 
-.btn:hover , .btn:focus {
+.nav-btn:hover , .nav-btn:focus {
     background-color: #40916C;
 }
   
@@ -49,7 +48,7 @@
     width: 190px;
     overflow: auto;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+    z-index: 2;
     padding: 5px 5px 0 5px;
     margin: 0px 10px 0 10px;
 }
@@ -59,6 +58,7 @@
     text-decoration: none;
     display:block ;
     font-size: 1.1em;
+    z-index: 3;
 }
 
 .profile .drop-content .material-icons {

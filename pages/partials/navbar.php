@@ -21,12 +21,12 @@
     <div class="buttons d-flex align-items-center">
         <div class="notifications d-flex justify-content-end align-items-center">
             <span onclick="ouvrirModal()" class="modalbtn">
-                <span class="material-icons btn">notifications</span>
+                <span class="material-icons nav-btn">notifications</span>
                 <div id="notif-led" class="notif-dot"></div>
             </span>
         </div>
         <div class="profile">
-            <span onclick="dropdown_fnc('drop_profile')" class="dropbtn btn">
+            <span onclick="dropdown_fnc('drop_profile')" class="dropbtn nav-btn">
                 <span class="material-icons">account_circle</span>
                 <span class="userbtn_txt">Utilisateur</span>
             </span>
