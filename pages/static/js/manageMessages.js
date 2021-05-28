@@ -10,6 +10,9 @@ function toggleModal() {
 }
 
 function onLoad(){
+    if (isID('/messages/')) {
+        CACHE["selected"] = getTarget('/messages/');
+    }
     updateMe(() => {
         requestMessagesList(),
         setInterval(() =>
@@ -103,7 +106,7 @@ function requestMessagesList() {
 
             clearConversations();
             CACHE["messages"] = JSON.parse(this.responseText) ?? [];
-            if (!CACHE['selected']) requestMessages(CACHE["messages"][CACHE["messages"].length - 1]["id"]);
+            if (CACHE['actual'].length === 0) requestMessages(CACHE["selected"] ?? CACHE["messages"][CACHE["messages"].length - 1]["id"]);
             showRecentMessages(CACHE["messages"]);
             
         }
@@ -133,6 +136,7 @@ function requestMessages(id) {
             CACHE["actual"] = JSON.parse(this.responseText) ?? [];
             CACHE["selected"] = id;
             showMessages(CACHE["actual"]);
+            setFakeURL("Conversation", '/messages/' + id);
         }
     }
     
@@ -270,8 +274,8 @@ function addConvtoRecent(id, type, people, content, sender, files, timestamp, un
 
     let p8 = document.createElement('p');
     p8.classList.add("font-italic", "mb-0", "text-small", "text-dark");
-    p8.innerText = content.split("\n")[0];
-    p8.innerText += (content.split("\n").length > 2) ? "..." : "";
+    p8.innerHTML = content.split("\n")[0];
+    p8.innerHTML += (content.split("\n").length > 2) ? "..." : "";
 
     d5.appendChild(h6);
     d5.appendChild(s7);

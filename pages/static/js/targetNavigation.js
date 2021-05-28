@@ -9,6 +9,6 @@ function isID(original) {
     return (getTarget(original).length === 13);
 }
 
-function setFakeURL(url, title) {
+function setFakeURL(title, url) {
     history.pushState({}, title, url);
 }
