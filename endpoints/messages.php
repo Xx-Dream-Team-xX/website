@@ -5,7 +5,7 @@
      */
     include_once get_path('utils', 'types_utils/users.php');
     include_once get_path('utils', 'types_utils/conversation.php');
-    // include_once get_path("utils", "files.php");
+    include_once get_path("utils", "files.php");
 
 
     ConversationManager::setFolderPath(get_path('database', 'messages/'));
@@ -97,16 +97,16 @@
 
                         if (!in_array(getID(), $c->getPeople())) return;
 
-                        // if (checkUploadedFiles()) {
-                        //     $files = saveUploadedFiles();
-                        // } else {
-                        //     $files = [];
-                        // }
+                        if (checkUploadedFiles()) {
+                            $files = saveUploadedFiles();
+                        } else {
+                            $files = [];
+                        }
 
                         $m = new Message(array(
                             'sender' => $user['id'],
                             'content' => $_POST['content'],
-                            // 'files' => $files
+                            'files' => $files
                         ));
 
                         $c->setLastMessage($m);
