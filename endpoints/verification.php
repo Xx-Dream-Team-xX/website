@@ -26,14 +26,7 @@
                         break;
                 }
 
-                send_json(array_map(function($v) {
-                    return array(
-                        'id' => $v['id'],
-                        'modified' => $v['modified'],
-                        'assurance' => $v['assurance'],
-                        'status' => $v['status']
-                    );
-                }, array_filter($verifications, $filter)));
+                send_json(array_values(array_filter($verifications, $filter)));
                 break;
             case 'get':
                 if (isset($_POST['id'])) {
