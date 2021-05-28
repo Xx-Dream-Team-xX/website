@@ -2,9 +2,25 @@
 }
 
 .notifications .modalbtn {
-    margin-top: 35%;
+    margin-top: 20%;
     cursor: pointer;
 }
+
+.appear {
+    display: block !important;
+}
+
+.notifications .notif-dot {
+    background-color: red;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: none;
+    position: relative;
+    bottom: 50px;
+    left: 40px;
+}
+
 
 .notifications .modalbtn .material-icons {
     color:#ffffff;

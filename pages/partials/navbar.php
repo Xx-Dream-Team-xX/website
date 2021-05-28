@@ -12,6 +12,7 @@
     <div class="notifications d-flex justify-content-end align-items-center">
         <span onclick="ouvrirModal()" class="modalbtn">
             <span class="material-icons">notifications</span>
+            <div id="notif-led" class="notif-dot"></div>
         </span>
     </div>
     <nav class="nav_options">
@@ -30,7 +31,7 @@
             <span class="modal-titre text-dark">Notifications</span>
             </div>
             <div class="col">
-            <span onclick="fermerModal()" class="material-icons close-btn">close</span>
+                <span onclick="fermerModal()" class="material-icons close-btn">close</span>
             </div>
         </div>
 

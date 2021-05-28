@@ -7,7 +7,6 @@ a, button, span, p {
     text-decoration: none;
 }
 
-
 .navbar {
     display: flex;
     justify-content: flex-end;

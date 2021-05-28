@@ -43,6 +43,8 @@ function lazyHtmlInsertion(c, c2, c3, c4, id, title, content, url) {
 }
 
 function loadNotifications() {
+    // to notify the user on notification change
+    //document.getElementById("notif-led").classList.add("appear");
     let list = document.getElementById("notifications");
     requestNotification("list", (r) => {
         list.innerHTML = "";
