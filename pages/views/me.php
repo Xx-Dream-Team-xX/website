@@ -49,9 +49,11 @@
                 </div>
             </div>
 
+            <div id='error' class='form-text is-invalid text-danger'></div>
+
             <div class="row g-3">
                 <div class="col-sm-6" style="margin-top: 30px">
-                    <a href="/gestionnaire" class="btn btn-primary" role="button">Mettre à jour</a>
+                    <a href="javascript:changeAccountData()" class="btn btn-primary" role="button">Mettre à jour</a>
                     <a href="javascript:logout()" class="btn btn-primary bg-danger" role="button">Déconnexion</a>
 
                 </div>
@@ -113,7 +115,7 @@
                 </div>
             </div>
 
-            <div id='errors' class='form-text is-invalid'></div>
+            <div id='errors' class='form-text is-invalid text-danger'></div>
 
             
             <div class="row g-3">

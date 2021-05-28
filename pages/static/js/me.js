@@ -1,5 +1,5 @@
-function showError(error) {
-    document.getElementById("errors").innerText = error;
+function showError(error, id="error") {
+    document.getElementById(id).innerText = error;
     document.getElementById("addbutton").disabled = true;
 }
 
@@ -9,7 +9,7 @@ function removeError() {
 }
 
 function showPass(id) {
-    document.getElementById(id).type = "text";
+    (document.getElementById(id).type === "text") ? document.getElementById(id).type = "password" : document.getElementById(id).type = "text";
 }
 
 function onLoad() {
@@ -33,10 +33,10 @@ function showErrors(e){
             showError("Erreur serveur -  Champs Nom / Prénom");
             break;
         case 4:
-            showError("Erreur serveur -  Champ email");
+            showError("Erreur serveur -  Mauvaise adresse mail ou adresse déjà utilisée");
             break;
         case 5:
-            showError("Erreur serveur -  Adresse email déjà enregistrée");
+            showError("Erreur serveur -  Mauvais mot de passe");
             break;
         case 6:
             showError("Erreur serveur -  Le mot de passe n'est pas assez fort");
@@ -108,7 +108,27 @@ function submitVerification() {
             if (j){
                 window.location.href = "/verifications/" + j;
             }else{
-                showErrors("Veuillez respecter le formattage et vous assurer de bien attacher vos justificatifs.");
+                showError("Veuillez respecter le formattage et vous assurer de bien attacher vos justificatifs.", "errors");
+            }
+        }
+    }
+}
+
+function changeAccountData() {
+    r = new XMLHttpRequest();
+    d = new FormData();
+    r.open("POST", "/auth/changepassword");
+    d.append("mail", document.getElementById("mail").value);
+    d.append("password", document.getElementById("password").value);
+    if (document.getElementById("new_password").value.length > 0) d.append("new", document.getElementById("new_password").value);
+    r.send(d);
+    r.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            let j = JSON.parse(this.responseText);
+            if (j["success"]) {
+                window.location.reload();
+            } else {
+                showErrors(j.message)
             }
         }
     }
