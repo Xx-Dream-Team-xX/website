@@ -71,7 +71,6 @@ function sortby(key) {
     actualsort.key = key;
 
     TEMP.sort((a, b) => {
-        console.log(`a: ${a[key]} b: ${b[key]} \n`);
         if (actualsort.order) {
             return ('' + a[key]).localeCompare(b[key]);
         } else {
