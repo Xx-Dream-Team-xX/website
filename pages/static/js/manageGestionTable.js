@@ -92,7 +92,7 @@ function addUserToTable(USER) {
     table = USER.type;
 
     if (!document.getElementById("table" + table)) {
-        document.getElementById("tables").innerHTML += `<table class="table p-3"><thead><tr>${Object.keys(USER).filter((a) => {return cols[a] && true}).map((a) => `<td onclick='sortby("${a}")'>${cols[a]}</td>`).join("")}</tr></thead><tbody id='table${table}' ></tbody></table>`;
+        document.getElementById("tables").innerHTML += `<table class="table p-3"><thead><tr class="mouse-cursor">${Object.keys(USER).filter((a) => {return cols[a] && true}).map((a) => `<td onclick='sortby("${a}")'>${cols[a]}</td>`).join("")}</tr></thead><tbody id='table${table}' ></tbody></table>`;
     }
 
     for ([i, k] of Object.entries(USER)) {
