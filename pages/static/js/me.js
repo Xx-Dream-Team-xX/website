@@ -1,11 +1,9 @@
 function showError(error, id="error") {
     document.getElementById(id).innerText = error;
-    document.getElementById("addbutton").disabled = true;
 }
 
 function removeError() {
     document.getElementById("errors").innerText = "";
-    document.getElementById("addbutton").disabled = false;
 }
 
 function showPass(id) {

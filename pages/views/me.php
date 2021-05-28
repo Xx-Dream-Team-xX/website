@@ -120,7 +120,7 @@
             
             <div class="row g-3">
                 <div class="col-sm-6" style="margin-top: 30px">
-                    <button disabled onclick="submitVerification()" type="button" class="btn btn-primary" id="addbutton">Mettre à jour</button>
+                    <button onclick="submitVerification()" type="button" class="btn btn-primary" id="addbutton">Mettre à jour</button>
                 </div>
             </div>
         </form>
