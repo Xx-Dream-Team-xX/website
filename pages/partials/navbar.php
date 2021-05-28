@@ -64,7 +64,7 @@
 <div class="navbar navbar-expand-lg">
     <div class="navbar_left">
         <img class="navlogo" src="/static/images/logo.png" alt="logo">
-        <a class="navtitle" id="title" href="/"><?php echo SETTINGS['name']; ?></a>
+        <a class="navtitle hidden-mobile" id="title" href="/"><?php echo SETTINGS['name']; ?></a>
     </div>
     <nav class="nav_options">
         <div class="nav_links" id="links">

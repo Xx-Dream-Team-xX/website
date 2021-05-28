@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <?php include(get_path('partials','head.php'));?>
     <title>Ajouter Assures</title>
     <script src="/static/js/manageDates.js" charset="utf-8"></script>
     <script src="/static/js/manageForms.js" charset="utf-8"></script>
 </head>
-
 <body>
     <?php include(get_path('partials','navbar.php'));?>
     <!-- MAIN (FORM) -->
     <div class="container-xl main">
-        <div style="padding: 30px"></div>
+        <div style="padding: 10px"></div>
         <h1 id="subtitle">Ajouter un assuré</h1>
 
         <div id="results" hidden>
@@ -84,7 +82,7 @@
             </div>
             <div id='errors' class='form-text is-invalid'></div>
             <div class="row g-3">
-                <div class="col-sm-6" style="margin-top: 30px">
+                <div class="col-sm-6 mb-3" style="margin-top: 30px">
                     <button disabled onclick="addAssures()" type="button" class="btn btn-primary" name="signin"
                         id="addbutton">Créer un compte</button>
                     <a href="/gestionnaire" class="btn btn-primary" role="button">Annuler</a>
