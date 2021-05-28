@@ -62,19 +62,20 @@ function addCol(table, text, type){
 }
 
 function sortby(key) {
-    TEMP.sort((a, b) => {
-        if (actualsort.key === key) {
-            actualsort.order ^= true;
-            
-        } else {
-            actualsort.order = 0;
-        }
 
-        actualsort.key = key;
+    if (actualsort.key === key) {
+        actualsort.order ^= true;
+    } else {
+        actualsort.order = 0;
+    }
+    actualsort.key = key;
+
+    TEMP.sort((a, b) => {
+        console.log(`a: ${a[key]} b: ${b[key]} \n`);
         if (actualsort.order) {
-            return a[key] - b[key];
+            return ('' + a[key]).localeCompare(b[key]);
         } else {
-            return b[key] - a[key];
+            return ('' + b[key]).localeCompare(a[key]);
         }
     });
     document.getElementById("tables").innerHTML = "";
