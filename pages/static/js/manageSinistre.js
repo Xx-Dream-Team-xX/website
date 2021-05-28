@@ -105,7 +105,49 @@ function displayContrat(contratID) {
     }
 }
 
+function displayInjureds(sinistreData) {
+    document.getElementById('injured_container').classList.remove('d-none');
+    let injuredListNode = document.getElementById('injured_list');
+    sinistreData.injureds.forEach(injured => {
+        let injuredNode = document.createElement('div');
+        injuredNode.className = "row g-3 border border-1 rounded p-3 pt-0";
+        injuredNode.innerHTML = `
+        <div class="row g-3 ">
+            <div class="col-sm-6">
+                <p class="h6 mb-0 py-1 text-dark">Nom : <span class="h6 text-dark">${injured.firstname}</span></p>
+            </div>
+            <div class="col-sm-6">
+                <p class="h6 mb-0 py-1 text-dark">Prénom : <span class="h6 text-dark">${injured.lastname}</span></p>
+            </div>
+            <div class="col-sm-6">
+                <p class="h6 mb-0 py-1 text-dark">Profession : <span class="h6 text-dark">${injured.profession}</span></p>
+            </div>
+        </div>
+        <div class="row g-3 ">
+            <p class="h6 mb-0 py-1 text-dark">Adresse : <span class="h6 text-dark">${injured.address}</span></p>
+        </div>
+        <div class="row g-3 ">
+            <div class="col-sm-6">
+                <p class="h6 mb-0 py-1 text-dark">Code Postal : <span class="h6 text-dark">${injured.zipcode}</span></p>
+            </div>
+            <div class="col-sm-6">
+                <p class="h6 mb-0 py-1 text-dark">Téléphone : <span class="h6 text-dark">${injured.phone}</span></p>
+            </div>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input text-dark" type="checkbox" checked="${injured.belt}" name="injured" id="injured" readonly disabled>
+            <label class="form-check-label text-dark" for="injured">Ceinture</label>
+        </div>
+        <div class="row g-3 ">
+            <p class="h6 mb-0 py-1 text-dark">Blessures : <span class="h6 text-dark">${injured.injuries}</span></p>
+        </div>
+        `;
+        injuredListNode.appendChild(injuredNode);
+    });
+}
+
 function displaySinistre(sinistreData) {
+    document.getElementById('sinistreMainContainer').classList.remove('d-none');
     displayContrat(sinistreData.contract);
     document.getElementById('driver_profession').innerText = sinistreData.driver_profession;
     switch (sinistreData.driver_relationship) {
@@ -217,7 +259,9 @@ function displaySinistre(sinistreData) {
         document.getElementById('B_from_right').checked = sinistreData.constat.B_from_right;
         document.getElementById('B_skip_priority').checked = sinistreData.constat.B_skip_priority;
     }
-
+    if (sinistreData.injureds.length !== 0) {
+        displayInjureds(sinistreData);
+    }
 }
 
 function addInjured(button) {
