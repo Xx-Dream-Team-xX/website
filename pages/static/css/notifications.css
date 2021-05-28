@@ -1,19 +1,9 @@
 .navbar_right .notifications {
-    margin-right: 10px;
-    height: 100%;
-    position: relative;
-    display: inline-block;
 }
 
 .notifications .modalbtn {
-    height: 100px;
-    width: 70px;
-    display: inline-flex;
-    padding-left: 22px;
+    margin-top: 35%;
     cursor: pointer;
-    align-items: center;
-    text-align:center;
-    border: none;
 }
 
 .notifications .modalbtn .material-icons {
@@ -22,81 +12,8 @@
 }
 
 .modalbtn:hover , .modalbtn:focus {
-    background-color: #40916C;
+    color: #40916C;
 }
-
-
-.navbar_right .profile {
-    height: 100%;
-    position: relative;
-    display: inline-block;
-    width: 200px;
-}
-
-.profile .dropbtn {
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    padding-left:23px;
-    padding-right:22px;
-    height: 100px;
-    display:inline-flex ;
-    align-items: center;
-    text-align:center;
-    border: none;
-}
-
-.profile .dropbtn span{
-    color: #ffffff;
-}
-
-.profile .dropbtn .material-icons {
-    padding-right: 10px;
-    font-size: 35px;
-}
-
-.profile .dropbtn .userbtn_txt {
-    line-height: 90px;
-    font-size: 21px;
-}
-
-.dropbtn:hover , .dropbtn:focus {
-    background-color: #40916C;
-}
-  
-.profile .drop-content {
-    display: none;
-    position: absolute;
-    background-color: #eceaea;
-    min-width: 200px;
-    overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-  
-.profile .drop-content a {
-    color: black;
-    padding: 15px 16px;
-    text-decoration: none;
-    display:block ;
-    line-height: 25px;
-    height: 25px;
-}
-
-.profile .drop-content .material-icons {
-    padding-right: 15px;
-}
-
-.profile .drop-content .drop_item:hover {
-    background-color: #d3d1d1;
-}
-
-.profile .show {
-    display: block;
-}
-
-
-
 
 /* La fenêtre caché */
 .modal {
@@ -130,13 +47,16 @@
     font-style: bold;
     padding-left: 5%;
 }
+
+.modal .lu span {
+    color: #212529!important;
+}
   
 /* The Close Button */
-.modal .close {
+.modal .close-btn {
     color: #aaaaaa;
     float: right;
-    margin-top: 15px;
-    font-size: 28px;
+    font-size: 4.6em;
     font-weight: bold;
     cursor: pointer;
 }
@@ -155,15 +75,14 @@
 
 .modal .btn_modal {
     height: 65px;
-    padding: 0 22px;
     display: flex;
     transition: all 0.05s ease 0s;
     border: 1px solid #000000;
     border-radius: 3px;
     text-align: center;
     align-items: center;
-    margin: 0 10px;
     cursor: pointer;
+    padding: 10px
 }
 
 .modal .btn_modal:hover {
@@ -185,7 +104,6 @@
 
 .modal .btn_modal .material-icons {
     font-size: 40px;
-    padding-right: 15px;
     align-items: center;
 }
 
@@ -211,7 +129,6 @@
     justify-content: flex-start;
     border: 2px solid #000000;
     margin: 20px 3%;
-    cursor: pointer;
 }
 
 .modal .notifs-content .lu {
@@ -232,10 +149,16 @@
 
 .modal .modal_item .left-side {
     display: block;
-    width: 100px;
-    height: 100px;
+    max-width: 100px;
+    max-height: 100px;
     border: 1px #000000;
     border-style: none solid none none;
+    padding: 0 0 0 0;
+}
+
+.small-break-container {
+    margin: 0;
+    padding: 0;
 }
 
 .modal .modal_item .left-side .material-icons {
@@ -243,40 +166,47 @@
     font-size: 65px;
     padding: 17px;
     margin-bottom: 15px;
-    margin: auto auto;
+    margin: 0 0 0 0;
 }
 
 .modal .modal_item .right-side {
     display: inline-block;
-    width: calc(100% - 101px);
     height: 100px;
+    width: 100%;
 }
 
 .modal .modal_item .top-side {
     display: block;
-    height: 35px;
-    border: 2px #000000;
+    height: 38px;
+    border: 2px black;
+    width: 100%;
     border-style: none none solid none;
+    padding: 0;
+    margin: 0;
 }
 
 .modal .modal_item .top-side .msg_title {
     display: inline-block;
     font-size: 25px;
-    padding-left: 15px;
-    padding-top: 3px;
 }
 
 .modal .modal_item .bottom-side {
     display: block;
-    height: 75px;
+    height: calc(100px - 40px);
+    width: 100%;
+    padding: 0;
+    margin: 0;
 }
 
 .modal .modal_item .bottom-side .user_msg {
-    padding-left: 40px;
     font-size: 18px;
     display: inline-block;
-    width: calc(100% - 101px - 51px);
     line-height: 70px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: calc(100% - 50px);
+    padding: 0 0 0 10px;
 }
 
 .modal .modal_item .del_msg {
@@ -291,4 +221,8 @@
     padding: 5px;
     margin-top: 5px;
     border: 1px solid #000000;
+}
+
+.material-icons {
+    cursor: pointer;
 }

@@ -19,18 +19,18 @@ function requestNotification(url, f, id=null) {
 
 function lazyHtmlInsertion(c, c2, c3, c4, id, title, content, url) {
     return `
-    <div class="modal_item ${c}">
-        <div class="left-side" onclick="markNotification('${id}'); window.open('${url}', '_blank');">
+    <div class="modal_item ${c} row">
+        <div class="left-side small-break-remove" onclick="markNotification('${id}'); window.open('${url}', '_blank');">
             <span class="material-icons">${c2}</span>
         </div>
         
-        <div id="${id}" class="right-side">
-            <div class="top-side">
+        <div id="${id}" class="right-side small-break-container">
+            <div class="top-side row">
                 <div class="msg_title">
                     <span>${title}</span>
                 </div>
             </div>
-            <div class="bottom-side">
+            <div class="bottom-side d-flex flex-row">
                 <div class="user_msg">
                     <span>${content}</span>
                 </div>

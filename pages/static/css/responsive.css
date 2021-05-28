@@ -1,7 +1,34 @@
-@media (max-width: 700px) {
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 576px) {
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (max-width: 768px) {
     .hidden-mobile {
         display: none;
     }
+    .small-break-remove {
+        display: none !important;
+    }
+
+    .small-break-container {
+        width: 100% !important;
+    }
+}
+@media (min-width: 768px) {
+    .small-break-container {
+        width: calc(100% - 100px) !important;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (max-width: 992px) {
+
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (max-width: 1200px) {
+
 }
 
 @media only screen and (max-width: 1191px) {
@@ -18,9 +45,6 @@
     .modal .btn_modal .material-icons {
         margin: 0 auto;
         padding-right: 0;
-    }
-    .modal .btn_modal {
-        width: 45px;
     }
 }
 

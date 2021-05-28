@@ -9,7 +9,7 @@
         <a class="navtitle" id="title" href="#"><?php echo SETTINGS['name']; ?></a>
     </div>
 
-    <div class="notifications">
+    <div class="notifications d-flex justify-content-end align-items-center">
         <span onclick="ouvrirModal()" class="modalbtn">
             <span class="material-icons">notifications</span>
         </span>
@@ -25,9 +25,14 @@
 
 <div id="modal_notif" class="modal">
     <div class="modal-content">
-
-        <span class="modal-titre">Notifications</span>
-        <span onclick="fermerModal()" class="material-icons close">close</span>
+        <div class="row">
+            <div class="col">
+            <span class="modal-titre text-dark">Notifications</span>
+            </div>
+            <div class="col">
+            <span onclick="fermerModal()" class="material-icons close-btn">close</span>
+            </div>
+        </div>
 
         <hr style="margin-top:15px; margin-bottom:15px; border: 2px solid #aaaaaa;">
 
