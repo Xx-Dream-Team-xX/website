@@ -1,7 +1,5 @@
 <?php
 
-use function PHPSTORM_META\type;
-
     /**
      * Validates input format against parameter.
      *
@@ -24,7 +22,7 @@ use function PHPSTORM_META\type;
             case 'date':
                 if (is_numeric($d)) {
                     $result = intval($d);
-                } elseif ($date = DateTime::createFromFormat('d/m/Y', $d)) {
+                } elseif ($date = DateTime::createFromFormat('Y-m-d', $d)) {
                     $result = $date->getTimestamp();
                 }
 
@@ -89,6 +87,7 @@ use function PHPSTORM_META\type;
                 } else {
                     throw new Exception('invalid ID plate', 1);
                 }
+
                 break;
             default:
                 $result = htmlspecialchars($d);
