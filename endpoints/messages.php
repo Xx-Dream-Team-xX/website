@@ -88,7 +88,7 @@
                 break;
 
             case 'send':
-                if (isset($_POST['id'], $_POST['content']) && (strlen($_POST["content"]) > 0)) {
+                if (isset($_POST['id'], $_POST['content']) && (strlen(trim($_POST["content"])) > 0)) {
 
                     $c = DB::getFromID(get_path('database', 'conversations.json'), $_POST['id']);
                     $user = getUpdatedUser();
@@ -122,7 +122,7 @@
 
                 break;
             case 'new':
-                if (isset($_POST['recipient'], $_POST['content'])) {
+                if (isset($_POST['recipient'], $_POST['content']) && (strlen(trim($_POST["content"])) > 0)) {
                     $user = getUpdatedUser();
                     $found = false;
                     foreach (getRecipients() as $r) {

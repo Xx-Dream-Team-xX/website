@@ -65,7 +65,7 @@
                 break;
 
             case 'send':
-                if (isset($_POST['id'], $_POST['content'])) {
+                if (isset($_POST['id'], $_POST['content']) && (strlen(trim($_POST["content"])) > 0)) {
                     $c = DB::getFromID(get_path('database', 'tickets.json'), $_POST['id']);
 
                     if ($c && ($c = new Conversation($c))) {
@@ -93,7 +93,7 @@
 
                 break;
             case 'new':
-                if (isset($_POST['recipient'], $_POST['content'], $_POST['title']) && $_POST['title'] !== "") {
+                if (isset($_POST['recipient'], $_POST['content'], $_POST['title'])  && (strlen(trim($_POST["content"])) > 0)  && (strlen(trim($_POST["title"])) > 0)) {
 
                     $user = getUpdatedUser();
 
@@ -134,6 +134,7 @@
 
             case 'add':
 
+                return send_json("disabled");
                 if ((getPermissions() === User::ADMIN) && isset($_POST["ticket"], $_POST["dest"])) {
 
                     $c = DB::getFromID(get_path('database', 'tickets.json'), $_POST['ticket']);
