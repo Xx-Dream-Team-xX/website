@@ -19,8 +19,11 @@ function show(k, v) {
         },
         "birth": function() {
             return getDate(v)
+        },
+        "mail": function() {
+            return (v ? v : "");
         }
-    }
+    };
 
     if (specials[k]) {
         return specials[k](v);
@@ -93,7 +96,7 @@ function addUserToTable(USER) {
     }
 
     for ([i, k] of Object.entries(USER)) {
-        if (cols[i]) addCol(row, USER[i] ?? "", i);
+        if (cols[i]) addCol(row, USER[i] ? USER[i] : "", i);
     }
     
     table = document.getElementById("table" + table);
