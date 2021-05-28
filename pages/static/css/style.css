@@ -49,8 +49,9 @@ input::placeholder {
 }
 
 .main {
+    width: 100vw;
     min-height: calc(100vh - 100px);
-    margin: 0;
+    flex-direction: column;
 }
 
 .mouse-cursor:hover{

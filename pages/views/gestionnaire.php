@@ -10,20 +10,20 @@
     <body onload="getData()">
         <?php include(get_path('partials','navbar.php'));?> 
         <!-- MAIN (FORM) -->
-        <div class="container-xl main">
-
-            <?php if (getPermissions() > User::POLICE) {?><div class="col-sm-4 d-flex align-items-center flex-column my-3 container-xl">
-                <a class="btn btn-primary" href="/inscription" role="button">Ajouter un utilisateur</a>
-            </div><?php }?>
-            <div class="row mt-3 d-flex justify-content-between">
-                <div class="col-sm-8">
-                    <div class="table-responsive table-dark">
-                        <div id="tables">
-                        </div>
+        <div class="container-xl main d-flex justify-content-center">
+            <div class="row p-2">
+                <div class="col d-flex justify-content-center">
+                <?php if (getPermissions() > User::POLICE) {?>
+                    <a class="btn btn-primary" href="/inscription" role="button">Ajouter un utilisateur</a>
+                <?php }?>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="table table-responsive-xl table-dark">
+                    <div id="tables">
                     </div>
                 </div>
             </div>
-
         </div>
         <!-- MAIN (FORM) -->
         <?php include(get_path('partials','footer.php'));?> 
