@@ -163,12 +163,197 @@
                     'other_object_involved' => array(
                         'type' => 'bool',
                     ),
-                    'wintensses' => array(
+                    'witnesses' => array(
                         'type' => 'text',
                     ),
-                    // 'vehicles' => array(
-                    //     'type' => 'array',
-                    // ),
+                    'A_contract' => array(
+                        'type' => 'text',
+                    ),
+                    'A_driver_firstname' => array(
+                        'type' => 'text',
+                    ),
+                    'A_driver_lastname' => array(
+                        'type' => 'text',
+                    ),
+                    'A_driver_birthdate' => array(
+                        'type' => 'date',
+                    ),
+                    'A_driver_address' => array(
+                        'type' => 'text',
+                    ),
+                    'A_driver_zipcode' => array(
+                        'type' => 'zipcode',
+                    ),
+                    'A_driver_country' => array(
+                        'type' => 'text',
+                    ),
+                    'A_driver_phone' => array(
+                        'type' => 'phone',
+                    ),
+                    'A_dirver_email' => array(
+                        'type' => 'email',
+                        'optional' => true,
+                    ),
+                    'A_driver_liscence_id' => array(
+                        'type' => 'text',
+                    ),
+                    'A_driver_liscence_cat' => array(
+                        'type' => 'text',
+                    ),
+                    'A_driver_liscence_expire' => array(
+                        'type' => 'date',
+                    ),
+                    'A_vehicle_initial_impact' => array(
+                        'type' => 'text',
+                    ),
+                    'A_vehicle_damage' => array(
+                        'type' => 'text',
+                    ),
+                    'A_observation' => array(
+                        'type' => 'text',
+                    ),
+                    'A_stationing' => array(
+                        'type' => 'bool',
+                    ),
+                    'A_leaving_parking_spot' => array(
+                        'type' => 'bool',
+                    ),
+                    'A_entering_parking_spot' => array(
+                        'type' => 'bool',
+                    ),
+                    'A_entering_place' => array(
+                        'type' => 'bool',
+                    ),
+                    'A_leaving_place' => array(
+                        'type' => 'bool',
+                    ),
+                    'A_round_point' => array(
+                        'type' => 'bool',
+                    ),
+                    'A_rear_damage_on_road' => array(
+                        'type' => 'bool',
+                    ),
+                    'A_oposite_road_line' => array(
+                        'type' => 'bool',
+                    ),
+                    'A_line_change' => array(
+                        'type' => 'bool',
+                    ),
+                    'A_overtake' => array(
+                        'type' => 'bool',
+                    ),
+                    'A_right_turn' => array(
+                        'type' => 'bool',
+                    ),
+                    'A_left_turn' => array(
+                        'type' => 'bool',
+                    ),
+                    'A_driving_backward' => array(
+                        'type' => 'bool',
+                    ),
+                    'A_past_line' => array(
+                        'type' => 'bool',
+                    ),
+                    'A_from_right' => array(
+                        'type' => 'bool',
+                    ),
+                    'A_skip_priority' => array(
+                        'type' => 'bool',
+                    ),
+                    'B_contract' => array(
+                        'type' => 'text',
+                    ),
+                    'B_driver_firstname' => array(
+                        'type' => 'text',
+                    ),
+                    'B_driver_lastname' => array(
+                        'type' => 'text',
+                    ),
+                    'B_driver_birthdate' => array(
+                        'type' => 'date',
+                    ),
+                    'B_driver_address' => array(
+                        'type' => 'text',
+                    ),
+                    'B_driver_zipcode' => array(
+                        'type' => 'zipcode',
+                    ),
+                    'B_driver_country' => array(
+                        'type' => 'text',
+                    ),
+                    'B_driver_phone' => array(
+                        'type' => 'phone',
+                    ),
+                    'B_dirver_email' => array(
+                        'type' => 'email',
+                        'optional' => true,
+                    ),
+                    'B_driver_liscence_id' => array(
+                        'type' => 'text',
+                    ),
+                    'B_driver_liscence_cat' => array(
+                        'type' => 'text',
+                    ),
+                    'B_driver_liscence_expire' => array(
+                        'type' => 'date',
+                    ),
+                    'B_vehicle_initial_impact' => array(
+                        'type' => 'text',
+                    ),
+                    'B_vehicle_damage' => array(
+                        'type' => 'text',
+                    ),
+                    'B_observation' => array(
+                        'type' => 'text',
+                    ),
+                    'B_stationing' => array(
+                        'type' => 'bool',
+                    ),
+                    'B_leaving_parking_spot' => array(
+                        'type' => 'bool',
+                    ),
+                    'B_entering_parking_spot' => array(
+                        'type' => 'bool',
+                    ),
+                    'B_entering_place' => array(
+                        'type' => 'bool',
+                    ),
+                    'B_leaving_place' => array(
+                        'type' => 'bool',
+                    ),
+                    'B_round_point' => array(
+                        'type' => 'bool',
+                    ),
+                    'B_rear_damage_on_road' => array(
+                        'type' => 'bool',
+                    ),
+                    'B_oposite_road_line' => array(
+                        'type' => 'bool',
+                    ),
+                    'B_line_change' => array(
+                        'type' => 'bool',
+                    ),
+                    'B_overtake' => array(
+                        'type' => 'bool',
+                    ),
+                    'B_right_turn' => array(
+                        'type' => 'bool',
+                    ),
+                    'B_left_turn' => array(
+                        'type' => 'bool',
+                    ),
+                    'B_driving_backward' => array(
+                        'type' => 'bool',
+                    ),
+                    'B_past_line' => array(
+                        'type' => 'bool',
+                    ),
+                    'B_from_right' => array(
+                        'type' => 'bool',
+                    ),
+                    'B_skip_priority' => array(
+                        'type' => 'bool',
+                    ),
                 );
 
                 return validateObject($constat, $required);
