@@ -252,7 +252,7 @@ function addConvtoRecent(id, type, people, content, sender, files, timestamp, un
     i3.setAttribute("width", "50");
 
     let d4 = document.createElement('div');
-    d4.classList.add("media-body", "ml-4");
+    d4.classList.add("media-body", "ml-4", "chat-message");
     
     let d5 = document.createElement('div');
     d5.classList.add("d-flex", "align-items-center", "justify-content-between", "mb-1", "text-dark");
@@ -270,7 +270,8 @@ function addConvtoRecent(id, type, people, content, sender, files, timestamp, un
 
     let p8 = document.createElement('p');
     p8.classList.add("font-italic", "mb-0", "text-small", "text-dark");
-    p8.innerText = content.slice(0, 50);
+    p8.innerText = content.split("\n")[0];
+    p8.innerText += (content.split("\n").length > 2) ? "..." : "";
 
     d5.appendChild(h6);
     d5.appendChild(s7);
@@ -286,7 +287,7 @@ function addSenderMessage(id, sender, content, files, timestamp) {
     let message_box = document.getElementById("messages");
 
     let d1 = document.createElement('div');
-    d1.classList.add("media", "w-50", "mb-3");
+    d1.classList.add("media", "mb-3");
 
     let i2 = document.createElement('img');
     i2.classList.add("rounded-circle");
@@ -295,10 +296,10 @@ function addSenderMessage(id, sender, content, files, timestamp) {
     i2.setAttribute("width", "50");
 
     let d3 = document.createElement('div');
-    d3.classList.add("media-body", "ml-3");
+    d3.classList.add("media-body", "ml-3",  "message-box-box");
 
     let d4 = document.createElement('div');
-    d4.classList.add("bg-light", "rounded", "py-2", "px-3", "mb-2");
+    d4.classList.add("bg-light", "rounded", "py-2", "px-3", "mb-2", "message-message");
     
     let p5 = document.createElement('p');
     p5.classList.add("text-small", "mb-0", "text-muted");
@@ -320,13 +321,13 @@ function addReveiverMessage(id, sender, content, files, timestamp) {
     let message_box = document.getElementById("messages");
 
     let d1 = document.createElement('div');
-    d1.classList.add("media", "w-50", "mb-3", "ml-auto");
+    d1.classList.add("media", "mb-3", "ml-auto");
 
     let d3 = document.createElement('div');
-    d3.classList.add("media-body");
+    d3.classList.add("media-body", "message-box-box");
 
     let d4 = document.createElement('div');
-    d4.classList.add("bg-primary", "rounded", "py-2", "px-3", "mb-2");
+    d4.classList.add("bg-primary", "rounded", "py-2", "px-3", "mb-2", "message-message");
     
     let p5 = document.createElement('p');
     p5.classList.add("text-small", "mb-0", "text-white");
