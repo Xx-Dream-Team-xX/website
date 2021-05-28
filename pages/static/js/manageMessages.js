@@ -363,7 +363,7 @@ function sendMessage(id, content, files) {
     d.append("id", id);
     d.append("content", content);
     for (let i = 0; i < files.files.length; i++) {
-        d.append("file", files.files[i], files.files[i].name);
+        d.append("file" + i, files.files[i], files.files[i].name);
         
     }
 
