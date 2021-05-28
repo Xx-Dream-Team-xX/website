@@ -8,6 +8,49 @@
     include_once get_path('utils', 'forms.php');
 
     switch (get_final_point()) {
+        case 'getList':
+            $sinistres = DB::getAll(get_path('database', 'sinistres.json'));
+            switch (getPermissions()) {
+                case User::ASSURE:
+                    $list_sinistres = array();
+                    foreach ($sinistres as $key => $sinistre) {
+                        if ($sinistre['user'] == getID()) {
+                            array_push($list_sinistres, array(
+                                'id' => $sinistre['id'],
+                                'contract' => $sinistre['contract'],
+                                'date' => $sinistre['date'],
+                            ));
+                        }
+                    }
+                    send_json($list_sinistres);
+
+                    break;
+                case User::GESTIONNAIRE:
+                    $list_sinistres = array();
+                    foreach ($sinistres as $key => $sinistre) {
+                        if (false == $user = DB::getFromID(get_path('database', 'users.json'), $sinistre['user'])) {
+                            $_SERVER['logger']->log(Logger::ERRORS, whois() . 'Database error : User ' . $sinistre['user'] . ' don\'t exist');
+
+                            continue;
+                        }
+                        if ($user['rep'] == getID()) {
+                            array_push($list_sinistres, array(
+                                'id' => $sinistre['id'],
+                                'contract' => $sinistre['contract'],
+                                'date' => $sinistre['date'],
+                            ));
+                        }
+                    }
+                    send_json($list_sinistres);
+
+                    break;
+                default:
+                    http_response_code(400);
+
+                    break;
+            }
+
+            break;
         case 'get':
             if (!isset($_POST['id'])) {
                 http_response_code(400);
@@ -133,10 +176,10 @@
 
             if (isset($_POST['id']) && false !== $sinistre = DB::getFromID(get_path('database', 'sinistres.json'), $_POST['id'])) {
                 try {
-                    http_response_code(400);
                     array_push($sinistre['injureds'], Sinistre::validateInjured($_POST));
                     DB::setObject(get_path('database', 'sinistres.json'), $sinistre);
                 } catch (Exception $e) {
+                    http_response_code(400);
                     echo $e->getMessage();
                 }
 
