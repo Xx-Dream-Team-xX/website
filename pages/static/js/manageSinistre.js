@@ -392,7 +392,7 @@ function sendConstat(formNode) {
         req.send(form);
         req.onreadystatechange = function () {
             if (this.status === 200 && this.readyState === 4) {
-                window.location.pathname(`viewsinistre?id=${sinistre.id}`)
+                window.location.href = `/viewsinistre?id=${sinistre.id}`;
             }
         }
     }
