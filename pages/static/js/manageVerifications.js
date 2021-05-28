@@ -25,6 +25,7 @@ function toggleModal() {
     } else {
         m.classList.add("show");
         m.setAttribute("style", "display: block;");
+        setFakeURL("Vérifications", '/verifications');
     }
 }
 
@@ -169,17 +170,15 @@ function addVerificationToTable(V) {
     let row = document.createElement('tr');
     row.setAttribute("onclick", "showVerification('"+V["id"]+"');");
 
-    table = (V.status === 0)*1;
-
-    if (!document.getElementById("table" + table)) {
-        document.getElementById("tables").innerHTML += `<table class="table p-3"><thead><tr>${Object.keys(V).filter((a) => {return cols[a] && true}).map((a) => `<td onclick='sortby("${a}")'>${cols[a]}</td>`).join("")}</tr></thead><tbody id='table${table}' ></tbody></table>`;
+    if (!document.getElementById("table")) {
+        document.getElementById("tables").innerHTML += `<table class="table p-3"><thead><tr>${Object.keys(V).filter((a) => {return cols[a] && true}).map((a) => `<td onclick='sortby("${a}")'>${cols[a]}</td>`).join("")}</tr></thead><tbody id='table' ></tbody></table>`;
     }
 
     for ([i, k] of Object.entries(V)) {
         if (cols[i]) addCol(row, V[i] ?? "", i);
     }
     
-    table = document.getElementById("table" + table);
+    table = document.getElementById("table");
     table.appendChild(row);
 }
 
