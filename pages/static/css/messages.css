@@ -15,6 +15,7 @@
 
 .message-message * {
     overflow-wrap: break-word;
+    white-space: pre-line;
 }
 
 .modal .modal-content {
