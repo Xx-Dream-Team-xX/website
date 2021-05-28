@@ -3,9 +3,18 @@
     overflow-y: scroll;
 }
 
-.chat-message{
+.chat-message *{
     white-space: nowrap;
     overflow: hidden;
+    text-overflow:ellipsis;
+}
+
+.messages-box-box * {
+    width: 90%;
+}
+
+.message-message * {
+    overflow-wrap: break-word;
 }
 
 .modal .modal-content {
