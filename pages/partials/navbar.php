@@ -18,7 +18,7 @@
         <div class="nav_links" id="links">
         </div>
     </nav>
-    <a class="nav_ep" id="logoutButton" role="button" onclick='window.location.href="/auth/logoff"';>
+    <a class="nav_ep" id="logoutButton" role="button" onclick='logout()';>
         <button>Logout</button>
     </a>
 </div>

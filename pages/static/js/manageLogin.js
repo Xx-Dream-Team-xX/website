@@ -16,6 +16,17 @@ function login(form) {
     }
 }
 
+function logout() {
+    var req= new XMLHttpRequest();
+    req.open("GET", "/auth/logoff");
+    req.send();
+    req.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            window.location.href = "/";
+        }
+    }
+}
+
 function updatePasswordhelp(mess) {
     document.getElementById("passwordHelpBlock").innerText = mess;
 }
@@ -26,7 +37,5 @@ function doLogin() {
 }
 
 function manageLogin() {
-    // refresh page
-    document.getElementById("navbarDropdown").classList.remove("show");
-    document.getElementById("dropDownLogin").classList.remove("show");
+    window.location.reload();
 }
