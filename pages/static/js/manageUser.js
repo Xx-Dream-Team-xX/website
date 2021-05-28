@@ -43,10 +43,10 @@ function addInfo(id, text) {
 
 function addUserInfo(USER) {
     addInfo("Nom", USER["last_name"]);
-    addInfo("Prenom", USER["first_name"]);
-    addInfo("Adress", USER["address"]);
+    addInfo("Prénom", USER["first_name"]);
+    addInfo("Adresse", USER["address"]);
     addInfo("Code Postal", USER["zip_code"]);
     addInfo("Mail", USER["mail"]);
-    addInfo("Numero", USER["phone"]);
-    addInfo("Date de Naissace", getFormatDate(new Date(USER["birth"])));
+    addInfo("Numéro de Téléphone", USER["phone"]);
+    addInfo("Date de Naissance", getFormatDate(new Date(USER["birth"])));
 }
