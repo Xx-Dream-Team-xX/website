@@ -5,7 +5,7 @@
 <?php if(isLoggedIn()) : ?>
 <div class="navbar navbar-expand-lg">
     <div class="navbar_left">
-        <img class="navlogo " src="/static/images/logo.png" alt="logo">
+        <a href="/"><img class="navlogo " src="/static/images/logo.png" alt="logo"></a>
         <a class="navtitle hidden-mobile" id="title" href="/"><?php echo SETTINGS['name']; ?></a>
     </div>
 

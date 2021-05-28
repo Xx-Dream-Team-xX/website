@@ -37,7 +37,6 @@
     padding: 20px;
     border: 1px solid #888;
     width: 80%;  /* Taille de la boîte */
-    min-width:675px;
     height: 90%;
     color: #000000;
 }
