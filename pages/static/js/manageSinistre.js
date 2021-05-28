@@ -1,3 +1,24 @@
+function parseURLParams() {
+    let url = window.location.href;
+    var queryStart = url.indexOf("?") + 1,
+        queryEnd = url.indexOf("#") + 1 || url.length + 1,
+        query = url.slice(queryStart, queryEnd - 1),
+        pairs = query.replace(/\+/g, " ").split("&"),
+        parms = {}, i, n, v, nv;
+
+    if (query === url || query === "") return;
+
+    for (i = 0; i < pairs.length; i++) {
+        nv = pairs[i].split("=", 2);
+        n = decodeURIComponent(nv[0]);
+        v = decodeURIComponent(nv[1]);
+
+        if (!parms.hasOwnProperty(n)) parms[n] = [];
+        parms[n].push(nv.length === 2 ? v : null);
+    }
+    return parms;
+}
+
 function fillOptionContracts() {
     let req = new XMLHttpRequest();
     req.open("POST", "/contract/getList");
@@ -17,11 +38,65 @@ function fillOptionContracts() {
     }
 }
 
+function selectGivenSinistre() {
+    let params = parseURLParams();
+    if ('id' in params) {
+        let sinistreListNode = document.getElementById("sinistre_list");
+        for (i = 0; i < sinistreListNode.length; i++) {
+            if (sinistreListNode.options[i].value == params.id[0]) {
+                sinistreListNode.selectedIndex = `${i}`;
+                updateSinistre(sinistreListNode)
+            }
+        }
+    }
+}
+
+function fillOptionSinistreList() {
+    let req = new XMLHttpRequest();
+    req.open("POST", "/sinistre/getList");
+    req.send();
+    req.onreadystatechange = function () {
+
+        if (this.status === 200 && this.readyState === 4) {
+
+            let sinistres = JSON.parse(this.responseText);
+            let sinistreListNode = document.getElementById("sinistre_list");
+            sinistres.forEach(sinistre => {
+                let option = document.createElement("option");
+                option.value = sinistre.id;
+                let date = new Date(sinistre.date * 1000);
+                option.innerText = `Contrat N°${sinistre.contract} (${date.getDate()}/${date.getMonth()}/${date.getFullYear()})`;
+                sinistreListNode.appendChild(option);
+            });
+            selectGivenSinistre();
+        }
+    }
+}
+
+
+function updateSinistre(select) {
+    let req = new XMLHttpRequest();
+    req.open("POST", "/sinistre/get");
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    req.send(`id=${select.value}`);
+    req.onreadystatechange = function () {
+        if (this.status === 200 && this.readyState === 4) {
+            let sinistre = JSON.parse(this.responseText);
+            console.log(sinistre);
+            displaySinistre(sinistre)
+        }
+    }
+}
+
+function displaySinistre(sinistre) {
+
+}
+
 function addInjured(button) {
     let injuredForm = document.createElement('div');
     injuredForm.className = "row g-3 border border-1 rounded p-3 mt-3";
     injuredForm.innerHTML = `
-    <form name="injuredForm" action="javascript:;" onsubmit="sendInjured(this);" accept-charset="utf-8">
+<form name = "injuredForm" action = "javascript:;" onsubmit = "sendInjured(this);" accept - charset="utf-8">
         <div class="row g-3">
             <div class="col-sm-6">
                 <label for="lastname" class="form-label">Nom</label>
@@ -146,8 +221,7 @@ function sendConstat(formNode) {
         req.send(form);
         req.onreadystatechange = function () {
             if (this.status === 200 && this.readyState === 4) {
-
-            } else {
+                window.location.pathname(`viewsinistre?id=${sinistre.id}`)
             }
         }
     }
@@ -176,13 +250,14 @@ function sendInjured(formNode) {
     form.delete('inputAddress');
     form.delete('inputVille');
 
-    form.set('contract', document.getElementById('contrat_sinistre').value);
+    form.set('contract', sinistre.contract);
     let req = new XMLHttpRequest();
     req.open("POST", "/sinistre/addInjured");
     req.send(form);
     req.onreadystatechange = function () {
         if (this.status === 200 && this.readyState === 4) {
             console.log('sent');
+            document.getElementById('injureds').remove();
         }
     }
 }
@@ -282,4 +357,9 @@ function onLoad() {
             }, false)
         })
     fillOptionContracts();
+}
+
+
+function onLoadSinistreList() {
+    fillOptionSinistreList();
 }
