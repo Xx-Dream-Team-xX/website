@@ -245,6 +245,7 @@ function addConvtoRecent(id, type, people, content, sender, files, timestamp, un
 
     a1.setAttribute("id", id);
     a1.setAttribute("onclick", "requestMessages(this.id, this)");
+    a1.classList.add("mouse-cursor");
     
     let d2 = document.createElement('div');
     d2.classList.add("media");
