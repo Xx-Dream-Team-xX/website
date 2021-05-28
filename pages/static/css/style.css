@@ -52,5 +52,7 @@ input::placeholder {
     margin: 0;
 }
 
-
+.mouse-cursor:hover{
+    cursor: pointer;
+}
 
