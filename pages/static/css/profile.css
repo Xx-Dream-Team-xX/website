@@ -37,7 +37,7 @@
     font-size: 21px;
 }
 
-.btn:hover , .btn:focus {
+.nav-btn:hover , .nav-btn:focus {
     background-color: #40916C;
 }
   
