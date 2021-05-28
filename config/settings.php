@@ -5,7 +5,7 @@
 
  // Branding and URL settings
  define('SETTINGS', array(
-     'name' => 'iCar',
+     'name' => 'Car-A-Ok',
      'version' => '0.0.1',
      'url' => 'http://localhost:8080/'
  ));
