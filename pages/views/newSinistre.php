@@ -11,7 +11,7 @@
     <body onload="onLoad()">
         <?php include get_path('partials', 'navbar.php'); ?>
         <!-- MAIN (FORM) -->
-        <div class="container-xl main">
+        <div class=" container-xl main">
             <div class="m-3 mt-0 order border-2 rounded p-3 shadow">
                 <h1>Sinistre</h1>
                 <form class="needs-validation" id="sinistre" action="javascript:;" onsubmit="sendSinistre(this);" accept-charset="utf-8" novalidate>
@@ -138,6 +138,7 @@
                 <h2>Blessés</h2>
                 <div class="row g-3 pt-1 p-3 mt-3">
                     <button type="submit" class="btn btn-primary" id="addInjured" name="addInjured" onclick="addInjured(this)">Ajouter un blessé</button>
+                    <button type="submit" class="btn btn-primary" id="addInjured" name="addInjured" onclick="sendInjureds(this)">Valider</button>
                 </div>
             </div>
             <div class="m-3 mt-0 order border-2 rounded p-3 shadow">

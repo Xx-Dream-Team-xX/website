@@ -121,6 +121,9 @@
                     'address' => array(
                         'type' => 'text',
                     ),
+                    'zipcode' => array(
+                        'type' => 'zipcode',
+                    ),
                     'phone' => array(
                         'type' => 'phone',
                     ),

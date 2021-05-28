@@ -119,7 +119,7 @@
                 break;
             }
 
-            if (isset($_POST['sinistreID']) && false !== $sinistre = DB::getFromID(get_path('database', 'sinistres.json'), $_POST['sinistreID'])) {
+            if (isset($_POST['id']) && false !== $sinistre = DB::getFromID(get_path('database', 'sinistres.json'), $_POST['id'])) {
                 try {
                     array_push($sinistre['injureds'], Sinistre::validateInjured($_POST));
                     DB::setObject(get_path('database', 'sinistres.json'), $sinistre);
@@ -147,7 +147,7 @@
                 break;
             }
 
-            if (isset($_POST['sinistreID']) && false !== $sinistre = DB::getFromID(get_path('database', 'sinistres.json'), $_POST['sinistreID'])) {
+            if (isset($_POST['id']) && false !== $sinistre = DB::getFromID(get_path('database', 'sinistres.json'), $_POST['id'])) {
                 if (isset($sinistre['constat'])) {
                     send_json(array(
                         'success' => false,
@@ -186,7 +186,7 @@
                 break;
             }
 
-            if (isset($_POST['sinistreID']) && false !== $sinistre = DB::getFromID(get_path('database', 'sinistres.json'), $_POST['sinistreID'])) {
+            if (isset($_POST['id']) && false !== $sinistre = DB::getFromID(get_path('database', 'sinistres.json'), $_POST['id'])) {
                 if (!isset($sinistre['constat'])) {
                     send_json(array(
                         'success' => false,

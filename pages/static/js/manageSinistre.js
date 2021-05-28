@@ -2,7 +2,7 @@ function fillOptionContracts() {
     let req = new XMLHttpRequest();
     req.open("POST", "/contract/getList");
     req.send();
-    req.onreadystatechange = function() {
+    req.onreadystatechange = function () {
 
         if (this.status === 200 && this.readyState === 4) {
             let contracts = JSON.parse(this.responseText);
@@ -21,40 +21,40 @@ function addInjured(button) {
     let injuredForm = document.createElement('div');
     injuredForm.className = "row g-3 border border-1 rounded p-3 mt-3";
     injuredForm.innerHTML = `
-    <form action="" method="POST" accept-charset="utf-8">
+    <form name="injuredForm" action="javascript:;" onsubmit="sendInjured(this);" accept-charset="utf-8">
         <div class="row g-3">
             <div class="col-sm-6">
                 <label for="lastname" class="form-label">Nom</label>
-                <input type="text" class="form-control" value="" name="lastname" id="lastname">
+                <input type="text" class="form-control" value="" name="lastname" id="lastname" required>
             </div>
             <div class="col-sm-6">
                 <label for="firstname" class="form-label">Prénom</label>
-                <input type="text" class="form-control" value="" name="firstname" id="firstname">
+                <input type="text" class="form-control" value="" name="firstname" id="firstname" required>
             </div>
         </div>
         <div class="row g-3">
             <div class="col-sm-6">
                 <label for="inputAddress" class="form-label">Address</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="Address..">
+                <input type="text" class="form-control" name="inputAddress" id="inputAddress" placeholder="Address.." required>
             </div>
             <div class="col-sm-6">
                 <label for="inputVille" class="form-label">Ville</label>
-                <input type="text" class="form-control" id="inputVille" placeholder="Pau..">
+                <input type="text" class="form-control" name="inputVille" id="inputVille" placeholder="Pau.." required>
             </div>
             <div class="col-sm-6">
-                <label for="inputCP" class="form-label">Code Postal</label>
-                <input type="number" class="form-control" id="inputCodePostal">
+                <label for="zipcode" class="form-label">Code Postal</label>
+                <input type="number" class="form-control" name="zipcode" id="zipcode" required>
             </div>
         </div>
         <div class="row g-3">
             <div class="col-sm-6">
                 <label for="profession" class="form-label">Profession</label>
-                <input type="text" class="form-control" name="profession" id="profession">
+                <input type="text" class="form-control" name="profession" id="profession" required>
             </div>
         </div>
         <div class="row g-3 pt-3">
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" name="belt" id="belt">
+                <input class="form-check-input" type="checkbox" value="" name="belt" id="belt" required>
                 <label class="form-check-label" for="belt">Ceinture</label>
             </div>
         </div>
@@ -62,12 +62,13 @@ function addInjured(button) {
             <label for="injuries" class="form-label">
                 <h5>Blessures</h5>
             </label>
-            <textarea id="injuries" name="injuries" type="text" placeholder="Liste des blessures" aria-describedby="button-addon2" class="form-control rounded border bg-light"></textarea>
+            <textarea id="injuries" name="injuries" type="text" placeholder="Liste des blessures" aria-describedby="button-addon2" class="form-control rounded border bg-light" required></textarea>
         </div>
+        <input type="submit" style="display:none" name="submitButton">
     </form>
     <button type="submit" class="btn btn-primary" name="removeInjured" onclick="removeInjured(this)">Supprimé</button>`;
     let parent = button.parentNode
-    parent.insertBefore(injuredForm,button);
+    parent.insertBefore(injuredForm, button);
     console.log(button.parentNode);
 }
 
@@ -75,47 +76,88 @@ function removeInjured(button) {
     button.parentNode.remove();
 }
 
-function showcompletesinistre(sinistreData) {
+function showcompletesinistre() {
     document.getElementById('sinistre').parentNode.remove();
 }
 
+var sinistre = null;
+
+sinistre = {
+    "contract": "12432534588",
+    "user": "60aec6503bc74",
+    "user_profession": "esclave",
+    "driver_profession": "portier",
+    "driver_relationship": "married",
+    "driver_user_same_residance": true,
+    "driver_is_usual": true,
+    "driver_is_employeeof_user": true,
+    "driver_disp_reason": "work",
+    "circumstances": "i don't know",
+    "proces_verbal": false,
+    "police_report": false,
+    "main_courante": false,
+    "usual_parking_location": "chez moi",
+    "id": "60aedbf5356a2",
+    "injureds": []
+}
+
 function sendSinistre(formNode) {
-    sinistre = {
-        "contract": "12432534588",
-        "user": "60aec6503bc74",
-        "date": false,
-        "driver_profession": "sgfds",
-        "driver_relationship": "married",
-        "driver_user_same_residance": false,
-        "driver_is_usual": false,
-        "driver_is_employeeof_user": false,
-        "driver_disp_reason": "sfds",
-        "circumstances": "sfgdsfg",
-        "proces_verbal": false,
-        "police_report": false,
-        "main_courante": false,
-        "usual_parking_location": "sdfg",
-        "other_damage": "sfdg",
-        "id": "60afccacf2102",
-        "injureds": []
+    let form = new FormData(formNode);
+    for (var key of form.keys()) {
+        console.log(`${key}, ${form.get(key)}`);
+    }
+    form.set('contract', document.getElementById('contrat_sinistre').value);
+    let req = new XMLHttpRequest();
+    req.open("POST", "/sinistre/add");
+    req.send(form);
+    req.onreadystatechange = function () {
+
+        if (this.status === 200 && this.readyState === 4) {
+            sinistre = JSON.parse(this.responseText);
+            showcompletesinistre();
+        }
     }
 
-    showcompletesinistre(sinistre);
-    // let form = new FormData(formNode);
-    // for (var key of form.keys()) {
-    //         console.log(`${key}, ${form.get(key)}`);
-    // }
-    // form.set('contract',document.getElementById('contrat_sinistre').value);
-    // let req = new XMLHttpRequest();
-    // req.open("POST", "/sinistre/add");
-    // req.send(form);
-    // req.onreadystatechange = function() {
+}
 
-    //     if (this.status === 200 && this.readyState === 4) {
-    //         sinistre = JSON.parse(this.responseText);
-    //         showcompletesinistre(sinistre);
-    //     }
-    // }
+function sendInjured(formNode) {
+    let form = new FormData(formNode);
+    for (var key of form.keys()) {
+        console.log(`${key}, ${form.get(key)}`);
+    }
+    form.append('address', `${form.get('inputAddress')}, ${form.get('inputVille')}`);
+    form.append('id', sinistre.id);
+    form.delete('inputAddress');
+    form.delete('inputVille');
+
+    form.set('contract', document.getElementById('contrat_sinistre').value);
+    let req = new XMLHttpRequest();
+    req.open("POST", "/sinistre/addInjured");
+    req.send(form);
+    req.onreadystatechange = function () {
+        if (this.status === 200 && this.readyState === 4) {
+            console.log('sent');
+        }
+    }
+}
+
+function sendInjureds(button) {
+
+    let forms = document.getElementsByName('injuredForm');
+    console.log(forms.length);
+    for (var i = 0; i < forms.length; i++) {
+        let formNode = forms.item(i);
+        formNode.addEventListener('submit', function (event) {
+            if (!formNode.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+
+            formNode.classList.add('was-validated')
+        }, false)
+        formNode.classList.add('was-validated')
+        formNode.submitButton.click();
+    }
 
 }
 
@@ -140,7 +182,7 @@ function togglePoliceStation(checkbox) {
 function toggleGarage(checkbox) {
     if (checkbox.checked) {
         let field = document.createElement('div');
-        field.className = "row g-3 p-3 pt-1" ;
+        field.className = "row g-3 p-3 pt-1";
         field.id = 'garage_fields';
         field.innerHTML = `
         <div class="col-sm">
@@ -177,15 +219,15 @@ function onLoad() {
 
     // Loop over them and prevent submission
     Array.prototype.slice.call(forms)
-      .forEach(function (form) {
-        form.addEventListener('submit', function (event) {
-          if (!form.checkValidity()) {
-            event.preventDefault()
-            event.stopPropagation()
-          }
+        .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
 
-          form.classList.add('was-validated')
-        }, false)
-      })
+                form.classList.add('was-validated')
+            }, false)
+        })
     fillOptionContracts();
 }

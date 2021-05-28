@@ -38,7 +38,7 @@
     Router::add('gestionnnaire', get_path('views', 'gestionnaire.php'));
     Router::add('assures', get_path('views', 'addAssure.php'));
     Router::add('user', get_path('views', 'gestionUser.php'));
-    Router::add('newsinistre', get_path('views', 'sinistre.php'));
+    Router::add('newsinistre', get_path('views', 'newSinistre.php'));
 
     Router::default(get_path('views', 'error.php'));
 
