@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html>
     <head>
-        
         <?php include(get_path('partials', 'head.php')); ?>
         <script charset="utf-8" src="/static/js/HeyThatsMe.js"></script>
         <script charset="utf-8" src="/static/js/parseUsers.js"></script>
         <script charset="utf-8" src="/static/js/manageMessages.js"></script>
+        <script charset="utf-8" src="/static/js/targetNavigation.js"></script>
+        <link rel="stylesheet" href="/static/css/messages.css" type="text/css" media="all">
         <title>Chat</title>
     </head>
     <body onload="onLoad()">
         <!-- Modal -->
         <div class="modal fade" id="modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog d-flex justify-content-center" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="ModalTitle">Nouveau message</h5>
@@ -21,10 +22,10 @@
                     </div>
                     <div class="modal-body">
                         <label class="form-label">Choisir un utilisateur</label>
-                        <div class="row pb-5">
-                            <div class="col">
+                        <div class="row pb-2">
+                            <div class="col-sm mb-2">
                                 <input for="form-select" class="form-control" type="text" id="filterSelect" placeholder="Recherche.."  onkeyup="searchRecipients()">
-                            </div><div class="col">
+                            </div><div class="col-sm">
                                 <select class="form-select" id="selectUser">
                                     <option selected>Choisir</option>
                                 </select>
@@ -43,13 +44,13 @@
         <!-- NAVBAR -->
         <?php include(get_path('partials', 'navbar.php')); ?>
         <!-- MAIN (FORM) -->
-        <div class="container-xl main">
-            <div class="row rounded-lg overflow-hidden shadow">
+        <div class="main">
+            <div class="row rounded-lg overflow-hidden shadow second">
                 <!-- Users box-->
-                <div class="col-5 px-0">
+                <div class="col-5 px-0 recent">
                     <div class="bg-white">
                         <div class="bg-gray px-4 py-2 bg-light">
-                            <p class="h5 mb-0 py-1 text-dark">Messagerie <a class="text-dark" style="font-size: 1.2em" href="#new" onclick="toggleModal()">+</a></p>
+                            <p class="h5 mb-0 py-1 text-dark">Messagerie <a class="text-dark" style="font-size: 1.2em" href='javascript:()=>{}' onclick="toggleModal()">+</a></p>
                         </div>
 
                         <div class="messages-box">
@@ -61,7 +62,7 @@
                     </div>
                 </div>
                 <!-- Chat Box-->
-                <div class="col-7 px-0">
+                <div class="col-7 px-0 messages">
                     <div class="px-4 py-5 chat-box bg-white" id="messages">
                         <!-- Generated -->
                         <!-- Generated -->
@@ -76,9 +77,9 @@
                             <button id="button-send" type="submit" class="btn btn-link" onclick="prepareMessage()"> <i class="bi bi-cursor"></i></button>
                         </div>
                     </form>
-
                 </div>
             </div>
+            <div class="row bottom-bar"></div> 
         </div>
         <!-- MAIN  -->
         <?php include(get_path('partials', 'footer.php')); ?>

@@ -55,7 +55,7 @@
                     if ($rep) {
                         $rep = User::createUserByType($rep);
 
-                        $rep->pushNotification('Nouvelle demande de vérification', 'De nouveaux documents requièrent votre attention', SETTINGS["url"] . "verifications/" . $v->getID());
+                        $rep->pushNotification('Nouvelle demande de vérification', 'De nouveaux documents requièrent votre attention', "/verifications/" . $v->getID());
 
                         DB::setObject(get_path("database", "users.json"), $rep->getAll());
                     }

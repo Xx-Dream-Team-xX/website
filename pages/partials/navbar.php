@@ -3,10 +3,10 @@
 
 <!-- logged in -->
 <?php if(isLoggedIn()) : ?>
-<div class="navbar navbar-xpand-lg">
+<div class="navbar navbar-expand-lg">
     <div class="navbar_left">
         <img class="navlogo hidden-mobile" src="/static/images/logo.png" alt="logo">
-        <a class="navtitle" id="title" href="#">CAR-A-OK</a>
+        <a class="navtitle" id="title" href="#"><?php echo SETTINGS['name']; ?></a>
     </div>
 
     <div class="notifications">
@@ -33,134 +33,22 @@
 
         <div class="modal-buttons">
             <span class="btn_modal mark-read">
-                <span href="#">
+                <span onclick="markNotification()">
                     <span class="material-icons">mark_email_read</span>
-                    <span class="btn-text">Tous marquer comme lu</span>
-                </span>
-            </span>
-            <span class="btn_modal mark-not-read">
-                <span href="#">
-                    <span class="material-icons">mark_email_unread</span>
-                    <span class="btn-text">Tous marquer comme non lu</span>
+                    <span class="btn-text">Tout marquer comme lu</span>
                 </span>
             </span>
             <span class="btn_modal mark-delete">
-                <span href="#">
+                <span onclick="clearNotification()">
                     <span class="material-icons">delete</span>
-                    <span class="btn-text">Tous supprimer</span>
+                    <span class="btn-text">Tout supprimer</span>
                 </span>
             </span>
         </div>
         
         <hr style="margin-top:15px; margin-bottom:15px; border: 2px solid #aaaaaa;">
 
-        <div class="notifs-content">
-
-            <div class="modal_item lu">
-                <div class="left-side">
-                    <span class="material-icons">mark_email_read</span>
-                </div>
-                <div class="right-side">
-                    <div class="top-side">
-                        <div class="msg_title">
-                            <span>Titre1</span>
-                        </div>
-                    </div>
-                    <div class="bottom-side">
-                        <div class="user_msg">
-                            <span>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>
-                        </div>
-                        <div class="del_msg">
-                            <span class="material-icons">delete</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="modal_item non-lu">
-                <div class="left-side">
-                    <span class="material-icons">mark_email_unread</span>
-                </div>
-                <div class="right-side">
-                    <div class="top-side">
-                        <div class="msg_title">
-                            <span>Titre2</span>
-                        </div>
-                    </div>
-                    <div class="bottom-side">
-                        <div class="user_msg">
-                            <span>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>
-                        </div>
-                        <div class="del_msg">
-                            <span class="material-icons">delete</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal_item non-lu">
-                <div class="left-side">
-                    <span class="material-icons">mark_email_unread</span>
-                </div>
-                <div class="right-side">
-                    <div class="top-side">
-                        <div class="msg_title">
-                            <span>Titre2</span>
-                        </div>
-                    </div>
-                    <div class="bottom-side">
-                        <div class="user_msg">
-                            <span>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>
-                        </div>
-                        <div class="del_msg">
-                            <span class="material-icons">delete</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal_item non-lu">
-                <div class="left-side">
-                    <span class="material-icons">mark_email_unread</span>
-                </div>
-                <div class="right-side">
-                    <div class="top-side">
-                        <div class="msg_title">
-                            <span>Titre2</span>
-                        </div>
-                    </div>
-                    <div class="bottom-side">
-                        <div class="user_msg">
-                            <span>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>
-                        </div>
-                        <div class="del_msg">
-                            <span class="material-icons">delete</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal_item lu">
-                <div class="left-side">
-                    <span class="material-icons">mark_email_read</span>
-                </div>
-                <div class="right-side">
-                    <div class="top-side">
-                        <div class="msg_title">
-                            <span>Titre1</span>
-                        </div>
-                    </div>
-                    <div class="bottom-side">
-                        <div class="user_msg">
-                            <span>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>
-                        </div>
-                        <div class="del_msg">
-                            <span class="material-icons">delete</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="notifs-content" id="notifications">
 
         </div>
     </div>
@@ -171,7 +59,7 @@
 <div class="navbar navbar-expand-lg">
     <div class="navbar_left">
         <img class="navlogo" src="/static/images/logo.png" alt="logo">
-        <a class="navtitle" id="title" href="/">CAR-A-OK</a>
+        <a class="navtitle" id="title" href="/"><?php echo SETTINGS['name']; ?></a>
     </div>
     <nav class="nav_options">
         <div class="nav_links" id="links">

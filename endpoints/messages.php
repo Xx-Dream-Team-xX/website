@@ -66,7 +66,7 @@
 
             $d = User::createUserByType(DB::getFromID(get_path("database", "users.json"), $d));
 
-            $d->pushNotification('Nouveau message', $send->getName()[0] . " vous a envoyé un message", SETTINGS["url"] . "/messages/" . $id );
+            $d->pushNotification('Nouveau message', $send->getName()[0] . " vous a envoyé un message", "/messages/" . $id );
             $d->addConversation($id);
             DB::setObject(get_path("database", "users.json"), $d->getAll());
         }
@@ -88,10 +88,11 @@
                 break;
 
             case 'send':
-                if (isset($_POST['id'], $_POST['content']) && (strlen($_POST["content"] > 0))) {
+                if (isset($_POST['id'], $_POST['content']) && (strlen(trim($_POST["content"])) > 0)) {
 
                     $c = DB::getFromID(get_path('database', 'conversations.json'), $_POST['id']);
                     $user = getUpdatedUser();
+
                     if ($c && ($c = new Conversation($c))) {
 
                         if (!in_array(getID(), $c->getPeople())) return;
@@ -121,7 +122,7 @@
 
                 break;
             case 'new':
-                if (isset($_POST['recipient'], $_POST['content'])) {
+                if (isset($_POST['recipient'], $_POST['content']) && (strlen(trim($_POST["content"])) > 0)) {
                     $user = getUpdatedUser();
                     $found = false;
                     foreach (getRecipients() as $r) {
@@ -185,7 +186,7 @@
 
                                 $d = User::createUserByType(DB::getFromID(get_path("database", "users.json"), $_POST["dest"]));
 
-                                $d->pushNotification('Nouvelle conversation', "Vous avez été ajouté.es à un groupe", SETTINGS["url"] . "/messages/" . $_POST["conv"]);
+                                $d->pushNotification('Nouvelle conversation', "Vous avez été ajouté.es à un groupe", "/messages/" . $_POST["conv"]);
                                 $d->addConversation($_POST["conv"]);
 
                                 DB::setObject(get_path("database", "users.json"), $d->getAll());

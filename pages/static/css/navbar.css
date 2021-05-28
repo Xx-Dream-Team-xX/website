@@ -1,20 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:500');
-@import url('https://fonts.googleapis.com/css?family=Bungee');
-
-/*body {
-    box-sizing: border-box;
-    margin: 0;
-    background-color: #ffffff;
-    color: #000000;
-    min-width: 768px;
-    width: auto !important;
-}*/
-
-@media (max-width: 700px) {
-    .hidden-mobile {
-        display: none;
-    }
-}
 
 a, button, span, p {
     font-family: "Montserrat", sans-serif;
@@ -113,4 +96,3 @@ a, button, span, p {
 .navbar .nav_options .nav_links a:hover {
     background-color: #40916C;
 }
-

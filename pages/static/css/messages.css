@@ -1,0 +1,73 @@
+.messages-box, .chat-box{
+    height: calc(calc(100vh - 140px) - 68px);
+    overflow-y: scroll;
+}
+
+.chat-message *{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}
+
+.message-box-box {
+    display: inline-block;
+    max-width: 95%;
+}
+
+.message-message * {
+    overflow-wrap: break-word;
+    white-space: pre-line;
+}
+
+.message-message {
+    max-width: 100%;
+    display: inline-block;
+    overflow-wrap: break-word;
+    white-space: pre-line;
+}
+
+
+.modal .modal-content {
+    padding: 0;
+}
+
+@media (max-width: 700px){ 
+    .modal .modal-content {
+        min-width: 95vw;
+    }
+}
+
+.modal .close {
+    margin: 0;
+    font-size: 1em;
+}
+
+.recent {
+    max-width: 300px;
+}
+
+.second {
+    height: calc(100vh - 140px);
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.bottom-bar {
+    height: 40px;
+}
+
+.main {
+    height: calc(100vh - 100px);
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+}
+
+.messages {
+    min-width: calc(100% - 300px);
+}
+
+.input-group {
+    height: 68px;
+}

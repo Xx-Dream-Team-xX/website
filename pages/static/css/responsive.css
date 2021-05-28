@@ -1,0 +1,32 @@
+@media (max-width: 700px) {
+    .hidden-mobile {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1191px) {
+    .modal .btn_modal .btn-text{
+        align-items: center;
+        margin-top: 0;
+    }
+}
+
+@media only screen and (max-width: 995px) {
+    .modal .btn_modal .btn-text {
+        display: none;
+    }
+    .modal .btn_modal .material-icons {
+        margin: 0 auto;
+        padding-right: 0;
+    }
+    .modal .btn_modal {
+        width: 45px;
+    }
+}
+
+@media only screen and (max-width:550px) {
+    .modal-content {
+        min-width: 80%;
+    }
+}
+

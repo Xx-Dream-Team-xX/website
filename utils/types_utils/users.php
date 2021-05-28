@@ -226,7 +226,7 @@
             if (isset($id)) {
                 $i = $this->getNotification($id);
                 if (isset($i)) {
-                    unset($this->notifications[$i]);
+                    array_splice($this->notifications, $i, $i);
                 }
             } else {
                 $this->notifications = array();
