@@ -122,6 +122,7 @@
                     return array(
                         'id' => $u['id'],
                         'name' => $u['last_name'] . ' ' . $u['first_name'],
+                        'type' => $u['type'],
                         'mail' => ($u['id'] === $_SESSION['user']['rep']) ? $u['mail'] : false,
                     );
                 };
