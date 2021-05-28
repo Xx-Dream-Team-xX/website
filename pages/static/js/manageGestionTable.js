@@ -28,7 +28,7 @@ function addUserToTable(USER) {
     let table = document.getElementById("users");
 
     let row = document.createElement('tr');
-    row.setAttribute("onclick", "window.location='/user?user="+USER["id"]+"';");
+    row.setAttribute("onclick", "window.location='/user/"+USER["id"]+"';");
 
     addCol(row, USER['name']);
     addCol(row, USER['mail']);

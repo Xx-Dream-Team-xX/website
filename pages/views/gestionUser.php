@@ -1,5 +1,6 @@
 <?php include(get_path('partials','head.php'));?> 
 <html>
+    <script charset="utf-8" src="/static/js/targetNavigation.js"></script>
     <script charset="utf-8" src="/static/js/manageUser.js"></script>
     <body onload="onLoad()">
         <?php include(get_path('partials','navbar.php'));?> 

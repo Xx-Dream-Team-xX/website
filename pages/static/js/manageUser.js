@@ -1,6 +1,9 @@
 function onLoad() {
-    let G = window.location.search.substr(1).split("=");
-    let userId = G[1];
+    if (!isID('/user/')) {
+        window.location.href="/404";
+    }
+
+    let userId = getTarget('/user/');
 
     let p = new FormData();
     p.append("id", userId);

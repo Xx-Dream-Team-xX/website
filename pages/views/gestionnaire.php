@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <div class="col-4 d-flex align-items-end flex-column">
-                        <a class="btn btn-primary" href="/assures" role="button">Add Assurer</a>
+                        <a class="btn btn-primary" href="/inscription" role="button">Ajouter un assuré</a>
                     </div>  
                 </div>
             </div>

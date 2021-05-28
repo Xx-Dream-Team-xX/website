@@ -11,25 +11,25 @@ function removeError() {
 function showErrors(e){
     switch (e) {
         case 1:
-            showError("server - invalid phone");
+            showError("Erreur serveur -  Champ Téléphone");
             break;
         case 2:
-            showError("server - invalid address");
+            showError("Erreur serveur -  Champ Adresse");
             break;
         case 3:
-            showError("server - invalid name");
+            showError("Erreur serveur -  Champs Nom - Prénom");
             break;
         case 4:
-            showError("server - invalid email");
+            showError("Erreur serveur -  Champ email");
             break;
         case 5:
-            showError("server - invalid login");
+            showError("Erreur serveur -  Adresse email déjà enregistrée");
             break;
         case 6:
-            showError("server - invalid password");
+            showError("Erreur serveur -  Le mot de passe n'est pas assez fort");
             break;
         case 7:
-            showError("server - missing infomation");
+            showError("Erreur serveur -  Veuillez remplir tous les champs correctement");
             break;
         default:
         
