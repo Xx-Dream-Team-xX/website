@@ -15,6 +15,11 @@
     color: #40916C;
 }
 
+/* need more */
+#modal_notif {
+    backdrop-filter: blur(5px);
+}
+
 /* La fenêtre caché */
 .modal {
     display: none;
