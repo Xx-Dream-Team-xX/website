@@ -31,13 +31,7 @@ function onLoad(){
 }
 
 function fill(input, data, filter="") {
-    let types = [
-        "Utilisateur supprimé",
-        "Assuré",
-        "Force de l'ordre",
-        "Gestionnaire",
-        "Administrateur"
-    ];
+
     data = data.sort((a, b) => {
         if (a.featured) {
             return 1

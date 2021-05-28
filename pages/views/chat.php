@@ -3,6 +3,7 @@
     <head>
         <?php include(get_path('partials', 'head.php')); ?>
         <script charset="utf-8" src="/static/js/HeyThatsMe.js"></script>
+        <script charset="utf-8" src="/static/js/types.js"></script>
         <script charset="utf-8" src="/static/js/parseUsers.js"></script>
         <script charset="utf-8" src="/static/js/manageMessages.js"></script>
         <script charset="utf-8" src="/static/js/targetNavigation.js"></script>
