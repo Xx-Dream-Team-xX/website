@@ -7,7 +7,10 @@
         <div class="container-xl main">
             <div class="container-xl p-5 main">
                 <div class="row mt-3 d-flex justify-content-between">
-                    <div class="col-4">
+                    <div class="col-sm-4 d-flex align-items-center flex-column my-3 container-xl">
+                        <a class="btn btn-primary" href="/inscription" role="button">Ajouter un assuré</a>
+                    </div>  
+                    <div class="col-sm-8">
                         <div class="table-responsive table-dark">
                             <table class="table ">
                                 <thead>
@@ -21,9 +24,6 @@
                             </table>
                         </div>
                     </div>
-                    <div class="col-4 d-flex align-items-end flex-column">
-                        <a class="btn btn-primary" href="/inscription" role="button">Ajouter un assuré</a>
-                    </div>  
                 </div>
             </div>
         </div>
