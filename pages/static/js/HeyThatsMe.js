@@ -7,7 +7,7 @@ function updateMe(somethingtodo=null) {
     r.onreadystatechange = function() {
         if (this.status === 200 && this.readyState === 4) {
             me = JSON.parse(this.responseText) ?? null;
-            if (typeof somethingtodo !== null) {
+            if (somethingtodo) {
                 somethingtodo();
             }
         }

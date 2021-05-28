@@ -74,8 +74,8 @@
                                 if (get_final_point() === 'accept') {
 
                                     $user = new UserAssure(array_merge($user, $v->getContent()["raw"]));
-                                    $v->accept(getID());
-                                    $user->pushNotification('Compte mis à jour', 'Vos informations personnelles ont été mises à jour', "/me");
+                                    $v->accept(getID(), $_POST["comment"] ?? null);
+                                    $user->pushNotification('Compte mis à jour', 'Vos informations personnelles ont été mises à jour', "/verifications/" . $v->getID());
 
                                     DB::setObject(get_path("database", "users.json"), $user->getAll());
                                     DB::setObject(get_path("database", "verifications.json"), $v->getAll());
@@ -83,7 +83,7 @@
                                     $user = new UserAssure($user);
 
                                     $v->reject(getID(), $_POST["comment"] ?? null);
-                                    $user->pushNotification('Vérification rejetée', "Votre demande de changement d'informations a été rejetée: " . ((isset($_POST["comment"])) ? htmlspecialchars($_POST["comment"]) : "Documents invalides"), "/me");
+                                    $user->pushNotification('Vérification rejetée', "Votre demande de changement d'informations a été rejetée: " . ((isset($_POST["comment"])) ? htmlspecialchars($_POST["comment"]) : "Documents invalides"), "/verifications/" . $v->getID());
 
                                     DB::setObject(get_path("database", "users.json"), $user->getAll());
                                     DB::setObject(get_path("database", "verifications.json"), $v->getAll());

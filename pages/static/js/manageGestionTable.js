@@ -50,12 +50,6 @@ function getData() {
     r.send();
 }
 
-
-function getBirthDate(date) {
-    let d = new Date(date);
-    return d.toLocaleDateString();
-}
-
 function addCol(table, text, type){
     let c = document.createElement('td');
     c.setAttribute("scope", "col");
@@ -96,7 +90,7 @@ function addUserToTable(USER) {
     }
 
     for ([i, k] of Object.entries(USER)) {
-        if (cols[i]) addCol(row, USER[i] ? USER[i] : "", i);
+        if (cols[i]) addCol(row, USER[i] ?? "", i);
     }
     
     table = document.getElementById("table" + table);

@@ -18,7 +18,9 @@
     Router::add('', get_path('views', 'mainpage.php')); // Sans regex ni wildcard
     Router::add('/^[0-9]+:[0-9]+$/', get_path('views', 'show.php'), true);
 
-    Router::add('static', get_path('static'), false, 0, $wildcard = true); // Sans regex, avec wildcard
+    Router::add('static', get_path('static'), false, 0, true);
+
+    Router::add('useruploadedcontent', get_path('database', 'uploads/'), false, 0, true);
 
     Router::add('tests', get_path('views', 'tests/'), false, 0, true);
 
@@ -35,12 +37,17 @@
     Router::add('verification', get_path('api', 'verification.php'));
 
     Router::add('messages', get_path('views', 'chat.php'));
+
     Router::add('gestionnaire', get_path('views', 'gestionnaire.php'));
     Router::add('inscription', get_path('views', 'addAssure.php'));
+
     Router::add('user', get_path('views', 'gestionUser.php'));
+
     Router::add('newsinistre', get_path('views', 'newSinistre.php'));
     Router::add('viewsinistre', get_path('views', 'viewSinistre.php'));
+
     Router::add('me', get_path('views', 'me.php'));
+    Router::add('verifications', get_path('views', 'verification.php'));
 
     Router::default(get_path('views', 'error.php'));
 

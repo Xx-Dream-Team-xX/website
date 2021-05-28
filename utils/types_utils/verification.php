@@ -111,6 +111,7 @@
         public function accept(string $id) {
             $this->status = self::ACCEPTED;
             $this->mod = $id;
+            $this->comment = (isset($comment) && (strlen($comment) > 0)) ? htmlspecialchars($comment) : null;
             $this->modified = time();
         }
 
@@ -124,7 +125,7 @@
         public function reject(string $id, ?string $comment) {
             $this->status = self::REJECTED;
             $this->mod = $id;
-            $this->comment = (isset($comment) && (strlen($comment) > 0)) ? $comment : null;
+            $this->comment = (isset($comment) && (strlen($comment) > 0)) ? htmlspecialchars($comment) : null;
             $this->modified = time();
         }
 
