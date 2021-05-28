@@ -55,6 +55,7 @@
 
 .bottom-bar {
     height: 40px;
+    max-width: fit-content;
 }
 
 .main {
