@@ -153,13 +153,29 @@
 
         /**
          * Get user phone.
+         * 
+         * @return string
          */
         public function getPhone() {
             return $this->phone;
         }
 
+        /**
+         * Get user notifications list
+         *
+         * @return array
+         */
         public function getNotifications() {
             return $this->notifications;
+        }
+
+        /**
+         * Get user conversations list
+         *
+         * @return array
+         */
+        public function getConversations() {
+            return $this->conversations;
         }
 
         /**
