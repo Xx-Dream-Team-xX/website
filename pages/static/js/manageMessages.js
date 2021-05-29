@@ -227,7 +227,7 @@ function addConvtoRecent(id, type, people, content, sender, files, timestamp, un
         a1.classList.add("bg-info");
         if (!CACHE["unreadmessages"].includes(message_id)) {
             CACHE["unreadmessages"].push(message_id);
-            let audio = new Audio('/static/sound/DujolWheez.mp3');
+            let audio = new Audio('/static/sound/notification.mp3');
             audio.play();
         }
         
