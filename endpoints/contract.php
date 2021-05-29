@@ -235,8 +235,13 @@
                         'manufacturer' => array(
                             'type' => 'text',
                         ),
+                        'terVal' => array(
+                            'type' => 'array',
+                            'optional' => true,
+                        ),
                     );
                     $data = validateObject($_POST, $required);
+                    // send_json($data);
                     if (false == DB::getFromID(get_path('database', 'contracts.json'), $data['id'])) {
                         if (($user = DB::getFromID(get_path('database', 'users.json'), $data['owner'])) !== false && $user['rep'] == getUpdatedUser()['id'] && !in_array($data['id'], $user['contracts']) && !in_array($data['id'], getUpdatedUser()['contracts'])) {
                             $data['owners'] = array($data['owner']);
