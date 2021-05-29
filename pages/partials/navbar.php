@@ -52,10 +52,10 @@
     <div class="modal-content">
         <div class="row">
             <div class="col">
-            <span class="modal-titre text-dark">Notifications</span>
+            <span class="modal-titre text-dark small-break-text-sm">Notifications</span>
             </div>
             <div class="col">
-                <span onclick="fermerModal()" class="material-icons close-btn">close</span>
+                <span onclick="fermerModal()" class="material-icons close-btn small-break-text-md">close</span>
             </div>
         </div>
 
