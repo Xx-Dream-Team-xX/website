@@ -56,9 +56,9 @@ function loadNotifications() {
         r.forEach(n => {
 
             if (!n.seen) {
-                list.innerHTML = lazyHtmlInsertion("non-lu", "mark_email_read", "mark_email_read" , "markNotification", n.id, n.title, n.content, n.url) + list.innerHTML;
+                list.innerHTML = lazyHtmlInsertion("non-lu", "mark_email_unread", "mark_email_unread" , "markNotification", n.id, n.title, n.content, n.url) + list.innerHTML;
             } else {
-                list.innerHTML = lazyHtmlInsertion("lu", "mark_email_unread", "delete", "clearNotification", n.id, n.title, n.content, n.url) + list.innerHTML;
+                list.innerHTML = lazyHtmlInsertion("lu", "mark_email_read", "delete", "clearNotification", n.id, n.title, n.content, n.url) + list.innerHTML;
             }
         });
     });
