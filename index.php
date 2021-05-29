@@ -16,15 +16,13 @@
     $path_array = array_slice(explode('/', $path), 1);
 
     Router::add('', get_path('views', 'mainpage.php')); // Sans regex ni wildcard
-    Router::add('/^[0-9]+:[0-9]+$/', get_path('views', 'show.php'), true);
 
-    Router::add('static', get_path('static'), false, 0, true);
+    Router::add('static', get_path('static'), false, true);
 
-    Router::add('useruploadedcontent', get_path('database', 'uploads/'), false, 0, true);
+    Router::add('useruploadedcontent', get_path('database', 'uploads/'), false, true);
 
-    Router::add('tests', get_path('views', 'tests/'), false, 0, true);
+    Router::add('tests', get_path('views', 'tests/'), false, true);
 
-    Router::add('partials', get_path('partials'), false, 0, true);
 
     Router::add('users', get_path('api', 'user.php'));
     Router::add('contract', get_path('api', 'contract.php'));
@@ -43,8 +41,8 @@
 
     Router::add('user', get_path('views', 'gestionUser.php'));
 
-    Router::add('newsinistre', get_path('views', 'newSinistre.php'));
-    Router::add('viewsinistre', get_path('views', 'viewSinistre.php'));
+    Router::add('constater', get_path('views', 'newSinistre.php'));
+    Router::add('sinistre', get_path('views', 'viewSinistre.php'));
 
     Router::add('viewcontrat', get_path('views', 'viewcontrat.php'));
 

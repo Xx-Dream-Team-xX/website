@@ -21,46 +21,52 @@
             <div class="modal-dialog modal-xl d-flex justify-content-center" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h6 class="modal-title" id="ModalTitle">Changement d'informations personnelles</h6>
+                        <h5 class="modal-title" id="ModalTitle">Changement d'informations personnelles</h5>
                         <button type="button" class="close btn btn-success" onclick="toggleModal()">
                             <span>&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="row g-3 p-1">
-                            <div class="col-sm-6">
-                                <label for="inputSurname" class="form-label">Nom</label>
-                                <input disabled type="text" class="form-control" value="" id="current_last_name">
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="inputName" class="form-label">Prénom</label>
-                                <input disabled type="text" class="form-control" value="" id="current_first_name">
-                            </div>
+                        <div id="show_current">
+                            <h6>Informations actuelles</h6>
 
-                            <div class="col-sm-6">
-                                <label for="inputTelNumber" class="form-label">Numéro Téléphone</label>
-                                <input disabled type="number" class="form-control" value="" id="current_phone">
+                            <div class="row g-3 p-1">
+                                <div class="col-sm-6">
+                                    <label for="inputSurname" class="form-label">Nom</label>
+                                    <input disabled type="text" class="form-control" value="" id="current_last_name">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="inputName" class="form-label">Prénom</label>
+                                    <input disabled type="text" class="form-control" value="" id="current_first_name">
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label for="inputTelNumber" class="form-label">Numéro Téléphone</label>
+                                    <input disabled type="number" class="form-control" value="" id="current_phone">
+                                </div>
+                    
+                                <div class="col-sm-6">
+                                    <label for="inputBirthdate" class="form-label">Date de naissance</label>
+                                    <input disabled type="date" id="current_birth" class="form-control">
+                                </div>
                             </div>
-                
-                            <div class="col-sm-6">
-                                <label for="inputBirthdate" class="form-label">Date de naissance</label>
-                                <input disabled type="date" id="current_birth" class="form-control">
+                            
+                            <div class="row g-3 p-1">
+                                <div class="col-sm-6">
+                                    <label for="inputAddress" class="form-label">Adresse</label>
+                                    <input disabled type="text" class="form-control" id="current_address">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="inputCodePostal" class="form-label">Code Postal</label>
+                                    <input disabled type="number" class="form-control" id="current_zip_code">
+                                </div>
                             </div>
+                            <hr/>
+
                         </div>
-                        
-                        <div class="row g-3 p-1">
-                            <div class="col-sm-6">
-                                <label for="inputAddress" class="form-label">Adresse</label>
-                                <input disabled type="text" class="form-control" id="current_address">
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="inputCodePostal" class="form-label">Code Postal</label>
-                                <input disabled type="number" class="form-control" id="current_zip_code">
-                            </div>
-                        </div>
 
-                        <hr/>
 
+                        <h6>Changements demandés</h6>
                         <div class="row g-3 p-1">
                             <div class="col-sm-6">
                                 <label for="inputSurname" class="form-label">Nom</label>

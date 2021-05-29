@@ -28,7 +28,7 @@
         <div class="profile">
             <span onclick="dropdown_fnc('drop_profile')" class="dropbtn nav-btn">
                 <span class="material-icons">account_circle</span>
-                <span class="userbtn_txt">Utilisateur</span>
+                <span class="userbtn_txt"><?php echo $_SESSION['user']['last_name']?></span>
             </span>
             <div id="drop_profile" class="drop-content">
                 <div class="drop_item">

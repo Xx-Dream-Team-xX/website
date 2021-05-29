@@ -1,8 +1,8 @@
-<?php include get_path('partials', 'head.php'); ?>
 <!DOCTYPE html>
 <html>
 
     <head>
+    <?php include get_path('partials', 'head.php'); ?>
         <script charset="utf-8" src="/static/js/HeyThatsMe.js"></script>
         <script charset="utf-8" src="/static/js/manageSinistre.js"></script>
         <title>Créer un sinistre</title>
@@ -20,7 +20,7 @@
                             <h4>Contrat</h4>
                         </label>
                         <select class="form-select" aria-label="contrat" name="contrat" id="contrat_sinistre" required>
-                            <option hidden selected>Selectionner un contrat</option>
+                            <option hidden selected>Sélectionner un contrat</option>
                         </select>
                     </div>
                     <div class="row g-3 border border-1 rounded p-3 mt-3">
@@ -30,15 +30,15 @@
                                 <label for="driver_profession" class="form-label">Profession</label>
                                 <input type="text" class="form-control" name="driver_profession" id="driver_profession" required>
                                 <div class="invalid-feedback">
-                                    Veuillez specifier une profession.
+                                    Veuillez spécifier une profession.
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <label for="driver_relationship" class="form-label">Relation</label>
                                 <select class="form-select" aria-label="driver relationship" name="driver_relationship" id="driver_relationship" required>
-                                    <option value="married">marié</option>
-                                    <option value="celib">célibataire</option>
-                                    <option value="other">autre</option>
+                                    <option value="celib">Célibataire</option>
+                                    <option value="married">Marié</option>
+                                    <option value="other">Autre</option>
                                 </select>
                             </div>
                         </div>
@@ -46,14 +46,14 @@
                             <label for="driver_disp_reason" class="form-label">Motif de déplcament</label>
                             <input type="text" class="form-control" name="driver_disp_reason" id="driver_disp_reason" required>
                             <div class="invalid-feedback">
-                                Veuillez entrer un motif de deplacement.
+                                Veuillez entrer un motif de déplacement.
                             </div>
                         </div>
                         <div class="row g-1 pt-3">
                             <div class="form-check">
                                 <input class="form-check-input" type="hidden" value="0" name="driver_user_same_residance" id="driver_user_same_residance">
                                 <input class="form-check-input" type="checkbox" value="1" name="driver_user_same_residance" id="driver_user_same_residance">
-                                <label class="form-check-label" for="driver_user_same_residance">Même residance que le
+                                <label class="form-check-label" for="driver_user_same_residance">Même résidence que le
                                     propriétaire du contrat</label>
                             </div>
                             <div class="form-check">
@@ -65,7 +65,7 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="hidden" value="0" name="driver_is_employeeof_user" id="driver_is_employeeof_user">
                                 <input class="form-check-input" type="checkbox" value="1" name="driver_is_employeeof_user" id="driver_is_employeeof_user">
-                                <label class="form-check-label" for="driver_is_employeeof_user">Employer du propriétaire
+                                <label class="form-check-label" for="driver_is_employeeof_user">Employé du propriétaire
                                     du contrat</label>
                             </div>
                         </div>
@@ -109,7 +109,7 @@
                         </div>
                     </div>
                     <div class="row g-3 border border-1 rounded p-3 mt-3">
-                        <h4>Véhicle</h4>
+                        <h4>Véhicule</h4>
                         <div class="row g-1 pt-3">
                             <label for="usual_parking_location" class="form-label">Lieu habituel de stationement</label>
                             <input type="text" class="form-control" name="usual_parking_location" id="usual_parking_location" required>
@@ -127,7 +127,7 @@
                     </div>
                     <div class="row g-3 border border-1 rounded p-3 mt-3">
                         <h4>Autres dégâts matériels</h4>
-                        <textarea id="other_damage" name="other_damage" type="text" placeholder="Desciption des dégâts" aria-describedby="button-addon2" class="form-control rounded border bg-light"></textarea>
+                        <textarea id="other_damage" name="other_damage" type="text" placeholder="Description des dégâts" aria-describedby="button-addon2" class="form-control rounded border bg-light"></textarea>
                     </div>
                     <div class="row g-3 pt-1 p-3 mt-3">
                         <button type="submit" class="btn btn-primary" id="submitSinistre" name="submitSinistre">Valider</button>
@@ -159,7 +159,7 @@
                         </div>
                         <div class="row g-3 pt-3">
                             <label for="date" class="form-label">
-                                <h5>Temoins</h5>
+                                <h5>Témoins</h5>
                             </label>
                             <textarea id="witnesses" name="witnesses" type="text" placeholder="Liste des blessures" aria-describedby="button-addon2" class="form-control rounded border bg-light"></textarea>
                         </div>
@@ -181,7 +181,7 @@
                             </div>
                         </div>
                         <div class="row g-3 border border-1 rounded p-3 mt-3">
-                            <h4>Véhicle A</h4>
+                            <h4>Véhicule A</h4>
                             <div class="row g-3">
                                 <label for="A_contract" class="form-label">
                                     <h5>N° de contrat</h5>
@@ -204,7 +204,7 @@
                                     <input type="date" class="form-control" name="A_driver_birthdate" id="A_driver_birthdate" required>
                                 </div>
                                 <div class="col-sm-6">
-                                    <label for="A_inputAddress" class="form-label">Address</label>
+                                    <label for="A_inputAddress" class="form-label">Adresse</label>
                                     <input type="text" class="form-control" name="A_inputAddress" id="A_inputAddress" placeholder="Address.." required>
                                 </div>
                                 <div class="col-sm-6">
@@ -229,12 +229,12 @@
                                 </div>
                                 <div class="row g-3">
                                     <div class="col-sm-6">
-                                        <label for="A_driver_liscence_id" class="form-label">N° Permit de
+                                        <label for="A_driver_liscence_id" class="form-label">N° Permis de
                                             conduire</label>
                                         <input type="text" class="form-control" name="A_driver_liscence_id" id="A_driver_liscence_id" required>
                                     </div>
                                     <div class="col-sm-6">
-                                        <label for="A_driver_liscence_cat" class="form-label">Category du
+                                        <label for="A_driver_liscence_cat" class="form-label">Catégorie du
                                             permis</label>
                                         <input type="text" class="form-control" name="A_driver_liscence_cat" id="A_driver_liscence_cat" required>
                                     </div>
@@ -255,14 +255,14 @@
                                     <input type="text" class="form-control" name="A_vehicle_initial_impact" id="A_vehicle_initial_impact" required>
                                 </div>
                                 <div class="row g-1">
-                                    <label for="A_vehicle_damage" class="form-label">Domages sur le
+                                    <label for="A_vehicle_damage" class="form-label">Dommages sur le
                                         véhicule</label>
                                     <textarea id="A_vehicle_damage" name="A_vehicle_damage" type="text" aria-describedby="button-addon2" class="form-control rounded border bg-light" required></textarea>
                                 </div>
                             </div>
                             <div class="row g-3">
                                 <label for="A_observation" class="form-label">
-                                    <h5>Observations supplementaires</h5>
+                                    <h5>Observations supplémentaires</h5>
                                 </label>
                                 <textarea id="A_observation" name="A_observation" type="text" aria-describedby="button-addon2" class="form-control rounded border bg-light"></textarea>
                             </div>
@@ -271,17 +271,17 @@
                                     <div class="form-check">
                                         <input class="form-check-input" type="hidden" value="0" name="A_stationing" id="A_stationing">
                                         <input class="form-check-input" type="checkbox" value="1" name="A_stationing" id="A_stationing">
-                                        <label class="form-check-label" for="A_stationing">En stastionnement / à l'arrêt</label>
+                                        <label class="form-check-label" for="A_stationing">En stationnement / à l'arrêt</label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="hidden" value="0" name="A_leaving_parking_spot" id="A_leaving_parking_spot">
                                         <input class="form-check-input" type="checkbox" value="1" name="A_leaving_parking_spot" id="A_leaving_parking_spot">
-                                        <label class="form-check-label" for="A_leaving_parking_spot">Quittait un stationement</label>
+                                        <label class="form-check-label" for="A_leaving_parking_spot">Quittait un stationnement</label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="hidden" value="0" name="A_entering_parking_spot" id="A_entering_parking_spot">
                                         <input class="form-check-input" type="checkbox" value="1" name="A_entering_parking_spot" id="A_entering_parking_spot">
-                                        <label class="form-check-label" for="A_entering_parking_spot">Prenait un stationement</label>
+                                        <label class="form-check-label" for="A_entering_parking_spot">Prenait un stationnement</label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="hidden" value="0" name="A_entering_place" id="A_entering_place">
@@ -306,7 +306,7 @@
                                     <div class="form-check">
                                         <input class="form-check-input" type="hidden" value="0" name="A_oposite_road_line" id="A_oposite_road_line">
                                         <input class="form-check-input" type="checkbox" value="1" name="A_oposite_road_line" id="A_oposite_road_line">
-                                        <label class="form-check-label" for="A_oposite_road_line">Roulait dans le même sans et sur une file différente</label>
+                                        <label class="form-check-label" for="A_oposite_road_line">Roulait dans le même sens et sur une file différente</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -375,12 +375,12 @@
                                     <input type="date" class="form-control" name="B_driver_birthdate" id="B_driver_birthdate" required>
                                 </div>
                                 <div class="col-sm-6">
-                                    <label for="B_inputAddress" class="form-label">Address</label>
-                                    <input type="text" class="form-control" name="B_inputAddress" id="B_inputAddress" placeholder="Address.." required>
+                                    <label for="B_inputAddress" class="form-label">Adresse</label>
+                                    <input type="text" class="form-control" name="B_inputAddress" id="B_inputAddress" placeholder="Adresse.." required>
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="B_inputVille" class="form-label">Ville</label>
-                                    <input type="text" class="form-control" name="B_inputVille" id="B_inputVille" placeholder="Pau.." required>
+                                    <input type="text" class="form-control" name="B_inputVille" id="B_inputVille" placeholder="Ville.." required>
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="B_driver_zipcode" class="form-label">Code Postal</label>
@@ -400,12 +400,12 @@
                                 </div>
                                 <div class="row g-3">
                                     <div class="col-sm-6">
-                                        <label for="B_driver_liscence_id" class="form-label">N° Permit de
+                                        <label for="B_driver_liscence_id" class="form-label">N° Permis de
                                             conduire</label>
                                         <input type="text" class="form-control" name="B_driver_liscence_id" id="B_driver_liscence_id" required>
                                     </div>
                                     <div class="col-sm-6">
-                                        <label for="B_driver_liscence_cat" class="form-label">Category du
+                                        <label for="B_driver_liscence_cat" class="form-label">Catégorie du
                                             permis</label>
                                         <input type="text" class="form-control" name="B_driver_liscence_cat" id="B_driver_liscence_cat" required>
                                     </div>
@@ -426,14 +426,14 @@
                                     <input type="text" class="form-control" name="B_vehicle_initial_impact" id="B_vehicle_initial_impact" required>
                                 </div>
                                 <div class="row g-1">
-                                    <label for="B_vehicle_damage" class="form-label">Domages sur le
+                                    <label for="B_vehicle_damage" class="form-label">Dommages sur le
                                         véhicule</label>
                                     <textarea id="B_vehicle_damage" name="B_vehicle_damage" type="text" aria-describedby="button-addon2" class="form-control rounded border bg-light" required></textarea>
                                 </div>
                             </div>
                             <div class="row g-3">
                                 <label for="B_observation" class="form-label">
-                                    <h5>Observations supplementaires</h5>
+                                    <h5>Observations supplémentaires</h5>
                                 </label>
                                 <textarea id="B_observation" name="B_observation" type="text" aria-describedby="button-addon2" class="form-control rounded border bg-light"></textarea>
                             </div>
@@ -442,7 +442,7 @@
                                     <div class="form-check">
                                         <input class="form-check-input" type="hidden" value="0" name="B_stationing" id="B_stationing">
                                         <input class="form-check-input" type="checkbox" value="1" name="B_stationing" id="B_stationing">
-                                        <label class="form-check-label" for="B_stationing">En stastionnement / à l'arrêt</label>
+                                        <label class="form-check-label" for="B_stationing">En stationnement / à l'arrêt</label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="hidden" value="0" name="B_leaving_parking_spot" id="B_leaving_parking_spot">
@@ -477,7 +477,7 @@
                                     <div class="form-check">
                                         <input class="form-check-input" type="hidden" value="0" name="B_oposite_road_line" id="B_oposite_road_line">
                                         <input class="form-check-input" type="checkbox" value="1" name="B_oposite_road_line" id="B_oposite_road_line">
-                                        <label class="form-check-label" for="B_oposite_road_line">Roulait dans le même sans et sur une file différente</label>
+                                        <label class="form-check-label" for="B_oposite_road_line">Roulait dans le même sens et sur une file différente</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">

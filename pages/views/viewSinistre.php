@@ -1,8 +1,8 @@
-<?php include get_path('partials', 'head.php'); ?>
 <!DOCTYPE html>
 <html>
 
     <head>
+<?php include get_path('partials', 'head.php'); ?>
         <script charset="utf-8" src="/static/js/HeyThatsMe.js"></script>
         <script charset="utf-8" src="/static/js/manageSinistre.js"></script>
         <title>Sinistres</title>
@@ -20,7 +20,7 @@
                     <option hidden selected>Selectionner un Sinistre</option>
                 </select>
                 <div class="row g-3 d-none" id="sinistreMainContainer">
-                    <h4 class="pt-3 pb-0 mb-0">Contract</h4>
+                    <h4 class="pt-3 pb-0 mb-0">Contrat</h4>
                     <div class="row g-3 border border-1 rounded p-3 pt-0">
                         <h5>Validité</h5>
                         <div class="row border border-1 rounded pb-3 g-3">
@@ -51,12 +51,12 @@
                             </div>
                         </div>
                         <div class="row g-3 pb-3">
-                            <p class="h5 mb-0 py-1 text-dark">Motif de déplcament : <span class="h6 text-dark" id="driver_disp_reason"></span></p>
+                            <p class="h5 mb-0 py-1 text-dark">Motif de déplacement : <span class="h6 text-dark" id="driver_disp_reason"></span></p>
                         </div>
                         <div class="row g-1 pt-3">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="1" name="driver_user_same_residance" id="driver_user_same_residance" readonly disabled>
-                                <label class="form-check-label" for="driver_user_same_residance">Même residance que le
+                                <label class="form-check-label" for="driver_user_same_residance">Même residence que le
                                     propriétaire du contrat</label>
                             </div>
                             <div class="form-check">
@@ -66,7 +66,7 @@
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="1" name="driver_is_employeeof_user" id="driver_is_employeeof_user" readonly disabled>
-                                <label class="form-check-label" for="driver_is_employeeof_user">Employer du propriétaire
+                                <label class="form-check-label" for="driver_is_employeeof_user">Employé du propriétaire
                                     du contrat</label>
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                     <h4 class="pt-3 pb-0 mb-0">Véhicle</h4>
                     <div class="row g-3 border border-1 rounded p-3 pt-0">
                         <div class="row g-3">
-                            <p class="h5 mb-0 py-1 text-dark">Lieu habituel de stationement : <span class="h6 text-dark" id="usual_parking_location"></span></p>
+                            <p class="h5 mb-0 py-1 text-dark">Lieu habituel de stationnement : <span class="h6 text-dark" id="usual_parking_location"></span></p>
                         </div>
                         <div class="row g-3 d-none" id="garage_container">
                             <h5 class="pt-0 pb-0 mb-0">Garage</h5>
@@ -143,7 +143,7 @@
                             <div class="row g-3 ">
                                 <p class="h6 mb-0 py-1 text-dark">Emplacement de l'incident : <span class="h6 text-dark" id="location"></span></p>
                             </div>
-                            <h5 class="pt-3 pb-0 mb-0">Temoins</h5>
+                            <h5 class="pt-3 pb-0 mb-0">Témoins</h5>
                             <div class="row g-3 ">
                                 <p class="h6 mb-0 py-1 border border-1 rounded bg-light text-dark" id="witnesses">
                                     <br>
@@ -180,7 +180,7 @@
                                         <p class="h6 mb-0 py-1 text-dark">Date de naissance : <span class="h6 text-dark" id="A_driver_birthdate"></span></p>
                                     </div>
                                     <div class="col-sm-6">
-                                        <p class="h6 mb-0 py-1 text-dark">Address : <span class="h6 text-dark" id="A_driver_address"></span></p>
+                                        <p class="h6 mb-0 py-1 text-dark">Adresse : <span class="h6 text-dark" id="A_driver_address"></span></p>
                                     </div>
                                     <div class="col-sm-6">
                                         <p class="h6 mb-0 py-1 text-dark">Pays : <span class="h6 text-dark" id="A_driver_country"></span></p>
@@ -194,10 +194,10 @@
                                 </div>
                                 <div class="row g-3">
                                     <div class="col-sm-6">
-                                        <p class="h6 mb-0 py-1 text-dark">N° Permit de conduire : <span class="h6 text-dark" id="A_driver_liscence_id"></span></p>
+                                        <p class="h6 mb-0 py-1 text-dark">N° Permis de conduire : <span class="h6 text-dark" id="A_driver_liscence_id"></span></p>
                                     </div>
                                     <div class="col-sm-6">
-                                        <p class="h6 mb-0 py-1 text-dark">Category du permis : <span class="h6 text-dark" id="A_driver_liscence_cat"></span></p>
+                                        <p class="h6 mb-0 py-1 text-dark">Catégorie du permis : <span class="h6 text-dark" id="A_driver_liscence_cat"></span></p>
                                     </div>
                                     <div class="col-sm-6">
                                         <p class="h6 mb-0 py-1 text-dark">Fin de validité du permis : <span class="h6 text-dark" id="A_driver_liscence_expire"></span></p>
@@ -208,7 +208,7 @@
                                     <p class="h6 mb-0 py-1 text-dark">Impact initial sur le véhicule : <span class="h6 text-dark" id="A_vehicle_initial_impact"></span></p>
                                 </div>
                                 <div class="row g-3 ">
-                                    <h5 class="pb-0 mb-0">Domages sur le véhicule</h5>
+                                    <h5 class="pb-0 mb-0">Dommages sur le véhicule</h5>
                                     <p class="h6 mb-0 py-1 border border-1 rounded bg-light text-dark" id="A_vehicle_damage">
                                         <br>
                                     </p>
@@ -223,11 +223,11 @@
                                     <div class="col-sm-6">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="1" name="A_stationing" id="A_stationing" readonly disabled>
-                                            <label class="form-check-label" for="A_stationing">En stastionnement / à l'arrêt</label>
+                                            <label class="form-check-label" for="A_stationing">En stationnement / à l'arrêt</label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="1" name="A_leaving_parking_spot" id="A_leaving_parking_spot" readonly disabled>
-                                            <label class="form-check-label" for="A_leaving_parking_spot">Quittait un stationement</label>
+                                            <label class="form-check-label" for="A_leaving_parking_spot">Quittait un stationnement</label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="1" name="A_entering_parking_spot" id="A_entering_parking_spot" readonly disabled>
@@ -251,7 +251,7 @@
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="1" name="A_oposite_road_line" id="A_oposite_road_line" readonly disabled>
-                                            <label class="form-check-label" for="A_oposite_road_line">Roulait dans le même sans et sur une file différente</label>
+                                            <label class="form-check-label" for="A_oposite_road_line">Roulait dans le même sens et sur une file différente</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
@@ -307,7 +307,7 @@
                                         <p class="h6 mb-0 py-1 text-dark">Date de naissance : <span class="h6 text-dark" id="B_driver_birthdate"></span></p>
                                     </div>
                                     <div class="col-sm-6">
-                                        <p class="h6 mb-0 py-1 text-dark">Address : <span class="h6 text-dark" id="B_driver_address"></span></p>
+                                        <p class="h6 mb-0 py-1 text-dark">Adresse : <span class="h6 text-dark" id="B_driver_address"></span></p>
                                     </div>
                                     <div class="col-sm-6">
                                         <p class="h6 mb-0 py-1 text-dark">Pays : <span class="h6 text-dark" id="B_driver_country"></span></p>
@@ -321,10 +321,10 @@
                                 </div>
                                 <div class="row g-3">
                                     <div class="col-sm-6">
-                                        <p class="h6 mb-0 py-1 text-dark">N° Permit de conduire : <span class="h6 text-dark" id="B_driver_liscence_id"></span></p>
+                                        <p class="h6 mb-0 py-1 text-dark">N° Permis de conduire : <span class="h6 text-dark" id="B_driver_liscence_id"></span></p>
                                     </div>
                                     <div class="col-sm-6">
-                                        <p class="h6 mb-0 py-1 text-dark">Category du permis : <span class="h6 text-dark" id="B_driver_liscence_cat"></span></p>
+                                        <p class="h6 mb-0 py-1 text-dark">Catégorie du permis : <span class="h6 text-dark" id="B_driver_liscence_cat"></span></p>
                                     </div>
                                     <div class="col-sm-6">
                                         <p class="h6 mb-0 py-1 text-dark">Fin de validité du permis : <span class="h6 text-dark" id="B_driver_liscence_expire"></span></p>
@@ -335,13 +335,13 @@
                                     <p class="h6 mb-0 py-1 text-dark">Impact initial sur le véhicule : <span class="h6 text-dark" id="B_vehicle_initial_impact"></span></p>
                                 </div>
                                 <div class="row g-3 ">
-                                    <h5 class="pb-0 mb-0">Domages sur le véhicule</h5>
+                                    <h5 class="pb-0 mb-0">Dommages sur le véhicule</h5>
                                     <p class="h6 mb-0 py-1 border border-1 rounded bg-light text-dark" id="B_vehicle_damage">
                                         <br>
                                     </p>
                                 </div>
                                 <div class="row g-3 ">
-                                    <h4 class="pb-0 mb-0">Observations supplementaires</h4>
+                                    <h4 class="pb-0 mb-0">Observations supplémentaires</h4>
                                     <p class="h6 mb-0 py-1 border border-1 rounded bg-light text-dark" id="B_observation">
                                         <br>
                                     </p>
@@ -350,15 +350,15 @@
                                     <div class="col-sm-6">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="1" name="B_stationing" id="B_stationing" readonly disabled>
-                                            <label class="form-check-label" for="B_stationing">En stastionnement / à l'arrêt</label>
+                                            <label class="form-check-label" for="B_stationing">En stationnement / à l'arrêt</label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="1" name="B_leaving_parking_spot" id="B_leaving_parking_spot" readonly disabled>
-                                            <label class="form-check-label" for="B_leaving_parking_spot">Quittait un stationement</label>
+                                            <label class="form-check-label" for="B_leaving_parking_spot">Quittait un stationnement</label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="1" name="B_entering_parking_spot" id="B_entering_parking_spot" readonly disabled>
-                                            <label class="form-check-label" for="B_entering_parking_spot">Prenait un stationement</label>
+                                            <label class="form-check-label" for="B_entering_parking_spot">Prenait un stationnement</label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="1" name="B_entering_place" id="B_entering_place" readonly disabled>
@@ -378,7 +378,7 @@
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="1" name="B_oposite_road_line" id="B_oposite_road_line" readonly disabled>
-                                            <label class="form-check-label" for="B_oposite_road_line">Roulait dans le même sans et sur une file différente</label>
+                                            <label class="form-check-label" for="B_oposite_road_line">Roulait dans le même sens et sur une file différente</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
