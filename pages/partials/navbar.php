@@ -38,7 +38,7 @@
                     <a href="/me"><span class="material-icons">settings</span>Paramètres</a>
                 </div>
                 <div class="drop_item">
-                    <a href="/auth/logoff"><span class="material-icons">logout</span>Se déconnecter</a>
+                <a href="/" onclick="logout()"><span class="material-icons">logout</span>Se déconnecter</a>
                 </div>
             </div>
         </div>
