@@ -79,6 +79,19 @@
     }
 
     /**
+     * Redirects if not allowed
+     *
+     * @param int $p Required permission level
+     * @return void
+     */
+    function onlyFor(int $p) {
+        if (getPermissions() < $p) {
+            header('Location: /');
+            die();
+        }
+    }
+
+    /**
      * Gets interactionnable users list callbacks for map and filter.
      *
      * @return array [filter, map] callbacks
