@@ -23,7 +23,6 @@
 
     Router::add('tests', get_path('views', 'tests/'), false, true);
 
-
     Router::add('users', get_path('api', 'user.php'));
     Router::add('contract', get_path('api', 'contract.php'));
     Router::add('sinistre', get_path('api', 'sinistre.php'));
@@ -46,6 +45,7 @@
     Router::add('sinistre', get_path('views', 'viewSinistre.php'));
 
     Router::add('view', get_path('views', 'viewcontrat.php'));
+    Router::add('addcontrat', get_path('views', 'addContrat.php'));
 
     Router::add('me', get_path('views', 'me.php'));
     Router::add('verifications', get_path('views', 'verification.php'));

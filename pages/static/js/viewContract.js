@@ -17,8 +17,67 @@ function setQRCode(id) {
     }
 }
 
+function dispContrat(contrat) {
+    document.getElementById('start').value = getDate(contrat.start);
+    document.getElementById('end').value = getDate(contrat.end);
+    if (Object.hasOwnProperty.call(contrat, 'vID')) {
+        document.getElementById('contrat_vID').parentNode.classList.remove('d-none');
+        document.getElementById('contrat_vID').value = contrat.vID;
+    }
+    if (Object.hasOwnProperty.call(contrat, 'countryCode')) {
+        document.getElementById('countryCode').parentNode.classList.remove('d-none');
+        document.getElementById('countryCode').value = contrat.countryCode;
+    }
+    if (Object.hasOwnProperty.call(contrat, 'category')) {
+        document.getElementById('category').parentNode.classList.remove('d-none');
+        document.getElementById('category').value = contrat.category;
+    }
+    if (Object.hasOwnProperty.call(contrat, 'manufacturer')) {
+        document.getElementById('manufacturer').parentNode.classList.remove('d-none');
+        document.getElementById('manufacturer').value = contrat.manufacturer;
+    }
+    if (Object.hasOwnProperty.call(contrat, 'terVal')) {
+        document.getElementById('terValList').classList.remove('d-none');
+        let container = document.createElement('div');
+        container.className = "row g-3";
+        for (const key in contrat.terVal) {
+            if (Object.hasOwnProperty.call(contrat.terVal, key)) {
+                const val = contrat.terVal[key];
+                let valContainer = document.createElement('div');
+                valContainer.className = "col-sm-6";
+                valContainer.innerHTML = `
+<div class="form-check">
+    <input class="form-check-input" type="checkbox" checked="${val}" readonly disabled>
+    <label class="form-check-label">${key}</label>
+</div>
+                `;
+                container.appendChild(valContainer);
+            }
+        }
+        document.getElementById('terValList').appendChild(container);
+    }
+}
+
+function querryContrat(id) {
+    let req = new XMLHttpRequest();
+    req.open("POST", "/contract/get");
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    req.send(`id=${id}`);
+    req.onreadystatechange = function () {
+        if (this.status === 200 && this.readyState === 4) {
+            let contrat = JSON.parse(this.responseText);
+            dispContrat(contrat);
+        } else if (this.readyState === 4) {
+            alert("Le contrat spécifié n'existe pas / plus");
+            window.location.href = "/";
+        }
+    }
+}
+
 function onLoad() {
-    setQRCode(getTarget('/view/'));
+    let id = getTarget('/view/');
+    setQRCode(id);
+    querryContrat(id);
 }
 
 function toggleModal() {
