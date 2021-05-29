@@ -1,9 +1,10 @@
-function showError(error, id="error") {
+function showError(error, id="errors") {
     document.getElementById(id).innerText = error;
 }
 
 function removeError() {
     document.getElementById("errors").innerText = "";
+    document.getElementById("error").innerText = "";
 }
 
 function showPass(id) {
@@ -22,25 +23,25 @@ function onLoad() {
 function showErrors(e){
     switch (e) {
         case 1:
-            showError("Erreur serveur -  Champ Téléphone");
+            showError("Erreur serveur -  Champ Téléphone", "error");
             break;
         case 2:
-            showError("Erreur serveur -  Champ Adresse");
+            showError("Erreur serveur -  Champ Adresse", "error");
             break;
         case 3:
-            showError("Erreur serveur -  Champs Nom / Prénom");
+            showError("Erreur serveur -  Champs Nom / Prénom", "error");
             break;
         case 4:
-            showError("Erreur serveur -  Mauvaise adresse mail ou adresse déjà utilisée");
+            showError("Erreur serveur -  Mauvaise adresse mail ou adresse déjà utilisée", "error");
             break;
         case 5:
-            showError("Erreur serveur -  Mauvais mot de passe");
+            showError("Erreur serveur -  Mauvais mot de passe", "error");
             break;
         case 6:
-            showError("Erreur serveur -  Le mot de passe n'est pas assez fort");
+            showError("Erreur serveur -  Le mot de passe n'est pas assez fort", "error");
             break;
         case 7:
-            showError("Erreur serveur -  Veuillez remplir tous les champs correctement");
+            showError("Erreur serveur -  Veuillez remplir tous les champs correctement", "error");
             break;
         default:
     }
@@ -107,7 +108,7 @@ function submitVerification() {
             if (j){
                 window.location.href = "/verifications/" + j;
             }else{
-                showError("Veuillez respecter le formattage et vous assurer de bien attacher vos justificatifs. Une taille maximale existe pour les fichiers", "errors");
+                showError("Veuillez respecter le formattage et vous assurer de bien attacher vos justificatifs. Une taille maximale existe pour les fichiers");
             }
         }
     }
