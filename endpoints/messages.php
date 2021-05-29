@@ -66,7 +66,7 @@
 
             $d = User::createUserByType(DB::getFromID(get_path("database", "users.json"), $d));
 
-            $d->pushNotification('Nouveau message', $send->getName()[0] . " vous a envoyé un message", "/messages/" . $id );
+            if (!in_array($id, $d->getConversations())) $d->pushNotification('Nouveau message', $send->getName()[0] . " vous a envoyé un message", "/messages/" . $id );
             $d->addConversation($id);
             DB::setObject(get_path("database", "users.json"), $d->getAll());
         }

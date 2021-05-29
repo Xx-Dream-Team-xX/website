@@ -49,7 +49,7 @@
 
             $d = User::createUserByType(DB::getFromID(get_path("database", "users.json"), $d));
 
-            $d->pushNotification('Nouvelle activité', $send->getName()[0] . " a mis à jour le ticket", "/tickets/" . $id );
+            if (!in_array($id, $d->getConversations())) $d->pushNotification('Nouvelle activité', $send->getName()[0] . " a mis à jour le ticket", "/tickets/" . $id );
             DB::setObject(get_path("database", "users.json"), $d->getAll());
         }
     }
