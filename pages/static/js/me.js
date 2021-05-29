@@ -57,7 +57,6 @@ function testValue(r, v, e){
 }
 
 function check(ele, type, error) {
-    var p;
     switch (type) {
         case 'phone':
             testValue("^[0-9]{9,14}", ele.value, error);
