@@ -13,7 +13,7 @@
             <div class="row mt-3"><div class="col-4">
                 <div class="table-responsive table-dark">
                     <table class="table table-borderless">
-                        <thead id="userInfo">
+                        <thead class="table-dark" id="userInfo">
                         </thead>
                     </table>
                 </div>

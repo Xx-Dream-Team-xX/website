@@ -172,7 +172,7 @@ function addVerificationToTable(V) {
     row.setAttribute("onclick", "showVerification('"+V["id"]+"');");
 
     if (!document.getElementById("table")) {
-        document.getElementById("tables").innerHTML += `<table class="table p-3"><thead><tr>${Object.keys(V).filter((a) => {return cols[a] && true}).map((a) => `<td onclick='sortby("${a}")'>${cols[a]}</td>`).join("")}</tr></thead><tbody id='table' ></tbody></table>`;
+        document.getElementById("tables").innerHTML += `<table class="table p-3"><thead class="table-dark"><tr>${Object.keys(V).filter((a) => {return cols[a] && true}).map((a) => `<td onclick='sortby("${a}")'>${cols[a]}</td>`).join("")}</tr></thead><tbody id='table' ></tbody></table>`;
     }
 
     for ([i, k] of Object.entries(V)) {

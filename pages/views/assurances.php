@@ -12,7 +12,7 @@
 <body onload="onLoad()">
     <?php include(get_path('partials','navbar.php'));?>
     <table class="table table-striped">
-        <thead>
+        <thead class="table-dark">
             <tr>
                 <th scope="col">Logo</th>
                 <th scope="col">Nom</th>
