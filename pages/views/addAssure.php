@@ -17,7 +17,7 @@
             <div class="row g-3">
                 <div class="col-sm-6">
                     <div class="input-group">
-                        <input type="text" class="form-control" id="created_email">
+                        <input type="text" class="form-control" id="created_email" readonly>
                     </div>
                 </div>
             </div>
@@ -25,7 +25,7 @@
             <div class="row g-3">
                 <div class="col-sm-6">
                     <div class="input-group">
-                        <input type="password" class="form-control" id="created_password">
+                        <input type="password" class="form-control" id="created_password" readonly>
                         <div class="input-group-text hover-overlay" style="cursor: pointer;" onclick="showPass()">
                             Afficher</div>
                     </div>
@@ -64,10 +64,14 @@
                 </div>
             </div>
             <div style="padding: 8px"></div>
-            <div class="col-sm-6">
-                <label for="inputBirthdate">Date de naissance</label>
-                <input type="date" name="birthdate" id="inputBirthdate" class="form-control" onclick="addMaxDate(this)">
+
+            <div class="row g-3">
+                <div class="col-sm-6">
+                    <label for="inputBirthdate">Date de naissance</label>
+                    <input type="date" name="birthdate" id="inputBirthdate" class="form-control" onclick="addMaxDate(this)">
+                </div>
             </div>
+            
             <div class="row g-3">
                 <div class="col-sm-6">
                     <label for="inputAddress" class="form-label">Adresse (Rue, Ville)</label>

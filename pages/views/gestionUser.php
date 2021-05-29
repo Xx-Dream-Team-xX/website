@@ -1,7 +1,11 @@
-<?php include(get_path('partials','head.php'));?> 
+<!DOCTYPE html>
 <html>
-    <script charset="utf-8" src="/static/js/targetNavigation.js"></script>
-    <script charset="utf-8" src="/static/js/manageUser.js"></script>
+    <head>
+        <?php include(get_path('partials','head.php'));?> 
+        <script charset="utf-8" src="/static/js/targetNavigation.js"></script>
+        <script charset="utf-8" src="/static/js/manageUser.js"></script>
+    </head>
+
     <body onload="onLoad()">
         <?php include(get_path('partials','navbar.php'));?> 
         <!-- MAIN (FORM) -->

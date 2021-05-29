@@ -121,16 +121,18 @@ require './vendor/autoload.php';
          */
         public static function deleteObject(string $path, string $id) {
             $data = &self::getAll($path);
-            foreach ($data as $key => $element) {
-                if ($element['id'] === $id) {
-                    unset($data[$key]);
-                    self::writeDB($path, $data);
 
-                    return true;
+            foreach ($data as $i => $e) {
+                if ($e['id'] === $id) {
+                    $index = $i;
                 }
             }
 
-            return false;
+            if ($index) {
+                array_splice($data, $index, $index);
+            }
+
+            self::writeDB($path, $data);
         }
 
         /**

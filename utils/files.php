@@ -35,9 +35,10 @@
      * @param string $type Filter per type
      * @return array files
      */
-    function checkUploadedFiles(string $type="any") {
+    function checkUploadedFiles(string $type="any", int $max = null) {
 
         if (sizeof($_FILES) === 0) return false;
+        if ($max && (sizeof($_FILES) !== $max)) return false;
 
         $available = [
             'img' => array(
@@ -63,7 +64,7 @@
         ];
 
         $used = [];
-        if (in_array($type, $available)) {
+        if (isset($available[$type])) {
             $used = $available[$type];
         } else if ($type === "any") {
             foreach ($available as $i => $a) {
