@@ -11,7 +11,7 @@
     switch (get_final_point()) {
         case 'getQRCode':
             if (isset($_POST['id']) && false !== $contract = DB::getFromID(get_path('database', 'contracts.json'), $_POST['id'])) {
-                generateQr(SETTINGS['url'] . 'viewcontrat/' . $_POST['id'], $send = true);
+                generateQr(SETTINGS['url'] . 'view/' . $_POST['id'], $send = true);
 
                 break;
             }
