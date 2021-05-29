@@ -11,6 +11,11 @@
 
 <body onload="onLoad()">
     <?php include(get_path('partials','navbar.php'));?>
+
+    <div class="col d-flex justify-content-center m-2">
+        <button class="btn btn-success" onclick="toggleModal();" role="button">Ajouter une assurance</button>
+    </div>
+
     <table class="table table-striped">
         <thead class="table-dark">
             <tr>
@@ -46,7 +51,7 @@
                         </div>
                     </div>
 
-                    <div class="row p-1 mb-1">
+                    <div class="row p-1 mt-1 mb-1">
                         <div class="col-sm-12">
                             <label class="form-label" for="files">Choisir un logo</label>
                             <input type="file" class="form-control" id="files" required>

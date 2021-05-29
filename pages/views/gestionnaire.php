@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-<?php include(get_path('partials','head.php'));?> 
+        <?php include(get_path('partials','head.php'));?> 
         <title>Paneau d'intéraction</title>
         <script charset="utf-8" src="/static/js/types.js"></script>
         <script charset="utf-8" src="/static/js/manageGestionTable.js"></script>
