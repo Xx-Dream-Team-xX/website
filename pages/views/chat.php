@@ -72,8 +72,8 @@
                     <!-- Typing area -->
                     <form action="javascript:()=>{}" class="bg-light">
                         <div class="input-group d-inline-flex justify-content-between align-items-center p-1">
-                            <button id="button-files" type="submit" class="btn btn-link nohover"><i class="bi bi-file-earmark-plus" onclick="javascript:document.getElementById('files').hidden ^= true;"></i></button>
-                            <input type="file" id="files" hidden>
+                            <button id="button-files" type="submit" class="btn btn-link nohover"><i class="bi bi-file-earmark-plus" onclick="toggleFiles()"></i></button>
+                            <input class="form-control" type="file" id="files" hidden>
                             <textarea id="content" type="text" placeholder="Écrire un message" aria-describedby="button-addon2" class="form-control rounded-0 border-0 bg-light nohover"></textarea>
                             <button id="button-send" type="submit" class="btn btn-link" onclick="prepareMessage()"> <i class="bi bi-cursor"></i></button>
                         </div>

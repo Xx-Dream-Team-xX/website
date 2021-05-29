@@ -9,6 +9,11 @@ function toggleModal() {
     }
 }
 
+function toggleFiles() {
+    document.getElementById("files").hidden ^= true;
+    document.getElementById("content").hidden ^= true;
+}
+
 function onLoad(){
     if (isID('/messages/')) {
         CACHE["selected"] = getTarget('/messages/');
@@ -242,12 +247,6 @@ function addConvtoRecent(id, type, people, content, sender, files, timestamp, un
     
     let d2 = document.createElement('div');
     d2.classList.add("media");
-    
-    let i3 = document.createElement('img');
-    i3.classList.add("rounded-circle");
-    i3.setAttribute("src", "");
-    i3.setAttribute("alt", "user");
-    i3.setAttribute("width", "50");
 
     let d4 = document.createElement('div');
     d4.classList.add("media-body", "ml-4", "chat-message");
@@ -270,12 +269,12 @@ function addConvtoRecent(id, type, people, content, sender, files, timestamp, un
     p8.classList.add("font-italic", "mb-0", "text-small", "text-dark");
     p8.innerHTML = content.split("\n")[0];
     p8.innerHTML += (content.split("\n").length > 2) ? "..." : "";
+    if (files.length > 0) p8.innerHTML += `<br>${files.length} Attachment${(files.length > 1)?"s":""}`;
 
     d5.appendChild(h6);
     d5.appendChild(s7);
     d4.appendChild(d5);
     d4.appendChild(p8);
-    //d2.appendChild(i3);
     d2.appendChild(d4);
     a1.appendChild(d2);
     message_box.appendChild(a1);
@@ -286,12 +285,6 @@ function addSenderMessage(id, sender, content, files, timestamp) {
 
     let d1 = document.createElement('div');
     d1.classList.add("media", "mb-3");
-
-    let i2 = document.createElement('img');
-    i2.classList.add("rounded-circle");
-    i2.setAttribute("src", "");
-    i2.setAttribute("alt", "user");
-    i2.setAttribute("width", "50");
 
     let d3 = document.createElement('div');
     d3.classList.add("media-body", "ml-3",  "message-box-box");
@@ -310,8 +303,18 @@ function addSenderMessage(id, sender, content, files, timestamp) {
     d4.appendChild(p5);
     d3.appendChild(d4);
     d3.appendChild(p6);
-    // d1.appendChild(i2);
     d1.appendChild(d3);
+
+    if (files) {
+        d7 = document.createElement('ul');
+        d7.classList.add("mb-0")
+        d7.classList.add("mt-2")
+        files.forEach((f) => {
+            d7.innerHTML += `<li><a class="text-dark small" target="_blank" href="/useruploadedcontent/${f}">${f}</a></li>\n`;
+        });
+        d4.appendChild(d7);
+    }
+
     message_box.appendChild(d1);
 }
 
@@ -339,6 +342,17 @@ function addReveiverMessage(id, sender, content, files, timestamp) {
     d3.appendChild(d4);
     d3.appendChild(p6);
     d1.appendChild(d3);
+
+    if (files) {
+        d7 = document.createElement('ul');
+        d7.classList.add("mb-0")
+        d7.classList.add("mt-2")
+        files.forEach((f) => {
+            d7.innerHTML += `<li><a class="text-white small" target="_blank" href="/useruploadedcontent/${f}">${f}</a></li>\n`;
+        });
+        d4.appendChild(d7);
+    }
+
     message_box.appendChild(d1);
 }
 
