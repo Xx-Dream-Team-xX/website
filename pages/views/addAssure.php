@@ -1,3 +1,7 @@
+<?php
+    onlyFor(User::GESTIONNAIRE);
+?>
+
 <!DOCTYPE html>
 <html>
 <head>

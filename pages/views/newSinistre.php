@@ -1,3 +1,5 @@
+<?php onlyFor(User::ASSURE);?>
+
 <!DOCTYPE html>
 <html>
 

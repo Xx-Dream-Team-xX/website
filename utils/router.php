@@ -126,7 +126,9 @@
                     header('Content-Type: application/octet-stream');
                     break;
             }
-            session_start();
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
             if ($sandbox) {
                 readfile($path);
             } else {
