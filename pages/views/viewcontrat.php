@@ -5,6 +5,7 @@
     <head>
         <script charset="utf-8" src="/static/js/HeyThatsMe.js"></script>
         <script charset="utf-8" src="/static/js/targetNavigation.js"></script>
+        <script charset="utf-8" src="/static/js/manageDates.js"></script>
         <script charset="utf-8" src="/static/js/viewContract.js"></script>
         <title>Sinistres</title>
     </head>
@@ -18,31 +19,39 @@
                 <div class="row pb-3 g-3">
                     <h5>Validité</h5>
                     <div class="col-sm-6">
-                        <p class="h6 mb-0 py-1 text-dark">Debut : <span class="h6 text-dark" id="start"></span></p>
+                        <p class="h6 mb-0 py-1 text-dark">Debut</p>
+                        <input class="form-control p-1" id="start" disabled>
                     </div>
                     <div class="col-sm-6">
-                        <p class="h6 mb-0 py-1 text-dark">Fin : <span class="h6 text-dark" id="end"></span></p>
+                        <p class="h6 mb-0 py-1 text-dark">Fin</p>
+                        <input class="form-control  p-1" id="end" disabled>
                     </div>
                 </div>
                 <div class="row g-3">
-                    <div class="col-sm-6">
-                        <p class="h5 mb-0 py-1 text-dark">Immatriculation : <span class="h6 text-dark" id="contrat_vID"></span></p>
+                    <div class="col-sm-6 d-none">
+                        <p class="h5 mb-0 py-1 text-dark">Immatriculation</p>
+                        <input class="form-control  p-1" id="contrat_vID" disabled>
                     </div>
-                    <div class="col-sm-6">
-                        <p class="h5 mb-0 py-1 text-dark">Category : <span class="h6 text-dark" id="contrat_vID"></span></p>
+                    <div class="col-sm-6 d-none">
+                        <p class="h5 mb-0 py-1 text-dark">Category</p>
+                        <input class="form-control  p-1" id="category" disabled>
+
                     </div>
-                    <div class="col-sm-6">
-                        <p class="h5 mb-0 py-1 text-dark">Pays : <span class="h6 text-dark" id="contrat_vID"></span></p>
+                    <div class="col-sm-6 d-none">
+                        <p class="h5 mb-0 py-1 text-dark">Pays</p>
+                        <input class="form-control  p-1" id="countryCode" disabled>
                     </div>
-                    <div class="col-sm-6">
-                        <p class="h5 mb-0 py-1 text-dark">Marque : <span class="h6 text-dark" id="contrat_manufacturer"></span></p>
+                    <div class="col-sm-6 d-none">
+                        <p class="h5 mb-0 py-1 text-dark">Marque</p>
+                        <input class="form-control  p-1" id="manufacturer" disabled>
+
                     </div>
                 </div>
-                <div class="row g-3" id="terValList">
+                <div class="row g-3 d-none" id="terValList">
                     <h5>Validité territoriale</h5>
                 </div>
 
-                <button class="btn btn-success m-2 p-2" onclick="toggleModal()">Voir mon Code QR</button>
+                <button class="btn btn-success m-2 mt-3 p-2" onclick="toggleModal()">Voir mon Code QR</button>
 
                 <div class="modal fade" id="modal" tabindex="-1" role="dialog">
                     <div class="modal-dialog modal-xl d-flex justify-content-center" role="document">
@@ -56,7 +65,8 @@
                             <div class="modal-body">
                                 <div class="row g-3" id="terValList">
                                     <div class="d-flex justify-content-center" id="QRCode">
-                                        <div class="spinner-border text-align-center text-primary" style="width: 3rem; height: 3rem;" role="status">
+                                        <div class="spinner-border text-align-center text-primary"
+                                            style="width: 3rem; height: 3rem;" role="status">
                                             <span class="sr-only">Loading...</span>
                                         </div>
                                     </div>
@@ -70,7 +80,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
         <!-- MAIN  -->
