@@ -12,7 +12,7 @@
     <body onload="onLoad()">
         <?php include get_path('partials', 'navbar.php'); ?>
         <!-- MAIN (FORM) -->
-        <div class="container-xl main" id="main">
+        <div class="container-xl main" id="main" hidden>
             <div class="row m-3 mt-0 center-block order border-2 rounded p-3 shadow">
 
                 <div class="row pb-3 g-3">

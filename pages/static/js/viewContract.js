@@ -6,10 +6,13 @@ function setQRCode(id) {
     req.onreadystatechange = function () {
 
         if (this.status === 200 && this.readyState === 4) {
-
+            document.getElementById("main").hidden = false;
             let QRCode = this.responseText;
             document.getElementById('QRCode').innerHTML = QRCode;
             prepareDownloadSVG(id);
+        } else if (this.readyState === 4) {
+            alert("Le contrat spécifié n'existe pas / plus");
+            window.location.href = "/";
         }
     }
 }
