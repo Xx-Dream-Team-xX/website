@@ -14,9 +14,9 @@
             <div class="row p-2">
                 <div class="col d-flex justify-content-center">
                 <?php if (getPermissions() === User::GESTIONNAIRE) {?>
-                    <a class="btn btn-primary" href="/inscription" role="button">Ajouter un assuré</a>
+                    <a class="btn btn-success" href="/inscription" role="button">Ajouter un assuré</a>
                 <?php } else if (getPermissions() === User::ADMIN) {?>
-                    <a class="btn btn-primary" href="/creation" role="button">Générer un utilisateur</a>
+                    <a class="btn btn-success" href="/creation" role="button">Générer un utilisateur</a>
                 <?php }?>
                 </div>
             </div>
