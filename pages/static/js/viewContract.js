@@ -9,11 +9,29 @@ function setQRCode(id) {
 
             let QRCode = this.responseText;
             document.getElementById('QRCode').innerHTML = QRCode;
+            prepareDownloadSVG(id);
         }
     }
 }
 
 function onLoad() {
-
     setQRCode(getTarget('/viewcontrat/'));
+}
+
+function toggleModal() {
+    let m = document.getElementById("modal");
+    if (m.classList.contains("show")) {
+        m.classList.remove("show");
+        m.setAttribute("style", "display: none;");
+    } else {
+        m.classList.add("show");
+        m.setAttribute("style", "display: block;");
+    }
+}
+
+function prepareDownloadSVG(id) {
+    let el = document.getElementById("QRCode").outerHTML;
+    var url = URL.createObjectURL(new Blob([el], {type:"image/svg+xml;charset=utf-8"}));
+    document.getElementById("dlsvg").href = url;
+    document.getElementById("dlsvg").download = id + ".svg";
 }
