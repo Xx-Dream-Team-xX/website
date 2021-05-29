@@ -6,7 +6,6 @@ use chillerlan\QRCode\QROptions;
 function generateQr(string $text, bool $send = false) {
     try {
         $options = new QROptions(array(
-            'version' => 7,
             'outputType' => QRCode::OUTPUT_MARKUP_SVG,
             'imageBase64' => false,
             'eccLevel' => QRCode::ECC_L,
