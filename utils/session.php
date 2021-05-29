@@ -48,7 +48,7 @@
      * @return string
      */
     function getIP() {
-        return $_SERVER['REMOTE_ADDR'];
+        return SETTINGS['proxy'] ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
     }
 
     /**
