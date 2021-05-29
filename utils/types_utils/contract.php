@@ -92,7 +92,7 @@ class Contract {
             $this->setVCat($rawContract['category']);
             $this->manufacturer = $rawContract['manufacturer'];
             if (isset($rawContract['terVal'])) {
-                $this->territoryValidity = $this->setTerVal($rawContract['terVal']);
+                $this->setTerVal($rawContract['terVal']);
             }
         } else {
             throw new Exception('Contract given is missing some informations', self::ARRAYERROR);
@@ -121,7 +121,7 @@ class Contract {
             'countryCode' => $this->countryCode,
             'category' => $this->category,
             'manufacturer' => $this->manufacturer,
-            'terVal' => $this->territoryValidity
+            'terVal' => $this->territoryValidity,
         );
     }
 
@@ -155,7 +155,7 @@ class Contract {
     public function setTerVal(array $terVal) {
         foreach ($terVal as $ter => $validity) {
             $ter = strtoupper($ter);
-            if (!in_array($terVal, array('A', 'B', 'BG', 'CY', 'CZ', 'D', 'DK', 'E', 'EST', 'F', 'FIN', 'GB', 'GR', 'H', 'HR', 'I', 'IRL', 'IS', 'L', 'LT', 'LV', 'M', 'N', 'NL', 'P', 'PL', 'RO', 'S', 'SK', 'SLO', 'CH', 'AL', 'AND', 'AZ', 'BIH', 'BY', 'IL', 'IR', 'MA', 'MD', 'MK', 'MNE', 'RUS', 'SRB', 'TN', 'TR', 'UA'))) {
+            if (!in_array($ter, array('A', 'B', 'BG', 'CY', 'CZ', 'D', 'DK', 'E', 'EST', 'F', 'FIN', 'GB', 'GR', 'H', 'HR', 'I', 'IRL', 'IS', 'L', 'LT', 'LV', 'M', 'N', 'NL', 'P', 'PL', 'RO', 'S', 'SK', 'SLO', 'CH', 'AL', 'AND', 'AZ', 'BIH', 'BY', 'IL', 'IR', 'MA', 'MD', 'MK', 'MNE', 'RUS', 'SRB', 'TN', 'TR', 'UA'))) {
                 $this->territoryValidity = $terVal;
 
                 return false;
