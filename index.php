@@ -44,7 +44,7 @@
     Router::add('constater', get_path('views', 'newSinistre.php'));
     Router::add('sinistre', get_path('views', 'viewSinistre.php'));
 
-    Router::add('viewcontrat', get_path('views', 'viewcontrat.php'));
+    Router::add('view', get_path('views', 'viewcontrat.php'));
 
     Router::add('me', get_path('views', 'me.php'));
     Router::add('verifications', get_path('views', 'verification.php'));
