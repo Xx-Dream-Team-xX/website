@@ -46,6 +46,7 @@
                 }
                 $this->phone = $rawAssur['phone'];
                 $this->name = $rawAssur['name'];
+                $this->logoPath = $rawAssur['logoPath'];
             } else {
                 throw new Exception("Array passed doesn't represent an Assurance", 1);
             }
