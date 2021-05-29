@@ -14,7 +14,7 @@
         <!-- MAIN (FORM) -->
         <div class="container-xl main" id="main">
             <div class="row m-3 mt-0 center-block order border-2 rounded p-3 shadow">
-                <form class="needs-validation" id="sinistre" action="javascript:;" onsubmit="sendContrat(this);" accept-charset="utf-8" novalidate>
+                <form class="needs-validation" id="sinistre" action="javascript:;" onsubmit="return(sendContrat(this));" accept-charset="utf-8" novalidate>
                     <div class="row g-3 p-3 mt-3">
                         <label for="contrat" class="form-label">
                             <h4>Contrat</h4>
@@ -26,22 +26,23 @@
                     <div class="row pb-3 g-3">
                         <div class="row pb-3 g-3">
                             <p class="h6 mb-0 py-1 text-dark">N° de contrat</p>
-                            <input type="text" class="form-control p-1" name="id" id="id">
+                            <input type="text" class="form-control p-1" placeholder="1234567890" name="id" id="id" required>
                         </div>
                         <h5>Validité</h5>
                         <div class="col-sm-6">
                             <p class="h6 mb-0 py-1 text-dark">Debut</p>
-                            <input type="date" class="form-control p-1" name="start" id="start">
+                            <input type="date" class="form-control p-1" name="start" id="start" required>
                         </div>
                         <div class="col-sm-6">
                             <p class="h6 mb-0 py-1 text-dark">Fin</p>
-                            <input type="date" class="form-control  p-1" name="end" id="end">
+                            <input type="date" class="form-control  p-1" name="end" id="end" required>
                         </div>
                     </div>
                     <div class="row g-3">
                         <div class="col-sm-6">
                             <p class="h5 mb-0 py-1 text-dark">Immatriculation</p>
-                            <input class="form-control  p-1" name="vID" id="vID">
+                            <input class="form-control  p-1" name="vID" id="vID" placeholder="AA-123-BB" onkeyup="checkImmat();" required>
+                            <div id='ImmatHelpBlock' class='form-text is-invalid'></div>
                         </div>
                         <div class="col-sm-6  ">
                             <p class="h5 mb-0 py-1 text-dark">Category</p>
@@ -58,11 +59,11 @@
                         </div>
                         <div class="col-sm-6  ">
                             <p class="h5 mb-0 py-1 text-dark">Pays</p>
-                            <input class="form-control  p-1" name="countryCode" id="countryCode">
+                            <input class="form-control  p-1" name="countryCode" id="countryCode" required>
                         </div>
                         <div class="col-sm-6  ">
                             <p class="h5 mb-0 py-1 text-dark">Marque</p>
-                            <input type="text" class="form-control  p-1" name="manufacturer" id="manufacturer">
+                            <input type="text" class="form-control  p-1" name="manufacturer" id="manufacturer" required>
 
                         </div>
                     </div>
