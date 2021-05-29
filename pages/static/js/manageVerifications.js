@@ -85,6 +85,7 @@ function showVerification(id) {
 
     if (found) {
         if (loadedid) clearInterval(loadedid);
+        document.getElementById("show_current").hidden = (found.status !== 0)
         toggleModal();
         chosen = found.id;
         for ([k,e] of Object.entries(found.content.raw)) {
@@ -124,8 +125,8 @@ function getData() {
     let r = new XMLHttpRequest();
     r.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            addVerificationsToTable(JSON.parse(this.responseText));
             TEMP = JSON.parse(this.responseText);
+            sortby("mod");
         }
     }
     r.open("POST", "/verification/list", true);
