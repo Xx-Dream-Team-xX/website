@@ -1,5 +1,12 @@
 /* Small devices (landscape phones, 576px and up) */
 @media (max-width: 576px) {
+    .small-break-shrink {
+        max-width: 15vw !important;
+    }
+
+    .small-break-remove-margins {
+        margin: 0px !important;
+    }
 }
 
 /* Medium devices (tablets, 768px and up) */
