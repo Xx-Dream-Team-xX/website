@@ -81,18 +81,15 @@
                     <input type="text" class="form-control" id="inputAddress" name="Address" placeholder="Address.."
                         onkeyup="check(this, 'street', 'Adresse incorrecte')">
                 </div>
-                <div class="col-sm-6">
-                    <label for="inputCodePostal" class="form-label">Code Postal</label>
-                    <input type="number" class="form-control" id="inputCodePostal" name="CodePostal"
-                        onkeyup="check(this, 'zip', 'Mauvais code postal')">
-                </div>
             </div>
-            <div id='errors' class='form-text is-invalid'></div>
+
+            <div id='error' class='form-text is-invalid' hidden>Veuillez vérifier les formats</div>
+
             <div class="row g-3">
                 <div class="col-sm-6 mb-3" style="margin-top: 30px">
-                    <button disabled onclick="addAssures()" type="button" class="btn btn-primary" name="signin"
+                    <button disabled onclick="create()" type="button" class="btn btn-primary" name="signin"
                         id="addbutton">Créer un compte</button>
-                    <a href="/gestionnaire" class="btn btn-primary" role="button">Annuler</a>
+                    <a href="/admin" class="btn btn-primary" role="button">Annuler</a>
                 </div>
             </div>
         </form>

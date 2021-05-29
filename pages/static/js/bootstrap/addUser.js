@@ -13,14 +13,31 @@ function create() {
 
     r.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            addUsersToTable(JSON.parse(this.responseText));
-            TEMP = JSON.parse(this.responseText);
+            r = JSON.parse(this.responseText);
+            if (r.success) {
+                document.getElementById("new_mail").value = document.getElementById("mail").value;
+                document.getElementById("new_password").value = r.password;
+            } else {
+                document.getElementById("error").hidden = false;
+            }
         }
     }
+
     r.open("POST", "/auth/register", true);
     r.send();
 }
 
 function loadAssurances() {
-    document.getElementById("assurances");
+    let ass = document.getElementById("assurances");
+    let r = new XMLHttpRequest();
+    r.open("GET", '/assurance/list');
+    r.send();
+    r.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            r = JSON.parse(this.responseText);
+            r.forEach(a => {
+                ass.innerHTML += `<option value="${a.id}">${a.name}</option>`;
+            });
+        }
+    }
 }
