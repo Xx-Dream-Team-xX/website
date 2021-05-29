@@ -35,9 +35,9 @@
         /**
          * builds an assurance
          *
-         * @param [type] $rawAssur
+         * @param array $rawAssur
          */
-        public function __construct($rawAssur) {
+        public function __construct(array $rawAssur) {
             if (isset($rawAssur['name'],$rawAssur['phone'])) {
                 if (isset($rawAssur['id'])) {
                     $this->id = $rawAssur['id'];
