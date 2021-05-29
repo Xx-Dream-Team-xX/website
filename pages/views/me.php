@@ -111,7 +111,7 @@
             <div class="row p-1">
                 <div class="col-sm-6">
                     <label class="form-label" for="files">Choisir des justificatifs</label>
-                    <input type="file" class="form-control" id="files">
+                    <input type="file" class="form-control" id="files" multiple>
                 </div>
             </div>
 
