@@ -9,7 +9,7 @@
 <?php if(isLoggedIn()) : ?>
 <div class="navbar navbar-expand-lg">
     <div class="navbar_left">
-        <a href="/"><img class="navlogo " src="/static/images/logo.png" alt="logo"></a>
+        <a href="/"><img class="navlogo small-break-shrink" src="/static/images/logo.png" alt="logo"></a>
         <a class="navtitle hidden-mobile" id="title" href="/"><?php echo SETTINGS['name']; ?></a>
     </div>
     
@@ -21,16 +21,16 @@
     <div class="buttons d-flex align-items-center">
         <div class="notifications d-flex justify-content-end align-items-center">
             <span onclick="ouvrirModal()" class="modalbtn">
-                <span class="material-icons nav-btn">notifications</span>
+                <span class="material-icons nav-btn small-break-remove-margins">notifications</span>
                 <div id="notif-led" class="notif-dot"></div>
             </span>
         </div>
         <div class="profile">
-            <span onclick="dropdown_fnc('drop_profile')" class="dropbtn nav-btn">
+            <span onclick="dropdown_fnc('drop_profile')" class="dropbtn nav-btn small-break-remove-margins">
                 <span class="material-icons">account_circle</span>
                 <span class="userbtn_txt"><?php echo $_SESSION['user']['last_name']?></span>
             </span>
-            <div id="drop_profile" class="drop-content">
+            <div id="drop_profile" class="drop-content small-break-remove-margins">
                 <div class="drop_item">
                     <a href="/messages"><span class="material-icons">chat</span>Messages</a>
                 </div>

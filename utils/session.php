@@ -79,6 +79,16 @@
     }
 
     /**
+     * Shows error page content
+     *
+     * @return void
+     */
+    function permissionLanding() {
+        render(get_path("views", "error.php"));
+        exit();
+    }
+
+    /**
      * Redirects if not allowed
      *
      * @param int $p Required minimum permission level
@@ -86,8 +96,7 @@
      */
     function onlyForMin(int $p) {
         if (getPermissions() < $p) {
-            header('Location: /');
-            die();
+            permissionLanding();
         }
     }
 
@@ -99,8 +108,7 @@
      */
     function onlyFor(int $p) {
         if (getPermissions() !== $p) {
-            header('Location: /');
-            die();
+            permissionLanding();
         }
     }
 
