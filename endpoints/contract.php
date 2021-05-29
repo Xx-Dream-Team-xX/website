@@ -5,9 +5,23 @@
      */
     include_once get_path('utils', 'types_utils/users.php');
     include_once get_path('utils', 'types_utils/contract.php');
+    include_once get_path('utils', 'qrcode.php');
     include_once get_path('utils', 'forms.php');
 
     switch (get_final_point()) {
+        case 'getQRCode':
+            if (isset($_POST['id']) && false !== $contract = DB::getFromID(get_path('database', 'contracts.json'), $_POST['id'])) {
+                generateQr(SETTINGS['url'] . 'viewcontrat/' . $_POST['id'], $send = true);
+
+                break;
+            }
+                http_response_code(400);
+                send_json(array(
+                    'success' => false,
+                    'error' => 'No contract specified or not found',
+                ));
+
+            break;
         case 'get':
 
             if (!isset($_POST['id'])) {

@@ -82,6 +82,7 @@ function updateSinistre(select) {
     req.onreadystatechange = function () {
         if (this.status === 200 && this.readyState === 4) {
             let sinistre = JSON.parse(this.responseText);
+            document.getElementById('injured_list').innerHTML = '';
             displaySinistre(sinistre)
         }
     }

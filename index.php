@@ -46,6 +46,8 @@
     Router::add('newsinistre', get_path('views', 'newSinistre.php'));
     Router::add('viewsinistre', get_path('views', 'viewSinistre.php'));
 
+    Router::add('viewcontrat', get_path('views', 'viewcontrat.php'));
+
     Router::add('me', get_path('views', 'me.php'));
     Router::add('verifications', get_path('views', 'verification.php'));
 
