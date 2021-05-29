@@ -91,9 +91,10 @@
                 if (isset($_POST['id'], $_POST['content']) && (strlen(trim($_POST["content"])) > 0)) {
 
                     $c = DB::getFromID(get_path('database', 'conversations.json'), $_POST['id']);
-                    $user = getUpdatedUser();
 
                     if ($c && ($c = new Conversation($c))) {
+
+                        $user = getUpdatedUser();
 
                         if (!in_array(getID(), $c->getPeople())) return;
 
@@ -143,18 +144,12 @@
                             )))->getAll()
                         ));
 
-                        // if (checkUploadedFiles()) {
-                        //     $files = saveUploadedFiles();
-                        // } else {
-                        //     $files = [];
-                        // }
 
                         DB::setObject(get_path("database", "conversations.json"), $c->getAll(), true);
 
                         DB::setObject($c->getPath(), (new Message(array(
                             'sender' => getID(),
                             'content' => $_POST['content'],
-                            // 'files' => $files
                         )))->getAll(), true);
 
                         messageNotification($user, $c->getPeople(), $c->getID());
