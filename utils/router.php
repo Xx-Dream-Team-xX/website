@@ -27,14 +27,12 @@
          * @param string $path       URL (or regex)
          * @param string $target     Destination
          * @param bool   $regex      Self explanatory
-         * @param int    $permission Required permission level
          * @param bool   $wildcard   Keeps or not the original request path (minus the first endpoint). ex: /a/b/c.d => /new/c.d
          */
-        public static function add(string $path, string $target, bool $regex = false, int $permission = 0, bool $wildcard = false) {
+        public static function add(string $path, string $target, bool $regex = false, bool $wildcard = false) {
             array_push(self::$routes, array(
                 'path' => $regex ? $path : "/^{$path}$/",
                 'target' => $target,
-                'permission' => $permission,
                 'wildcard' => $wildcard,
             ));
         }
