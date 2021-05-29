@@ -58,3 +58,7 @@ input::placeholder {
     cursor: pointer;
 }
 
+.smol {
+  max-height: 100px;
+  max-width: 100px;
+}
