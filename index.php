@@ -19,7 +19,7 @@
 
     Router::add('static', get_path('static'), false, true);
 
-    Router::add('useruploadedcontent', get_path('database', 'uploads/'), false, true);
+    Router::add('useruploadedcontent', get_path('database', 'uploads/'), false, true, true);
 
     Router::add('tests', get_path('views', 'tests/'), false, true);
 

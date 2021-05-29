@@ -28,12 +28,14 @@
          * @param string $target     Destination
          * @param bool   $regex      Self explanatory
          * @param bool   $wildcard   Keeps or not the original request path (minus the first endpoint). ex: /a/b/c.d => /new/c.d
+         * @param bool   $sandbox    If true, reads file, not executing it
          */
-        public static function add(string $path, string $target, bool $regex = false, bool $wildcard = false) {
+        public static function add(string $path, string $target, bool $regex = false, bool $wildcard = false, bool $sandbox = false) {
             array_push(self::$routes, array(
                 'path' => $regex ? $path : "/^{$path}$/",
                 'target' => $target,
                 'wildcard' => $wildcard,
+                'sandbox' => $sandbox
             ));
         }
 
@@ -56,9 +58,9 @@
             foreach (self::$routes as $route) {
                 if (preg_match($route['path'], $path[0])) {
                     if ($route['wildcard']) {
-                        render($route['target'] . implode('/', array_slice($path, 1)));
+                        render($route['target'] . implode('/', array_slice($path, 1)), $route['sandbox']);
                     } else {
-                        render($route['target']);
+                        render($route['target'], $route['sandbox']);
                     }
                     $found = true;
                 }
@@ -83,9 +85,10 @@
     /**
      * Includes a file if it exists, errors otherwise.
      *
-     * @param [type] $path
+     * @param string $path     File path
+     * @param bool   $sandbox  Sandbox mode
      */
-    function render(string $path) {
+    function render(string $path, bool $sandbox = false) {
         if (is_file($path)) {
 
             switch (pathinfo($path)["extension"]) {
@@ -94,11 +97,14 @@
                     break;
                 case 'html':
                 case 'php':
-                case 'txt':
                 case 'js':
                     header('Content-type: text/html');
                     break;
+                case 'txt':
+                    header('Content-type: text/plain');
+                    break;
                 case 'mp3':
+                case 'wav':
                     header('Content-type: audio/mp3');
                     break;
                 case 'png':
@@ -121,7 +127,11 @@
                     break;
             }
             session_start();
-            include $path;
+            if ($sandbox) {
+                readfile($path);
+            } else {
+                include $path;
+            }
         } else {
             notfound();
         }
