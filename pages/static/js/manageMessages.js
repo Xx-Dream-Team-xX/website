@@ -308,7 +308,6 @@ function addSenderMessage(id, sender, content, files, timestamp) {
     if (files) {
         d7 = document.createElement('ul');
         d7.classList.add("mb-0")
-        d7.classList.add("mt-2")
         files.forEach((f) => {
             d7.innerHTML += `<li><a class="text-dark small" target="_blank" href="/useruploadedcontent/${f}">${f}</a></li>\n`;
         });
@@ -346,7 +345,6 @@ function addReveiverMessage(id, sender, content, files, timestamp) {
     if (files) {
         d7 = document.createElement('ul');
         d7.classList.add("mb-0")
-        d7.classList.add("mt-2")
         files.forEach((f) => {
             d7.innerHTML += `<li><a class="text-white small" target="_blank" href="/useruploadedcontent/${f}">${f}</a></li>\n`;
         });
@@ -383,6 +381,7 @@ function sendMessage(id, content, files) {
                 requestMessagesList();
                 requestMessages(id);
                 document.getElementById("content").value = "";
+                document.getElementById("files").value = null;
             }
         }
     }
