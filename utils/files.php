@@ -64,7 +64,7 @@
         ];
 
         $used = [];
-        if (in_array($type, $available)) {
+        if (isset($available[$type])) {
             $used = $available[$type];
         } else if ($type === "any") {
             foreach ($available as $i => $a) {
