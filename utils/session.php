@@ -116,7 +116,7 @@
                 break;
             case User::ASSURE:
                 $filter = function($u) {
-                    return (User::GESTIONNAIRE === $u['type']) && ($u['assurance'] === $_SESSION['user']['assurance']);
+                    return (User::GESTIONNAIRE === $u['type']) && ($u['id'] === $_SESSION['user']['rep']);
                 };
                 $map = function($u) {
                     return array(
