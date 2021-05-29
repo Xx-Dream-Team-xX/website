@@ -206,9 +206,13 @@
                         if (!in_array(getID(), $c->getPeople())) return;
 
                         $user = User::createUserByType($user);
-                        $user->removeConversation($c->getID());
 
-                        DB::setObject(get_path("database", "users.json"), $user->getAll());
+                        if (in_array($_POST['id'], $user->getConversations())) {
+                            $user->removeConversation($c->getID());
+
+                            DB::setObject(get_path("database", "users.json"), $user->getAll());
+                        }
+                        
                         return send_json(DB::getAll($c->getPath()));
                     }
                 }
