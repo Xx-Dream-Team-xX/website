@@ -35,6 +35,7 @@
     Router::add('verification', get_path('api', 'verification.php'));
 
     Router::add('messages', get_path('views', 'chat.php'));
+    Router::add('tickets', get_path('views', 'ticket.php'));
 
     Router::add('gestionnaire', get_path('views', 'gestionnaire.php'));
     Router::add('inscription', get_path('views', 'addAssure.php'));
