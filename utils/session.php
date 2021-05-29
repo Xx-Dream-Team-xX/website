@@ -81,11 +81,24 @@
     /**
      * Redirects if not allowed
      *
+     * @param int $p Required minimum permission level
+     * @return void
+     */
+    function onlyForMin(int $p) {
+        if (getPermissions() < $p) {
+            header('Location: /');
+            die();
+        }
+    }
+
+    /**
+     * Redirects if not allowed
+     *
      * @param int $p Required permission level
      * @return void
      */
     function onlyFor(int $p) {
-        if (getPermissions() < $p) {
+        if (getPermissions() !== $p) {
             header('Location: /');
             die();
         }
