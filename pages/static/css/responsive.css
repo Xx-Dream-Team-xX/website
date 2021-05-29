@@ -7,6 +7,13 @@
     .small-break-remove-margins {
         margin: 0px !important;
     }
+
+    .small-break-text-sm {
+        font-size: 7vw!important;
+    }
+    .small-break-text-md {
+        font-size: 11vw!important;
+    }
 }
 
 /* Medium devices (tablets, 768px and up) */
