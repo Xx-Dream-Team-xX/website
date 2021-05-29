@@ -1,4 +1,4 @@
-<?php onlyForMin(User::ASSURE)?>
+<?php onlyForMin(User::ASSURE);?>
 
 <!DOCTYPE html>
 <html>
