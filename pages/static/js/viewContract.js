@@ -18,7 +18,7 @@ function setQRCode(id) {
 }
 
 function onLoad() {
-    setQRCode(getTarget('/viewcontrat/'));
+    setQRCode(getTarget('/view/'));
 }
 
 function toggleModal() {
@@ -34,7 +34,7 @@ function toggleModal() {
 
 function prepareDownloadSVG(id) {
     let el = document.getElementById("QRCode").outerHTML;
-    var url = URL.createObjectURL(new Blob([el], {type:"image/svg+xml;charset=utf-8"}));
+    var url = URL.createObjectURL(new Blob([el], { type: "image/svg+xml;charset=utf-8" }));
     document.getElementById("dlsvg").href = url;
     document.getElementById("dlsvg").download = id + ".svg";
 }
