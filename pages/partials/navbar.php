@@ -7,46 +7,43 @@
 </script>
 <!-- logged in -->
 <?php if(isLoggedIn()) : ?>
-<div class="navbar navbar-expand-lg">
-    <div class="navbar_left">
-        <a href="/"><img class="navlogo small-break-shrink" src="/static/images/logo.png" alt="logo"></a>
-        <a class="navtitle hidden-mobile" id="title" href="/"><?php echo SETTINGS['name']; ?></a>
-    </div>
-    
-    <nav class="nav_options">
-        <div class="nav_links" id="links">
-            
+<nav class="navbar navbar-expand-lg">
+	<div class="container-fluid p-0">
+		<div class="navbar-left navbar-brand px-3">
+                <img src="/static/images/logo.png" alt="logo" class="d-inline-block align-text-top navlogo small-break-shrink">
+                <a class="navtitle hidden-mobile" id="title" href="/"><?php echo SETTINGS['name']; ?></a> 
         </div>
-    </nav>
-    <div class="buttons d-flex align-items-center">
-        <div class="notifications d-flex justify-content-end align-items-center">
-            <span onclick="ouvrirModal()" class="modalbtn">
-                <span class="material-icons nav-btn small-break-remove-margins">notifications</span>
-                <div id="notif-led" class="notif-dot"></div>
-            </span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02">
+            <span class="material-icons nav-btn"><i class="bi bi-list"></i></span>
+		</button>
+		<div class="collapse navbar-collapse p-2" id="navbarTogglerDemo02">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link nav-btn" href="/messages"><span class="material-icons"></span>Messages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-btn" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-btn disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
+                <li class="nav-item">
+                    <div class="buttons d-flex align-items-center">
+                        <span onclick="ouvrirModal()" class="modalbtn">
+                            <span class="material-icons nav-btn">notifications</span>
+                            <div id="notif-led" class="notif-dot"></div>
+                        </span>
+                        <!--<span onclick="dropdown_fnc('drop_profile')" class="dropbtn nav-btn small-break-remove-margins">-->
+                        <span class="dropbtn nav-btn small-break-remove-margins">
+                            <span class="material-icons">account_circle</span>
+                            <span class="userbtn_txt"><?php echo $_SESSION['user']['last_name']?></span>
+                        </span>
+                    </div>
+                </li>
+            </ul>
         </div>
-        <div class="profile">
-            <span onclick="dropdown_fnc('drop_profile')" class="dropbtn nav-btn small-break-remove-margins">
-                <span class="material-icons">account_circle</span>
-                <span class="userbtn_txt"><?php echo $_SESSION['user']['last_name']?></span>
-            </span>
-            <div id="drop_profile" class="drop-content small-break-remove-margins">
-                <div class="drop_item">
-                    <a href="/messages"><span class="material-icons">chat</span>Messages</a>
-                </div>
-                <div class="drop_item">
-                    <a href="/me"><span class="material-icons">settings</span>Paramètres</a>
-                </div>
-                <div class="drop_item">
-                <a href="/" onclick="logout()"><span class="material-icons">logout</span>Se déconnecter</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--<a class="nav_ep" id="logoutButton" role="button" onclick='logout();'>
-        <button>Logout</button>
-    </a>-->
-</div>
+	</div>
+</nav>
 
 <div id="modal_notif" class="modal">
     <div class="modal-content">
