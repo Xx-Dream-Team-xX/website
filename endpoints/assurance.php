@@ -51,7 +51,7 @@
                 DB::setObject(get_path('database', 'assurances.json'), $ass->getAll(), true);
 
                 send_json($ass->getAll());
-                $_SERVER['logger']->log(3, whois() . "Ajout d'une nouvelle assurance " . $ass['name']);
+                $_SERVER['logger']->log(3, whois() . "Ajout d'une nouvelle assurance " . $ass->getAll()['name']);
             }
 
             break;

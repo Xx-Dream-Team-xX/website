@@ -76,6 +76,7 @@
 
                 <button class="btn btn-success m-2 mt-3 p-2" onclick="toggleModal()">Voir mon Code QR</button>
                 <?php if (getPermissions() === User::GESTIONNAIRE) echo '<button class="btn btn-primary m-2 mt-3 p-2" onclick="edit()" id="edit" hidden>Modifier ce contrat</button>';?>
+                <?php if (getPermissions() === User::GESTIONNAIRE) echo '<button class="btn btn-primary m-2 mt-3 p-2" onclick="javascript:window.location.href = `/addcontrat`;">Créer un nouveau contrat</button>';?>
 
                 <div class="modal fade" id="modal" tabindex="-1" role="dialog">
                     <div class="modal-dialog modal-xl d-flex justify-content-center" role="document">
