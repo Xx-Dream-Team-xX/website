@@ -14,15 +14,15 @@
             <div class="row p-5">
                 <div class="col d-flex justify-content-center">
                 <?php if (getPermissions() === User::GESTIONNAIRE) {?>
-                    <a class="btn btn-success" href="/inscription" role="button">Ajouter un assuré</a>
+                    <a class="btn btn-success grow grow-1" href="/inscription" role="button">Ajouter un assuré</a>
                 <?php } else if (getPermissions() === User::ADMIN) {?>
-                    <a class="btn btn-success" href="/creation" role="button">Générer un utilisateur</a>
+                    <a class="btn btn-success grow grow-1" href="/creation" role="button">Générer un utilisateur</a>
                 <?php } else {?>
-                    <a class="btn btn-danger" href="/contact" role="button">Retour</a>
+                    <a class="btn btn-danger grow grow-1" href="/contact" role="button">Retour</a>
                 <?php }?>
                 </div>
                 <div class="col" id="search">
-                    <input type="text" id="filter" class="form-group" placeholder="Rechercher" onkeyup="filterTable()">
+                    <input type="text" id="filter" class="form-control" placeholder="Rechercher" onkeyup="filterTable()">
                 </div>
             </div>
             <div class="row p-2">
