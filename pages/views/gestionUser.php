@@ -18,13 +18,16 @@
             <div class="table-responsive p-2">
                 <div id="tables">
                 </div>
-                <div id="contrats_info">
+                <div id="contrats_info" hidden>
+                    <h6>Contrats de l'utilisateur</h6>
                     <div id="contrats"></div>
                 </div>
-                <div id="sinistres_info">
+                <div id="sinistres_info" hidden>
+                    <h6>Sinistres de l'utilisateur</h6>
                     <div id="sinistres"></div>
                 </div>
-                <div id="declarations_info">
+                <div id="declarations_info" hidden>
+                    <h6>Déclarations de vente l'utilisateur</h6>
                     <div id="declarations"></div>
                 </div>
             </div>
