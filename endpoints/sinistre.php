@@ -154,7 +154,7 @@
 
                         $g = DB::getFromID(get_path("database", "users.json"), $user["rep"]);
                         if ($g && ($g = User::createUserByType($g))) {
-                            $g->pushNotification("Nouveau sinistre", $user["first_name"] . " vient de déclarer un sinistre.", "/sinistre/" . $sinistre["id"]);
+                            $g->pushNotification("Nouveau sinistre", $user["first_name"] . " vient de déclarer un sinistre.", "/sinistres/" . $sinistre["id"]);
                             DB::setObject(get_path("database", "users.json"), $g->getAll());
                         }
                     } catch (Exception $e) {
