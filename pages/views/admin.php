@@ -29,9 +29,9 @@
                 <input type="button" class="btn-check nohover" value="gestionnaire" name="gestionnaire" id="gestionnaire" onclick="gotopage(this)" autocomplete="off">
                 <label class="btn btn-outline-primary" for="gestionnaire">Liste Gestionnaires</label>
                 <input type="button" class="btn-check nohover" value="creation" name="creation" id="creation" onclick="gotopage(this)" autocomplete="off">
-                <label class="btn btn-outline-primary" for="creation">Création utilisateur</label>
+                <label class="btn btn-outline-primary" for="creation">Gestion des Utilisateurs</label>
                 <input type="button" class="btn-check nohover" value="assurances" name="assurances" id="assurances" onclick="gotopage(this)" autocomplete="off">
-                <label class="btn btn-outline-primary" for="assurances">Liste Assurance</label>
+                <label class="btn btn-outline-primary" for="assurances">Gestion des Assurances</label>
                 <input type="button" class="btn-check nohover" value="tickets" name="tickets" id="tickets" onclick="gotopage(this)" autocomplete="off">
                 <label class="btn btn-outline-primary" for="tickets">Tickets</label>
                 <input type="button" class="btn-check nohover" value="config" name="config" id="config" onclick="gotopage(this)" autocomplete="off">
@@ -73,7 +73,7 @@
                     }
                     echo '<spawn class="' . $color . '">' . $spLine;
                 }
-            } elseif (isset($_GET['type']) && 'last' === $_GET['type']) {
+            } else {
                 $file = file($_SERVER['logger']->today_file());
                 for ($i = max(0, count($file) - 30); $i < count($file); ++$i) {
                     echo htmlspecialchars($file[$i]);
@@ -85,7 +85,7 @@
             </div>
             <div class="row g-3 mb-3">
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check nohover" value="last" name="btnradio" id="btnradio1" onclick="updateLogType(this)" autocomplete="off" <?php if (isset($_GET['type']) && 'last' === $_GET['type']) {
+                    <input type="radio" class="btn-check nohover" value="last" name="btnradio" id="btnradio1" onclick="updateLogType(this)" autocomplete="off" <?php if (!isset($_GET['type'])) {
                 echo 'checked';
             }?>>
                     <label class="btn btn-outline-primary" for="btnradio1">Logs (realtime)</label>
@@ -102,8 +102,8 @@
                 </div>
             </div>
             <div class="row g-3 mb-3 text-center">
-                <h5>Legende</h5>
-                <p class="h6 "><span class="text-primary p-3">Accées</span><span class="text-secondary p-3">Basic</span><span class="text-info p-3">Actions</span><span class="text-dark p-3">Admin</span><span class="text-danger p-3">Erreurs</span></p>
+                <h5>Légende</h5>
+                <p class="h6 "><span class="text-primary p-3">Accès</span><span class="text-secondary p-3">Basiques</span><span class="text-info p-3">Actions</span><span class="text-dark p-3">Admin</span><span class="text-danger p-3">Erreurs</span></p>
             </div>
         </div>
 
