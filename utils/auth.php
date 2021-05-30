@@ -224,7 +224,7 @@ class Auth {
      * From https://regexr.com/
      */
     private function checkNameFormat(?string $name) {
-        return preg_match("/^([A-Z][a-z]+([ ]?[a-z]?['-]?[A-Z][a-z]+)*)$/", $name);
+        return preg_match("/.*/", $name);
     }
 
     /**

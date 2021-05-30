@@ -65,7 +65,7 @@ function check(ele, type, error) {
             testValue("(?:0[1-9]|[13-8][0-9]|2[ab1-9]|9[0-5])(?:[0-9]{3})?|9[78][1-9](?:[0-9]{2})?", ele.value, error);
             break;
         case 'name':
-            testValue("^([A-Z][a-z]+([ ]?[a-z]?['-]?[A-Z][a-z]+)*)$", ele.value, error);
+            testValue(".*", ele.value, error);
             break;
         case 'street':
             // Not working, possibly due to \- at end ?
