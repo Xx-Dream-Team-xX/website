@@ -14,3 +14,4 @@ touch data/tickets.json
 touch data/sell.json
 touch data/sinistres.json
 touch data/users.json
+touch data/verifications.json
