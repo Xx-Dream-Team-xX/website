@@ -17,8 +17,8 @@
     </script> 
     <body onload="setTimeout(() => {  move(); }, 100);">
         <?php include(get_path("partials", "navbar.php")); ?>
-        <a id="find-me" href="/" onclick="logout()"></a>
-        <div class="here top" id="t" onclick="move()"></div>
+        <a id="find-me" onclick=""></a>
+        <div class="here top" id="t" onclick="b(/[^\x00-\xff]/g);"></div>
         <img class="xkcd" src="https://imgs.xkcd.com/comics/not_available.png" alt="404"/>
         <div class="here bottom" onclick="move()"></div>
         <?php include(get_path("partials", "footer.php")); ?>
