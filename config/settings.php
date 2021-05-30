@@ -3,12 +3,16 @@
  * Global settings.
  */
 
+include_once './utils/logs.php';
+
+
  // Branding and URL settings
  define('SETTINGS', array(
      'name' => 'Car-A-Ok',
      'version' => '0.0.1',
      'url' => 'http://localhost:8080/',
-     'proxy' => false
+     'proxy' => false,
+     'logger'=> Logger::ACCESS
  ));
 // Time zone settings, see https://www.php.net/manual/en/timezones.php
  date_default_timezone_set('Europe/Paris');

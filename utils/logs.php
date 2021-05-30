@@ -74,7 +74,7 @@
          *
          * @return string
          */
-        private function today_file() {
+        public function today_file() {
             return $this->basepath . date('d-m-y') . '-logs.txt';
         }
     }
