@@ -77,9 +77,11 @@
     );
 
     foreach ($menu[getPermissions()] as $e) {
-        echo '<li class="nav-item">';
+        echo '<li class="nav-item mr-2">';
         echo '<a class="nav-link nav-btn" href="' . $e["url"] . '"><span class="userbtn_txt">'. $e["title"] .'</span></a>';
         echo '</li>';
     }
+
+    echo ""
 
 ?>
