@@ -14,7 +14,7 @@ a, button, span, p {
 }
 
 .navbar-left{
-    display: inline-block;
+    display: flex;
     max-height: 100px;
 }
 

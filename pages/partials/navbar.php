@@ -7,11 +7,11 @@
 </script>
 <!-- logged in -->
 <?php if(isLoggedIn()) : ?>
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-xl">
 	<div class="container-fluid p-0">
 		<div class="navbar-left navbar-brand px-3">
-                <img src="/static/images/logo.png" alt="logo" class="d-inline-block align-text-top navlogo small-break-shrink">
-                <a class="navtitle" id="title" href="/"><?php echo SETTINGS['name']; ?></a> 
+                <a href="/"><img src="/static/images/logo.png" alt="logo" class="d-inline-block align-text-top navlogo small-break-shrink"></a>
+                <a class="navtitle medium-break-font" id="title" href="/"><?php echo SETTINGS['name']; ?></a> 
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02">
             <span class="material-icons nav-btn"><i class="bi bi-list"></i></span>
@@ -23,6 +23,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-btn disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-btn" href="/" onclick="logout()"><span class="material-icons">logout</span>Se déconnecter</a>
                 </li>
                 <li class="nav-item">
                     <div class="buttons d-flex align-items-center">
@@ -38,9 +41,6 @@
                             </span>
                         </a>
                     </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-btn" href="/" onclick="logout()"><span class="material-icons">logout</span>Se déconnecter</a>
                 </li>
             </ul>
         </div>
