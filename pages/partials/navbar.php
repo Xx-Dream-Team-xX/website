@@ -18,16 +18,12 @@
         </button>
         <div class="collapse navbar-collapse p-2 position-break-md" id="navbarTogglerDemo02">
             <ul class="navbar-nav " style="margin-left: auto;">
-                <li class="nav-item">
+                <?php include_once get_path("partials", "menu.php");?>
+                <!-- <li class="nav-item">
                     <a class="nav-link nav-btn" href="/messages"><span class="material-icons">chat</span>
                         <h5 class="nav-link hide-md">Messages</h5>
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-btn" href="/" onclick="logout()"><span class="material-icons">logout</span>
-                        <h5 class="nav-link hide-md">Se déconnecter</h5>
-                    </a>
-                </li>
+                </li> -->
                 <li class="nav-item">
                     <div class="buttons d-flex align-items-center">
                         <span onclick="ouvrirModal()" class="modalbtn">
@@ -42,6 +38,11 @@
                             </span>
                         </a>
                     </div>
+                    <li class="nav-item">
+                    <a class="nav-link nav-btn" href="/" onclick="logout()"><span class="material-icons">logout</span>
+                        <h5 class="nav-link hide-md">Se déconnecter</h5>
+                    </a>
+                </li>
                 </li>
             </ul>
         </div>
