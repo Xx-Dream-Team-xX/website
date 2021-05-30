@@ -95,7 +95,7 @@
         <div class="nav_links" id="links">
         </div>
     </nav>
-    <a class="nav_ep" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+    <a class="nav_ep" id="navbarDropdown" style="margin-left: auto;" role="button" data-bs-toggle="dropdown">
         <button>Login</button>
     </a>
     <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown" id="dropDownLogin">
