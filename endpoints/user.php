@@ -29,6 +29,16 @@
                 if ($t && ($t = User::createUserByType($t))) {
                     switch (getPermissions()) {
                         case User::ASSURE:
+                            if (getID() === $t->getID()) {
+                                $all = $t->getAll();
+                                unset($all['address']);
+                                unset($all['zip_code']);
+                                unset($all['birth']);
+                                unset($all['phone']);
+                                unset($all['mail']);
+                                send_json($all);
+                            }
+                            break;
                         case User::ADMIN:
                         case User::POLICE:
                             send_json($t->getPublic());
