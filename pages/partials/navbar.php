@@ -7,21 +7,21 @@
 </script>
 <!-- logged in -->
 <?php if (isLoggedIn()) { ?>
-<nav class="navbar navbar-expand-md">
+<nav class="navbar navbar-expand-xl">
     <div class="container-fluid p-0">
         <div class="navbar-left navbar-brand px-3">
-            <a href="/"><img src="/static/images/logo.png" alt="logo" class="d-inline-block align-text-top navlogo small-break-shrink grow grow-1"></a>
-            <a class="navtitle medium-break-font grow grow-1" id="title" href="/"><?php echo SETTINGS['name']; ?></a>
+            <a href="/"><img src="/static/images/logo.png" alt="logo" class="d-inline-block align-text-top navlogo small-break-shrink grow grow-2"></a>
+            <a class="navtitle medium-break-font grow grow-2" id="title" href="/"><?php echo SETTINGS['name']; ?></a>
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02">
             <span class="material-icons nav-btn"><i class="bi bi-list"></i></span>
         </button>
-        <div class="collapse navbar-collapse p-2 position-break-md" id="navbarTogglerDemo02">
+        <div class="collapse navbar-collapse p-2 position-break-xl" id="navbarTogglerDemo02">
             <ul class="navbar-nav " style="margin-left: auto;">
                 <?php include_once get_path("partials", "menu.php");?>
                 <!-- <li class="nav-item">
                     <a class="nav-link nav-btn" href="/messages"><span class="material-icons">chat</span>
-                        <h5 class="nav-link hide-md">Messages</h5>
+                        <h5 class="nav-link hide-xl">Messages</h5>
                     </a>
                 </li> -->
                 <li class="nav-item">
@@ -40,7 +40,7 @@
                     </div>
                     <li class="nav-item grow grow-2">
                     <a class="nav-link nav-btn" href="/" onclick="logout()"><span class="material-icons">logout</span>
-                        <h5 class="nav-link hide-md">Se déconnecter</h5>
+                        <h5 class="nav-link hide-xxl">Se déconnecter</h5>
                     </a>
                 </li>
                 </li>
@@ -89,14 +89,14 @@
 <?php } else { ?>
 <div class="navbar navbar-expand-lg p-3">
     <div class="navbar_left">
-        <img class="navlogo" src="/static/images/logo.png" alt="logo">
-        <a class="navtitle hidden-mobile" id="title" href="/"><?php echo SETTINGS['name']; ?></a>
+        <img class="navlogo grow grow-2" src="/static/images/logo.png" alt="logo">
+        <a class="navtitle hidden-mobile grow grow-2" id="title" href="/"><?php echo SETTINGS['name']; ?></a>
     </div>
     <nav class="nav_options">
         <div class="nav_links" id="links">
         </div>
     </nav>
-    <a class="nav_ep" id="navbarDropdown" style="margin-left: auto;" role="button" data-bs-toggle="dropdown">
+    <a class="nav_ep grow grow-5" id="navbarDropdown" style="margin-left: auto;" role="button" data-bs-toggle="dropdown">
         <button>Connexion</button>
     </a>
     <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown" id="dropDownLogin">
