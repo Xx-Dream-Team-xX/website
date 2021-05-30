@@ -18,7 +18,7 @@ function dispContrat(contrat) {
         document.getElementById('manufacturer').value = contrat.manufacturer;
     }
     if (Object.hasOwnProperty.call(contrat, 'terVal')) {
-        document.getElementById('terValList').classList.remove('d-none');
+        document.getElementById('terValContainer').classList.remove('d-none');
         let container = document.createElement('div');
         container.className = "row g-3";
         for (const key in contrat.terVal) {
@@ -47,7 +47,23 @@ function sendDate(formNode) {
             }
         }
     }
+}
 
+function sendTerVal(formNode) {
+    if (formNode.checkValidity()) {
+        let form = new FormData(formNode);
+        let req = new XMLHttpRequest();
+        form.append('id', document.getElementById('contratList').value)
+        req.open("POST", "/contract/setTerVal");
+        req.send(form);
+        req.onreadystatechange = function () {
+
+            if (this.status === 200 && this.readyState === 4) {
+                let contrat = JSON.parse(this.responseText);
+                // window.location.href = `editcontrat/${contrat.id}`
+            }
+        }
+    }
 }
 
 function fillOptionContracts() {
@@ -77,6 +93,7 @@ function querryContrat(id) {
     req.onreadystatechange = function () {
         if (this.status === 200 && this.readyState === 4) {
             let contrat = JSON.parse(this.responseText);
+            showListTerVal()
             dispContrat(contrat);
         } else if (this.readyState === 4) {
         }
@@ -85,6 +102,7 @@ function querryContrat(id) {
 
 function showListTerVal() {
     let container = document.getElementById("terValList");
+    container.innerHTML = "<h5>Validité territoriale</h5>";
     let valList = ['A', 'B', 'BG', 'CY', 'CZ', 'D', 'DK', 'E', 'EST', 'F', 'FIN', 'GB', 'GR', 'H', 'HR', 'I', 'IRL', 'IS', 'L', 'LT', 'LV', 'M', 'N', 'NL', 'P', 'PL', 'RO', 'S', 'SK', 'SLO', 'CH', 'AL', 'AND', 'AZ', 'BIH', 'BY', 'IL', 'IR', 'MA', 'MD', 'MK', 'MNE', 'RUS', 'SRB', 'TN', 'TR', 'UA'];
     valList.forEach(val => {
         let valContainer = document.createElement('div');
@@ -100,6 +118,5 @@ function showListTerVal() {
 function onLoad() {
     let id = getTarget('/editcontrat/');
     fillOptionContracts();
-    showListTerVal();
     querryContrat(id);
 }
