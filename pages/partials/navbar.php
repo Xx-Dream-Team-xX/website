@@ -97,12 +97,12 @@
         </div>
     </nav>
     <a class="nav_ep" id="navbarDropdown" style="margin-left: auto;" role="button" data-bs-toggle="dropdown">
-        <button>Login</button>
+        <button>Connexion</button>
     </a>
     <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown" id="dropDownLogin">
         <form class="form-horizontal" action="javascript:doLogin()" accept-charset="UTF-8" id="loginForm">
             <li><input class="form-control login" type="email" name="email" placeholder="Email.."><br></li>
-            <li><input class="form-control login" type="password" name="password" placeholder="Password.."><br></li>
+            <li><input class="form-control login" type="password" name="password" placeholder="Mot de passe.."><br></li>
             <div id='passwordHelpBlock' class='form-text is-invalid text-danger p-1'></div>
             <li><input class="btn btn-success" type="submit" name="submit" value="Login"></li>
         </form>
