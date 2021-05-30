@@ -187,6 +187,16 @@ function displaySinistre(sinistreData) {
         document.getElementById('garage_email').innerText = sinistreData.garage_email;
     }
     document.getElementById('other_damage').innerText = sinistreData.other_damage;
+
+    if (Object.hasOwnProperty.call(sinistreData, 'files')) {
+        let files = sinistreData.files
+        files.forEach(f => {
+            document.getElementById('documents').innerHTML += `<li><a class="text-dark" target="_blank" href="/useruploadedcontent/${f}">${f}</a></li>\n`;
+        });
+
+    }
+
+
     if (Object.hasOwnProperty.call(sinistreData, 'constat')) {
         document.getElementById('constat_container').classList.remove('d-none');
         let dateConstat = new Date(sinistreData.constat.date * 1000);
@@ -263,10 +273,6 @@ function displaySinistre(sinistreData) {
     if (sinistreData.injureds.length !== 0) {
         displayInjureds(sinistreData);
     }
-
-    sinistreData.files.forEach(f => {
-        document.getElementById('documents').innerHTML += `<li><a class="text-dark" target="_blank" href="/useruploadedcontent/${f}">${f}</a></li>\n`;
-    });
 }
 
 function addInjured(button) {
