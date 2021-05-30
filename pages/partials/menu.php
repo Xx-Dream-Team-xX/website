@@ -8,16 +8,20 @@
                     "url" => "/"
                 ),
                 array(
-                    "title" => "Contrats",
-                    "url" => "/view"
-                ),
-                array(
                     "title" => "Constater",
                     "url" => "/constater"
                 ),
                 array(
+                    "title" => "Contrats",
+                    "url" => "/view"
+                ),
+                array(
                     "title" => "Vendre",
                     "url" => "/declarer"
+                ),
+                array(
+                    "title" => "Historique",
+                    "url" => "/sinistres"
                 ),
                 array(
                     "title" => "Contact",
