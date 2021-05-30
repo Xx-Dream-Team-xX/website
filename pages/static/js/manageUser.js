@@ -16,6 +16,14 @@ function onLoad() {
             addUserToTable(JSON.parse(this.responseText));
         }
     }
+
+    updateMe(() => {
+
+        getContrats(userId);
+        getSinistres(userId);
+        getVentes(userId);
+
+    });
 }
 
 const cols = {
@@ -53,10 +61,6 @@ function show(k, v) {
 }
 
 let TEMP = [];
-let actualsort = {
-    "key": null,
-    "order": 0
-};
 
 function addUserToTable(USER) {
     let table;
@@ -73,6 +77,60 @@ function addUserToTable(USER) {
 
 }
 
-function dorequest(url, data, fct) {
+function dorequest(url, fct) {
+    let r = new XMLHttpRequest();
+    console.log("qfs")
+    r.open("POST", url);
 
+    // if (id) {
+    //     let d = new FormData();
+    //     d.append("id", id);
+    //     r.send(d);
+    // } else {
+    //     r.send()
+    // }
+
+    r.send();
+
+    r.onreadystatechange = function () {
+        if (this.status === 200 && this.readyState === 4) {
+            fct(JSON.parse(this.responseText));
+        }
+    }
+}
+
+function getContrats(id) {
+    {
+        dorequest("/contract/list", (d) => {
+            target = document.getElementById("contrats");
+            document.getElementById("contrats_info").hidden = false;
+            d.forEach((f) => {
+                if (!d.owners || d.owners.includes(id)) target += `<li><a class="text-dark small" target="_blank" href="/view/${f.id}">${f.Vid}</a></li>\n`;
+            });
+        })
+    }
+}
+
+function getSinistres(id) {
+    {
+        dorequest("/sinistre/getList", (d) => {
+            target = document.getElementById("sinistres");
+            document.getElementById("sinistres_info").hidden = false;
+            d.forEach((f) => {
+                if (d.user === id) target += `<li><a class="text-dark small" target="_blank" href="/sinistres/${f.id}">${f.id}</a></li>\n`;
+            });
+        })
+    }
+}
+
+function getVentes(id) {
+    {
+        dorequest("/declarations/list", (d) => {
+            target = document.getElementById("declarations");
+            document.getElementById("declarations_info").hidden = false;
+            d.forEach((f) => {
+                if (d.user === id) target += `<li><a class="text-dark small" target="_blank" href="/declaration/${f.id}">${f.id}</a></li>\n`;
+            });
+        })
+    }
 }
