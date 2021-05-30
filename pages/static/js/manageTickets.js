@@ -40,7 +40,7 @@ function fill(input, data, filter="") {
 
     data = data.sort((a, b) => {
         if (a.featured) {
-            return 1
+            return ((b.featured)*1 - (a.featured)*(1));
         }
         return (a < b)
     })
@@ -65,8 +65,10 @@ const CACHE = {
     "messages": [],
     "actual": [],
     "selected": null,
+    "selected_type": "open",
     "recipients": [],
-    "users": []
+    "users": [],
+    "lastid": null
 };
 
 function getRecipients() {
@@ -82,7 +84,7 @@ function getRecipients() {
             CACHE["recipients"].forEach(u => {
                 getNameFromId(CACHE["users"], u.id);
             });
-            searchRecipients();
+            <?php if (getPermissions() !== User::ADMIN) {?>searchRecipients();<?php }?>
         }
     }
 }
@@ -107,6 +109,13 @@ function requestMessagesList() {
             CACHE["messages"] = JSON.parse(this.responseText).sort((a, b) => {
                 return b["message"].timestamp - a["message"].timestamp
             }) ?? [];
+
+            CACHE["messages"].sort((a, b) => {
+                if (a.type === "open") {
+                    return ((b.type === "open") - (a.type === "open"));
+                }
+            });
+
             if (CACHE['actual'].length === 0) requestMessages(CACHE["selected"] ?? CACHE["messages"][0]["id"]);
             showRecentMessages(CACHE["messages"]);
             
@@ -137,7 +146,7 @@ function requestMessages(id) {
             CACHE["actual"] = JSON.parse(this.responseText) ?? [];
             CACHE["selected"] = id;
             showMessages(CACHE["actual"]);
-            setFakeURL("Conversation", '/ticket/' + id);
+            setFakeURL("Conversation", '/tickets/' + id);
         }
     }
     
@@ -169,7 +178,6 @@ function getMessage(DATA) {
     let mess_files = DATA["files"];
     let mess_time = DATA["timestamp"];
     let timestamp = getDate(mess_time  * 1000);
-    let title = DATA["title"];
 
     // check if sender if me
     if (me["id"] === mess_sender) { 
@@ -187,12 +195,13 @@ function getData(DATA){
     let conv_last_message_files = DATA["message"]["files"];
     let conv_last_message_time = DATA["message"]["timestamp"];
     let conv_last_message_id = DATA["message"]["id"];
-    let unread = DATA["unread"];
+    let conv_title = DATA["title"];
+
     let sender = (DATA["people"]).filter((u) => {return u !== me['id']})[0];
 
     let timestamp = getDate(conv_last_message_time * 1000);
 
-    addConvtoRecent(conv_id, conv_type, conv_participents, conv_last_message_content, sender, conv_last_message_files, timestamp, unread, conv_last_message_id);
+    addConvtoRecent(conv_id, conv_type, conv_participents, conv_last_message_content, sender, conv_last_message_files, timestamp, conv_title, conv_last_message_id);
 }
 
 function getFormatDate(d) {
@@ -224,23 +233,18 @@ function getDate(timestamp) {
     }
 }
 
-function addConvtoRecent(id, type, people, content, sender, files, timestamp, unread, message_id){
+function addConvtoRecent(id, type, people, content, sender, files, timestamp, title, message_id){
     let message_box = document.getElementById("recent");
 
     let a1 = document.createElement('a');
     a1.classList.add("list-group-item", "list-group-item-action", "list-group-item-light", "rounded-0")
-    if (unread) {
-        a1.classList.add("bg-info");
-        if (!CACHE["unreadmessages"].includes(message_id)) {
-            CACHE["unreadmessages"].push(message_id);
-            let audio = new Audio('/static/sound/notification.mp3');
-            audio.play();
-        }
-        
-    };
-    if (id === CACHE["selected"] && unread) {
+
+    if (id === CACHE["selected"] && message_id !== CACHE.lastid) {
+        CACHE.lastid = message_id;
         requestMessages(id);
     }
+
+    if (id === CACHE["selected"]) CACHE["selected_type"] = type;
 
     a1.setAttribute("id", id);
     a1.setAttribute("onclick", "requestMessages(this.id, this)");
@@ -258,24 +262,26 @@ function addConvtoRecent(id, type, people, content, sender, files, timestamp, un
     let h6 = document.createElement('h6');
     h6.classList.add("mb-0");
 
-    getNameFromId(CACHE["users"], sender, (c) => {
-        h6.innerText = (c && c['name']) ? c["name"] : "Utilisateur supprimé";
-    });
+    h6.innerText = ((type === "closed") ? "[Fermé] (" : "") + title + ((type === "closed") ? ")":"");
     
     let s7 = document.createElement('small');
     s7.classList.add("small", "font-weight-bold");
     s7.innerText = timestamp; 
 
-    let p8 = document.createElement('p');
-    p8.classList.add("font-italic", "mb-0", "text-small", "text-dark");
-    p8.innerHTML = content.split("\n")[0];
-    p8.innerHTML += (content.split("\n").length > 2) ? "..." : "";
-    if (files.length > 0) p8.innerHTML += `<br>${files.length} Attachment${(files.length > 1)?"s":""}`;
+    if (type === "open") {
+        let p8 = document.createElement('p');
+        p8.classList.add("font-italic", "mb-0", "text-small", "text-dark");
+        p8.innerHTML = content.split("\n")[0];
+        p8.innerHTML += (content.split("\n").length > 2) ? "..." : "";
+        if (files.length > 0) p8.innerHTML += `<br>${files.length} Attachment${(files.length > 1)?"s":""}`;
+        d4.appendChild(p8);
+
+    }
+    
 
     d5.appendChild(h6);
     d5.appendChild(s7);
     d4.appendChild(d5);
-    d4.appendChild(p8);
     d2.appendChild(d4);
     a1.appendChild(d2);
     message_box.appendChild(a1);
@@ -364,6 +370,19 @@ function prepareMessage() {
 }
 
 function sendMessage(id, content, files) {
+
+    if (CACHE["selected_type"] === "closed") {
+        if (!confirm("Voulez-vous vraiment re-ouvrir ce ticket?")) {
+            return;
+        }
+    }
+
+    <?php if (getPermissions() === User::ADMIN) {?>
+    if ((content.trim() + " ").startsWith("/close ")) {
+        return close(id);
+    }
+    <?php }?>
+
     let r = new XMLHttpRequest();
     let d = new FormData();
 
@@ -371,10 +390,9 @@ function sendMessage(id, content, files) {
     d.append("content", content);
     for (let i = 0; i < files.files.length; i++) {
         d.append("file" + i, files.files[i], files.files[i].name);
-        
     }
 
-    r.open("POST", '/conversation/send');
+    r.open("POST", '/ticket/send');
     r.send(d);
     r.onreadystatechange = function() {
         if (this.status === 200 && this.readyState === 4) {
@@ -391,19 +409,21 @@ function sendMessage(id, content, files) {
 function prepareConversation() {
     let id = document.getElementById("selectUser").value;
     let content = document.getElementById("new_message").value;
-    if (!id || !content) return alert("Veuillez remplir les détails"); 
+    let title = document.getElementById("title").value;
+    if (!id || !content || !title) return alert("Veuillez remplir les détails"); 
     toggleModal();
-    newConversation(id, content)
+    newConversation(id, content, title)
 }
 
-function newConversation(id, content, files) {
+function newConversation(id, content, title) {
     let r = new XMLHttpRequest();
     let d = new FormData();
 
     d.append("recipient", id);
     d.append("content", content);
+    d.append("title", title);
 
-    r.open("POST", '/conversation/new');
+    r.open("POST", '/ticket/new');
     r.send(d);
     r.onreadystatechange = function() {
         if (this.status === 200 && this.readyState === 4) {
@@ -417,4 +437,23 @@ function newConversation(id, content, files) {
     }
 }
 
+function close(id) {
+    let r = new XMLHttpRequest();
+    let d = new FormData();
+
+    d.append("id", id);
+
+    r.open("POST", '/ticket/close');
+    r.send(d);
+    r.onreadystatechange = function() {
+        if (this.status === 200 && this.readyState === 4) {
+            if (JSON.parse(this.responseText)) {
+
+                requestMessagesList();
+                requestMessages(id);
+                document.getElementById("content").value = "";
+            }
+        }
+    }
+}
  

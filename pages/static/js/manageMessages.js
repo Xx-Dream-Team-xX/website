@@ -40,7 +40,7 @@ function fill(input, data, filter="") {
 
     data = data.sort((a, b) => {
         if (a.featured) {
-            return 1
+            return ((b.featured)*1 - (a.featured)*(1));
         }
         return (a < b)
     })

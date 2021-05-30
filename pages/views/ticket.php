@@ -14,6 +14,7 @@
     </head>
     <body onload="onLoad()">
         <!-- Modal -->
+        <?php if(getPermissions() !== User::ADMIN) {?>
         <div class="modal fade" id="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog d-flex justify-content-center" role="document">
                 <div class="modal-content">
@@ -38,6 +39,7 @@
                             <div class="col-sm mb-2">
                                 <label class="form-label">Titre de votre demande</label>
                                 <input for="form-select" class="form-control" type="text" id="title" placeholder="Court, précis, efficace...">
+                            </div>
                         </div>
                         <label class="form-label">Ticket</label>
                         <textarea class="form-control" placeholder="Décrivez votre problème" id="new_message"></textarea>
@@ -49,6 +51,7 @@
                 </div>
             </div>
         </div>
+        <?php }?>
         <!-- NAVBAR -->
         <?php include(get_path('partials', 'navbar.php')); ?>
         <!-- MAIN (FORM) -->
@@ -58,7 +61,7 @@
                 <div class="col-5 px-0 recent">
                     <div class="bg-white">
                         <div class="bg-gray px-4 py-2 bg-light">
-                            <p class="h5 mb-0 py-1 text-dark">Tickets <a class="text-dark" style="font-size: 1.2em" href='javascript:()=>{}' onclick="toggleModal()">+</a></p>
+                            <p class="h5 mb-0 py-1 text-dark">Tickets<?php if (getPermissions() !== User::ADMIN) {?><a class="text-dark" style="font-size: 1.2em" href='javascript:()=>{}' onclick="toggleModal()">+</a><?php }?></p>
                         </div>
 
                         <div class="messages-box">
@@ -81,7 +84,7 @@
                         <div class="input-group d-inline-flex justify-content-between align-items-center p-1">
                             <button id="button-files" type="submit" class="btn btn-link nohover"><i class="bi bi-file-earmark-plus" onclick="toggleFiles()"></i></button>
                             <input class="form-control nohover" type="file" id="files" hidden multiple>
-                            <textarea id="content" type="text" placeholder="Écrire un message" aria-describedby="button-addon2" class="form-control rounded-0 border-0 bg-light nohover"></textarea>
+                            <textarea id="content" type="text" placeholder="Écrire un message<?php if (getPermissions() === User::ADMIN) {?>, pour fermer un ticket, tapez /close<?php }?>" aria-describedby="button-addon2" class="form-control rounded-0 border-0 bg-light nohover"></textarea>
                             <button id="button-send" type="submit" class="btn btn-link" onclick="prepareMessage()"> <i class="bi bi-cursor"></i></button>
                         </div>
                     </form>
