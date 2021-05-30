@@ -14,7 +14,7 @@
         <?php include(get_path('partials','navbar.php'));?> 
         <!-- MAIN (FORM) -->
         <div class="container-xl main">
-            <div class="table-responsive table-dark p-2">
+            <div class="table-responsive p-2">
                 <div id="tables">
                 </div>
             </div>

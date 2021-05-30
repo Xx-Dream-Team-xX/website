@@ -1,4 +1,3 @@
-
 a, button, span, p {
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
@@ -47,6 +46,9 @@ a, button, span, p {
 .navbar-collapse {
     z-index: 3;
     background-color: #081c15;
+    top: 100px;
+    position: fixed;
+    width: inherit;
 }
 
 .navbar-toggler:focus {
@@ -144,4 +146,8 @@ a, button, span, p {
 
 .material-icons {
     font-size: 2em;
+}
+
+a:hover {
+    color: white !important;
 }

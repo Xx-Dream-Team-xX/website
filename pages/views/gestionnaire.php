@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="row p-2">
-                <div class="table table-responsive-xl table-dark">
+                <div class="table table-responsive-xl">
                     <div id="tables">
                     </div>
                 </div>

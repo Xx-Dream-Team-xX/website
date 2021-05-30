@@ -33,16 +33,35 @@
     .small-break-container {
         width: calc(100% - 100px) !important;
     }
+    .position-break-md {
+        position: inherit;
+    }
+    .hide-md {
+        display: none !important;
+    }
 }
 
 /* Large devices (desktops, 992px and up) */
-@media (max-width: 992px) {
-
+@media (min-width: 1200px) {
+    .position-break-lg {
+        position: inherit;
+    }
+    .hide-lg {
+        display: none !important;
+    }
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (max-width: 1200px) {
+}
 
+@media (min-width: 1200px) {
+    .position-break-xl {
+        position: inherit;
+    }
+    .hide-xl {
+        display: none !important;
+    }
 }
 
 @media only screen and (max-width: 1191px) {
