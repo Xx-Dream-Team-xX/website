@@ -69,7 +69,7 @@
                         <div class="row g-3">
                             <div class="form-check">
                                 <input class="form-check-input" type="hidden" value="0" name="ima_cert" id="ima_cert">
-                                <input class="form-check-input" checked="true" type="checkbox" value="1" name="ima_cert" onchange="toggle_cert(this)" id="ima_cert">
+                                <input class="form-check-input" checked="true" type="checkbox" value="1" name="ima_cert" onchange="toggle_cert(this.checked)" id="ima_cert">
                                 <label class="form-check-label" for="ima_cert">Présence du certificat d’immatriculation</label>
                             </div>
                             <div class="row border border-1 rounded g-3">
@@ -157,7 +157,7 @@
                             <div class="col-sm-9">
                                 <div class="form-check">
                                     <input class="form-check-input" type="hidden" value="0" name="old_agree_destruction" id="old_agree_destruction">
-                                    <input class="form-check-input" type="checkbox" value="1" name="old_agree_destruction" onchange="toggle_VHU(this)" id="old_agree_destruction">
+                                    <input class="form-check-input" type="checkbox" value="1" name="old_agree_destruction" onchange="toggle_VHU(this.checked)" id="old_agree_destruction">
                                     <label class="form-check-label" for="old_agree_destruction">Que ce véhicule est cédé pour destruction à un professionnel de la destruction des véhicules hors d’usage (VHU)</label>
                                 </div>
                             </div>

@@ -88,17 +88,12 @@
                         <h5>Ancien propriétaire</h5>
                         <div class="row g-3">
                             <div class="col-sm-6">
-                                <select class="form-select" aria-label="user" name="old_physical" id="old_physical" disabled required>
-                                    <option value="1" selected>Personne physique</option>
-                                    <option value="0">Personne morale</option>
-                                </select>
+                                <p class="h6 mb-0 py-1 text-dark">Personne physique</p>
+                                <input type="text" class="form-control p-1" name="old_physical" id="old_physical" disabled required>
                             </div>
                             <div class="col-sm-6">
-                                <select class="form-select" aria-label="user" name="old_sex" id="old_sex" disabled required>
-                                    <option disabled selected>Sexe</option>
-                                    <option value="1">Homme</option>
-                                    <option value="0">Femme</option>
-                                </select>
+                                <p class="h6 mb-0 py-1 text-dark">Sexe</p>
+                                <input type="text" class="form-control p-1" name="old_sex" id="old_sex" disabled required>
                             </div>
                         </div>
                         <div class="row g-3">
@@ -126,12 +121,7 @@
                         </div>
                         <div class="row g-3">
                             <div class="col-sm-6">
-                                <label for="for_destruction" class="form-label">Certifie</label>
-                                <select class="form-select" aria-label="user" name="for_destruction" id="for_destruction" disabled required>
-
-                                    <option value="1">Céder</option>
-                                    <option value="0">Céder pour destruction</option>
-                                </select>
+                                <input type="text" class="form-control" name="for_destruction" id="for_destruction" disabled required>
                             </div>
                         </div>
                         <div class="row mb-0 g-3">
@@ -162,17 +152,12 @@
                         <h5>Nouveau propriétaire</h5>
                         <div class="row g-3">
                             <div class="col-sm-6">
-                                <select class="form-select" aria-label="user" name="new_physical" id="new_physical" disabled required>
-                                    <option value="1" selected>Personne physique</option>
-                                    <option value="0">Personne morale</option>
-                                </select>
+                                <p class="h6 mb-0 py-1 text-dark">Type de personne</p>
+                                <input type="text" class="form-control p-1" name="new_physical" id="new_physical" disabled required>
                             </div>
                             <div class="col-sm-6">
-                                <select class="form-select" aria-label="user" name="new_sex" id="new_sex" disabled required>
-                                    <option disabled selected>Sexe</option>
-                                    <option value="1">Homme</option>
-                                    <option value="0">Femme</option>
-                                </select>
+                                <p class="h6 mb-0 py-1 text-dark">Sexe</p>
+                                <input type="text" class="form-control p-1" name="new_sex" id="new_sex" disabled required>
                             </div>
                         </div>
                         <div class="row g-3">

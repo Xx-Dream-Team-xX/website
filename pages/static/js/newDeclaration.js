@@ -31,8 +31,8 @@ function toggle_phys(select, sexeNode) {
     }
 }
 
-function toggle_cert(checkbox) {
-    if (checkbox.checked) {
+function toggle_cert(checked) {
+    if (checked) {
         document.getElementById('formule').innerHTML = `
         <div class="col-sm-6 mt-0">
             <p class="h6 mt-0 text-dark">Numéro de formule</p>
@@ -45,8 +45,8 @@ function toggle_cert(checkbox) {
     }
 }
 
-function toggle_VHU(checkbox) {
-    if (checkbox.checked) {
+function toggle_VHU(checked) {
+    if (checked) {
         document.getElementById('VHU').innerHTML = `
         <input type="text" placeholder="VHU" pattern="[0-9]*" class="form-control" name="VHU_id" id="VHU_id" required>`;
     } else {
@@ -65,7 +65,7 @@ function sendDeclaration(formNode) {
         let form = new FormData(formNode);
         form.append('id', document.getElementById('contrat_sinistre').value);
         prepareAddress(form, 'old_address', 'A_inputAddress', 'A_inputVille');
-        prepareAddress(form, 'new_address', 'A_inputAddress', 'A_inputVille');
+        prepareAddress(form, 'new_address', 'B_inputAddress', 'B_inputVille');
         let req = new XMLHttpRequest();
         req.open("POST", "/declaration/add");
         req.send(form);

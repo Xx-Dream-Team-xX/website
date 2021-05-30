@@ -17,22 +17,8 @@ function fillOptionDeclaration() {
     }
 }
 
-function toggle_phys(select, sexeNode) {
-    if (select.value == "1") {
-        document.getElementById(sexeNode).innerHTML = `
-    <select class="form-select" aria-label="user" name="old_sex" id="old_sex" required>
-        <option disabled selected>Sexe</option>
-        <option value="1">Homme</option>
-        <option value="0">Femme</option>
-    </select>
-        `;
-    } else {
-        document.getElementById(sexeNode).innerHTML = "";
-    }
-}
-
-function toggle_cert(checkbox) {
-    if (checkbox.checked) {
+function toggle_cert(checked) {
+    if (checked) {
         document.getElementById('formule').innerHTML = `
         <div class="col-sm-6 mt-0">
             <p class="h6 mt-0 text-dark">Numéro de formule</p>
@@ -45,8 +31,8 @@ function toggle_cert(checkbox) {
     }
 }
 
-function toggle_VHU(checkbox) {
-    if (checkbox.checked) {
+function toggle_VHU(checked) {
+    if (checked) {
         document.getElementById('VHU').innerHTML = `
         <input type="text" placeholder="VHU" pattern="[0-9]*" class="form-control" name="VHU_id" id="VHU_id" required>`;
     } else {
@@ -58,10 +44,49 @@ function showDeclaration(declaration) {
     for (const key in declaration) {
         if (Object.hasOwnProperty.call(declaration, key)) {
             const val = declaration[key];
-            if ($node = document.getElementById(key) !== null) {
-                document.getElementById(key).value = val;
-            }
+            switch (key) {
+                case 'old_sex':
+                case 'new_sex':
+                    if (val) {
+                        document.getElementById(key).value = 'Homme'
+                    } else {
+                        document.getElementById(key).value = 'Femme'
+                    }
+                    break;
+                case 'old_physical':
+                case 'new_physical':
+                    if (!val) {
+                        document.getElementById(key).value = 'Morale'
+                    } else {
+                        document.getElementById(key).value = 'Physique'
+                    }
+                    break;
+                case 'imaDate':
+                case 'birthdate':
+                    document.getElementById(key).value = getDate(declaration.imaDate);
+                    break;
+                case 'for_destruction':
+                    if (val) {
+                        document.getElementById(key).value = 'Céder'
+                    } else {
+                        document.getElementById(key).value = 'Céder pour destruction'
+                    }
+                    break;
+                case 'old_agree_1':
+                case 'old_agree_2':
+                case 'old_agree_destruction':
+                case 'new_agree_date':
+                case 'ima_cert':
+                case 'new_agree_vState':
+                    document.getElementById(key).checked = val;
+                    break;
+                default:
 
+                    if ($node = document.getElementById(key) !== null) {
+                        document.getElementById(key).value = val;
+                    }
+                    break;
+            }
         }
     }
 }
