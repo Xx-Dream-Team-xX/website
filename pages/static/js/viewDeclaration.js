@@ -99,6 +99,7 @@ function querryDeclaration(id) {
     req.onreadystatechange = function () {
         if (this.status === 200 && this.readyState === 4) {
             declaration = JSON.parse(this.responseText);
+            document.getElementById("content").hidden = false;
             showDeclaration(declaration);
         }
     }

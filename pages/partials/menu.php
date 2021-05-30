@@ -17,7 +17,7 @@
                 ),
                 array(
                     "title" => "Vendre",
-                    "url" => "/declarer"
+                    "url" => "/vendre"
                 ),
                 array(
                     "title" => "Historique",
@@ -61,7 +61,7 @@
                 ),
                 array(
                     "title" => "Ventes",
-                    "url" => "/declarations"
+                    "url" => "/ventes"
                 ),
                 array(
                     "title" => "Contact",
