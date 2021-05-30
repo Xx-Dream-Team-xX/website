@@ -1,4 +1,6 @@
-<?php if (!isLoggedIn() && get_final_point() === "view") header('Location: /'); ?>
+<?php if (!isLoggedIn() && 'view' === get_final_point()) {
+    header('Location: /');
+} ?>
 <?php include get_path('partials', 'head.php'); ?>
 <!DOCTYPE html>
 <html>
@@ -18,7 +20,7 @@
             <div class="row m-3 mt-0 center-block order border-2 rounded p-3 shadow">
                 <?php if (User::ASSURE == getPermissions() || User::GESTIONNAIRE == getPermissions()) { ?>
                 <div class="row g-3 p-3 mb-3">
-                    <select class="form-select" aria-label="contrat" name="contrat" id="contratList" onchange="querryContrat(this.value)" required>
+                    <select class="form-select" aria-label="contrat" name="contrat" id="contratList" onchange="querryContrat(this.value, true)" required>
                         <option hidden selected>Selectionner un autre Contrat</option>
                     </select>
                     <script>
@@ -59,6 +61,17 @@
                 </div>
                 <div class="row g-3 d-none" id="terValList">
                     <h5>Validité territoriale</h5>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-sm-6  d-none" id="owner">
+                        <h6>Propriétaire</h6>
+                        <input class="form-control  p-1" id="owner_name" disabled>
+                    </div>
+                    <div class="col-sm-6 d-none" id="assurance">
+                        <h6>Assurance</h6>
+                        <input class="form-control  p-1" id="assurance_name" disabled>
+                    </div>
                 </div>
 
                 <button class="btn btn-success m-2 mt-3 p-2" onclick="toggleModal()">Voir mon Code QR</button>
