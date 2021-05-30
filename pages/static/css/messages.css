@@ -1,3 +1,6 @@
+.text-small-s {
+    font-size: 1em;
+}
 .messages-box, .chat-box{
     height: calc(calc(100vh - 140px) - 68px);
     overflow-y: scroll;
