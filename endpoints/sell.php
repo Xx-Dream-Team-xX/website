@@ -116,6 +116,13 @@
                         array_push($user['declarations'], $sell['id']);
                         DB::setObject(get_path('database', 'sell.json'), $sell, true);
                         DB::setObject(get_path('database', 'users.json'), $user);
+
+                        $g = DB::getFromID(get_path("database", "users.json"), $user["rep"]);
+                        if ($g && ($g = User::createUserByType($g))) {
+                            $g->pushNotification("Nouvelle vente", $user["first_name"] . " vient de déclarer une vente.", "/declarations/" . $sell["id"]);
+                            DB::setObject(get_path("database", "users.json"), $g->getAll());
+                        }
+
                     } catch (Exception $e) {
                         echo $e->getMessage();
                     }

@@ -14,9 +14,9 @@
      * Gets available recipients for messaging.
      */
     function getRecipients() {
-        $users = array_filter(DB::getAll(get_path('database', 'users.json')), function($u) {
+        $users = array_values(array_filter(DB::getAll(get_path('database', 'users.json')), function($u) {
             return ($u['id'] !== getID());
-        });
+        }));
         $filter = null;
 
         switch (getPermissions()) {

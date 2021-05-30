@@ -4,44 +4,112 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-    <?php include(get_path('partials','head.php'));?>
-    <title>Panneau Admin</title>
-    <script src="/static/js/manageDates.js" charset="utf-8"></script>
-    <script src="/static/js/addUser.js" charset="utf-8"></script>
-</head>
-<body>
-    <?php include(get_path('partials','navbar.php'));?>
-    <!-- MAIN (FORM) -->
 
-    <div class="row main center">
-        
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check nohover" name="btnradio" id="btnradio1" autocomplete="off"<?php if (!isset($_GET["type"])) echo "checked";?>>
-            <label class="btn btn-outline-primary" for="btnradio1">Logs (last)</label>
-
-            <input type="radio" class="btn-check nohover" name="btnradio" id="btnradio2" autocomplete="off"<?php if (isset($_GET["type"]) && $_GET["type"] === "smart") echo "checked";?>>
-            <label class="btn btn-outline-primary" for="btnradio2">Logs (smart)</label>
-
-            <input type="radio" class="btn-check nohover" name="btnradio" id="btnradio3" autocomplete="off"<?php if (isset($_GET["type"]) && $_GET["type"] === "full") echo "checked";?>>
-            <label class="btn btn-outline-primary" for="btnradio3">Logs (full)</label>
-        </div>
-
-        <pre><?php
-            if (isset($_GET['type']) && $_GET["type"] === "full") {
-                htmlspecialchars(readfile($_SERVER["logger"]->today_file()));
-            } else if (isset($GET['type']) && $_GET["type"] === "smart") {
-
-            } else {
-
+    <head>
+        <?php include get_path('partials', 'head.php'); ?>
+        <title>Panneau Admin</title>
+        <script src="/static/js/manageDates.js" charset="utf-8"></script>
+        <script src="/static/js/addUser.js" charset="utf-8"></script>
+        <script>
+            function updateLogType(button) {
+                window.location.href = `/admin?type=${button.value}`;
             }
+
+            function gotopage(button) {
+                window.location.href = `/${button.value}`;
+            }
+        </script>
+    </head>
+
+    <body>
+        <?php include get_path('partials', 'navbar.php'); ?>
+        <!-- MAIN (FORM) -->
+        <div class="row g-3 mb-3">
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="button" class="btn-check nohover" value="gestionnaire" name="gestionnaire" id="gestionnaire" onclick="gotopage(this)" autocomplete="off">
+                <label class="btn btn-outline-primary" for="gestionnaire">Liste Gestionnaires</label>
+                <input type="button" class="btn-check nohover" value="creation" name="creation" id="creation" onclick="gotopage(this)" autocomplete="off">
+                <label class="btn btn-outline-primary" for="creation">Création utilisateur</label>
+                <input type="button" class="btn-check nohover" value="assurances" name="assurances" id="assurances" onclick="gotopage(this)" autocomplete="off">
+                <label class="btn btn-outline-primary" for="assurances">Liste Assurance</label>
+                <input type="button" class="btn-check nohover" value="tickets" name="tickets" id="tickets" onclick="gotopage(this)" autocomplete="off">
+                <label class="btn btn-outline-primary" for="tickets">Tickets</label>
+                <input type="button" class="btn-check nohover" value="config" name="config" id="config" onclick="gotopage(this)" autocomplete="off">
+                <label class="btn btn-outline-primary" for="config">Configuration du Serveur</label>
+            </div>
+        </div>
+        <div class="container-xl main center">
+
+            <div class="row g-3 bg-dark text-white border border-2 rounded m-3">
+                <pre class="mt-2"><?php
+            if (isset($_GET['type']) && 'full' === $_GET['type']) {
+                htmlspecialchars(readfile($_SERVER['logger']->today_file()));
+            } elseif (isset($_GET['type']) && 'smart' === $_GET['type']) {
+                $file = file($_SERVER['logger']->today_file());
+                for ($i = max(0, count($file) - 30); $i < count($file); ++$i) {
+                    $spLine = htmlspecialchars($file[$i]);
+                    preg_match('/(?<=\[)([0-9])+?(?=\])/', $spLine, $matches);
+                    switch ($matches[0]) {
+                        case '2':
+                            $color = 'text-secondary';
+
+                            break;
+                        case '3':
+                            $color = 'text-info';
+
+                            break;
+                        case '4':
+                            $color = 'text-white';
+
+                            break;
+                        case '5':
+                            $color = 'text-danger';
+
+                            break;
+                        default:
+                            $color = 'text-primary';
+
+                            break;
+                    }
+                    echo '<spawn class="' . $color . '">' . $spLine;
+                }
+            } elseif (isset($_GET['type']) && 'last' === $_GET['type']) {
+                $file = file($_SERVER['logger']->today_file());
+                for ($i = max(0, count($file) - 30); $i < count($file); ++$i) {
+                    echo htmlspecialchars($file[$i]);
+                }
+            }
+
             ?>
         </pre>
-    </div>
-    
+            </div>
+            <div class="row g-3 mb-3">
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check nohover" value="last" name="btnradio" id="btnradio1" onclick="updateLogType(this)" autocomplete="off" <?php if (isset($_GET['type']) && 'last' === $_GET['type']) {
+                echo 'checked';
+            }?>>
+                    <label class="btn btn-outline-primary" for="btnradio1">Logs (realtime)</label>
 
-    <!-- MAIN (FORM) -->
-    <?php include(get_path('partials','footer.php'));?>
-</body>
+                    <input type="radio" class="btn-check nohover" value="smart" name="btnradio" id="btnradio2" onclick="updateLogType(this)" autocomplete="off" <?php if (isset($_GET['type']) && 'smart' === $_GET['type']) {
+                echo 'checked';
+            }?>>
+                    <label class="btn btn-outline-primary" for="btnradio2">Logs (smart)</label>
+
+                    <input type="radio" class="btn-check nohover" value="full" name="btnradio" id="btnradio3" onclick="updateLogType(this)" autocomplete="off" <?php if (isset($_GET['type']) && 'full' === $_GET['type']) {
+                echo 'checked';
+            }?>>
+                    <label class="btn btn-outline-primary" for="btnradio3">Logs (raw)</label>
+                </div>
+            </div>
+            <div class="row g-3 mb-3 text-center">
+                <h5>Legende</h5>
+                <p class="h6 "><span class="text-primary p-3">Accées</span><span class="text-secondary p-3">Basic</span><span class="text-info p-3">Actions</span><span class="text-dark p-3">Admin</span><span class="text-danger p-3">Erreurs</span></p>
+            </div>
+        </div>
+
+
+        <!-- MAIN (FORM) -->
+        <?php include get_path('partials', 'footer.php'); ?>
+    </body>
 
 </html>

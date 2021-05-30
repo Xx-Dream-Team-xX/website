@@ -15,9 +15,9 @@
      * Gets available recipients for tickets.
      */
     function getRecipients() {
-        $users = array_filter(DB::getAll(get_path('database', 'users.json')), function($u) {
+        $users = array_values(array_filter(DB::getAll(get_path('database', 'users.json')), function($u) {
             return ($u['id'] !== getID());
-        });
+        }));
 
         if (getPermissions() !== User::ADMIN) {
             $users = array_values(array_filter($users, function($u) {
@@ -56,7 +56,7 @@
         }
     }
 
-    if (isLoggedIn() && (getPermissions() > User::POLICE)) {
+    if (isLoggedIn()) {
         
 
         switch (get_final_point()) {
@@ -102,7 +102,7 @@
 
                 break;
             case 'new':
-                if (isset($_POST['recipient'], $_POST['content'], $_POST['title'])  && (strlen(trim($_POST["content"])) > 0)  && (strlen(trim($_POST["title"])) > 0)) {
+                if (getPermissions() < User::ADMIN && isset($_POST['recipient'], $_POST['content'], $_POST['title'])  && (strlen(trim($_POST["content"])) > 0)  && (strlen(trim($_POST["title"])) > 0)) {
 
                     $user = getUpdatedUser();
 
@@ -185,7 +185,7 @@
                         if (!in_array(getID(), $c->getPeople())) return;
 
                         $c->setStatus(Conversation::TICKET_CLOSED);
-                        DB::setObject(get_path("database", "tickets.json"), $c->getAll(), true);
+                        DB::setObject(get_path("database", "tickets.json"), $c->getAll());
 
                         send_json(true);
                     }
