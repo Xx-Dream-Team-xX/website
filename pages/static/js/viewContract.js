@@ -1,4 +1,4 @@
-var Redirect = false;
+var Redirect = true;
 
 function enableRedirect() {
     Redirect = true;
@@ -16,11 +16,6 @@ function setQRCode(id) {
             let QRCode = this.responseText;
             document.getElementById('QRCode').innerHTML = QRCode;
             prepareDownloadSVG(id);
-        } else if (this.readyState === 4) {
-            if (Redirect) {
-                alert("Le contrat spécifié n'existe pas / plus");
-                window.location.href = "/";
-            }
         }
     }
 }
