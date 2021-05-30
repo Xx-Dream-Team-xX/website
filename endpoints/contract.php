@@ -112,6 +112,7 @@
                                 'id' => $contract['id'],
                                 'vID' => $contract['vID'],
                                 'manufacturer' => $contract['manufacturer'],
+                                'owners' => $contract['owners']
                             ));
                         }
                     }

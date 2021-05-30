@@ -79,7 +79,6 @@ function addUserToTable(USER) {
 
 function dorequest(url, fct) {
     let r = new XMLHttpRequest();
-    console.log("qfs")
     r.open("POST", url);
 
     // if (id) {
@@ -100,32 +99,33 @@ function dorequest(url, fct) {
 }
 
 function getContrats(id) {
-    {
-        dorequest("/contract/list", (d) => {
+    {   
+        dorequest("/contract/getList", (d) => {
             target = document.getElementById("contrats");
             document.getElementById("contrats_info").hidden = false;
             d.forEach((f) => {
                 if (!d.owners || d.owners.includes(id)) target += `<li><a class="text-dark small" target="_blank" href="/view/${f.id}">${f.Vid}</a></li>\n`;
+                console.log(id)
             });
         })
     }
 }
 
 function getSinistres(id) {
-    {
+    {   
         dorequest("/sinistre/getList", (d) => {
             target = document.getElementById("sinistres");
             document.getElementById("sinistres_info").hidden = false;
             d.forEach((f) => {
-                if (d.user === id) target += `<li><a class="text-dark small" target="_blank" href="/sinistres/${f.id}">${f.id}</a></li>\n`;
+                if (d.user === id) target += `<li><a class="text-dark small" target="_blank" href="/sinistre/${f.id}">${f.id}</a></li>\n`;
             });
         })
     }
 }
 
 function getVentes(id) {
-    {
-        dorequest("/declarations/list", (d) => {
+    {   
+        dorequest("/declaration/getList", (d) => {
             target = document.getElementById("declarations");
             document.getElementById("declarations_info").hidden = false;
             d.forEach((f) => {
