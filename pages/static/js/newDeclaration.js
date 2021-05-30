@@ -71,10 +71,8 @@ function sendDeclaration(formNode) {
         req.send(form);
         req.onreadystatechange = function () {
             if (this.status === 200 && this.readyState === 4) {
-                sinistre = JSON.parse(this.responseText);
-                showcompletesinistre();
-                document.getElementById('constat').classList.remove('d-none');
-                document.getElementById('injureds').classList.remove('d-none');
+                let declaration = JSON.parse(this.responseText);
+                window.location.href = `ventes/${declaration.id}`;
             }
         }
     }

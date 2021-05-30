@@ -106,4 +106,9 @@ function querryDeclaration(id) {
 
 function onLoad() {
     fillOptionDeclaration();
+    let id = getTarget('/ventes/');
+    if (id) {
+        querryDeclaration(id);
+    }
+
 }

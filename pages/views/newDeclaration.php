@@ -94,7 +94,7 @@
                             </div>
                             <div class="col-sm-6" id="old_sexe_container">
                                 <select class="form-select" aria-label="user" name="old_sex" id="old_sex" required>
-                                    <option disabled selected>Sexe</option>
+                                    <option value="" disabled selected>Sexe</option>
                                     <option value="1">Homme</option>
                                     <option value="0">Femme</option>
                                 </select>
@@ -174,7 +174,7 @@
                             </div>
                             <div class="col-sm-6" id="new_sexe_container">
                                 <select class="form-select" aria-label="user" name="new_sex" id="new_sex" required>
-                                    <option disabled selected>Sexe</option>
+                                    <option value="" disabled selected>Sexe</option>
                                     <option value="1">Homme</option>
                                     <option value="0">Femme</option>
                                 </select>

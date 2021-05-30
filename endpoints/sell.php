@@ -81,6 +81,8 @@
                 case User::ASSURE:
 
                     if (false == $contract = DB::getFromID(get_path('database', 'contracts.json'), $_POST['contract'])) {
+                        http_response_code(400);
+
                         send_json(array(
                             'success' => false,
                             'error' => 'Contract not found',
@@ -99,6 +101,7 @@
                         $rawSell = validateObject($rawSell, SellCert::$required);
 
                         if (!in_array($rawSell['contract'], getUpdatedUser()['contracts'])) {
+                            http_response_code(400);
                             send_json(array(
                                 'success' => false,
                                 'error' => 'This contract doesnot belong to you',
@@ -108,15 +111,17 @@
                         }
 
                         if (($rawSell['old_physical'] && !isset($rawSell['old_sex'])) || (true == $rawSell['new_physical'] && !isset($rawSell['new_sex']))) {
+                            http_response_code(400);
                             send_json(array(
                                 'success' => false,
-                                'error' => 'missing one of the users sex',
+                                'error' => 'missing one of the users sexe',
                             ));
 
                             break;
                         }
 
                         if (($rawSell['ima_cert'] && !isset($rawSell['ima_cert_id'])) || (!$rawSell['ima_cert'] && !isset($rawSell['ima_missing_cert_desc']))) {
+                            http_response_code(400);
                             send_json(array(
                                 'success' => false,
                                 'error' => 'missing imat cert',
@@ -126,6 +131,7 @@
                         }
 
                         if ($rawSell['old_agree_destruction'] && !isset($rawSell['VHU_id'])) {
+                            http_response_code(400);
                             send_json(array(
                                 'success' => false,
                                 'error' => 'missing VHU',
@@ -137,6 +143,7 @@
                         $sell = SellCert::construct($rawSell);
 
                         if (false !== DB::getFromID(get_path('database', 'sell.json'), $sell['id'])) {
+                            http_response_code(400);
                             send_json(array(
                                 'success' => false,
                                 'error' => 'Sinistre already exist',
@@ -146,6 +153,7 @@
                         }
 
                         if (in_array($sell['id'], getUpdatedUser()['declarations'])) {
+                            http_response_code(400);
                             send_json(array(
                                 'success' => false,
                                 'error' => 'Something wrong happend',
@@ -166,6 +174,7 @@
                             DB::setObject(get_path('database', 'users.json'), $g->getAll());
                         }
                     } catch (Exception $e) {
+                        http_response_code(400);
                         echo $e->getMessage();
                     }
 
