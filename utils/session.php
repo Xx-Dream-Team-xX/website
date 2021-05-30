@@ -125,7 +125,7 @@
             case User::GESTIONNAIRE:
 
                 $filter = function($u) {
-                    return (User::ASSURE === $u['type']) && ($u['assurance'] === $_SESSION['user']['assurance']);
+                    return (User::ASSURE === $u['type']) && ($u['rep'] === getID());
                 };
                 $map = function($u) {
                     return array(
