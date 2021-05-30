@@ -300,7 +300,7 @@ function addSenderMessage(id, sender, content, files, timestamp) {
     d4.classList.add("bg-light", "rounded", "py-2", "px-3", "mb-2", "message-message");
     
     let p5 = document.createElement('p');
-    p5.classList.add("text-small", "mb-0", "text-muted");
+    p5.classList.add("text-small-s", "mb-0", "text-muted");
     p5.innerHTML = content;
 
     let p6 = document.createElement('p');
@@ -337,7 +337,7 @@ function addReveiverMessage(id, sender, content, files, timestamp) {
     d4.classList.add("bg-primary", "rounded", "py-2", "px-3", "mb-2", "message-message");
     
     let p5 = document.createElement('p');
-    p5.classList.add("text-small", "mb-0", "text-white");
+    p5.classList.add("text-small-s", "mb-0", "text-white");
     p5.innerHTML = content;
 
     let p6 = document.createElement('p');
