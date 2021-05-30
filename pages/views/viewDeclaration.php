@@ -28,7 +28,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="row pb-3 g-3">
+                    <div class="row pb-3 g-3" id="content" hidden>
                         <h5>Le véhicule</h5>
                         <div class="row g-3">
                             <div class="col-sm-3">

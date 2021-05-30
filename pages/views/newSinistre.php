@@ -21,132 +21,135 @@
                         <label for="contrat" class="form-label">
                             <h4>Contrat</h4>
                         </label>
-                        <select class="form-select" aria-label="contrat" name="contrat" id="contrat_sinistre" required>
+                        <select class="form-select" aria-label="contrat" name="contrat" id="contrat_sinistre" onchange="showstuff()" required>
                             <option hidden selected>Sélectionner un contrat</option>
                         </select>
                     </div>
-                    <div class="row g-3 border border-1 rounded p-3 mt-3">
-                        <h4>Conducteur</h4>
-                        <div class="row g-3">
-                            <div class="col-sm-6">
-                                <label for="driver_profession" class="form-label">Profession</label>
-                                <input type="text" class="form-control" name="driver_profession" id="driver_profession" required>
-                                <div class="invalid-feedback">
-                                    Veuillez spécifier une profession.
+                    <div id="contenttoshow" hidden>
+                        <div class="row g-3 border border-1 rounded p-3 mt-3">
+                            <h4>Conducteur</h4>
+                            <div class="row g-3">
+                                <div class="col-sm-6">
+                                    <label for="driver_profession" class="form-label">Profession</label>
+                                    <input type="text" class="form-control" name="driver_profession" id="driver_profession" required>
+                                    <div class="invalid-feedback">
+                                        Veuillez spécifier une profession.
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="driver_relationship" class="form-label">Relation</label>
+                                    <select class="form-select" aria-label="driver relationship" name="driver_relationship" id="driver_relationship" required>
+                                        <option value="celib">Célibataire</option>
+                                        <option value="married">Marié</option>
+                                        <option value="other">Autre</option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <label for="driver_relationship" class="form-label">Relation</label>
-                                <select class="form-select" aria-label="driver relationship" name="driver_relationship" id="driver_relationship" required>
-                                    <option value="celib">Célibataire</option>
-                                    <option value="married">Marié</option>
-                                    <option value="other">Autre</option>
-                                </select>
+                            <div class="row g-1 pt-3">
+                                <label for="driver_disp_reason" class="form-label">Motif de déplacement</label>
+                                <input type="text" class="form-control" name="driver_disp_reason" id="driver_disp_reason" required>
+                                <div class="invalid-feedback">
+                                    Veuillez entrer un motif de déplacement.
+                                </div>
+                            </div>
+                            <div class="row g-1 pt-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="hidden" value="0" name="driver_user_same_residance" id="driver_user_same_residance">
+                                    <input class="form-check-input" type="checkbox" value="1" name="driver_user_same_residance" id="driver_user_same_residance">
+                                    <label class="form-check-label" for="driver_user_same_residance">Même résidence que le
+                                        propriétaire du contrat</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="hidden" value="0" name="driver_is_usual" id="driver_is_usual">
+                                    <input class="form-check-input" type="checkbox" value="1" name="driver_is_usual" id="driver_is_usual">
+                                    <label class="form-check-label" for="driver_is_usual">Conducteur habituel du
+                                        véhicule</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="hidden" value="0" name="driver_is_employeeof_user" id="driver_is_employeeof_user">
+                                    <input class="form-check-input" type="checkbox" value="1" name="driver_is_employeeof_user" id="driver_is_employeeof_user">
+                                    <label class="form-check-label" for="driver_is_employeeof_user">Employé du propriétaire
+                                        du contrat</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="row g-1 pt-3">
-                            <label for="driver_disp_reason" class="form-label">Motif de déplcament</label>
-                            <input type="text" class="form-control" name="driver_disp_reason" id="driver_disp_reason" required>
-                            <div class="invalid-feedback">
-                                Veuillez entrer un motif de déplacement.
+                        <div class="row g-3 border border-1 rounded p-3 mt-3">
+                            <h4>Circonstances de l'accident</h4>
+                            <div class="row g-1 pt-3">
+                                <label for="date" class="form-label">Date de l'accident</label>
+                                <input type="date" class="form-control" name="date" id="date" required>
+                                <div class="invalid-feedback">
+                                    Veuillez specifier une date.
+                                </div>
                             </div>
-                        </div>
-                        <div class="row g-1 pt-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="hidden" value="0" name="driver_user_same_residance" id="driver_user_same_residance">
-                                <input class="form-check-input" type="checkbox" value="1" name="driver_user_same_residance" id="driver_user_same_residance">
-                                <label class="form-check-label" for="driver_user_same_residance">Même résidence que le
-                                    propriétaire du contrat</label>
+                            <div class="row g-1 pt-3">
+                                <label for="circumstances" class="form-label">Description</label>
+                                <textarea id="circumstances" name="circumstances" type="text" placeholder="" aria-describedby="button-addon2" class="form-control rounded border bg-light" required></textarea>
+                                <div class="invalid-feedback">
+                                    Veuillez remplir les circonstances.
+                                </div>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="hidden" value="0" name="driver_is_usual" id="driver_is_usual">
-                                <input class="form-check-input" type="checkbox" value="1" name="driver_is_usual" id="driver_is_usual">
-                                <label class="form-check-label" for="driver_is_usual">Conducteur habituel du
-                                    véhicule</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="hidden" value="0" name="driver_is_employeeof_user" id="driver_is_employeeof_user">
-                                <input class="form-check-input" type="checkbox" value="1" name="driver_is_employeeof_user" id="driver_is_employeeof_user">
-                                <label class="form-check-label" for="driver_is_employeeof_user">Employé du propriétaire
-                                    du contrat</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row g-3 border border-1 rounded p-3 mt-3">
-                        <h4>Circonstances de l'accident</h4>
-                        <div class="row g-1 pt-3">
-                            <label for="date" class="form-label">Date de l'accident</label>
-                            <input type="date" class="form-control" name="date" id="date" required>
-                            <div class="invalid-feedback">
-                                Veuillez specifier une date.
-                            </div>
-                        </div>
-                        <div class="row g-1 pt-3">
-                            <label for="circumstances" class="form-label">Description</label>
-                            <textarea id="circumstances" name="circumstances" type="text" placeholder="" aria-describedby="button-addon2" class="form-control rounded border bg-light" required></textarea>
-                            <div class="invalid-feedback">
-                                Veuillez remplir les circonstances.
-                            </div>
-                        </div>
 
-                    </div>
-                    <div class="row g-3 border border-1 rounded p-3 mt-3">
-                        <h4>Procédures juridiques</h4>
-                        <div class="row g-1 pt-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="hidden" value="0" name="proces_verbal" id="proces_verbal">
-                                <input class="form-check-input" type="checkbox" value="1" name="proces_verbal" id="proces_verbal">
-                                <label class="form-check-label" for="proces_verbal">Procès-verbal</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="hidden" value="0" name="police_report" id="police_report">
-                                <input class="form-check-input" type="checkbox" value="1" name="police_report" id="police_report">
-                                <label class="form-check-label" for="police_report">Rapport de police</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="hidden" value="0" name="main_courante" id="main_courante">
-                                <input class="form-check-input" type="checkbox" value="1" name="main_courante" id="main_courante" onchange="togglePoliceStation(this);">
-                                <label class="form-check-label" for="main_courante">Main-courante</label>
+                        </div>
+                        <div class="row g-3 border border-1 rounded p-3 mt-3">
+                            <h4>Procédures juridiques</h4>
+                            <div class="row g-1 pt-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="hidden" value="0" name="proces_verbal" id="proces_verbal">
+                                    <input class="form-check-input" type="checkbox" value="1" name="proces_verbal" id="proces_verbal">
+                                    <label class="form-check-label" for="proces_verbal">Procès-verbal</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="hidden" value="0" name="police_report" id="police_report">
+                                    <input class="form-check-input" type="checkbox" value="1" name="police_report" id="police_report">
+                                    <label class="form-check-label" for="police_report">Rapport de police</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="hidden" value="0" name="main_courante" id="main_courante">
+                                    <input class="form-check-input" type="checkbox" value="1" name="main_courante" id="main_courante" onchange="togglePoliceStation(this);">
+                                    <label class="form-check-label" for="main_courante">Main-courante</label>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row g-3 border border-1 rounded p-3 mt-3">
-                        <h4>Véhicule</h4>
-                        <div class="row g-1 pt-3">
-                            <label for="usual_parking_location" class="form-label">Lieu habituel de stationement</label>
-                            <input type="text" class="form-control" name="usual_parking_location" id="usual_parking_location" required>
-                            <div class="invalid-feedback">
-                                Veuillez entrer le lieu habituel de garage du stationement.
+                        <div class="row g-3 border border-1 rounded p-3 mt-3">
+                            <h4>Véhicule</h4>
+                            <div class="row g-1 pt-3">
+                                <label for="usual_parking_location" class="form-label">Lieu habituel de stationement</label>
+                                <input type="text" class="form-control" name="usual_parking_location" id="usual_parking_location" required>
+                                <div class="invalid-feedback">
+                                    Veuillez entrer le lieu habituel de garage du stationement.
+                                </div>
+                            </div>
+                            <div class="row g-3 p-3 pt-1">
+                                <h5>Garage</h5>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="police_report" onchange="toggleGarage(this)">
+                                    <label class="form-check-label" for="police_report">Véhicule envoyé dans un garage</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="row g-3 p-3 pt-1">
-                            <h5>Garage</h5>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="police_report" onchange="toggleGarage(this)">
-                                <label class="form-check-label" for="police_report">Véhicule envoyé dans un garage</label>
+                        <div class="row g-3 border border-1 rounded p-3 mt-3">
+                            <h4>Autres dégâts matériels</h4>
+                            <textarea id="other_damage" name="other_damage" type="text" placeholder="Description des dégâts" aria-describedby="button-addon2" class="form-control rounded border bg-light"></textarea>
+                        </div>
+                        <div class="row g-3 border border-1 rounded p-3 mt-3">
+                            <div class="col-sm-6">
+                                <label class="form-label" for="files">Choisir des photos (optionnel)</label>
+                                <input type="file" class="form-control" id="files" multiple>
                             </div>
                         </div>
-                    </div>
-                    <div class="row g-3 border border-1 rounded p-3 mt-3">
-                        <h4>Autres dégâts matériels</h4>
-                        <textarea id="other_damage" name="other_damage" type="text" placeholder="Description des dégâts" aria-describedby="button-addon2" class="form-control rounded border bg-light"></textarea>
-                    </div>
-                    <div class="row g-3 border border-1 rounded p-3 mt-3">
-                        <div class="col-sm-6">
-                            <label class="form-label" for="files">Choisir des photos (optionnel)</label>
-                            <input type="file" class="form-control" id="files" multiple>
+                        <div class="row g-3 pt-1 p-3 mt-3">
+                            <button type="submit" class="btn btn-success" id="submitSinistre" name="submitSinistre">Valider</button>
                         </div>
                     </div>
-                    <div class="row g-3 pt-1 p-3 mt-3">
-                        <button type="submit" class="btn btn-success" id="submitSinistre" name="submitSinistre">Valider</button>
-                    </div>
+                    
                 </form>
             </div>
             <div class="row m-3 mt-0 order border-2 rounded p-3 shadow d-none" id="injureds">
                 <h2>Blessés</h2>
                 <div class="row g-3 pt-1 p-3 mt-3">
                     <button type="submit" class="btn btn-success" id="addInjured" name="addInjured" onclick="addInjured(this)">Ajouter un blessé</button>
-                    <button type="submit" class="btn btn-success" id="addInjured" name="addInjured" onclick="sendInjureds(this)">Valider</button>
+                    <button type="submit" class="btn btn-success" id="addInjuredValidate" name="addInjured" onclick="sendInjureds(this)" hidden>Valider</button>
                 </div>
             </div>
             <div class="row m-3 mt-0 order border-2 rounded p-3 shadow d-none" id="constat">
@@ -221,7 +224,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="A_driver_zipcode" class="form-label">Code Postal</label>
-                                    <input type="text" pattern="/(?:0[1-9]|[13-8][0-9]|2[ab1-9]|9[0-5])(?:[0-9]{3})?|9[78][1-9](?:[0-9]{2})?/" class="form-control" name="A_driver_zipcode" id="A_driver_zipcode" required>
+                                    <input type="text" class="form-control" name="A_driver_zipcode" id="A_driver_zipcode" required>
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="A_driver_country" class="form-label">Pays</label>
@@ -401,7 +404,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="B_driver_zipcode" class="form-label">Code Postal</label>
-                                    <input type="text" pattern="/(?:0[1-9]|[13-8][0-9]|2[ab1-9]|9[0-5])(?:[0-9]{3})?|9[78][1-9](?:[0-9]{2})?/" class="form-control" name="B_driver_zipcode" id="B_driver_zipcode" required>
+                                    <input type="text" class="form-control" name="B_driver_zipcode" id="B_driver_zipcode" required>
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="B_driver_country" class="form-label">Pays</label>
