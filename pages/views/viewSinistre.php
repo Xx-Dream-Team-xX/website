@@ -16,7 +16,7 @@
                 <label for="contrat" class="form-label">
                     <h4>Sinistre</h4>
                 </label>
-                <select class="form-select" aria-label="contrat" name="id" id="contratList" onchange="updateSinistre(this)" required>
+                <select class="form-select" aria-label="contrat" name="id" id="sinistre_list" onchange="updateSinistre(this)" required>
                     <option hidden selected>Selectionner un Sinistre</option>
                 </select>
                 <div class="row g-3 d-none" id="sinistreMainContainer">
@@ -129,10 +129,13 @@
                             <br>
                         </p>
                     </div>
-                    <h6>Justificatifs fournis</h6>
-                    <ul id="documents">
-                        <!-- html pour l'affichage -->
-                    </ul>
+                    <h4 class="pt-3 pb-0 mb-0">Justificatifs fournis</h4>
+                    <div class="row g-3 border border-1 rounded p-3 py-1">
+                        <ul class="pl-2" id="documents">
+                            <!-- html pour l'affichage -->
+                        </ul>
+                    </div>
+
                     <div class="row mt-2 d-none" id="injured_container">
                         <h4 class="pt-3 pb-0 mb-0">Blessés</h4>
                         <div class="row g-3 border border-1 rounded p-3 pt-0" id="injured_list">
