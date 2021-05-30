@@ -14,8 +14,6 @@ function onLoad() {
     req.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             addUserToTable(JSON.parse(this.responseText));
-        } else {
-            console.log("Server Error");
         }
     }
 }
@@ -60,33 +58,21 @@ let actualsort = {
     "order": 0
 };
 
-function sortby(key) {
-
-    if (actualsort.key === key) {
-        actualsort.order ^= true;
-    } else {
-        actualsort.order = 0;
-    }
-    actualsort.key = key;
-
-    TEMP.sort((a, b) => {
-        if (!actualsort.order) {
-            return ('' + a[key]).localeCompare(b[key]);
-        } else {
-            return ('' + b[key]).localeCompare(a[key]);
-        }
-    });
-    document.getElementById("tables").innerHTML = "";
-    addUsersToTable(TEMP);
-}
-
 function addUserToTable(USER) {
     let table;
-    let row = document.createElement('tr');
+
     table = USER.type;
 
     if (!document.getElementById("table" + table)) {
         document.getElementById("tables").innerHTML += `<table class="table p-3"><tbody>${Object.keys(USER).filter((a) => {return cols[a] && true}).map((a) => `<tr><td>${cols[a]}</td><td>${show(a, USER[a])}</td></tr>`).join("")}</tbody></table>`;
     }
+
+    if (USER.type === 1) {
+
+    }
+
+}
+
+function dorequest(url, data, fct) {
 
 }
