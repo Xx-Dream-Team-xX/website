@@ -118,7 +118,7 @@
                                     <p class="h6 mb-0 py-1 text-dark">Téléphone : <span class="h6 text-dark" id="garage_phone"></span></p>
                                 </div>
                                 <div class="col-sm-6">
-                                    <p class="h6 mb-0 py-1 text-dark">E-mail : <span class="h6 text-dark" id="garage_email"></span></p>
+                                    <p class="h6 mb-0 py-1 text-dark">Email : <span class="h6 text-dark" id="garage_email"></span></p>
                                 </div>
                             </div>
                         </div>
@@ -197,7 +197,7 @@
                                         <p class="h6 mb-0 py-1 text-dark">Téléphone : <span class="h6 text-dark" id="A_driver_phone"></span></p>
                                     </div>
                                     <div class="col-sm-6">
-                                        <p class="h6 mb-0 py-1 text-dark">E-mail : <span class="h6 text-dark" id="A_dirver_email"></span></p>
+                                        <p class="h6 mb-0 py-1 text-dark">Email : <span class="h6 text-dark" id="A_dirver_email"></span></p>
                                     </div>
                                 </div>
                                 <div class="row g-3">
@@ -335,7 +335,7 @@
                                         <p class="h6 mb-0 py-1 text-dark">Téléphone : <span class="h6 text-dark" id="B_driver_phone"></span></p>
                                     </div>
                                     <div class="col-sm-6">
-                                        <p class="h6 mb-0 py-1 text-dark">E-mail : <span class="h6 text-dark" id="B_dirver_email"></span></p>
+                                        <p class="h6 mb-0 py-1 text-dark">Email : <span class="h6 text-dark" id="B_dirver_email"></span></p>
                                     </div>
                                 </div>
                                 <div class="row g-3">

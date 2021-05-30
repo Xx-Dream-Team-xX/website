@@ -297,7 +297,7 @@ function addInjured(button) {
             </div>
             <div class="col-sm-6">
                 <label for="inputVille" class="form-label">Ville</label>
-                <input type="text" class="form-control" name="inputVille" id="inputVille" placeholder="Pau.." required>
+                <input type="text" class="form-control" name="inputVille" id="inputVille" placeholder="Ville" required>
             </div>
             <div class="col-sm-6">
                 <label for="zipcode" class="form-label">Code Postal</label>
@@ -329,7 +329,7 @@ function addInjured(button) {
         </div>
         <input type="submit" style="display:none" name="submitButton">
     </form>
-    <button type="submit" class="btn btn-primary" name="removeInjured" onclick="removeInjured(this)">Supprimé</button>`;
+    <button type="submit" class="btn btn-danger" name="removeInjured" onclick="removeInjured(this)">Supprimer</button>`;
     let parent = button.parentNode
     parent.insertBefore(injuredForm, button);
 }
@@ -507,7 +507,7 @@ function toggleGarage(checkbox) {
             </div>
         </div>
         <div class="col-sm">
-            <label for="garage_email" class="form-label">e-mail</label>
+            <label for="garage_email" class="form-label">Email</label>
             <input type="email" class="form-control" name="garage_email" id="garage_email" required>
             <div class="invalid-feedback">
                 Veuillez entrer l'e-mail du garage.
