@@ -53,6 +53,7 @@
     Router::add('verifications', get_path('views', 'verification.php'));
 
     Router::add('assurances', get_path('views', 'assurances.php'));
+    Router::add('creation', get_path('views', 'addUser.php'));
 
     Router::default(get_path('views', 'error.php'));
 
