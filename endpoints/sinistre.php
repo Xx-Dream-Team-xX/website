@@ -20,6 +20,7 @@
                                 'id' => $sinistre['id'],
                                 'contract' => $sinistre['contract'],
                                 'date' => $sinistre['date'],
+                                'user' => $sinistre['user']
                             ));
                         }
                     }
@@ -39,6 +40,7 @@
                                 'id' => $sinistre['id'],
                                 'contract' => $sinistre['contract'],
                                 'date' => $sinistre['date'],
+                                'user' => $sinistre['user']
                             ));
                         }
                     }
