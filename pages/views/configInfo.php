@@ -1,8 +1,9 @@
-<?php include get_path('partials', 'head.php'); ?>
+<?php onlyFor(User::ADMIN);?>
 <!DOCTYPE html>
 <html>
 
     <head>
+        <?php include get_path('partials', 'head.php');?>
         <script charset="utf-8" src="/static/js/HeyThatsMe.js"></script>
         <script charset="utf-8" src="/static/js/targetNavigation.js"></script>
         <title>Configuration Serveur</title>

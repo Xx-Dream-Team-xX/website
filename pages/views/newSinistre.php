@@ -7,7 +7,7 @@
         <?php include get_path('partials', 'head.php'); ?>
         <script charset="utf-8" src="/static/js/HeyThatsMe.js"></script>
         <script charset="utf-8" src="/static/js/manageSinistre.js"></script>
-        <title>Créer un sinistre</title>
+        <title>Déclarer un sinistre</title>
     </head>
 
     <body onload="onLoad()">
