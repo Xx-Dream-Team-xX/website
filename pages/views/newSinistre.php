@@ -221,7 +221,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="A_driver_zipcode" class="form-label">Code Postal</label>
-                                    <input type="number" class="form-control" name="A_driver_zipcode" id="A_driver_zipcode" required>
+                                    <input type="text" pattern="/(?:0[1-9]|[13-8][0-9]|2[ab1-9]|9[0-5])(?:[0-9]{3})?|9[78][1-9](?:[0-9]{2})?/" class="form-control" name="A_driver_zipcode" id="A_driver_zipcode" required>
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="A_driver_country" class="form-label">Pays</label>
@@ -401,7 +401,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="B_driver_zipcode" class="form-label">Code Postal</label>
-                                    <input type="number" class="form-control" name="B_driver_zipcode" id="B_driver_zipcode" required>
+                                    <input type="text" pattern="/(?:0[1-9]|[13-8][0-9]|2[ab1-9]|9[0-5])(?:[0-9]{3})?|9[78][1-9](?:[0-9]{2})?/" class="form-control" name="B_driver_zipcode" id="B_driver_zipcode" required>
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="B_driver_country" class="form-label">Pays</label>
