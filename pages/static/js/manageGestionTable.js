@@ -44,6 +44,7 @@ function getData() {
         if (this.readyState == 4 && this.status == 200) {
             addUsersToTable(JSON.parse(this.responseText));
             TEMP = JSON.parse(this.responseText);
+            sortby("name");
         }
     }
     r.open("POST", "/users/list", true);
@@ -56,6 +57,10 @@ function addCol(table, text, type){
     c.setAttribute("class", "text-dark");
     c.innerHTML = show(type, text);
     table.appendChild(c);
+}
+
+function clearTables() {
+    Array.prototype.slice.call(document.getElementsByTagName("tbody")).map(e => e.innerHTML = "");
 }
 
 function sortby(key) {
@@ -74,8 +79,34 @@ function sortby(key) {
             return ('' + b[key]).localeCompare(a[key]);
         }
     });
-    document.getElementById("tables").innerHTML = "";
+
+    clearTables()
+
+    Array.prototype.slice.call(document.getElementsByTagName("td")).map(e => {if ((e.onclick.toString()).includes(key)) ((!actualsort.order) ? e.setAttribute("class", 'text-info') : e.setAttribute("class", "text-danger")); else e.setAttribute("class", "")})
+
     addUsersToTable(TEMP);
+}
+
+function filterTable() {
+    f = document.getElementById("filter").value;
+    filtered = [];
+    if (f.length > 0) {
+        filtered = TEMP.filter(e => {
+            keep = false;
+            for ([k, v] of Object.entries(e)) {
+
+                if (("" + v).toLowerCase().includes(f.toLowerCase())) {
+                    keep = true;
+                }
+            }
+
+            return keep;
+        })
+    } else {
+        filtered = TEMP;
+    } 
+    clearTables();
+    addUsersToTable(filtered);
 }
 
 function addUserToTable(USER) {
@@ -86,7 +117,7 @@ function addUserToTable(USER) {
     table = USER.type;
 
     if (!document.getElementById("table" + table)) {
-        document.getElementById("tables").innerHTML += `<table class="table p-3"><thead><tr class="mouse-cursor">${Object.keys(USER).filter((a) => {return cols[a] && true}).map((a) => `<td onclick='sortby("${a}")'>${cols[a]}</td>`).join("")}</tr></thead><tbody id='table${table}' ></tbody></table>`;
+        document.getElementById("tables").innerHTML += `<table class="table p-3"><thead class="table-dark"><tr class="mouse-cursor">${Object.keys(USER).filter((a) => {return cols[a] && true}).map((a) => `<td onclick='sortby("${a}")'>${cols[a]}</td>`).join("")}</tr></thead><tbody id='table${table}' ></tbody></table>`;
     }
 
     for ([i, k] of Object.entries(USER)) {
