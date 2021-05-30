@@ -94,6 +94,7 @@ function querryContrat(id) {
     req.onreadystatechange = function () {
         if (this.status === 200 && this.readyState === 4) {
             let contrat = JSON.parse(this.responseText);
+            setQRCode(id);
             dispContrat(contrat);
         } else if (this.readyState === 4) {
             if (Redirect) {
