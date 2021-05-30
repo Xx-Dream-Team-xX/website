@@ -1,5 +1,7 @@
 # Dream-Team
 
+Bienvenue sur CAR-A-OK, votre tout nouveau service personnel de gestion d'assurance automobile en ligne. Vous pouvez y gérer facilement les papiers de votre voiture, ainsi que déclarer un sinistre, une vente et bien plus encore !
+
 ## Utilisation
 
 ### Preparation des fichier
@@ -28,6 +30,8 @@ Sous linux nous avons créer un script bash pour pouvoir préparer et exécuté 
 ```bash
 ./start.sh
 ```
+
+### Lancement du serveur
 
 Sous windows pour lancer le serveur il avoir php d'installé et executé la commande suivante
 
