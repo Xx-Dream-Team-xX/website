@@ -83,7 +83,6 @@
                     }
                     echo '<spawn class="' . $color . '">' . $spLine;
                 }
-                echo ' <script>waitRefresh()</script>';
             } elseif (isset($_GET['type']) && 'last' === $_GET['type']) {
                 $file = file($_SERVER['logger']->today_file());
                 for ($i = max(0, count($file) - 50); $i < count($file); ++$i) {
