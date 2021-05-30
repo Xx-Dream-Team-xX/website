@@ -38,9 +38,9 @@
         <div class="row g-3 mb-3">
             <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                 <input type="button" class="btn-check nohover" value="gestionnaire" name="gestionnaire" id="gestionnaire" onclick="gotopage(this)" autocomplete="off">
-                <label class="btn btn-outline-primary" for="gestionnaire">Liste Gestionnaires</label>
+                <label class="btn btn-outline-primary" for="gestionnaire">Liste des Utilisateurs</label>
                 <input type="button" class="btn-check nohover" value="creation" name="creation" id="creation" onclick="gotopage(this)" autocomplete="off">
-                <label class="btn btn-outline-primary" for="creation">Gestion des Utilisateurs</label>
+                <label class="btn btn-outline-primary" for="creation">Créer un utilisateur privilégié</label>
                 <input type="button" class="btn-check nohover" value="assurances" name="assurances" id="assurances" onclick="gotopage(this)" autocomplete="off">
                 <label class="btn btn-outline-primary" for="assurances">Gestion des Assurances</label>
                 <input type="button" class="btn-check nohover" value="tickets" name="tickets" id="tickets" onclick="gotopage(this)" autocomplete="off">
@@ -50,8 +50,8 @@
             </div>
         </div>
         <div class="container-xl main center">
-            <div class="row g-3 bg-dark text-white border border-2 rounded m-3 mh-100 overflow-scroll" id="logBox" style="height: 65vh;">
-                <pre class="mt-2" <?php if (!isset($_GET['type'])) echo "hidden";?>><?php
+            <div class="row g-3 bg-dark text-white border border-2 rounded m-3 mh-100 overflow-scroll" id="logBox" style="height: 65vh;" <?php if (!isset($_GET['type'])) echo "hidden";?>>
+                <pre class="mt-2"><?php
             if (isset($_GET['type']) && 'full' === $_GET['type']) {
                 htmlspecialchars(readfile($_SERVER['logger']->today_file()));
             } elseif (isset($_GET['type']) && 'smart' === $_GET['type']) {
@@ -97,7 +97,7 @@
             </div>
             <div class="row g-3 mb-3">
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check nohover" value="last" name="btnradio" id="btnradio1" onclick="updateLogType(this)" autocomplete="off" <?php if (!isset($_GET['type'])) {
+                    <input type="radio" class="btn-check nohover" value="last" name="btnradio" id="btnradio1" onclick="updateLogType(this)" autocomplete="off" <?php if (isset($_GET['type']) && 'smart' === $_GET['type']) {
                 echo 'checked';
             }?>>
                     <label class="btn btn-outline-primary" for="btnradio1">Logs (realtime)</label>
