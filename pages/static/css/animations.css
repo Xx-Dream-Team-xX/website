@@ -1,0 +1,16 @@
+.grow {
+    transition: all .2s ease-in-out;
+}
+
+.grow-5:hover {
+    transform: scale(1.1);
+}
+
+.grow-2:hover {
+    transform: scale(1.05);
+}
+
+.grow-1:hover {
+    transform: scale(1.01);
+}
+

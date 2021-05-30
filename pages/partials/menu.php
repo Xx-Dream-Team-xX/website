@@ -81,7 +81,7 @@
         );
     
         foreach ($menu[getPermissions()] as $e) {
-            echo '<li class="nav-item mr-2">';
+            echo '<li class="nav-item mr-2 grow grow-2">';
             echo '<a class="nav-link nav-btn" href="' . $e["url"] . '"><span class="userbtn_txt">'. $e["title"] .'</span></a>';
             echo '</li>';
         }
