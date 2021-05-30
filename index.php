@@ -46,7 +46,6 @@
     Router::add('declaration', get_path('views', 'newDeclaration.php'));
     Router::add('declarations', get_path('views', 'viewDeclaration.php'));
     Router::add('sinistres', get_path('views', 'viewSinistre.php'));
-    Router::add('declarations', get_path('views', 'viewSinistre.php'));
 
     Router::add('view', get_path('views', 'viewcontrat.php'));
     Router::add('addcontrat', get_path('views', 'addContrat.php'));
