@@ -18,10 +18,21 @@
             function gotopage(button) {
                 window.location.href = `/${button.value}`;
             }
+
+            function updateScroll() {
+                var element = document.getElementById("logBox");
+                element.scrollTop = element.scrollHeight;
+            }
+
+            function waitRefresh() {
+                setTimeout(function() {
+                    window.location.reload(1);
+                }, 5000);
+            }
         </script>
     </head>
 
-    <body>
+    <body onload="updateScroll()">
         <?php include get_path('partials', 'navbar.php'); ?>
         <!-- MAIN (FORM) -->
         <div class="row g-3 mb-3">
@@ -39,14 +50,13 @@
             </div>
         </div>
         <div class="container-xl main center">
-
-            <div class="row g-3 bg-dark text-white border border-2 rounded m-3">
-                <pre class="mt-2"><?php
+            <div class="row g-3 bg-dark text-white border border-2 rounded m-3 mh-100 overflow-scroll" id="logBox" style="height: 65vh;">
+                <pre class="mt-2" <?php if (!isset($_GET['type'])) echo "hidden";?>><?php
             if (isset($_GET['type']) && 'full' === $_GET['type']) {
                 htmlspecialchars(readfile($_SERVER['logger']->today_file()));
             } elseif (isset($_GET['type']) && 'smart' === $_GET['type']) {
                 $file = file($_SERVER['logger']->today_file());
-                for ($i = max(0, count($file) - 30); $i < count($file); ++$i) {
+                for ($i = max(0, count($file) - 50); $i < count($file); ++$i) {
                     $spLine = htmlspecialchars($file[$i]);
                     preg_match('/(?<=\[)([0-9])+?(?=\])/', $spLine, $matches);
                     switch ($matches[0]) {
@@ -73,11 +83,13 @@
                     }
                     echo '<spawn class="' . $color . '">' . $spLine;
                 }
-            } else {
+                echo ' <script>waitRefresh()</script>';
+            } elseif (isset($_GET['type']) && 'last' === $_GET['type']) {
                 $file = file($_SERVER['logger']->today_file());
-                for ($i = max(0, count($file) - 30); $i < count($file); ++$i) {
+                for ($i = max(0, count($file) - 50); $i < count($file); ++$i) {
                     echo htmlspecialchars($file[$i]);
                 }
+                echo ' <script>waitRefresh()</script>';
             }
 
             ?>

@@ -11,18 +11,18 @@
 	<div class="container-fluid p-0">
 		<div class="navbar-left navbar-brand px-3">
                 <img src="/static/images/logo.png" alt="logo" class="d-inline-block align-text-top navlogo small-break-shrink">
-                <a class="navtitle hidden-mobile" id="title" href="/"><?php echo SETTINGS['name']; ?></a> 
+                <a class="navtitle" id="title" href="/"><?php echo SETTINGS['name']; ?></a> 
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02">
             <span class="material-icons nav-btn"><i class="bi bi-list"></i></span>
 		</button>
 		<div class="collapse navbar-collapse p-2" id="navbarTogglerDemo02">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link nav-btn" href="/messages"><span class="material-icons"></span>Messages</a>
+                    <a class="nav-link nav-btn" href="/messages"><span class="material-icons">chat</span>Messages</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-btn" href="#">Link</a>
+                    <a class="nav-link nav-btn" href="/" onclick="logout()"><span class="material-icons">logout</span>Se déconnecter</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-btn disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
@@ -34,10 +34,12 @@
                             <div id="notif-led" class="notif-dot"></div>
                         </span>
                         <!--<span onclick="dropdown_fnc('drop_profile')" class="dropbtn nav-btn small-break-remove-margins">-->
-                        <span class="dropbtn nav-btn small-break-remove-margins">
-                            <span class="material-icons">account_circle</span>
-                            <span class="userbtn_txt"><?php echo $_SESSION['user']['last_name']?></span>
-                        </span>
+                        <a href="/me">
+                            <span class="dropbtn nav-btn small-break-remove-margins">
+                                <span class="material-icons">account_circle</span>
+                                <span class="userbtn_txt"><?php echo $_SESSION['user']['last_name']?></span>
+                            </span>
+                        </a>
                     </div>
                 </li>
             </ul>
