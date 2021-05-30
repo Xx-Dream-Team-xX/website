@@ -22,9 +22,6 @@
                     <a class="nav-link nav-btn" href="/messages"><span class="material-icons">chat</span>Messages</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-btn" href="/" onclick="logout()"><span class="material-icons">logout</span>Se déconnecter</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link nav-btn disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                 </li>
                 <li class="nav-item">
@@ -41,6 +38,9 @@
                             </span>
                         </a>
                     </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-btn" href="/" onclick="logout()"><span class="material-icons">logout</span>Se déconnecter</a>
                 </li>
             </ul>
         </div>
@@ -85,7 +85,7 @@
 
 <!-- not logged in -->
 <?php else : ?>
-<div class="navbar navbar-expand-lg">
+<div class="navbar navbar-expand-lg p-3">
     <div class="navbar_left">
         <img class="navlogo" src="/static/images/logo.png" alt="logo">
         <a class="navtitle hidden-mobile" id="title" href="/"><?php echo SETTINGS['name']; ?></a>
@@ -98,11 +98,11 @@
             <button>Login</button>
         </a>
         <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown" id="dropDownLogin">
-            <form class="form-horizontal" method="post" accept-charset="UTF-8" id="loginForm">
+            <form class="form-horizontal" method="post" accept-charset="UTF-8" id="loginForm" action="#">
                 <li><input class="form-control login" type="email" name="email" placeholder="Email.."><br></li>
                 <li><input class="form-control login" type="password" name="password" placeholder="Password.."><br></li>
                 <div id='passwordHelpBlock' class='form-text is-invalid text-danger p-1'></div>
-                <li><input class="btn btn-success" type="button" name="submit" value="Login" onclick="doLogin()"></li>
+                <li><input class="btn btn-success" type="submit" name="submit" value="Login" onclick="doLogin()"></li>
             </form>
         </ul>
 </div>
