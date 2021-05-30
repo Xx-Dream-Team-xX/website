@@ -57,9 +57,16 @@
 
                     </div>
                 </div>
-                <div class="row g-3 d-none" id="terValList">
-                    <h5>Validité territoriale</h5>
-                </div>
+                <form class="needs-validation" id="sinistre" action="javascript:;" onsubmit="return(sendTerVal(this));" accept-charset="utf-8" novalidate>
+                    <div class="row g-3 d-none" id="terValContainer">
+                        <div class="row g-3" id="terValList">
+                            <h5>Validité territoriale</h5>
+                        </div>
+                        <div class="row g-3">
+                            <button type="submit" class="btn btn-success" id="submitTerVal" name="submitTerVal">Valider</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
         <!-- MAIN  -->
