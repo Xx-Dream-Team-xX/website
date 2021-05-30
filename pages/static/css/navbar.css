@@ -134,8 +134,8 @@ a, button, span, p {
     transition: all 0.3s ease 0s;
 }
 
-.navbar-collapse {
-
+.nav-item {
+    float: right;
 }
 
 .navbar .nav_ep button:hover {
