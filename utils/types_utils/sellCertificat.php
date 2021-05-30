@@ -10,6 +10,9 @@
             'user' => array(
                 'type' => 'text',
             ),
+            'vID' => array(
+                'type' => 'vID',
+            ),
             'vUUID' => array(
                 'type' => 'int',
             ),

@@ -43,6 +43,8 @@
                             array_push($liste, array(
                                 'id' => $s['id'],
                                 'user' => $s['user'],
+                                'contract' => $s['contract'],
+                                'manufacturer' => $s['manufacturer'],
                             ));
                         }
                     }

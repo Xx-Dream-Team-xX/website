@@ -1,4 +1,4 @@
-function fillOptionContracts() {
+function fillOptionDeclaration() {
     let req = new XMLHttpRequest();
     req.open("POST", "/declaration/getList");
     req.send();
@@ -54,42 +54,31 @@ function toggle_VHU(checkbox) {
     }
 }
 
-function sendDeclaration(formData) {
-    if (formNode.checkValidity()) {
-        let form = new FormData(formNode);
-        form.set('contract', document.getElementById('contrat_sinistre').value);
-        let files = document.getElementById("files").files;
-        form.append("file", files[0], files[0].length);
-        let req = new XMLHttpRequest();
-        req.open("POST", "/sinistre/add");
-        req.send(form);
-        req.onreadystatechange = function () {
-
-            if (this.status === 200 && this.readyState === 4) {
-                sinistre = JSON.parse(this.responseText);
-                showcompletesinistre();
-                document.getElementById('constat').classList.remove('d-none');
-                document.getElementById('injureds').classList.remove('d-none');
+function showDeclaration(declaration) {
+    for (const key in declaration) {
+        if (Object.hasOwnProperty.call(declaration, key)) {
+            const val = declaration[key];
+            if ($node = document.getElementById(key) !== null) {
+                document.getElementById(key).value = val;
             }
+
+        }
+    }
+}
+
+function querryDeclaration(id) {
+    let req = new XMLHttpRequest();
+    req.open("POST", "/declaration/get");
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    req.send(`id=${id}`);
+    req.onreadystatechange = function () {
+        if (this.status === 200 && this.readyState === 4) {
+            declaration = JSON.parse(this.responseText);
+            showDeclaration(declaration);
         }
     }
 }
 
 function onLoad() {
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.querySelectorAll('.needs-validation')
-
-    // Loop over them and prevent submission
-    Array.prototype.slice.call(forms)
-        .forEach(function (form) {
-            form.addEventListener('submit', function (event) {
-                if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                }
-
-                form.classList.add('was-validated')
-            }, false)
-        })
-    fillOptionContracts();
+    fillOptionDeclaration();
 }

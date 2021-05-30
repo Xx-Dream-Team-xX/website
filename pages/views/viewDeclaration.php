@@ -22,7 +22,7 @@
                             <label for="contrat" class="form-label">
                                 <h4>Déclaration</h4>
                             </label>
-                            <select class="form-select" aria-label="contrat" name="contract" id="contrat_sinistre" onchange="updateSinistre(this)" required>
+                            <select class="form-select" aria-label="contrat" name="contract" id="contrat_sinistre" onchange="querryDeclaration(this.value)" required>
                                 <option hidden selected>Selectionner une Déclaration</option>
                             </select>
                         </div>
@@ -32,7 +32,7 @@
                         <div class="row g-3">
                             <div class="col-sm-3">
                                 <p class="h6 mb-0 py-1 text-dark">Numéro d’immatriculation</p>
-                                <input type="text" class="form-control p-1" placeholder="VFXXXXXXXXXXXXXXX" name="vUUID" id="vUUID" disabled required>
+                                <input type="text" class="form-control p-1" placeholder="AA123BB" name="vID" id="vID" disabled required>
                             </div>
                             <div class="col-sm-9">
                                 <p class="h6 mb-0 py-1 text-dark">Numéro d’identification du véhicule (VIN)</p>
@@ -115,13 +115,9 @@
                             </div>
                         </div>
                         <div class="row g-3">
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                                 <label for="A_inputAddress" class="form-label">Adresse</label>
-                                <input type="text" class="form-control" name="A_inputAddress" id="A_inputAddress" disabled required>
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="A_inputVille" class="form-label">Ville</label>
-                                <input type="text" class="form-control" name="A_inputVille" id="A_inputVille" disabled required>
+                                <input type="text" class="form-control" name="old_address" id="old_address" disabled required>
                             </div>
                             <div class="col-sm-6">
                                 <label for="old_zip_code" class="form-label">Code Postal</label>
@@ -201,13 +197,9 @@
                             </div>
                         </div>
                         <div class="row g-3">
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                                 <label for="A_inputAddress" class="form-label">Adresse</label>
-                                <input type="text" class="form-control" name="B_inputAddress" id="B_inputAddress" disabled required>
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="A_inputVille" class="form-label">Ville</label>
-                                <input type="text" class="form-control" name="B_inputVille" id="B_inputVille" disabled required>
+                                <input type="text" class="form-control" name="new_address" id="new_address" disabled required>
                             </div>
                             <div class="col-sm-6">
                                 <label for="old_zip_code" class="form-label">Code Postal</label>
