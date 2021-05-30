@@ -7,7 +7,7 @@
         <?php include get_path('partials', 'head.php'); ?>
         <script charset="utf-8" src="/static/js/HeyThatsMe.js"></script>
         <script charset="utf-8" src="/static/js/manageDates.js"></script>
-        <script charset="utf-8" src="/static/js/newDeclaration.js"></script>
+        <script charset="utf-8" src="/static/js/viewDeclaration.js"></script>
         <title>Déclaration de vente</title>
     </head>
 

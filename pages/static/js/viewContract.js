@@ -81,9 +81,38 @@ function fillOptionContracts() {
     }
 }
 
-function querryContrat(id) {
+function querryUser(id) {
     let req = new XMLHttpRequest();
-    req.open("POST", "/contract/get");
+    req.open("POST", "/users/get");
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    req.send(`id=${id}`);
+    req.onreadystatechange = function () {
+        if (this.status === 200 && this.readyState === 4) {
+            let user = JSON.parse(this.responseText);
+            document.getElementById('owner').classList.remove('d-none');
+            document.getElementById('owner_name').value = user.name
+        }
+    }
+}
+
+function querryAssurane(id) {
+    let req = new XMLHttpRequest();
+    req.open("POST", "/assurance/get");
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    req.send(`id=${id}`);
+    req.onreadystatechange = function () {
+        if (this.status === 200 && this.readyState === 4) {
+            let assurance = JSON.parse(this.responseText);
+            document.getElementById('assurance').classList.remove('d-none');
+            document.getElementById('assurance_name').value = assurance.name
+        }
+    }
+}
+
+
+function querryContrat(id, more = false) {
+    let req = new XMLHttpRequest();
+    req.open("POST", "contract/get");
     req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     req.send(`id=${id}`);
     req.onreadystatechange = function () {
@@ -91,6 +120,10 @@ function querryContrat(id) {
             let contrat = JSON.parse(this.responseText);
             setQRCode(id);
             dispContrat(contrat);
+            if (more) {
+                querryUser(contrat.owners[0]);
+                querryAssurane(contrat.insurance);
+            }
         } else if (this.readyState === 4) {
             if (Redirect) {
                 alert("Le contrat spécifié n'existe pas / plus");

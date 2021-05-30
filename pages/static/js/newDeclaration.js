@@ -36,7 +36,7 @@ function toggle_cert(checkbox) {
         document.getElementById('formule').innerHTML = `
         <div class="col-sm-6 mt-0">
             <p class="h6 mt-0 text-dark">Numéro de formule</p>
-            <input type="text" pattern="[0-9]{11}" class="form-control p-1" name="ima_cert_id" id="ima_cert_id">
+            <input type="text" pattern="[0-9]{11}" class="form-control p-1" name="ima_cert_id" id="ima_cert_id" required>
         </div>`;
     } else {
         document.getElementById('formule').innerHTML = `
@@ -54,17 +54,22 @@ function toggle_VHU(checkbox) {
     }
 }
 
-function sendDeclaration(formData) {
+function prepareAddress(form, newfromentrie, addressNode, villeNode,) {
+    form.append(newfromentrie, `${form.get(addressNode)}, ${form.get(villeNode)}`);
+    form.delete(addressNode);
+    form.delete(villeNode);
+}
+
+function sendDeclaration(formNode) {
     if (formNode.checkValidity()) {
         let form = new FormData(formNode);
-        form.set('contract', document.getElementById('contrat_sinistre').value);
-        let files = document.getElementById("files").files;
-        form.append("file", files[0], files[0].length);
+        form.append('id', document.getElementById('contrat_sinistre').value);
+        prepareAddress(form, 'old_address', 'A_inputAddress', 'A_inputVille');
+        prepareAddress(form, 'new_address', 'A_inputAddress', 'A_inputVille');
         let req = new XMLHttpRequest();
-        req.open("POST", "/sinistre/add");
+        req.open("POST", "/declaration/add");
         req.send(form);
         req.onreadystatechange = function () {
-
             if (this.status === 200 && this.readyState === 4) {
                 sinistre = JSON.parse(this.responseText);
                 showcompletesinistre();

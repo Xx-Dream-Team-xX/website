@@ -1,17 +1,17 @@
 function fillOptionContracts() {
     let req = new XMLHttpRequest();
-    req.open("POST", "/contract/getList");
+    req.open("POST", "/declaration/getList");
     req.send();
     req.onreadystatechange = function () {
 
         if (this.status === 200 && this.readyState === 4) {
-            let contracts = JSON.parse(this.responseText);
-            let contractNode = document.getElementById("contrat_sinistre");
-            contracts.forEach(contract => {
+            let delcarations = JSON.parse(this.responseText);
+            let declarationNode = document.getElementById("contrat_sinistre");
+            delcarations.forEach(declaration => {
                 let option = document.createElement("option");
-                option.value = contract.id;
-                option.innerText = `${contract.manufacturer} (${contract.vID})`;
-                contractNode.appendChild(option);
+                option.value = declaration.id;
+                option.innerText = `${declaration.manufacturer} (${declaration.contract})`;
+                declarationNode.appendChild(option);
             });
         }
     }
