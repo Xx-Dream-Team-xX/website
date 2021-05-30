@@ -21,7 +21,6 @@
 
     Router::add('useruploadedcontent', get_path('database', 'uploads/'), false, true, true);
 
-    Router::add('tests', get_path('views', 'tests/'), false, true);
 
     Router::add('users', get_path('api', 'user.php'));
     Router::add('contract', get_path('api', 'contract.php'));
@@ -63,11 +62,13 @@
 
     Router::default(get_path('views', 'error.php'));
 
-    // try {
+    Router::add('/[^\x00-\xff]/g', get_path("views", "error2.php"), true);
+
+    try {
         Router::start($path_array);
-    // } catch (\Throwable $th) {
-    //     send_json($th);
-    //     http_response_code(500);
-    //     die();
-    // }
+    } catch (\Throwable $th) {
+        $_SERVER['logger']->log(Logger::ERRORS, "Error " . $th);
+        http_response_code(500);
+        die();
+    }
 ?>
