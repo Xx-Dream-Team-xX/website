@@ -56,6 +56,7 @@
     Router::add('admin', get_path('views', 'admin.php'));
     Router::add('config', get_path('views', 'configInfo.php'));
     Router::add('tickets', get_path('views', 'ticket.php'));
+    Router::add('contact', get_path('views', 'contact.php'));
 
     Router::default(get_path('views', 'error.php'));
 
