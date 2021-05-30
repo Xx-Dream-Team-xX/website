@@ -112,7 +112,7 @@ function filterTable() {
 function addUserToTable(USER) {
     let table;
     let row = document.createElement('tr');
-    row.setAttribute("onclick", "window.location='/user/"+USER["id"]+"';");
+    if (USER.type === 1) row.setAttribute("onclick", "window.location='/user/"+USER["id"]+"';");
 
     table = USER.type;
 
@@ -129,6 +129,8 @@ function addUserToTable(USER) {
 }
 
 function addUsersToTable(USERS) {
+
+    document.getElementById("search").hidden = (TEMP.length == 1)
     for (let i=0; i<USERS.length;i++){
 
         addUserToTable(USERS[i]);
