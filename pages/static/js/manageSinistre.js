@@ -263,6 +263,10 @@ function displaySinistre(sinistreData) {
     if (sinistreData.injureds.length !== 0) {
         displayInjureds(sinistreData);
     }
+
+    sinistreData.files.forEach(f => {
+        document.getElementById('documents').innerHTML += `<li><a class="text-dark" target="_blank" href="/useruploadedcontent/${f}">${f}</a></li>\n`;
+    });
 }
 
 function addInjured(button) {
@@ -358,6 +362,8 @@ function sendSinistre(formNode) {
     if (formNode.checkValidity()) {
         let form = new FormData(formNode);
         form.set('contract', document.getElementById('contrat_sinistre').value);
+        let files = document.getElementById("files").files;
+        form.append("file", files[0], files[0].length);
         let req = new XMLHttpRequest();
         req.open("POST", "/sinistre/add");
         req.send(form);
