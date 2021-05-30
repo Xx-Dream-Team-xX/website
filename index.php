@@ -8,7 +8,7 @@
     include_once './utils/data.php';
     include_once './utils/logs.php';
 
-    $_SERVER['logger'] = new Logger(get_path('logs'), SETTINGS["logger"]);
+    $_SERVER['logger'] = new Logger(get_path('logs'), SETTINGS['logger']);
 
     $url = $_SERVER['REQUEST_URI'];
     $path = explode('?', $url, 2)[0];
@@ -53,6 +53,7 @@
     Router::add('assurances', get_path('views', 'assurances.php'));
     Router::add('creation', get_path('views', 'addUser.php'));
     Router::add('admin', get_path('views', 'admin.php'));
+    Router::add('config', get_path('views', 'configInfo.php'));
     Router::add('tickets', get_path('views', 'ticket.php'));
 
     Router::default(get_path('views', 'error.php'));
