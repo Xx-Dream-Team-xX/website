@@ -1,3 +1,4 @@
+<?php if (!isLoggedIn() && get_final_point() === "view") header('Location: /'); ?>
 <?php include get_path('partials', 'head.php'); ?>
 <!DOCTYPE html>
 <html>
