@@ -1,4 +1,5 @@
-var Redirect = true;
+let Redirect = true;
+let tmp = "";
 
 function enableRedirect() {
     Redirect = true;
@@ -123,6 +124,8 @@ function querryContrat(id, more = true) {
             if (more) {
                 querryUser(contrat.owners[0]);
                 querryAssurane(contrat.insurance);
+                document.getElementById("edit").hidden = false;
+                tmp = id;
             }
         } else if (this.readyState === 4) {
             if (Redirect) {
@@ -131,6 +134,10 @@ function querryContrat(id, more = true) {
             }
         }
     }
+}
+
+function edit() {
+    window.location.href = "/editcontrat/" + tmp;
 }
 
 function onLoad() {

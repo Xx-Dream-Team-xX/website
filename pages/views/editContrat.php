@@ -1,13 +1,14 @@
-<?php include get_path('partials', 'head.php'); ?>
+<?php onlyFor(User::GESTIONNAIRE);?>
 <!DOCTYPE html>
 <html>
 
     <head>
+        <?php include get_path('partials', 'head.php'); ?>
         <script charset="utf-8" src="/static/js/HeyThatsMe.js"></script>
         <script charset="utf-8" src="/static/js/targetNavigation.js"></script>
         <script charset="utf-8" src="/static/js/manageDates.js"></script>
         <script charset="utf-8" src="/static/js/editContract.js"></script>
-        <title>Sinistres</title>
+        <title>Contrats</title>
     </head>
 
     <body onload="onLoad()">
@@ -32,7 +33,7 @@
                             <p class="h6 mb-0 py-1 text-dark">Fin</p>
                             <input type="date" class="form-control  p-1" name="end" id="end">
                         </div>
-                        <p class="text-small text-dark" id="info"></p>
+                        <p class="text-small text-grey" id="info"></p>
                         <button type="submit" class="btn btn-success" id="submitDate" name="submitDate">Valider</button>
                     </div>
                     <div class="row pb-3 g-3">
