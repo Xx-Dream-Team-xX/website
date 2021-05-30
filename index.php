@@ -24,7 +24,7 @@
 
     Router::add('users', get_path('api', 'user.php'));
     Router::add('contract', get_path('api', 'contract.php'));
-    Router::add('sinistre', get_path('api', 'sinistre.php'));
+    Router::add('sinistres', get_path('api', 'sinistre.php'));
     Router::add('auth', get_path('api', 'auth.php'));
     Router::add('account', get_path('api', 'account.php'));
     Router::add('conversation', get_path('api', 'messages.php'));

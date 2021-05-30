@@ -53,7 +53,7 @@ function selectGivenSinistre() {
 
 function fillOptionSinistreList() {
     let req = new XMLHttpRequest();
-    req.open("POST", "/sinistre/getList");
+    req.open("POST", "/sinistres/getList");
     req.send();
     req.onreadystatechange = function () {
 
@@ -76,7 +76,7 @@ function fillOptionSinistreList() {
 
 function updateSinistre(select) {
     let req = new XMLHttpRequest();
-    req.open("POST", "/sinistre/get");
+    req.open("POST", "/sinistres/get");
     req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     req.send(`id=${select.value}`);
     req.onreadystatechange = function () {
@@ -359,7 +359,7 @@ function sendSinistre(formNode) {
         let form = new FormData(formNode);
         form.set('contract', document.getElementById('contrat_sinistre').value);
         let req = new XMLHttpRequest();
-        req.open("POST", "/sinistre/add");
+        req.open("POST", "/sinistres/add");
         req.send(form);
         req.onreadystatechange = function () {
 
@@ -389,7 +389,7 @@ function sendConstat(formNode) {
 
         form.append('id', sinistre.id);
         let req = new XMLHttpRequest();
-        req.open("POST", "/sinistre/addConstat");
+        req.open("POST", "/sinistres/addConstat");
         req.send(form);
         req.onreadystatechange = function () {
             if (this.status === 200 && this.readyState === 4) {
@@ -421,7 +421,7 @@ function sendInjured(formNode) {
 
     form.set('contract', sinistre.contract);
     let req = new XMLHttpRequest();
-    req.open("POST", "/sinistre/addInjured");
+    req.open("POST", "/sinistres/addInjured");
     req.send(form);
     req.onreadystatechange = function () {
         if (this.status === 200 && this.readyState === 4) {

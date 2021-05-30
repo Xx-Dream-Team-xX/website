@@ -5,6 +5,7 @@
      */
     include_once get_path('utils', 'types_utils/users.php');
     include_once get_path('utils', 'types_utils/sinistre.php');
+    include_once get_path('utils', 'files.php');
     include_once get_path('utils', 'forms.php');
 
     switch (get_final_point()) {
@@ -90,8 +91,13 @@
                     ));
 
                     try {
-                        $rawSinistre = validateObject($rawSinistre, Sinistre::$required);
+                        if (checkUploadedFiles()) {
+                            $files = saveUploadedFiles();
+                            $rawSinistre['files'] = $files;
+                        }
 
+                        $rawSinistre = validateObject($rawSinistre, Sinistre::$required);
+                        // echo 'salut';
                         if (!in_array($rawSinistre['contract'], getUpdatedUser()['contracts'])) {
                             http_response_code(400);
                             send_json(array(
@@ -152,10 +158,10 @@
                         DB::setObject(get_path('database', 'sinistres.json'), $sinistre, true);
                         DB::setObject(get_path('database', 'users.json'), $user);
 
-                        $g = DB::getFromID(get_path("database", "users.json"), $user["rep"]);
+                        $g = DB::getFromID(get_path('database', 'users.json'), $user['rep']);
                         if ($g && ($g = User::createUserByType($g))) {
-                            $g->pushNotification("Nouveau sinistre", $user["first_name"] . " vient de déclarer un sinistre.", "/sinistre/" . $sinistre["id"]);
-                            DB::setObject(get_path("database", "users.json"), $g->getAll());
+                            $g->pushNotification('Nouveau sinistre', $user['first_name'] . ' vient de déclarer un sinistre.', '/sinistre/' . $sinistre['id']);
+                            DB::setObject(get_path('database', 'users.json'), $g->getAll());
                         }
                     } catch (Exception $e) {
                         http_response_code(400);

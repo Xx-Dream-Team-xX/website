@@ -1,10 +1,10 @@
-<?php onlyFor(User::ASSURE);?>
+<?php onlyFor(User::ASSURE); ?>
 
 <!DOCTYPE html>
 <html>
 
     <head>
-    <?php include get_path('partials', 'head.php'); ?>
+        <?php include get_path('partials', 'head.php'); ?>
         <script charset="utf-8" src="/static/js/HeyThatsMe.js"></script>
         <script charset="utf-8" src="/static/js/manageSinistre.js"></script>
         <title>Créer un sinistre</title>
@@ -130,6 +130,12 @@
                     <div class="row g-3 border border-1 rounded p-3 mt-3">
                         <h4>Autres dégâts matériels</h4>
                         <textarea id="other_damage" name="other_damage" type="text" placeholder="Description des dégâts" aria-describedby="button-addon2" class="form-control rounded border bg-light"></textarea>
+                    </div>
+                    <div class="row g-3 border border-1 rounded p-3 mt-3">
+                        <div class="col-sm-6">
+                            <label class="form-label" for="files">Choisir des photos (optionnel)</label>
+                            <input type="file" class="form-control" id="files" multiple>
+                        </div>
                     </div>
                     <div class="row g-3 pt-1 p-3 mt-3">
                         <button type="submit" class="btn btn-success" id="submitSinistre" name="submitSinistre">Valider</button>
