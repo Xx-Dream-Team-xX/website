@@ -13,9 +13,18 @@
     <body onload="onLoad()">
         <?php include get_path('partials', 'navbar.php'); ?>
         <!-- MAIN (FORM) -->
-        <div class="container-xl main" id="main" hidden>
+        <div class="container-xl main" id="main">
             <div class="row m-3 mt-0 center-block order border-2 rounded p-3 shadow">
-
+                <?php if (User::ASSURE == getPermissions() || User::GESTIONNAIRE == getPermissions()) { ?>
+                <div class="row g-3 p-3 mb-3">
+                    <select class="form-select" aria-label="contrat" name="contrat" id="contratList" onchange="querryContrat(this.value)" required>
+                        <option hidden selected>Selectionner un Sinistre</option>
+                    </select>
+                    <script>
+                        fillOptionContracts()
+                    </script>
+                </div>
+                <?php }?>
                 <div class="row pb-3 g-3">
                     <h5>Validité</h5>
                     <div class="col-sm-6">

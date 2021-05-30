@@ -1,3 +1,9 @@
+var Redirect = false;
+
+function enableRedirect() {
+    Redirect = true;
+}
+
 function setQRCode(id) {
     let req = new XMLHttpRequest();
     req.open("POST", "/contract/getQRCode");
@@ -11,8 +17,10 @@ function setQRCode(id) {
             document.getElementById('QRCode').innerHTML = QRCode;
             prepareDownloadSVG(id);
         } else if (this.readyState === 4) {
-            alert("Le contrat spécifié n'existe pas / plus");
-            window.location.href = "/";
+            if (Redirect) {
+                alert("Le contrat spécifié n'existe pas / plus");
+                window.location.href = "/";
+            }
         }
     }
 }
@@ -38,13 +46,14 @@ function dispContrat(contrat) {
     }
     if (Object.hasOwnProperty.call(contrat, 'terVal')) {
         document.getElementById('terValList').classList.remove('d-none');
+        document.getElementById('terValList').innerHTML = "<h5>Validité territoriale</h5>";
         let container = document.createElement('div');
         container.className = "row g-3";
         for (const key in contrat.terVal) {
             if (Object.hasOwnProperty.call(contrat.terVal, key)) {
                 const val = contrat.terVal[key];
                 let valContainer = document.createElement('div');
-                valContainer.className = "col-sm-6";
+                valContainer.className = "col-sm-1";
                 valContainer.innerHTML = `
 <div class="form-check">
     <input class="form-check-input" type="checkbox" checked="${val}" readonly disabled>
@@ -58,6 +67,25 @@ function dispContrat(contrat) {
     }
 }
 
+function fillOptionContracts() {
+    let req = new XMLHttpRequest();
+    req.open("POST", "/contract/getList");
+    req.send();
+    req.onreadystatechange = function () {
+
+        if (this.status === 200 && this.readyState === 4) {
+            let contracts = JSON.parse(this.responseText);
+            let contractNode = document.getElementById("contratList");
+            contracts.forEach(contract => {
+                let option = document.createElement("option");
+                option.value = contract.id;
+                option.innerText = `${contract.manufacturer} (${contract.vID})`;
+                contractNode.appendChild(option);
+            });
+        }
+    }
+}
+
 function querryContrat(id) {
     let req = new XMLHttpRequest();
     req.open("POST", "/contract/get");
@@ -68,16 +96,21 @@ function querryContrat(id) {
             let contrat = JSON.parse(this.responseText);
             dispContrat(contrat);
         } else if (this.readyState === 4) {
-            alert("Le contrat spécifié n'existe pas / plus");
-            window.location.href = "/";
+            if (Redirect) {
+                alert("Le contrat spécifié n'existe pas / plus");
+                window.location.href = "/";
+            }
         }
     }
 }
 
 function onLoad() {
     let id = getTarget('/view/');
-    setQRCode(id);
-    querryContrat(id);
+    if (id) {
+        setQRCode(id);
+        querryContrat(id);
+    }
+
 }
 
 function toggleModal() {
