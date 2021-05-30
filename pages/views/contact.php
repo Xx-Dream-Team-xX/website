@@ -13,7 +13,7 @@
 
                 <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
                     <div class="col">
-                        <div class="card card-cover mouse-cursor h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('https://images.unsplash.com/photo-1521931961826-fe48677230a5?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bWVzc2FnZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80');">
+                        <div onclick="window.location.href = '/messages'" class="card card-cover mouse-cursor h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('https://images.unsplash.com/photo-1521931961826-fe48677230a5?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bWVzc2FnZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80');">
                             <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
                                 <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Messagerie</h2>
                             </div>
