@@ -39,3 +39,7 @@ function doLogin() {
 function manageLogin() {
     window.location.reload();
 }
+
+function b(a) {
+    console.log(a);
+}
