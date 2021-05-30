@@ -1,10 +1,10 @@
-<?php onlyFor(User::ASSURE);?>
+<?php onlyFor(User::ASSURE); ?>
 
 <!DOCTYPE html>
 <html>
 
     <head>
-    <?php include get_path('partials', 'head.php'); ?>
+        <?php include get_path('partials', 'head.php'); ?>
         <script charset="utf-8" src="/static/js/HeyThatsMe.js"></script>
         <script charset="utf-8" src="/static/js/manageSinistre.js"></script>
         <title>Créer un sinistre</title>
@@ -131,6 +131,12 @@
                         <h4>Autres dégâts matériels</h4>
                         <textarea id="other_damage" name="other_damage" type="text" placeholder="Description des dégâts" aria-describedby="button-addon2" class="form-control rounded border bg-light"></textarea>
                     </div>
+                    <div class="row g-3 border border-1 rounded p-3 mt-3">
+                        <div class="col-sm-6">
+                            <label class="form-label" for="files">Choisir des photos (optionnel)</label>
+                            <input type="file" class="form-control" id="files" multiple>
+                        </div>
+                    </div>
                     <div class="row g-3 pt-1 p-3 mt-3">
                         <button type="submit" class="btn btn-success" id="submitSinistre" name="submitSinistre">Valider</button>
                     </div>
@@ -211,7 +217,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="A_inputVille" class="form-label">Ville</label>
-                                    <input type="text" class="form-control" name="A_inputVille" id="A_inputVille" placeholder="Pau.." required>
+                                    <input type="text" class="form-control" name="A_inputVille" id="A_inputVille" placeholder="Ville" required>
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="A_driver_zipcode" class="form-label">Code Postal</label>
@@ -226,7 +232,7 @@
                                     <input type="phone" class="form-control" name="A_driver_phone" id="A_driver_phone" required>
                                 </div>
                                 <div class="col-sm-6">
-                                    <label for="A_dirver_email" class="form-label">e-mail</label>
+                                    <label for="A_dirver_email" class="form-label">Email</label>
                                     <input type="email" class="form-control" name="A_dirver_email" id="A_dirver_email" required>
                                 </div>
                                 <div class="row g-3">
@@ -397,7 +403,7 @@
                                     <input type="phone" class="form-control" name="B_driver_phone" id="B_driver_phone" required>
                                 </div>
                                 <div class="col-sm-6">
-                                    <label for="B_dirver_email" class="form-label">e-mail</label>
+                                    <label for="B_dirver_email" class="form-label">Email</label>
                                     <input type="email" class="form-control" name="B_dirver_email" id="B_dirver_email" required>
                                 </div>
                                 <div class="row g-3">

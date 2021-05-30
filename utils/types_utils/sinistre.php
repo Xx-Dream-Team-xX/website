@@ -79,6 +79,10 @@
                 'type' => 'array',
                 'optional' => true,
             ),
+            'files' => array(
+                'type' => 'array',
+                'optional' => true,
+            ),
         );
 
         /**

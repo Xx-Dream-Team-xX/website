@@ -16,7 +16,7 @@
                 <label for="contrat" class="form-label">
                     <h4>Sinistre</h4>
                 </label>
-                <select class="form-select" aria-label="contrat" name="id" id="contratList" onchange="updateSinistre(this)" required>
+                <select class="form-select" aria-label="contrat" name="id" id="sinistre_list" onchange="updateSinistre(this)" required>
                     <option hidden selected>Selectionner un Sinistre</option>
                 </select>
                 <div class="row g-3 d-none" id="sinistreMainContainer">
@@ -118,7 +118,7 @@
                                     <p class="h6 mb-0 py-1 text-dark">Téléphone : <span class="h6 text-dark" id="garage_phone"></span></p>
                                 </div>
                                 <div class="col-sm-6">
-                                    <p class="h6 mb-0 py-1 text-dark">E-mail : <span class="h6 text-dark" id="garage_email"></span></p>
+                                    <p class="h6 mb-0 py-1 text-dark">Email : <span class="h6 text-dark" id="garage_email"></span></p>
                                 </div>
                             </div>
                         </div>
@@ -129,6 +129,13 @@
                             <br>
                         </p>
                     </div>
+                    <h4 class="pt-3 pb-0 mb-0">Justificatifs fournis</h4>
+                    <div class="row g-3 border border-1 rounded p-3 py-1">
+                        <ul class="pl-2" id="documents">
+                            <!-- html pour l'affichage -->
+                        </ul>
+                    </div>
+
                     <div class="row mt-2 d-none" id="injured_container">
                         <h4 class="pt-3 pb-0 mb-0">Blessés</h4>
                         <div class="row g-3 border border-1 rounded p-3 pt-0" id="injured_list">
@@ -190,7 +197,7 @@
                                         <p class="h6 mb-0 py-1 text-dark">Téléphone : <span class="h6 text-dark" id="A_driver_phone"></span></p>
                                     </div>
                                     <div class="col-sm-6">
-                                        <p class="h6 mb-0 py-1 text-dark">E-mail : <span class="h6 text-dark" id="A_dirver_email"></span></p>
+                                        <p class="h6 mb-0 py-1 text-dark">Email : <span class="h6 text-dark" id="A_dirver_email"></span></p>
                                     </div>
                                 </div>
                                 <div class="row g-3">
@@ -328,7 +335,7 @@
                                         <p class="h6 mb-0 py-1 text-dark">Téléphone : <span class="h6 text-dark" id="B_driver_phone"></span></p>
                                     </div>
                                     <div class="col-sm-6">
-                                        <p class="h6 mb-0 py-1 text-dark">E-mail : <span class="h6 text-dark" id="B_dirver_email"></span></p>
+                                        <p class="h6 mb-0 py-1 text-dark">Email : <span class="h6 text-dark" id="B_dirver_email"></span></p>
                                     </div>
                                 </div>
                                 <div class="row g-3">

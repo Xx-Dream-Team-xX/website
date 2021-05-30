@@ -187,6 +187,16 @@ function displaySinistre(sinistreData) {
         document.getElementById('garage_email').innerText = sinistreData.garage_email;
     }
     document.getElementById('other_damage').innerText = sinistreData.other_damage;
+
+    if (Object.hasOwnProperty.call(sinistreData, 'files')) {
+        let files = sinistreData.files
+        files.forEach(f => {
+            document.getElementById('documents').innerHTML += `<li><a class="text-dark" target="_blank" href="/useruploadedcontent/${f}">${f}</a></li>\n`;
+        });
+
+    }
+
+
     if (Object.hasOwnProperty.call(sinistreData, 'constat')) {
         document.getElementById('constat_container').classList.remove('d-none');
         let dateConstat = new Date(sinistreData.constat.date * 1000);
@@ -287,7 +297,7 @@ function addInjured(button) {
             </div>
             <div class="col-sm-6">
                 <label for="inputVille" class="form-label">Ville</label>
-                <input type="text" class="form-control" name="inputVille" id="inputVille" placeholder="Pau.." required>
+                <input type="text" class="form-control" name="inputVille" id="inputVille" placeholder="Ville" required>
             </div>
             <div class="col-sm-6">
                 <label for="zipcode" class="form-label">Code Postal</label>
@@ -319,7 +329,7 @@ function addInjured(button) {
         </div>
         <input type="submit" style="display:none" name="submitButton">
     </form>
-    <button type="submit" class="btn btn-primary" name="removeInjured" onclick="removeInjured(this)">Supprimé</button>`;
+    <button type="submit" class="btn btn-danger" name="removeInjured" onclick="removeInjured(this)">Supprimer</button>`;
     let parent = button.parentNode
     parent.insertBefore(injuredForm, button);
 }
@@ -358,6 +368,8 @@ function sendSinistre(formNode) {
     if (formNode.checkValidity()) {
         let form = new FormData(formNode);
         form.set('contract', document.getElementById('contrat_sinistre').value);
+        let files = document.getElementById("files").files;
+        form.append("file", files[0], files[0].length);
         let req = new XMLHttpRequest();
         req.open("POST", "/sinistre/add");
         req.send(form);
@@ -495,7 +507,7 @@ function toggleGarage(checkbox) {
             </div>
         </div>
         <div class="col-sm">
-            <label for="garage_email" class="form-label">e-mail</label>
+            <label for="garage_email" class="form-label">Email</label>
             <input type="email" class="form-control" name="garage_email" id="garage_email" required>
             <div class="invalid-feedback">
                 Veuillez entrer l'e-mail du garage.
