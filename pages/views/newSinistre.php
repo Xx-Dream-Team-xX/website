@@ -244,7 +244,16 @@
                                     <div class="col-sm-6">
                                         <label for="A_driver_liscence_cat" class="form-label">Catégorie du
                                             permis</label>
-                                        <input type="text" class="form-control" name="A_driver_liscence_cat" id="A_driver_liscence_cat" required>
+                                        <select class="form-select" aria-label="user" name="A_driver_liscence_cat" id="A_driver_liscence_cat" required>
+                                            <option hidden selected>Sélectionner une categorie</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                            <option value="E">E</option>
+                                            <option value="F">F</option>
+                                            <option value="G">G</option>
+                                        </select>
                                     </div>
                                     <div class="col-sm-6">
                                         <label for="A_driver_liscence_expire" class="form-label">Fin de validité du
@@ -415,7 +424,16 @@
                                     <div class="col-sm-6">
                                         <label for="B_driver_liscence_cat" class="form-label">Catégorie du
                                             permis</label>
-                                        <input type="text" class="form-control" name="B_driver_liscence_cat" id="B_driver_liscence_cat" required>
+                                        <select class="form-select" aria-label="user" name="B_driver_liscence_cat" id="B_driver_liscence_cat" required>
+                                            <option hidden selected>Sélectionner une categorie</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                            <option value="E">E</option>
+                                            <option value="F">F</option>
+                                            <option value="G">G</option>
+                                        </select>
                                     </div>
                                     <div class="col-sm-6">
                                         <label for="B_driver_liscence_expire" class="form-label">Fin de validité du
