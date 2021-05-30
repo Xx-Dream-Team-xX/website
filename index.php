@@ -33,6 +33,7 @@
     Router::add('notifications', get_path('api', 'notifications.php'));
     Router::add('verification', get_path('api', 'verification.php'));
     Router::add('assurance', get_path('api', 'assurance.php'));
+    Router::add('declaration', get_path('api', 'sell.php'));
 
     Router::add('messages', get_path('views', 'chat.php'));
 
@@ -43,6 +44,7 @@
 
     Router::add('constater', get_path('views', 'newSinistre.php'));
     Router::add('sinistres', get_path('views', 'viewSinistre.php'));
+    Router::add('declarations', get_path('views', 'viewSinistre.php'));
 
     Router::add('view', get_path('views', 'viewcontrat.php'));
     Router::add('addcontrat', get_path('views', 'addContrat.php'));

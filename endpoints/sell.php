@@ -33,6 +33,47 @@
             send_json($sell);
 
             break;
+        case 'getList':
+            $sells = DB::getAll(get_path('database', 'sell.json'));
+            switch (getPermissions()) {
+                case User::ASSURE:
+                    $liste = array();
+                    foreach ($sells as $key => $s) {
+                        if ($s['user'] == getID()) {
+                            array_push($liste, array(
+                                'id' => $s['id'],
+                                'user' => $s['user']
+                            ));
+                        }
+                    }
+                    send_json($liste);
+
+                    break;
+                case User::GESTIONNAIRE:
+                    $liste = array();
+                    foreach ($sells as $key => $s) {
+                        if (false == $user = DB::getFromID(get_path('database', 'users.json'), $s['user'])) {
+                            $_SERVER['logger']->log(Logger::ERRORS, whois() . 'Database error : User ' . $s['user'] . ' don\'t exist');
+
+                            continue;
+                        }
+                        if ($user['rep'] == getID()) {
+                            array_push($liste, array(
+                                'id' => $s['id'],
+                                'user' => $s['user']
+                            ));
+                        }
+                    }
+                    send_json($liste);
+
+                    break;
+                default:
+                    http_response_code(400);
+
+                    break;
+            }
+
+            break;
         case 'add':
             switch (getPermissions()) {
                 case User::ASSURE:
