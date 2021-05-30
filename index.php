@@ -47,6 +47,7 @@
 
     Router::add('view', get_path('views', 'viewcontrat.php'));
     Router::add('addcontrat', get_path('views', 'addContrat.php'));
+    Router::add('editcontrat', get_path('views', 'editContrat.php'));
 
     Router::add('me', get_path('views', 'me.php'));
     Router::add('verifications', get_path('views', 'verification.php'));

@@ -65,8 +65,7 @@
                             <div class="modal-body">
                                 <div class="row g-3" id="terValList">
                                     <div class="d-flex justify-content-center" id="QRCode">
-                                        <div class="spinner-border text-align-center text-primary"
-                                            style="width: 3rem; height: 3rem;" role="status">
+                                        <div class="spinner-border text-align-center text-primary" style="width: 3rem; height: 3rem;" role="status">
                                             <span class="sr-only">Loading...</span>
                                         </div>
                                     </div>
