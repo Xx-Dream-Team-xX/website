@@ -261,8 +261,12 @@
                             array_push($user['contracts'], $contract->getID());
                             $session_user = getUpdatedUser();
                             array_push($session_user['contracts'], $contract->getID());
+
+                            $user = User::createUserByType($user);
+                            $user->pushNotification("Nouveau contrat", "Un nouveau contrat a été ajouté à votre compte", "/view/" + $contract->getID());
+
                             DB::setObject(get_path('database', 'contracts.json'), $contract->getAll());
-                            DB::setObject(get_path('database', 'users.json'), $user);
+                            DB::setObject(get_path('database', 'users.json'), $user->getAll());
                             DB::setObject(get_path('database', 'users.json'), $session_user);
                             send_json($contract->getAll());
                         } else {
@@ -302,8 +306,13 @@
                         if (!in_array($data['user'], $contract['owners']) && !in_array($data['id'], $user['contracts'])) {
                             array_push($contract['owners'], $data['user']);
                             array_push($user['contracts'], $contract['id']);
+
+                            $user = User::createUserByType($user);
+                            $user->pushNotification("Nouveau contrat", "Vous avez été ajouté.es à un contrat", "/view/" + $contract['id']);
+
                             DB::setObject(get_path('database', 'contracts.json'), $contract);
-                            DB::setObject(get_path('database', 'users.json'), $user);
+                            DB::setObject(get_path('database', 'users.json'), $user->getAll());
+                            
                         } else {
                             http_response_code(400);
                             send_json(array(
