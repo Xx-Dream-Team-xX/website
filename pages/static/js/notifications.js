@@ -21,7 +21,7 @@ function lazyHtmlInsertion(c, c2, c3, c4, id, title, content, url) {
     return `
     <div class="modal_item ${c} row">
         <div class="left-side small-break-remove" onclick="markNotification('${id}'); window.open('${url}', '_blank');">
-            <span class="material-icons">${c2}</span>
+            <span class="material-icons grow grow-2">${c2}</span>
         </div>
         
         <div id="${id}" class="right-side small-break-container">
@@ -34,7 +34,7 @@ function lazyHtmlInsertion(c, c2, c3, c4, id, title, content, url) {
                 <div class="user_msg mouse-cursor" onclick="markNotification('${id}'); window.open('${url}', '_blank');">
                     <span>${content}</span>
                 </div>
-                <div class="del_msg" onclick='${c4}("${id}")'>
+                <div class="del_msg grow grow-2" onclick='${c4}("${id}")'>
                     <span class="material-icons">${c3}</span>
                 </div>
             </div>

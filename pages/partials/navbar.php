@@ -56,20 +56,20 @@
                 <span class="modal-titre text-dark small-break-text-sm">Notifications</span>
             </div>
             <div class="col">
-                <span onclick="fermerModal()" class="material-icons close-btn small-break-text-md">close</span>
+                <span onclick="fermerModal()" class="material-icons close-btn small-break-text-md grow grow-5">close</span>
             </div>
         </div>
 
         <hr style="margin-top:15px; margin-bottom:15px; border: 2px solid #aaaaaa;">
 
         <div class="modal-buttons">
-            <span class="btn_modal mark-read">
+            <span class="btn_modal mark-read grow grow-2">
                 <span onclick="markNotification()">
                     <span class="material-icons">mark_email_read</span>
                     <span class="btn-text">Tout marquer comme lu</span>
                 </span>
             </span>
-            <span class="btn_modal mark-delete">
+            <span class="btn_modal mark-delete grow grow-2">
                 <span onclick="clearNotification()">
                     <span class="material-icons">delete</span>
                     <span class="btn-text">Tout supprimer</span>
