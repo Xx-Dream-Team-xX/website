@@ -43,7 +43,7 @@
                         <input class="form-control  p-1" id="contrat_vID" disabled>
                     </div>
                     <div class="col-sm-6 d-none">
-                        <p class="h5 mb-0 py-1 text-dark">Category</p>
+                        <p class="h5 mb-0 py-1 text-dark">Catégorie</p>
                         <input class="form-control  p-1" id="category" disabled>
 
                     </div>

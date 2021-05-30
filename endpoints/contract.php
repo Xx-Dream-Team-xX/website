@@ -263,7 +263,7 @@
                             array_push($session_user['contracts'], $contract->getID());
 
                             $user = User::createUserByType($user);
-                            $user->pushNotification("Nouveau contrat", "Un nouveau contrat a été ajouté à votre compte", "/view/" + $contract->getID());
+                            $user->pushNotification("Nouveau contrat", "Un nouveau contrat a été ajouté à votre compte", "/view/" . $contract->getID());
 
                             DB::setObject(get_path('database', 'contracts.json'), $contract->getAll());
                             DB::setObject(get_path('database', 'users.json'), $user->getAll());
@@ -308,7 +308,7 @@
                             array_push($user['contracts'], $contract['id']);
 
                             $user = User::createUserByType($user);
-                            $user->pushNotification("Nouveau contrat", "Vous avez été ajouté.es à un contrat", "/view/" + $contract['id']);
+                            $user->pushNotification("Nouveau contrat", "Vous avez été ajouté.es à un contrat", "/view/" . $contract['id']);
 
                             DB::setObject(get_path('database', 'contracts.json'), $contract);
                             DB::setObject(get_path('database', 'users.json'), $user->getAll());

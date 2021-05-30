@@ -18,7 +18,7 @@
                 <?php if (User::ASSURE == getPermissions() || User::GESTIONNAIRE == getPermissions()) { ?>
                 <div class="row g-3 p-3 mb-3">
                     <select class="form-select" aria-label="contrat" name="contrat" id="contratList" onchange="querryContrat(this.value)" required>
-                        <option hidden selected>Selectionner un Sinistre</option>
+                        <option hidden selected>Selectionner un autre Contrat</option>
                     </select>
                     <script>
                         fillOptionContracts()
@@ -42,7 +42,7 @@
                         <input class="form-control  p-1" id="contrat_vID" disabled>
                     </div>
                     <div class="col-sm-6 d-none">
-                        <p class="h5 mb-0 py-1 text-dark">Category</p>
+                        <p class="h5 mb-0 py-1 text-dark">Catégorie</p>
                         <input class="form-control  p-1" id="category" disabled>
 
                     </div>

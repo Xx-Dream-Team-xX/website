@@ -132,15 +132,15 @@
                         <textarea id="other_damage" name="other_damage" type="text" placeholder="Description des dégâts" aria-describedby="button-addon2" class="form-control rounded border bg-light"></textarea>
                     </div>
                     <div class="row g-3 pt-1 p-3 mt-3">
-                        <button type="submit" class="btn btn-primary" id="submitSinistre" name="submitSinistre">Valider</button>
+                        <button type="submit" class="btn btn-success" id="submitSinistre" name="submitSinistre">Valider</button>
                     </div>
                 </form>
             </div>
             <div class="row m-3 mt-0 order border-2 rounded p-3 shadow d-none" id="injureds">
                 <h2>Blessés</h2>
                 <div class="row g-3 pt-1 p-3 mt-3">
-                    <button type="submit" class="btn btn-primary" id="addInjured" name="addInjured" onclick="addInjured(this)">Ajouter un blessé</button>
-                    <button type="submit" class="btn btn-primary" id="addInjured" name="addInjured" onclick="sendInjureds(this)">Valider</button>
+                    <button type="submit" class="btn btn-success" id="addInjured" name="addInjured" onclick="addInjured(this)">Ajouter un blessé</button>
+                    <button type="submit" class="btn btn-success" id="addInjured" name="addInjured" onclick="sendInjureds(this)">Valider</button>
                 </div>
             </div>
             <div class="row m-3 mt-0 order border-2 rounded p-3 shadow d-none" id="constat">
@@ -528,13 +528,13 @@
 
                         </div>
                         <div class="row g-1 pt-3">
-                            <button type="submit" class="btn btn-primary" id="addInjured" name="addInjured">Valider</button>
+                            <button type="submit" class="btn btn-success" id="addInjured" name="addInjured">Valider</button>
                         </div>
                     </form>
-                    <button type="submit" class="btn btn-primary" id="addInjured" name="addInjured" onclick="hideConstat(this)">Supprimer</button>
+                    <button type="submit" class="btn btn-success" id="addInjured" name="addInjured" onclick="hideConstat(this)">Supprimer</button>
                 </div>
                 <div class="row g-1 pt-3">
-                    <button type="submit" class="btn btn-primary" id="showConstat" name="showConstat" onclick="showConstat(this)">Ajouter un constat</button>
+                    <button type="submit" class="btn btn-success" id="showConstat" name="showConstat" onclick="showConstat(this)">Ajouter un constat</button>
                 </div>
             </div>
 

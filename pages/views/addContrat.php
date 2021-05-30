@@ -49,7 +49,7 @@
                             <div id='ImmatHelpBlock' class='form-text is-invalid'></div>
                         </div>
                         <div class="col-sm-6  ">
-                            <p class="h5 mb-0 py-1 text-dark">Category</p>
+                            <p class="h5 mb-0 py-1 text-dark">Catégorie</p>
                             <select class="form-select" aria-label="user" name="category" id="category" required>
                                 <option hidden selected>Sélectionner une categorie</option>
                                 <option value="A">A</option>
