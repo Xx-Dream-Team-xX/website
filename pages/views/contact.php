@@ -6,6 +6,8 @@
     </head>
     <body>
         <?php include(get_path('partials', 'navbar.php')); ?>
+        <script charset="utf-8" src="/static/js/HeyThatsMe.js"></script>
+        <script src="/static/js/contact.js"></script>
         <!-- MAIN (FORM) -->
         <div class="main">
             <div class="container px-4 py-5" id="custom-cards">
