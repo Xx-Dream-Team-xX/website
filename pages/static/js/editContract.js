@@ -42,10 +42,12 @@ function sendDate(formNode) {
         req.onreadystatechange = function () {
 
             if (this.status === 200 && this.readyState === 4) {
-                let contrat = JSON.parse(this.responseText);
-                // window.location.href = `editcontrat/${contrat.id}`
+                document.getElementById("info").innerText = "Mis à jour!"
             }
+            
         }
+        document.getElementById("info").innerText = "Envoi..."
+
     }
 }
 
@@ -59,10 +61,11 @@ function sendTerVal(formNode) {
         req.onreadystatechange = function () {
 
             if (this.status === 200 && this.readyState === 4) {
-                let contrat = JSON.parse(this.responseText);
-                // window.location.href = `editcontrat/${contrat.id}`
+                document.getElementById("info").innerText = "Mis à jour!"
             }
         }
+        document.getElementById("info2").innerText = "Mis à jour!"
+
     }
 }
 
