@@ -13,14 +13,16 @@
         <div class="container-xl main d-flex justify-content-center">
             <div class="row p-5">
                 <div class="col d-flex justify-content-center">
-                    <input type="text" id="filter" class="form-group" placeholder="Rechercher" onkeyup="filterTable()">
-                </div>
-                <div class="col d-flex justify-content-center">
                 <?php if (getPermissions() === User::GESTIONNAIRE) {?>
                     <a class="btn btn-success" href="/inscription" role="button">Ajouter un assuré</a>
                 <?php } else if (getPermissions() === User::ADMIN) {?>
                     <a class="btn btn-success" href="/creation" role="button">Générer un utilisateur</a>
+                <?php } else {?>
+                    <a class="btn btn-danger" href="/contact" role="button">Retour</a>
                 <?php }?>
+                </div>
+                <div class="col" id="search">
+                    <input type="text" id="filter" class="form-group" placeholder="Rechercher" onkeyup="filterTable()">
                 </div>
             </div>
             <div class="row p-2">

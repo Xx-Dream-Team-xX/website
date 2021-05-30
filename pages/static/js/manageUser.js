@@ -101,11 +101,12 @@ function dorequest(url, fct) {
 function getContrats(id) {
     {   
         dorequest("/contract/getList", (d) => {
-            target = document.getElementById("contrats");
-            document.getElementById("contrats_info").hidden = false;
+            let target = document.getElementById("contrats");
             d.forEach((f) => {
-                if (!d.owners || d.owners.includes(id)) target += `<li><a class="text-dark small" target="_blank" href="/view/${f.id}">${f.Vid}</a></li>\n`;
-                console.log(id)
+                if (!f.owners || f.owners.includes(id)) {
+                    target.innerHTML += `<li><a class="text-dark small" target="_blank" href="/view/${f.id}">${f.vID}</a></li>\n`;
+                     document.getElementById("contrats_info").hidden = false;
+                }
             });
         })
     }
@@ -114,10 +115,12 @@ function getContrats(id) {
 function getSinistres(id) {
     {   
         dorequest("/sinistre/getList", (d) => {
-            target = document.getElementById("sinistres");
-            document.getElementById("sinistres_info").hidden = false;
+            let target = document.getElementById("sinistres");
             d.forEach((f) => {
-                if (d.user === id) target += `<li><a class="text-dark small" target="_blank" href="/sinistre/${f.id}">${f.id}</a></li>\n`;
+                if (f.user === id) {
+                    target.innerHTML += `<li><a class="text-dark small" target="_blank" href="/sinistre/${f.id}">${f.id}</a></li>\n`;
+                    document.getElementById("sinistres_info").hidden = false;
+                }
             });
         })
     }
@@ -126,10 +129,12 @@ function getSinistres(id) {
 function getVentes(id) {
     {   
         dorequest("/declaration/getList", (d) => {
-            target = document.getElementById("declarations");
-            document.getElementById("declarations_info").hidden = false;
+            let target = document.getElementById("declarations");
             d.forEach((f) => {
-                if (d.user === id) target += `<li><a class="text-dark small" target="_blank" href="/declaration/${f.id}">${f.id}</a></li>\n`;
+                if (f.user === id) {
+                    target.innerHTML += `<li><a class="text-dark small" target="_blank" href="/declaration/${f.id}">${f.id}</a></li>\n`;
+                    document.getElementById("declarations_info").hidden = false;
+                }
             });
         })
     }
