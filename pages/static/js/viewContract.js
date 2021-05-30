@@ -112,7 +112,7 @@ function querryAssurane(id) {
 
 function querryContrat(id, more = false) {
     let req = new XMLHttpRequest();
-    req.open("POST", "contract/get");
+    req.open("POST", "/contract/get");
     req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     req.send(`id=${id}`);
     req.onreadystatechange = function () {

@@ -44,7 +44,7 @@
                 </div>
 
                 <div class="col">
-                        <table class="table table-striped" id="a_info">
+                        <table class="table table-striped" id="a_info" hidden>
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col"></th>
