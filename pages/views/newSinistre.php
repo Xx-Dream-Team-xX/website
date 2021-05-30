@@ -217,7 +217,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="A_inputVille" class="form-label">Ville</label>
-                                    <input type="text" class="form-control" name="A_inputVille" id="A_inputVille" placeholder="Pau.." required>
+                                    <input type="text" class="form-control" name="A_inputVille" id="A_inputVille" placeholder="Ville" required>
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="A_driver_zipcode" class="form-label">Code Postal</label>
@@ -232,7 +232,7 @@
                                     <input type="phone" class="form-control" name="A_driver_phone" id="A_driver_phone" required>
                                 </div>
                                 <div class="col-sm-6">
-                                    <label for="A_dirver_email" class="form-label">e-mail</label>
+                                    <label for="A_dirver_email" class="form-label">Email</label>
                                     <input type="email" class="form-control" name="A_dirver_email" id="A_dirver_email" required>
                                 </div>
                                 <div class="row g-3">
@@ -403,7 +403,7 @@
                                     <input type="phone" class="form-control" name="B_driver_phone" id="B_driver_phone" required>
                                 </div>
                                 <div class="col-sm-6">
-                                    <label for="B_dirver_email" class="form-label">e-mail</label>
+                                    <label for="B_dirver_email" class="form-label">Email</label>
                                     <input type="email" class="form-control" name="B_dirver_email" id="B_dirver_email" required>
                                 </div>
                                 <div class="row g-3">

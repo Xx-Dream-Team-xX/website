@@ -9,6 +9,7 @@
     include_once './utils/logs.php';
 
     $_SERVER['logger'] = new Logger(get_path('logs'), SETTINGS['logger']);
+    error_reporting(E_ERROR | E_PARSE);
 
     $url = $_SERVER['REQUEST_URI'];
     $path = explode('?', $url, 2)[0];
