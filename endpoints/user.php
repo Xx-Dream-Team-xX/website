@@ -30,7 +30,7 @@
                     switch (getPermissions()) {
                         case User::ASSURE:
                             if (getID() === $t->getID()) {
-                                $all = $t->getAll();
+                                $all = $t->getPublic();
                                 unset($all['address']);
                                 unset($all['zip_code']);
                                 unset($all['birth']);
