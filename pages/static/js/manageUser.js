@@ -118,7 +118,7 @@ function getSinistres(id) {
             let target = document.getElementById("sinistres");
             d.forEach((f) => {
                 if (f.user === id) {
-                    target.innerHTML += `<li><a class="text-dark small" target="_blank" href="/sinistre/${f.id}">${f.id}</a></li>\n`;
+                    target.innerHTML += `<li><a class="text-dark small" target="_blank" href="/sinistres/${f.id}">${f.id}</a></li>\n`;
                     document.getElementById("sinistres_info").hidden = false;
                 }
             });
