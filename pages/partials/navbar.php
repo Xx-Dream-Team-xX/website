@@ -10,8 +10,8 @@
 <nav class="navbar navbar-expand-md">
     <div class="container-fluid p-0">
         <div class="navbar-left navbar-brand px-3">
-            <a href="/"><img src="/static/images/logo.png" alt="logo" class="d-inline-block align-text-top navlogo small-break-shrink"></a>
-            <a class="navtitle medium-break-font" id="title" href="/"><?php echo SETTINGS['name']; ?></a>
+            <a href="/"><img src="/static/images/logo.png" alt="logo" class="d-inline-block align-text-top navlogo small-break-shrink grow grow-1"></a>
+            <a class="navtitle medium-break-font grow grow-1" id="title" href="/"><?php echo SETTINGS['name']; ?></a>
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02">
             <span class="material-icons nav-btn"><i class="bi bi-list"></i></span>
@@ -26,19 +26,19 @@
                 </li> -->
                 <li class="nav-item">
                     <div class="buttons d-flex align-items-center">
-                        <span onclick="ouvrirModal()" class="modalbtn">
+                        <span onclick="ouvrirModal()" class="modalbtn grow grow-2">
                             <span class="material-icons nav-btn">notifications</span>
                             <div id="notif-led" class="notif-dot"></div>
                         </span>
                         <!--<span onclick="dropdown_fnc('drop_profile')" class="dropbtn nav-btn small-break-remove-margins">-->
-                        <a href="/me">
+                        <a href="/me" class="grow grow-2">
                             <span class="dropbtn nav-btn small-break-remove-margins">
                                 <span class="material-icons">account_circle</span>
                                 <span class="userbtn_txt"><?php echo $_SESSION['user']['last_name']; ?></span>
                             </span>
                         </a>
                     </div>
-                    <li class="nav-item">
+                    <li class="nav-item grow grow-2">
                     <a class="nav-link nav-btn" href="/" onclick="logout()"><span class="material-icons">logout</span>
                         <h5 class="nav-link hide-md">Se déconnecter</h5>
                     </a>

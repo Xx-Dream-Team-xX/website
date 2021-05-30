@@ -10,16 +10,18 @@
 
     switch (get_final_point()) {
         case 'getQRCode':
+            $_SERVER['logger']->log(1, whois() . 'Get QRCode');
             if (isset($_POST['id']) && false !== $contract = DB::getFromID(get_path('database', 'contracts.json'), $_POST['id'])) {
                 generateQr(SETTINGS['url'] . 'view/' . $_POST['id'], $send = true);
 
                 break;
             }
-                http_response_code(400);
-                send_json(array(
-                    'success' => false,
-                    'error' => 'No contract specified or not found',
-                ));
+            $_SERVER['logger']->log(3, whois() . 'QRCode - No contract specified or not found');
+            http_response_code(400);
+            send_json(array(
+                'success' => false,
+                'error' => 'No contract specified or not found',
+            ));
 
             break;
         case 'get':
@@ -35,7 +37,7 @@
 
                 return;
             }
-
+            $_SERVER['logger']->log(1, whois() . 'Get contract');
             switch (getPermissions()) {
                 case User::ASSURE:
                     if (in_array(getID(), $contract['owners'])) {
@@ -112,15 +114,18 @@
                                 'id' => $contract['id'],
                                 'vID' => $contract['vID'],
                                 'manufacturer' => $contract['manufacturer'],
-                                'owners' => $contract['owners']
+                                'owners' => $contract['owners'],
                             ));
                         }
                     }
 
                     send_json($contracts);
+                    $_SERVER['logger']->log(1, whois() . 'Get contract list');
 
                     break;
                 default:
+                $_SERVER['logger']->log(3, whois() . 'Get contract list - No permission to do that');
+
                     break;
             }
 
@@ -151,8 +156,10 @@
                                     $contract = array_merge($contract, $modif);
                                     send_json($contract);
                                     DB::setObject(get_path('database', 'contracts.json'), $contract);
+                                    $_SERVER['logger']->log(1, whois() . 'Set contract');
                                 } catch (Exception $e) {
-                                    http_response_code(400);
+                                    $_SERVER['logger']->log(5, whois() . 'Set contract - ' . $e->getMessage());
+                                    http_response_code(500);
                                     echo $e->getMessage();
                                 }
                             }
@@ -174,6 +181,8 @@
 
                     break;
                 default:
+                    $_SERVER['logger']->log(3, whois() . 'Set contract - No permission to do that');
+
                     break;
             }
 
@@ -264,7 +273,7 @@
                             array_push($session_user['contracts'], $contract->getID());
 
                             $user = User::createUserByType($user);
-                            $user->pushNotification("Nouveau contrat", "Un nouveau contrat a été ajouté à votre compte", "/view/" . $contract->getID());
+                            $user->pushNotification('Nouveau contrat', 'Un nouveau contrat a été ajouté à votre compte', '/view/' . $contract->getID());
 
                             DB::setObject(get_path('database', 'contracts.json'), $contract->getAll());
                             DB::setObject(get_path('database', 'users.json'), $user->getAll());
@@ -309,11 +318,10 @@
                             array_push($user['contracts'], $contract['id']);
 
                             $user = User::createUserByType($user);
-                            $user->pushNotification("Nouveau contrat", "Vous avez été ajouté.es à un contrat", "/view/" . $contract['id']);
+                            $user->pushNotification('Nouveau contrat', 'Vous avez été ajouté.es à un contrat', '/view/' . $contract['id']);
 
                             DB::setObject(get_path('database', 'contracts.json'), $contract);
                             DB::setObject(get_path('database', 'users.json'), $user->getAll());
-                            
                         } else {
                             http_response_code(400);
                             send_json(array(

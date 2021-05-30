@@ -52,6 +52,7 @@
 
 .name {
     z-index: 2;
+    font-size: 200%;
 }
 
 .dropdown-menu {
@@ -76,3 +77,4 @@
   background-position: center center;
   border-radius: 0.75rem;
 }
+
