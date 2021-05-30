@@ -1,9 +1,8 @@
 <?php
 
     /**
-     * Assurance creation, list, obtention
+     * Assurance creation, list, obtention.
      */
-    
     include_once get_path('utils', 'types_utils/assurance.php');
     include_once get_path('utils', 'forms.php');
     include_once get_path('utils', 'files.php');
@@ -11,48 +10,54 @@
     switch (get_final_point()) {
         case 'get':
             if (isset($_POST['id']) && isLoggedIn()) {
-                $a = DB::getFromID(get_path("database", "assurances.json"), $_POST['id']);
+                $a = DB::getFromID(get_path('database', 'assurances.json'), $_POST['id']);
 
                 if ($a && ($a = new Assurance($a))) {
                     send_json($a->getAll());
                 }
             }
+
             break;
         case 'list':
-            
+
             if (getPermissions() > User::GESTIONNAIRE) {
-                $ass = DB::getAll(get_path("database", "assurances.json"));
+                $ass = DB::getAll(get_path('database', 'assurances.json'));
                 send_json($ass);
             }
 
             break;
         case 'add':
-            
+
             if (getPermissions() > User::GESTIONNAIRE) {
                 $ass = validateObject($_POST, array(
-                    "name" => array(),
-                    "phone" => array(
-                        "type" => "phone"
-                    )
+                    'name' => array(),
+                    'phone' => array(
+                        'type' => 'phone',
+                    ),
                 ));
-    
-                if ($ass && checkUploadedFiles("img", 1)) {
+
+                if ($ass && checkUploadedFiles('img', 1)) {
                     $files = saveUploadedFiles();
-                } else return send_json(false);
-    
+                } else {
+                    $_SERVER['logger']->log(5, whois() . "Echec de la création de l'assurance " . $ass['name']);
+
+                    return send_json(false);
+                }
+
                 $ass = new Assurance(array_merge($ass, array(
-                    'logoPath' => $files[0]
+                    'logoPath' => $files[0],
                 )));
-    
-                DB::setObject(get_path("database", "assurances.json"), $ass->getAll(), true);
-    
+
+                DB::setObject(get_path('database', 'assurances.json'), $ass->getAll(), true);
+
                 send_json($ass->getAll());
+                $_SERVER['logger']->log(3, whois() . "Ajout d'une nouvelle assurance " . $ass['name']);
             }
-            
+
             break;
-        
+
         default:
-            # code...
+            // code...
             break;
     }
 
