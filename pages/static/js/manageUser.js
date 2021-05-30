@@ -13,46 +13,12 @@ function onLoad() {
     req.send(p);
     req.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(JSON.parse(this.responseText));
             addUserToTable(JSON.parse(this.responseText));
         } else {
             console.log("Server Error");
         }
     }
 }
-
-function getFormatDate(d) {
-    let a = d.toJSON();
-    return a.split('T')[0];
-}
-
-function addInfo(id, text) {
-    let t = document.getElementById("userInfo");
-
-    let r = document.createElement("tr");
-    t.appendChild(r);
-    let c1 = document.createElement("th");
-    c1.setAttribute("scope", "col");
-    c1.innerText = id;
-    r.appendChild(c1);
-    let c2 = document.createElement("th");
-    c2.setAttribute("scope", "col");
-    c2.innerText = text;
-    r.appendChild(c2);
-}
-
-function addUserInfo(USER) {
-    console.log(USER);
-    addInfo("Nom", USER["last_name"]);
-    addInfo("Prénom", USER["first_name"]);
-    addInfo("Adresse", USER["address"]);
-    addInfo("Code Postal", USER["zip_code"]);
-    addInfo("Mail", USER["mail"]);
-    addInfo("Numéro de Téléphone", USER["phone"]);
-    let d = new Date(USER["birth"]);
-    addInfo("Date de Naissance", getFormatDate(new Date(USER["birth"])));
-}
-
 
 const cols = {
     "name": "Nom",
@@ -94,15 +60,6 @@ let actualsort = {
     "order": 0
 };
 
-
-function addCol(table, text, type){
-    let c = document.createElement('td');
-    c.setAttribute("scope", "col");
-    c.setAttribute("class", "text-dark");
-    c.innerHTML = show(type, text);
-    table.appendChild(c);
-}
-
 function sortby(key) {
 
     if (actualsort.key === key) {
@@ -129,10 +86,7 @@ function addUserToTable(USER) {
     table = USER.type;
 
     if (!document.getElementById("table" + table)) {
-        document.getElementById("tables").innerHTML += `<table class="table p-3"><tbody>${Object.keys(USER).filter((a) => {return cols[a] && true}).map((a) => `<tr><td>${cols[a]}</td><td>${USER[a]}</td></tr>`).join("")}</tbody></table>`;
+        document.getElementById("tables").innerHTML += `<table class="table p-3"><tbody>${Object.keys(USER).filter((a) => {return cols[a] && true}).map((a) => `<tr><td>${cols[a]}</td><td>${show(a, USER[a])}</td></tr>`).join("")}</tbody></table>`;
     }
 
-    for ([i, k] of Object.entries(USER)) {
-        if (cols[i]) addCol(row, USER[i] ?? "", i);
-    }
 }
