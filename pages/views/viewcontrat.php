@@ -10,7 +10,7 @@
         <script charset="utf-8" src="/static/js/targetNavigation.js"></script>
         <script charset="utf-8" src="/static/js/manageDates.js"></script>
         <script charset="utf-8" src="/static/js/viewContract.js"></script>
-        <title>Sinistres</title>
+        <title>Contrats</title>
     </head>
 
     <body onload="onLoad()">
