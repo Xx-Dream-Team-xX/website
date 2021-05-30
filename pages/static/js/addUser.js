@@ -1,3 +1,9 @@
+let loaded = false;
+
+function showPass() {
+    document.getElementById("new_password").type = "text";
+}
+
 function create() {
     let r = new XMLHttpRequest();
     let d = new FormData();
@@ -17,6 +23,8 @@ function create() {
             if (r.success) {
                 document.getElementById("new_mail").value = document.getElementById("mail").value;
                 document.getElementById("new_password").value = r.password;
+                document.getElementById("form").hidden = true;
+                document.getElementById("results").hidden = false;
             } else {
                 document.getElementById("error").hidden = false;
             }
@@ -24,20 +32,28 @@ function create() {
     }
 
     r.open("POST", "/auth/register", true);
-    r.send();
+    r.send(d);
 }
 
 function loadAssurances() {
-    let ass = document.getElementById("assurances");
+    if (loaded) return;
+    let ass = document.getElementById("assurance");
     let r = new XMLHttpRequest();
     r.open("GET", '/assurance/list');
     r.send();
     r.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             r = JSON.parse(this.responseText);
+            ass.innerHTML = "";
             r.forEach(a => {
                 ass.innerHTML += `<option value="${a.id}">${a.name}</option>`;
             });
+            loaded = true;
         }
     }
+}
+
+function updateType() {
+    document.getElementById("assurances").hidden = (document.getElementById("type").value === "2");
+    loadAssurances();
 }
