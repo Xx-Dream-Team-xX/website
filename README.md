@@ -6,7 +6,7 @@ Bienvenue sur CAR-A-OK, votre tout nouveau service personnel de gestion d'assura
 
 ### Preparation des fichier
 
-Avant de lancé le serveur il faut d'abord s'assurer qu'un certain nombre de fichier sont créé dans la base de donné. Nous avons intentionnellement choisi de ne pas créer ces fichier à l'exécution pour s'assurer qu'aucun fichier potentiellement dangereux puissent être créé par un utilisateur malveillant. Ainsi il faudra crée les fichier et dossier suivants si il n'existe pas déjà (Si le projet a était cloner depuis notre github par exemple).
+Avant de lancer le serveur il faut d'abord s'assurer qu'un certain nombre de fichiers sont créés dans la base de données. Ainsi il faudra créer les fichiers et dossiers suivants s'ils n'existent pas déjà (Si le projet a été cloné depuis notre github par exemple).
 
 - data/
   - uploads/
@@ -19,9 +19,10 @@ Avant de lancé le serveur il faut d'abord s'assurer qu'un certain nombre de fic
   - sell.json
   - sinistres.json
   - users.json
+  - verifications.json
 - logs/
 
-Sous linux nous avons créer un script bash pour pouvoir préparer et exécuté le serveur comme il faut :
+Sous linux nous avons créée un script bash pour pouvoir préparer et exécuter le serveur comme il faut :
 
 ```bash
 ./prepare.sh
@@ -33,7 +34,7 @@ Sous linux nous avons créer un script bash pour pouvoir préparer et exécuté 
 
 ### Lancement du serveur
 
-Sous windows pour lancer le serveur il avoir php d'installé et executé la commande suivante
+Sous windows pour lancer le serveur il faut avoir php d'installé et executer la commande suivante
 
 ```bash
 php -S localhost:8080 ./index.php
