@@ -221,7 +221,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="A_driver_zipcode" class="form-label">Code Postal</label>
-                                    <input type="number" class="form-control" name="A_driver_zipcode" id="A_driver_zipcode" required>
+                                    <input type="text" pattern="/(?:0[1-9]|[13-8][0-9]|2[ab1-9]|9[0-5])(?:[0-9]{3})?|9[78][1-9](?:[0-9]{2})?/" class="form-control" name="A_driver_zipcode" id="A_driver_zipcode" required>
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="A_driver_country" class="form-label">Pays</label>
@@ -244,7 +244,16 @@
                                     <div class="col-sm-6">
                                         <label for="A_driver_liscence_cat" class="form-label">Catégorie du
                                             permis</label>
-                                        <input type="text" class="form-control" name="A_driver_liscence_cat" id="A_driver_liscence_cat" required>
+                                        <select class="form-select" aria-label="user" name="A_driver_liscence_cat" id="A_driver_liscence_cat" required>
+                                            <option hidden selected>Sélectionner une categorie</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                            <option value="E">E</option>
+                                            <option value="F">F</option>
+                                            <option value="G">G</option>
+                                        </select>
                                     </div>
                                     <div class="col-sm-6">
                                         <label for="A_driver_liscence_expire" class="form-label">Fin de validité du
@@ -392,7 +401,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="B_driver_zipcode" class="form-label">Code Postal</label>
-                                    <input type="number" class="form-control" name="B_driver_zipcode" id="B_driver_zipcode" required>
+                                    <input type="text" pattern="/(?:0[1-9]|[13-8][0-9]|2[ab1-9]|9[0-5])(?:[0-9]{3})?|9[78][1-9](?:[0-9]{2})?/" class="form-control" name="B_driver_zipcode" id="B_driver_zipcode" required>
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="B_driver_country" class="form-label">Pays</label>
@@ -415,7 +424,16 @@
                                     <div class="col-sm-6">
                                         <label for="B_driver_liscence_cat" class="form-label">Catégorie du
                                             permis</label>
-                                        <input type="text" class="form-control" name="B_driver_liscence_cat" id="B_driver_liscence_cat" required>
+                                        <select class="form-select" aria-label="user" name="B_driver_liscence_cat" id="B_driver_liscence_cat" required>
+                                            <option hidden selected>Sélectionner une categorie</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                            <option value="E">E</option>
+                                            <option value="F">F</option>
+                                            <option value="G">G</option>
+                                        </select>
                                     </div>
                                     <div class="col-sm-6">
                                         <label for="B_driver_liscence_expire" class="form-label">Fin de validité du

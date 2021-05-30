@@ -43,6 +43,8 @@
     Router::add('user', get_path('views', 'gestionUser.php'));
 
     Router::add('constater', get_path('views', 'newSinistre.php'));
+    Router::add('declaration', get_path('views', 'newDeclaration.php'));
+    Router::add('declarations', get_path('views', 'viewDeclaration.php'));
     Router::add('sinistres', get_path('views', 'viewSinistre.php'));
     Router::add('declarations', get_path('views', 'viewSinistre.php'));
 

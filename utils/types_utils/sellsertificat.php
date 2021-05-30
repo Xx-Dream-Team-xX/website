@@ -10,9 +10,6 @@
             'user' => array(
                 'type' => 'text',
             ),
-            'vID' => array(
-                'type' => 'vID',
-            ),
             'vUUID' => array(
                 'type' => 'int',
             ),
@@ -97,6 +94,12 @@
             'new_SIRET' => array(
                 'type' => 'text',
                 'optional' => true,
+            ),
+            'birthdate' => array(
+                'type' => 'date',
+            ),
+            'birth_place' => array(
+                'type' => 'text',
             ),
             'new_address' => array(
                 'type' => 'text',

@@ -5,7 +5,7 @@
                 <i class="bi bi-github"></i>
             </a>
         </section>
-        <div class="text-center text-light p-2">2021 Copyright:
+        <div class="text-center text-light pt-2 bg-dark">2021 Copyright:
             <a class="text-light" href="https://website.com/">Xx_DreemTeam_xX.com</a>
         </div>
 </footer>
