@@ -70,7 +70,6 @@ a, button, span, p {
 }
 
 .dropbtn {
-    width: 190px;
 }
 
 .dropbtn span{
@@ -82,9 +81,13 @@ a, button, span, p {
     font-size: 35px;
 }
 
+.nav-link .userbtn_txt {
+    font-size: 16px;
+}
+
 .dropbtn .userbtn_txt {
 
-    font-size: 21px;
+    font-size: 16px;
 }
 
 .nav-btn:hover , .nav-btn:focus {

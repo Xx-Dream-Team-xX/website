@@ -40,7 +40,7 @@
                     </div>
                     <li class="nav-item grow grow-2">
                     <a class="nav-link nav-btn" href="/" onclick="logout()"><span class="material-icons">logout</span>
-                        <h5 class="nav-link hide-xl">Se déconnecter</h5>
+                        <h5 class="nav-link hide-xxl">Se déconnecter</h5>
                     </a>
                 </li>
                 </li>

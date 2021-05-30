@@ -59,8 +59,12 @@
     .position-break-xl {
         position: inherit;
     }
-    .hide-xl {
-        display: none !important;
+}
+
+/* Extra Extra large */
+@media (max-width: 1500px) {
+    .hide-xxl {
+        display: none;
     }
 }
 
@@ -84,6 +88,12 @@
 @media only screen and (max-width:550px) {
     .modal-content {
         min-width: 80%;
+    }
+}
+
+@media (max-width: 1400) and (min-width: 1200px) {
+    .hide-xl-xxl {
+        display: none !important;
     }
 }
 
