@@ -96,3 +96,7 @@ function onLoad() {
         })
     fillOptionContracts();
 }
+
+function updateDeclaration() {
+    document.getElementById("content").hidden  = false;
+}

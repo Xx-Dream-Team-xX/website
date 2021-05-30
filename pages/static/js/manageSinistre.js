@@ -310,10 +310,14 @@ function addInjured(button) {
     <button type="submit" class="btn btn-danger" name="removeInjured" onclick="removeInjured(this)">Supprimer</button>`;
     let parent = button.parentNode
     parent.insertBefore(injuredForm, button);
+    document.getElementById("addInjuredValidate").hidden = (document.getElementsByName('injuredForm').length == 0)
+
 }
 
 function removeInjured(button) {
     button.parentNode.remove();
+    document.getElementById("addInjuredValidate").hidden = (document.getElementsByName('injuredForm').length == 0)
+
 }
 
 function showcompletesinistre() {
@@ -347,7 +351,7 @@ function sendSinistre(formNode) {
         let form = new FormData(formNode);
         form.set('contract', document.getElementById('contrat_sinistre').value);
         let files = document.getElementById("files").files;
-        form.append("file", files[0], files[0].length);
+        if (files.length > 0) form.append("file", files[0], files[0].name);
         let req = new XMLHttpRequest();
         req.open("POST", "/sinistre/add");
         req.send(form);
@@ -358,6 +362,8 @@ function sendSinistre(formNode) {
                 showcompletesinistre();
                 document.getElementById('constat').classList.remove('d-none');
                 document.getElementById('injureds').classList.remove('d-none');
+            } else if (this.readyState === 4) {
+                alert("Une erreur s'est produite, veuillez remplir les champs correctement, avec le bon format. Si l'erreur persiste veuillez ouvrir un ticket");
             }
         }
     }
@@ -424,25 +430,31 @@ function sendInjured(formNode) {
 function sendInjureds(button) {
 
     let forms = document.getElementsByName('injuredForm');
-    for (var i = 0; i < forms.length; i++) {
-        let formNode = forms.item(i);
-        formNode.addEventListener('submit', function (event) {
-            if (!formNode.checkValidity()) {
-                event.preventDefault()
-                event.stopPropagation()
-            } else {
+
+    if (forms.length > 0) {
+        for (var i = 0; i < forms.length; i++) {
+            let formNode = forms.item(i);
+            formNode.addEventListener('submit', function (event) {
+                if (!formNode.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                } else {
+                    formNode.classList.add('was-validated')
+                    formNode.submitButton.click();
+                }
+
+                formNode.classList.add('was-validated')
+            }, false)
+            if (formNode.checkValidity()) {
                 formNode.classList.add('was-validated')
                 formNode.submitButton.click();
+                break;
+            } else {
+                alert("Une erreur s'est produiteeuillez remplir les champs correctement, avec le bon format. Si l'erreur persiste veuillez ouvrir un ticket");
             }
-
-            formNode.classList.add('was-validated')
-        }, false)
-        if (formNode.checkValidity()) {
-            formNode.classList.add('was-validated')
-            formNode.submitButton.click();
-            break;
         }
     }
+    
 
 }
 
@@ -520,4 +532,8 @@ function onLoad() {
 
 function onLoadSinistreList() {
     fillOptionSinistreList();
+}
+
+function showstuff() {
+    document.getElementById("contenttoshow").hidden = false;
 }

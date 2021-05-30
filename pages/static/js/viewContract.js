@@ -124,7 +124,7 @@ function querryContrat(id, more = true) {
             if (more) {
                 querryUser(contrat.owners[0]);
                 querryAssurane(contrat.insurance);
-                document.getElementById("edit").hidden = false;
+                if (document.getElementById("edit")) document.getElementById("edit").hidden = false;
                 tmp = id;
             }
         } else if (this.readyState === 4) {

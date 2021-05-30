@@ -22,12 +22,12 @@
                             <label for="contrat" class="form-label">
                                 <h4>Déclaration</h4>
                             </label>
-                            <select class="form-select" aria-label="contrat" name="contract" id="contrat_sinistre" onchange="updateSinistre(this)" required>
+                            <select class="form-select" aria-label="contrat" name="contract" id="contrat_sinistre" onchange="updateDeclaration(this)" required>
                                 <option value="" hidden selected>Selectionner un Contrat</option>
                             </select>
                         </div>
                     </div>
-                    <div class="row pb-3 g-3">
+                    <div class="row pb-3 g-3" id="content" hidden>
                         <h5>Le véhicule</h5>
                         <div class="row g-3">
                             <div class="col-sm-9">
