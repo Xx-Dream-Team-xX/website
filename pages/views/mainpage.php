@@ -19,15 +19,15 @@
                         <div class="vignette" style="background-image: url('https://pageloot.com/wp-content/uploads/2019/05/qr-codes-on-vehicles.jpg')" ></div>
                         <div class="carousel-caption">
                             <h5>Bienvenue</h5>
-                            <p>Des images intéressantes peuvent être mises ici</p>
+                            <p>Vous pouvez scanner votre code QR ici</p>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <!--<div class="vignette" style="background-image: url('/static/images/server.png')" ></div>-->
                         <div class="vignette" style="background-image: url('https://images.pond5.com/cloud-computing-datacenter-server-room-087560728_prevstill.jpeg')" ></div>
                         <div class="carousel-caption">
-                            <h5>Hosted on Our High Performence Servers</h5>
-                            <p>By using our platform get access to powerful free real estate. (for free)</p>
+                            <h5>hébergé par nos serveurs haute performance</h5>
+                            <p>En utilisant notre plateforme, accédez à de puissants biens immobiliers gratuits.</p>
                         </div>
                     </div>
                 </div>
