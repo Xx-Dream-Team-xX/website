@@ -42,7 +42,7 @@
                         if ($s['user'] == getID()) {
                             array_push($liste, array(
                                 'id' => $s['id'],
-                                'user' => $s['user']
+                                'user' => $s['user'],
                             ));
                         }
                     }
@@ -60,7 +60,7 @@
                         if ($user['rep'] == getID()) {
                             array_push($liste, array(
                                 'id' => $s['id'],
-                                'user' => $s['user']
+                                'user' => $s['user'],
                             ));
                         }
                     }
@@ -78,7 +78,7 @@
             switch (getPermissions()) {
                 case User::ASSURE:
 
-                    if (false == $contract = DB::getFromID(get_path('databse', 'contracts.json'), $rawSell['contract'])) {
+                    if (false == $contract = DB::getFromID(get_path('database', 'contracts.json'), $_POST['contract'])) {
                         send_json(array(
                             'success' => false,
                             'error' => 'Contract not found',
@@ -90,11 +90,11 @@
                     $rawSell = array_merge($_POST, array(
                         'user' => getID(),
                         'vID' => $contract['vID'],
-                        'manufacturer' => $contract['manufaturer'],
+                        'cert_date' => time(),
                     ));
 
                     try {
-                        $rawSell = validateObject($rawSell, Sinistre::$required);
+                        $rawSell = validateObject($rawSell, SellCert::$required);
 
                         if (!in_array($rawSell['contract'], getUpdatedUser()['contracts'])) {
                             send_json(array(
@@ -114,7 +114,7 @@
                             break;
                         }
 
-                        if (($rawSell['ima_cer'] && !isset($rawSell['ima_cert_id'])) || (!$rawSell['ima_cer'] && !isset($rawSell['ima_missing_cert_desc']))) {
+                        if (($rawSell['ima_cert'] && !isset($rawSell['ima_cert_id'])) || (!$rawSell['ima_cert'] && !isset($rawSell['ima_missing_cert_desc']))) {
                             send_json(array(
                                 'success' => false,
                                 'error' => 'missing imat cert',
@@ -158,12 +158,11 @@
                         DB::setObject(get_path('database', 'sell.json'), $sell, true);
                         DB::setObject(get_path('database', 'users.json'), $user);
 
-                        $g = DB::getFromID(get_path("database", "users.json"), $user["rep"]);
+                        $g = DB::getFromID(get_path('database', 'users.json'), $user['rep']);
                         if ($g && ($g = User::createUserByType($g))) {
-                            $g->pushNotification("Nouvelle vente", $user["first_name"] . " vient de déclarer une vente.", "/declarations/" . $sell["id"]);
-                            DB::setObject(get_path("database", "users.json"), $g->getAll());
+                            $g->pushNotification('Nouvelle vente', $user['first_name'] . ' vient de déclarer une vente.', '/declarations/' . $sell['id']);
+                            DB::setObject(get_path('database', 'users.json'), $g->getAll());
                         }
-
                     } catch (Exception $e) {
                         echo $e->getMessage();
                     }

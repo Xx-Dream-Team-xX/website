@@ -23,7 +23,7 @@
                                 <h4>Déclaration</h4>
                             </label>
                             <select class="form-select" aria-label="contrat" name="contract" id="contrat_sinistre" onchange="updateSinistre(this)" required>
-                                <option hidden selected>Selectionner un Contrat</option>
+                                <option value="" hidden selected>Selectionner un Contrat</option>
                             </select>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                         <div class="row g-3">
                             <div class="col-sm-9">
                                 <p class="h6 mb-0 py-1 text-dark">Numéro d’identification du véhicule (VIN)</p>
-                                <input type="text" pattern="^[A-HJ-NPR-Za-hj-npr-z\d]{8}[\dX][A-HJ-NPR-Za-hj-npr-z\d]{2}\d{6}$" class="form-control p-1" placeholder="VFXXXXXXXXXXXXXXX" name="vUUID" id="vUUID" required>
+                                <input type="text" pattern="[A-HJ-NPR-Z0-9]{17}" class="form-control p-1" placeholder="VFXXXXXXXXXXXXXXX" name="vUUID" id="vUUID" required>
                                 <div class="invalid-feedback">
                                     VIN invalide.
                                 </div>
@@ -76,7 +76,10 @@
                                 <div class="row p-3 g-3 mt-0" id="formule">
                                     <div class="col-sm-6 mt-0">
                                         <p class="h6 mt-0 text-dark">Numéro de formule</p>
-                                        <input type="text" pattern="[0-9]{11}" class="form-control p-1" name="ima_cert_id" id="ima_cert_id">
+                                        <input type="text" pattern="[0-9]{11}" placeholder="12345678901" class="form-control p-1" name="ima_cert_id" id="ima_cert_id" required>
+                                        <div class="invalid-feedback">
+                                            Numéro de formule invalide Doit contenir 11 chiffres.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +107,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <p class="h6 mb-0 py-1 text-dark">N° SIRET (optionel)</p>
-                                <input type="text" pattern="[0-9]{14}" class="form-control p-1" name="old_lastname" id="old_lastname" required>
+                                <input type="text" pattern="[0-9]{14}" class="form-control p-1" name="old_lastname" id="old_lastname">
                                 <div class="invalid-feedback">
                                     Doit faire 14 chiffres.
                                 </div>
@@ -159,7 +162,6 @@
                                 </div>
                             </div>
                             <div class="col-sm-3" id="VHU">
-                                <input type="text" placeholder="VHU" pattern="[0-9]*" class="form-control" name="VHU_id" id="VHU_id" required>
                             </div>
                         </div>
                         <h5>Nouveau propriétaire</h5>
@@ -185,7 +187,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <p class="h6 mb-0 py-1 text-dark">N° SIRET (optionel)</p>
-                                <input type="text" pattern="[0-9]{14}" class="form-control p-1" name="new_SIRET" id="new_SIRET" required>
+                                <input type="text" pattern="[0-9]{14}" class="form-control p-1" name="new_SIRET" id="new_SIRET">
                                 <div class="invalid-feedback">
                                     Doit faire 14 chiffres.
                                 </div>
@@ -227,6 +229,9 @@
                                 <label class="form-check-label" for="new_agree_vState">Avoir été informé de la situation administrative du véhicule.</label>
                             </div>
                         </div>
+                    </div>
+                    <div class="row g-1 pt-3">
+                        <button type="submit" class="btn btn-success" id="addInjured" name="addInjured">Valider</button>
                     </div>
                 </form>
             </div>
