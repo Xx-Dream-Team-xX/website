@@ -97,13 +97,23 @@
                     foreach ($user['contracts'] as $key => $contractID) {
                         $contract = DB::getFromID(get_path('database', 'contracts.json'), $contractID);
                         if (false === $contract) {
-                            return;
+                            continue;
                         }
-                        array_push($contracts, array(
-                            'id' => $contract['id'],
-                            'vID' => $contract['vID'],
-                            'manufacturer' => $contract['manufacturer'],
-                        ));
+
+                        if (User::GESTIONNAIRE == getPermissions()) {
+                            array_push($contracts, array(
+                                'id' => $contract['id'],
+                                'vID' => $contract['vID'],
+                                'manufacturer' => $contract['manufacturer'],
+                                'owners' => $contract['owners'],
+                            ));
+                        } else {
+                            array_push($contracts, array(
+                                'id' => $contract['id'],
+                                'vID' => $contract['vID'],
+                                'manufacturer' => $contract['manufacturer'],
+                            ));
+                        }
                     }
 
                     send_json($contracts);
@@ -118,6 +128,7 @@
             switch (getPermissions()) {
                 case User::GESTIONNAIRE:
                     $required = array(
+
                         'start' => array(
                             'type' => 'date',
                             'optional' => true,
@@ -156,7 +167,7 @@
                         http_response_code(400);
                         send_json(array(
                             'success' => false,
-                            'error' => 'Contract do not exist',
+                            'error' => 'Contract do not existgjkg' . isset($_POST['id']),
                         ));
                     }
 

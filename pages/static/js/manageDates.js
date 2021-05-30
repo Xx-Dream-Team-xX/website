@@ -1,13 +1,14 @@
 
 
-function getDate() {
-    let d = new Date();
+function getDate(timestamp = null) {
+
+    let d = timestamp ? new Date(timestamp * 1000) : new Date();
     let a = d.toJSON();
     return a.split('T')[0];
 }
 
 
-function getChangedDate(dy, dm ,dd) {
+function getChangedDate(dy, dm, dd) {
     let date = new Date();
     let d = date.getDate() - dd;
     let m = date.getMonth() - dm;
