@@ -12,7 +12,8 @@ function toggleModal() {
 function toggleFiles() {
     document.getElementById("files").hidden ^= true;
     document.getElementById("content").hidden ^= true;
-    document.getElementById("button-send").hidden ^= true;
+    // T'es fou ??
+    // document.getElementById("button-send").hidden ^= true;
 }
 
 function onLoad(){
