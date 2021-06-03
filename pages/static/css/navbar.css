@@ -83,6 +83,7 @@ a, button, span, p {
 
 .nav-link .userbtn_txt {
     font-size: 16px;
+    padding: 5px;
 }
 
 .dropbtn .userbtn_txt {
